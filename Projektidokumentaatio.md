@@ -1,4 +1,4 @@
-# *Projektin nimi*
+# *TicketGuru*
 
 Tiimi: Satu Kulta, Ville Pajukangas, Ali Romar, Tuukka Teilas
 
