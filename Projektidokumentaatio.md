@@ -67,9 +67,9 @@ tietoa ja keskittyä siihen.*
 
 ## *Käyttöliittymä*
 
-*Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona.* 
+![Käyttöliittymäkaavio](käyttöliittymäkaavio.png "käyttöliittymäkaavio")
 
-*Jos näkymän tarkoitus ei ole itsestään selvä, se pitää kuvata lyhyesti.*
+Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse navipalkki vielä tästä versiosta puuttuu kokonaan. Se tullaa lisäämään projektin edetessä. Kaaviosta löytyvien kuvien perusteella kaikille applikaation sivuille on pääsy paitsi lippujen myynti sivuille. Tämä hoidettaisiin juurikin edellä mainitulla yläpalkilla. 
 
 ## *Tietokanta*
 
