@@ -49,6 +49,20 @@ käyttäjäryhmät.*
 *Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
 tietoa ja keskittyä siihen.*
 
+- Asiakkaana haluan, että saan ostettua lipun haluamaani tapahtumaan sujuvasti, koska olen laatuun ja helppouteen tottunut ihminen.
+
+- Lipunmyyjänä haluan, että myyntijärjestelmä vastaa nopeasti, jotta saan myyntitapahtuman suoritettua tehokkaasti.
+
+- Lipunmyyjänä haluan, että myyntijärjestelmä on yksinkertainen, jotta se on helppo kouluttaa uusille työntekijöille.
+
+- Tapahtumien hallinnoijana haluan pystyä määrittelemään eri käyttäjäryhmille eri hintaisia lippuja, jotta voimme kohdentaa markkinointia.
+
+- Markkinointijohtajana haluan pystyä tulostamaan myyntiraportteja, jotta voin käyttää tätä dataa tulevien tapahtumien suunnitteluun.
+
+- Tapahtumien luojana haluan pystyä määrittämään tapahtumalleni ajan, paikan, kuvauksen sekä lippujen määrät lipputyypeittäin, koska näitä tietoja tarvitaan tapahtumaa markkinoidessa.
+
+
+
 ## *Käyttöliittymä*
 
 *Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona.* 
