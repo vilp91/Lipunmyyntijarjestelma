@@ -4,15 +4,13 @@ Tiimi: Satu Kulta, Ville Pajukangas, Ali Romar, Tuukka Teilas
 
 ## *Johdanto*
 
-*Johdantoon kirjoitetaan lyhyt, ytimekäs kuvaus siitä, mikä on projektin aihe,
-kuka on asiakas (käyttäjä), mitä hän haluaa ja saa järjestelmältä, mitä
-tekniikoita käytetään ja mitä konkreettisesti on valmiina, kun projekti päättyy.*
+TicketGuru on lipunmyyntijärjestelmä, jonka tilaajana toimii lipputoimisto. Järjestelmä mahdollistaa lipunmyynnin myyntipisteessä, jossa lipppupisteen myyjä voi myydä ja tulostaa liput asiakkaille. Järjestelmän avulla toimisto voi määritellä myytävät tapahtumat ja hallita sekä seurata lippujen myyntiä. Alustavasti järjestelmä tarjoaa lippujen myynnin myyntipisteessä, ja ennakkomyynnin päättyessä loput liput tulostetaan myytäväksi ovella. Tulostettavassa lipussa on skannattava tarkastuskoodi, joka helpottaa lippujen tarkastusta ovella.
 
--   *Järjestelmän tarkoitus ja tiivis kuvaus siitä, mistä on kyse ja kenelle järjestelmä on tarkoitettu.*
--   *Toteutus- ja toimintaympäristö lyhyesti:*  
-    -   *Palvelinpuolen ratkaisut ja teknologiat (esim. palvelinteknologia, mikä tietokantajärjestelmä on käytössä)*
-    -   *Käyttöliittymäratkaisut ja teknologiat (esim. päätelaitteet: puhelin,
-    täppäri, desktop)*
+*Asiakas* on lipputoimisto, ja järjestelmän tarkoitus on vastata heidän tarpeisiinsa lipunmyynnissä ja tapahtumien hallinnassa. Jatkokehityksen suunnitelmissa on verkkokauppa, josta lipputoimiston asiakkaat voivat itse ostaa lippuja.
+
+Järjestelmän palvelinpuolen toiminnot toteutetaan Javalla Spring Boot -kehystä käyttäen. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MariaDb:tä.
+
+Käyttöliittymä on selainpohjainen React-sovellus, joka tarjoaa nykyaikaisen ja responsiivisen käyttökokemuksen. 
 
 ## *Järjestelmän määrittely*
 
