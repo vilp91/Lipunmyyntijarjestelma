@@ -41,6 +41,8 @@ käyttäjäryhmät.*
 -   *Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
     (use case diagram) tai käyttäjätarinoina.*
 
+![Käyttötapauskaavio](käyttötapauskaavio.png "Käyttötapauskaavio")
+
 ### *Käyttötapauskuvaukset*
 -   *Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat*
 
