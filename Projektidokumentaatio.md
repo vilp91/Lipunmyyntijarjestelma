@@ -24,14 +24,18 @@ käyttäjäryhmät.*
 - Lippupisteen myyjä
     - Fyysisessä lipunmyyntipisteessä työskentelevä henkilö, joka käyttää lipunmyyntijärjestelmän myyntipuolta etäyhteydellä erillisen päätelaitteen avulla.
 
-- Tapahtumaluoja/"toimisto"?
+- Tapahtumien hallinnoija/"toimisto"
     - Yrityksen sisäinen, toimistolla tai etänä työskentelevä käyttäjä, joka pystyy luomaan lipunmyyntijärjestelmään uusia tapahtumia ja määrittelemään niiden tiedot.
 
 - Järjestelmän ylläpitäjä
     - Yrityksen sisäinen tai ulkopuolinen henkilö, joka ylläpitää järjestelmän toimivuutta ja mahdollisesti päivittää sitä.
 
-- Verkkokauppa asiakas
-    - Yrityksen ulkopuolinen henkilö, joka haluaa ostaa lipun tai lippuja yhteen tai useampaan tapahtumaan verkkokaupan kautta. **Tämä rooli on luotu jatkokehitystä ajatellen, kun järjestelmään lisätään verkkokauppa.**
+**Tämä rooli on luotu jatkokehitystä ajatellen, jos/kun järjestelmään lisätään verkkokauppa.**
+- **Verkkokauppa asiakas**
+    - **Yrityksen ulkopuolinen henkilö, joka haluaa ostaa lipun tai lippuja yhteen tai useampaan tapahtumaan verkkokaupan kautta.**
+
+**Tämä rooli on luotu jatkokehitystä ajatellen, jos/kun järjestelmään lisätään verkkokauppa.**
+
 
 
 
