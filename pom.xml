@@ -8,8 +8,8 @@
 		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>koodikolibri</groupId>
-	<artifactId>lipunmyyntijarjestelma</artifactId>
+	<groupId>ohjelmistoprojekti1</groupId>
+	<artifactId>a3004</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lipunmyyntijarjestelma</name>
 	<description>Lipunmyyntijarjestelma</description>
