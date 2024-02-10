@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -27,8 +29,10 @@ public class Kayttaja {
     // @JoinColumn(name = "postinumero_id")
     // private Postinumero postinumero;
 
+    @NotBlank
     private String etunimi;
 
+    @NotBlank
     private String sukunimi;
 
     private Integer puhnro;
