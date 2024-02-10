@@ -30,7 +30,7 @@ public class Myyntitapahtuma {          // luokan nimet CamelCasella
     private LocalDate pvm = LocalDate.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")     // en ole varma cascadetypestä.. ymmärtäiskö joku enemmän?
-    @JsonIgnore                                                             
+    @JsonIgnore                                                             // tarkoittaa kai sitä että jos esim. poistaa myyntitapahtuman niin se poistaa myös sen myyntitapahtumarivin                                              
     private List<Myyntitapahtumarivi> myyntitapahtumarivit;
 
     public Myyntitapahtuma() {}          // mulla on tapana tehdä kaikkiin luokkiin tyhjä konstruktori, voidaan poistella jos on turhia
