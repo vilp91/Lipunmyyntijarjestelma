@@ -26,7 +26,7 @@ public class Postinumero {
     public Postinumero() {
         super();
         this.postinumero_id = null;
-        this.kaupunki_id = null;
+        this.kaupunki = null;
         this.postitoimipaikka = null;
     }
 
@@ -34,7 +34,7 @@ public class Postinumero {
     String postitoimipaikka)
 
     public Long getPostinumero_id() {
-        return this.postinumero_id
+        return this.postinumero_id;
     }
 
     public void setPostinumero_id(Long postinumero_id) {
@@ -46,7 +46,7 @@ public class Postinumero {
     }
 
     public void setKaupunki(Kaupunki kaupunki) {
-        this.Kaupunki = kaupunki; 
+        this.kaupunki = kaupunki; 
     }
 
     public String getPostitoimipaikka(String postitoimipaikka) {
