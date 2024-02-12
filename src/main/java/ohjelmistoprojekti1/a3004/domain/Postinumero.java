@@ -29,9 +29,12 @@ public class Postinumero {
         this.kaupunki = null;
         this.postitoimipaikka = null;
     }
-
     public Postinumero(Long postinumero_id, Kaupunki kaupunki, 
-    String postitoimipaikka)
+    String postitoimipaikka) {
+        this.postinumero_id = postinumero_id;
+        this.kaupunki = kaupunki;
+        this.postitoimipaikka = postitoimipaikka;
+    }
 
     public Long getPostinumero_id() {
         return this.postinumero_id;
@@ -56,10 +59,9 @@ public class Postinumero {
     public void setPostitoimipaikka(String postitoimipaikka) {
         this.postitoimipaikka = postitoimipaikka;
     }
-
     @Override
     public String toString() {
-        return "postinumero [postinumero_id=" + postinumero_id + ", kaupunki=" + kaupunki + "
-        postitoimipaikka=" + postitoimipaikka + "]";
+        return "Postinumero [postinumero_id=" + postinumero_id + ", kaupunki=" + kaupunki + ", postitoimipaikka="
+                + postitoimipaikka + "]";
     }
 }
