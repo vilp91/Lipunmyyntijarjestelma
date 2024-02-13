@@ -20,20 +20,21 @@ public class Lipputyyppi {
 
     private String tyyppi;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
-    private List<Alennus> alennus;
+/*     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
+    private List<Alennus> alennus; */
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
-    private List<Lippu> lippu;
+    private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
 
     //Parametriton konstruktori
     public Lipputyyppi() {
     }
 
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
-    public Lipputyyppi(String tyyppi) {
+     public Lipputyyppi(String tyyppi, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
         super();
         this.tyyppi = tyyppi;
+        this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
     //Getterit ja setterit
@@ -53,25 +54,27 @@ public class Lipputyyppi {
         this.tyyppi = tyyppi;
     }
 
-    public List<Alennus> getAlennus() {
+/*     public List<Alennus> getAlennus() {
         return alennus;
     }
 
     public void setAlennus(List<Alennus> alennus) {
         this.alennus = alennus;
+    } */
+
+    public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
+        return tapahtuman_lipputyypit;
     }
 
-    public List<Lippu> getLippu() {
-        return lippu;
-    }
-
-    public void setLippu(List<Lippu> lippu) {
-        this.lippu = lippu;
+    public void setTapahtuman_lipputyypit(List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
+        this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
     @Override
     public String toString() {
-        return "Lipputyyppi [lipputyyppi_id=" + lipputyyppi_id + ", tyyppi=" + tyyppi + "]";
+        return "Lipputyyppi [lipputyyppi_id=" + lipputyyppi_id + ", tyyppi=" + tyyppi + ", tapahtuman_lipputyypit="
+                + tapahtuman_lipputyypit + "]";
     }
+
 
 }
