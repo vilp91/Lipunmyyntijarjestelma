@@ -1,10 +1,16 @@
 package ohjelmistoprojekti1.a3004.domain;
 
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -22,17 +28,19 @@ public class Rooli {
     @NotBlank
     private String rooli;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
+    @JsonIgnore
+    private List<Kayttaja> kayttajat;
+
     // konstruktorit
 
-    public Rooli() {
+     public Rooli() {
         super();
-        this.rooli_id = null;
-        this.rooli = null;
     }
 
-    public Rooli(Long rooli_id, String rooli) {
-        this.rooli_id = rooli_id;
+    public Rooli(@NotBlank String rooli, List<Kayttaja> kayttajat) {
         this.rooli = rooli;
+        this.kayttajat = kayttajat;
     }
 
     // getterit ja setterit
@@ -51,17 +59,20 @@ public class Rooli {
 
     public void setRooli(String rooli) {
         this.rooli = rooli;
-    }    
+    }
+
+        public List<Kayttaja> getKayttajat() {
+        return kayttajat;
+    }
+
+    public void setKayttajat(List<Kayttaja> kayttajat) {
+        this.kayttajat = kayttajat;
+    }
 
     @Override
     public String toString() {
-        return "{" +
-            " rooli_id='" + getRooli_id() + "'" +
-            ", rooli='" + getRooli() + "'" +
-            "}";
+        return "Rooli [rooli_id=" + rooli_id + ", rooli=" + rooli + ", kayttajat=" + kayttajat + "]";
     }
-    
-
 
 
 }
