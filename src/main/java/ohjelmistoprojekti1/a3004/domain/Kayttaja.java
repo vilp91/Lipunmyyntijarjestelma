@@ -3,6 +3,8 @@ package ohjelmistoprojekti1.a3004.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +29,8 @@ public class Kayttaja {
     @JoinColumn(name = "rooli_id")
     private Rooli rooli;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
+    @JsonIgnore
     private List<Myyntitapahtuma> myyntitapahtumat;
 
     // @ManyToOne

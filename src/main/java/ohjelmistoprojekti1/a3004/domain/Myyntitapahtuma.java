@@ -34,7 +34,7 @@ public class Myyntitapahtuma {
     private List<Myyntitapahtumarivi> myyntitapahtumarivit;
  */
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lippu")     // en ole varma cascadetypestä.. ymmärtäiskö joku enemmän?
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")     // en ole varma cascadetypestä.. ymmärtäiskö joku enemmän?
     @JsonIgnore                                                   // tarkoittaa kai sitä että jos esim. poistaa myyntitapahtuman niin se poistaa myös sen myyntitapahtumarivin                                              
     private List<Lippu> liput;
 

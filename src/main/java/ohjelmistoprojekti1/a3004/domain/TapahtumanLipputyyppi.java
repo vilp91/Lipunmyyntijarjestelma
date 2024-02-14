@@ -31,7 +31,7 @@ public class TapahtumanLipputyyppi {
     @JoinColumn(name = "lipputyyppi_id")
     private Lipputyyppi lipputyyppi;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lippu")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuman_lipputyyppi")
     @JsonIgnore
     private List<Lippu> liput;
 
