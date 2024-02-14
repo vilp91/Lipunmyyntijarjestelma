@@ -25,7 +25,7 @@ public class Tapahtuma {
     private LocalDate alku_pvm, loppu_pvm;
     private int lippu_lukum;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuman_lipputyyppi")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
 
@@ -40,6 +40,22 @@ public class Tapahtuma {
     //Parametriton konstruktori
     public Tapahtuma() {
     }
+
+
+    public Tapahtuma(String tapahtuman_nimi) {
+        this.tapahtuman_nimi = tapahtuman_nimi;
+    }    
+
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDate alku_pvm, LocalDate loppu_pvm,
+            int lippu_lukum) {
+        this.tapahtuman_nimi = tapahtuman_nimi;
+        this.paikka = paikka;
+        this.katuosoite = katuosoite;
+        this.alku_pvm = alku_pvm;
+        this.loppu_pvm = loppu_pvm;
+        this.lippu_lukum = lippu_lukum;
+    }
+
 
     public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDate alku_pvm, LocalDate loppu_pvm,
             int lippu_lukum, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {

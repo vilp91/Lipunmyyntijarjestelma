@@ -28,7 +28,7 @@ public class Rooli {
     @NotBlank
     private String rooli;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooli")
     @JsonIgnore
     private List<Kayttaja> kayttajat;
 
