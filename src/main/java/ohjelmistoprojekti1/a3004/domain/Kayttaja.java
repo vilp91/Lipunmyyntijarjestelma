@@ -33,9 +33,7 @@ public class Kayttaja {
     @JsonIgnore
     private List<Myyntitapahtuma> myyntitapahtumat;
 
-    // @ManyToOne
-    // @JoinColumn(name = "postinumero_id")
-    // private Postinumero postinumero;
+
 
     @NotBlank
     private String etunimi;
@@ -80,14 +78,6 @@ public class Kayttaja {
     public void setRooli(Rooli rooli) {
         this.rooli = rooli;
     }
-
-   // public Postinumero getPostinumero() {
-   //     return this.postinumero;
-   // }
-
-   // public void setPostinumero(Postinumero postinumero) {
-   //     this.postinumero = postinumero;
-   // }
 
     public String getEtunimi() {
         return this.etunimi;
