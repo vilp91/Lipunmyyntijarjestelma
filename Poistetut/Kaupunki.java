@@ -1,4 +1,4 @@
-package ohjelmistoprojekti1.a3004.domain;
+/* package ohjelmistoprojekti1.a3004.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,12 +17,12 @@ public class Kaupunki {
     private String nimi;
 
 
-/* NÄMÄ KOMMENTIT VOI AVATA KUN POSTINUMERO TAULU ON VALMIS
+// NÄMÄ KOMMENTIT VOI AVATA KUN POSTINUMERO TAULU ON VALMIS
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kaupunki")
     private List<Postinumero> postinumero;
 
-*/
+
 
     //Parametriton konstruktori    
     public Kaupunki() {
@@ -51,7 +51,7 @@ public class Kaupunki {
         this.nimi = nimi;
     }
 
-/*  NÄMÄ KOMMENTIT VOI AVATA KUN POSTINUMERO TAULU ON VALMIS
+ // NÄMÄ KOMMENTIT VOI AVATA KUN POSTINUMERO TAULU ON VALMIS
 
     public List<Postinumero> getPostinumero() {
         return postinumero;
@@ -61,11 +61,11 @@ public class Kaupunki {
         this.postinumerot = postinumero;
     }
 
-*/
+
     //ToString
     @Override
     public String toString() {
         return "Kaupunki [kaupunki_id=" + kaupunki_id + ", nimi=" + nimi + "]";
     }
 
-}
+} */
