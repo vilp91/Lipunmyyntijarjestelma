@@ -28,14 +28,6 @@ public class Tapahtuma {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
-
-/*     @ManyToOne
-    @JoinColumn(name = "jarjestaja_id")
-    private Tapahtumanjarjestaja tapahtumanjarjestaja; */
-
-/*     @ManyToOne
-    @JoinColumn(name = "postinumero_id")
-    private Postinumero postinumero; */
     
     //Parametriton konstruktori
     public Tapahtuma() {
