@@ -1,4 +1,4 @@
-package ohjelmistoprojekti1.a3004.domain;
+/* package ohjelmistoprojekti1.a3004.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,21 +17,21 @@ public class Myyntitapahtumarivi {              // luokan nimet CamelCasella
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long myyntitapahtumarivi_id;
 
-/*     @OneToOne
+    @OneToOne
     @JoinColumn(name = "lippu_id")              // linkitettävän luokan primary key
-    private Lippu lippu; */
+    private Lippu lippu;
     
     @ManyToOne
     @JoinColumn(name = "myyntitapahtuma_id")    // linkitettävän luokan primary key
     private Myyntitapahtuma myyntitapahtuma;
 
     public Myyntitapahtumarivi() {}             // mulla on tapana tehdä kaikkiin luokkiin tyhjä konstruktori, voidaan poistella jos on turhia
-/* 
+
     public Myyntitapahtumarivi(Long myyntitapahtumarivi_id, Lippu lippu, Myyntitapahtuma myyntitapahtuma) {
         this.myyntitapahtumarivi_id = myyntitapahtumarivi_id;
         this.lippu = lippu;
         this.myyntitapahtuma = myyntitapahtuma;
-    } */
+    }
 
     public Long getMyyntitapahtumarivi_id() {
         return myyntitapahtumarivi_id;
@@ -41,13 +41,13 @@ public class Myyntitapahtumarivi {              // luokan nimet CamelCasella
         this.myyntitapahtumarivi_id = myyntitapahtumarivi_id;
     }
 
-/*     public Lippu getLippu() {
+    public Lippu getLippu() {
         return lippu;
-    } */
+    }
 
-/*     public void setLippu(Lippu lippu) {
+    public void setLippu(Lippu lippu) {
         this.lippu = lippu;
-    } */
+    }
 
     public Myyntitapahtuma getMyyntitapahtuma() {
         return myyntitapahtuma;
@@ -57,10 +57,11 @@ public class Myyntitapahtumarivi {              // luokan nimet CamelCasella
         this.myyntitapahtuma = myyntitapahtuma;
     }
 
-/*     @Override
+    @Override
     public String toString() {
         return "Myyntitapahtumarivi [myyntitapahtumarivi_id=" + myyntitapahtumarivi_id + ", lippu=" + lippu
                 + ", myyntitapahtuma=" + myyntitapahtuma + "]";
-    } */
+    }
 
 }
+ */

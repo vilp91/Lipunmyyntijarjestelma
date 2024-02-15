@@ -1,4 +1,4 @@
-package ohjelmistoprojekti1.a3004.domain;
+/* package ohjelmistoprojekti1.a3004.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,3 +64,4 @@ public class Alennus {
     }
 
 }
+ */
