@@ -20,9 +20,6 @@ public class Lipputyyppi {
 
     private String tyyppi;
 
-/*     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
-    private List<Alennus> alennus; */
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
 
@@ -53,14 +50,6 @@ public class Lipputyyppi {
     public void setTyyppi(String tyyppi) {
         this.tyyppi = tyyppi;
     }
-
-/*     public List<Alennus> getAlennus() {
-        return alennus;
-    }
-
-    public void setAlennus(List<Alennus> alennus) {
-        this.alennus = alennus;
-    } */
 
     public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
         return tapahtuman_lipputyypit;
