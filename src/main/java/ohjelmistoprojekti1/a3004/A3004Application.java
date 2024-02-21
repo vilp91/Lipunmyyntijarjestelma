@@ -25,6 +25,12 @@ public class A3004Application {
 		return(args) -> {
 			Tapahtuma tapahtuma1 = new Tapahtuma("Tapahtuma1", "Helsinki", "Testikatu 1", nyt, nyt, 200);
 			tapahtumaRepository.save(tapahtuma1);
+
+			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", nyt, nyt, 667);
+			tapahtumaRepository.save(tapahtuma2);
+
+			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", nyt, nyt, 9999);
+			tapahtumaRepository.save(tapahtuma3);
 		};
 	}
 
