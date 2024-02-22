@@ -1,0 +1,42 @@
+# Hae kaikki tapahtumat
+
+Hakee ja näyttää kaikki tietokannassa olevat tapahtumat saatavissa olevine tietoineen.
+
+**URL**: `/tapahtumat`
+
+**Metodi**: `GET`
+
+## Onnistuneen pyynnön palautus
+
+**Vastauskoodi:** `200 OK`
+
+**Sisältöesimerkejä**
+
+Tapahtumalle, jonka id on 3 paikallisessa tietokannassa ja jonka tietoihin on tallennettu tapahtuman nimi, paikka, katuosoite, alku- sekä loppupäivämäärät ja lippujen lukumäärä.
+
+```json
+{
+"tapahtuma_id":3,  
+"tapahtuman_nimi":"Cheek - Paluu areenalle",  "paikka":"Olympiastadion - Helsinki",  
+"katuosoite":"Paavo Nurmen tie 1",  
+"alku_pvm":"2024-02-22","loppu_pvm":"2024-02-22",  "lippu_lukum":9999
+}  
+```
+
+Tapahtumalle, jonka id on 4 paikallisessa tietokannassa ja jonka tietoihin on tallennettu tapahtuman nimi.
+
+```json
+{
+"tapahtuma_id":4,  
+"tapahtuman_nimi":"Mysteeritapahtuma",
+"paikka":null,  
+"katuosoite":null,  
+"alku_pvm":null,
+"loppu_pvm":null,
+"lippu_lukum":0
+}  
+```
+
+## Muistiinpanoja
+
+- tapahtuma_id generoituu automaattisesti ja on juokseva luku.
