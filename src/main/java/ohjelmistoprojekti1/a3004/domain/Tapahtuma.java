@@ -1,6 +1,6 @@
 package ohjelmistoprojekti1.a3004.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +22,7 @@ public class Tapahtuma {
     private Long tapahtuma_id;
     private String tapahtuman_nimi;
     private String paikka, katuosoite;
-    private LocalDate alku_pvm, loppu_pvm;
+    private LocalDateTime alku_pvm, loppu_pvm;
     private int lippu_lukum;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
@@ -38,7 +38,7 @@ public class Tapahtuma {
         this.tapahtuman_nimi = tapahtuman_nimi;
     }    
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDate alku_pvm, LocalDate loppu_pvm,
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm, LocalDateTime loppu_pvm,
             int lippu_lukum) {
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
@@ -49,7 +49,7 @@ public class Tapahtuma {
     }
 
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDate alku_pvm, LocalDate loppu_pvm,
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm, LocalDateTime loppu_pvm,
             int lippu_lukum, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
@@ -92,19 +92,19 @@ public class Tapahtuma {
         this.katuosoite = katuosoite;
     }
 
-    public LocalDate getAlku_pvm() {
+    public LocalDateTime getAlku_pvm() {
         return alku_pvm;
     }
 
-    public void setAlku_pvm(LocalDate alku_pvm) {
+    public void setAlku_pvm(LocalDateTime alku_pvm) {
         this.alku_pvm = alku_pvm;
     }
 
-    public LocalDate getLoppu_pvm() {
+    public LocalDateTime getLoppu_pvm() {
         return loppu_pvm;
     }
 
-    public void setLoppu_pvm(LocalDate loppu_pvm) {
+    public void setLoppu_pvm(LocalDateTime loppu_pvm) {
         this.loppu_pvm = loppu_pvm;
     }
 
