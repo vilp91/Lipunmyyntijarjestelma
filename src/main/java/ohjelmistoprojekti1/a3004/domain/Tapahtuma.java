@@ -1,5 +1,6 @@
 package ohjelmistoprojekti1.a3004.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,21 +25,23 @@ public class Tapahtuma {
     private String paikka, katuosoite;
     private LocalDateTime alku_pvm, loppu_pvm;
     private int lippu_lukum;
+    private boolean tuleva;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
-    
+
     // Parametriton konstruktori
     public Tapahtuma() {
     }
 
-
     public Tapahtuma(String tapahtuman_nimi) {
         this.tapahtuman_nimi = tapahtuman_nimi;
-    }    
+        this.tuleva = onTuleva();
+    }
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm, LocalDateTime loppu_pvm,
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm,
+            LocalDateTime loppu_pvm,
             int lippu_lukum) {
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
@@ -46,10 +49,11 @@ public class Tapahtuma {
         this.alku_pvm = alku_pvm;
         this.loppu_pvm = loppu_pvm;
         this.lippu_lukum = lippu_lukum;
+        this.tuleva = onTuleva();
     }
 
-
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm, LocalDateTime loppu_pvm,
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm,
+            LocalDateTime loppu_pvm,
             int lippu_lukum, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
@@ -57,6 +61,7 @@ public class Tapahtuma {
         this.alku_pvm = alku_pvm;
         this.loppu_pvm = loppu_pvm;
         this.lippu_lukum = lippu_lukum;
+        this.tuleva = onTuleva();
         this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
@@ -116,6 +121,14 @@ public class Tapahtuma {
         this.lippu_lukum = lippu_lukum;
     }
 
+    public boolean isTuleva() {
+        return tuleva;
+    }
+
+    public void setTuleva(boolean saatavilla) {
+        this.tuleva = saatavilla;
+    }
+
     public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
         return tapahtuman_lipputyypit;
     }
@@ -124,13 +137,24 @@ public class Tapahtuma {
         this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
+    // tarkistetaan, ovatko liput vielä myynnissä
+    // tässä mallissa ennakkomyynti päättyy tapahtumaa edeltävänä päivänä
+    private boolean onTuleva() {
+        if (this.alku_pvm != null) {
+            LocalDate pvm = this.alku_pvm.toLocalDate();
+            if (pvm.isAfter(LocalDate.now())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Tapahtuma [tapahtuma_id=" + tapahtuma_id + ", tapahtuman_nimi=" + tapahtuman_nimi + ", paikka=" + paikka
                 + ", katuosoite=" + katuosoite + ", alku_pvm=" + alku_pvm + ", loppu_pvm=" + loppu_pvm
-                + ", lippu_lukum=" + lippu_lukum + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit + "]";
+                + ", lippu_lukum=" + lippu_lukum + ", tuleva=" + tuleva + ", tapahtuman_lipputyypit="
+                + tapahtuman_lipputyypit + "]";
     }
 
-    
-    
 }

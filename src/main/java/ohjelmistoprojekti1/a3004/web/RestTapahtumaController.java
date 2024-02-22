@@ -23,6 +23,12 @@ public class RestTapahtumaController {
         return tapahtumaRepository.findAll();
     }
 
+    // haetaan tapahtumat, joiden alku_pvm on tulevaisuudessa
+    @GetMapping("/tapahtumat/tulevat")
+    public Iterable<Tapahtuma> tulevatTapahtumat() {
+        return tapahtumaRepository.findByTuleva(true);
+    }
+
     @PostMapping("/tapahtumat")
     Tapahtuma uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
         return tapahtumaRepository.save(uusiTapahtuma);
