@@ -2,15 +2,27 @@
 
 Päivittää olemassa olevan tapahtuman
 
-URL: `/tapahtumat/{id}`
+__URL__: `/tapahtumat/{id}`
 
-Metodi: `PUT`
+__Metodi__: `PUT`
 
 <!-- Autentikointi vaadittu: `KYLLÄ` -->
 
 <!-- Tarvittava käyttöoikeus: ?? -->
 
-Tietosisältöesimerkki:
+__Tietosisältövaatimukset__:
+```json
+    {
+        "tapahtuman_nimi": "[string]",
+        "paikka": "[string]",
+        "katuosoite": "[string]",
+        "alku_pvm": "[datetime]",
+        "loppu_pvm": "[datetime]",
+        "lippu_lukum": [int],
+    }
+```
+
+__Tietosisältöesimerkki__:
 ```json
     {
         "tapahtuman_nimi": "Sukankudontakilpailu",
@@ -24,11 +36,11 @@ Tietosisältöesimerkki:
 
 ## Vastauskoodit - Success
 
-Ehto: Tapahtuma on olemassa ja sen päivitys onnistui
+__Ehto__: Tapahtuma on olemassa ja sen päivitys onnistui
 
-Koodi: `200 OK`
+__Koodi__: `200 OK`
 
-Esimerkkisisältö, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtumat/1`:
+__Esimerkkisisältö__, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtumat/1`:
 ```json
 {
     "tapahtuma_id": 1,
@@ -42,11 +54,11 @@ Esimerkkisisältö, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtumat/
 ```
 ## Vastauskoodit - Error
 
-Ehto: Tapahtumaa ei ole olemassa
+__Ehto__: Tapahtumaa ei ole olemassa
 
-Koodi: `404 NOT FOUND`
+__Koodi__: `404 NOT FOUND`
 
-Sisältö: `{}`
+__Sisältö__: `{}`
 
 <!-- TAI
 
@@ -62,7 +74,7 @@ Sisältö: `{}` -->
 
 Pyynnön mukana annetut epäoleelliset tiedot, kuten tapahtuma_id tai ylimääräiset parametrit jätetään endpointissa huomiotta.
 
-Tietosisältöesimerkki URL:iin `/tapahtumat/1`
+__Tietosisältöesimerkki__ URL:iin `/tapahtumat/1`
 
 ```json
 {
@@ -76,9 +88,9 @@ Tietosisältöesimerkki URL:iin `/tapahtumat/1`
     "lippu_lukum": 50
 }
 ```
-Koodi: `200 OK`
+__Koodi__: `200 OK`
 
-Esimerkkivastaus
+__Esimerkkivastaus__
 ```json
 {
     "tapahtuma_id": 1,
@@ -89,5 +101,5 @@ Esimerkkivastaus
     "loppu_pvm": "2024-04-02",
     "lippu_lukum": 50
 }
-´´´
+```
 

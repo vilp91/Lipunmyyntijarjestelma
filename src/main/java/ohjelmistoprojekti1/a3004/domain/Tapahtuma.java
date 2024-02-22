@@ -29,9 +29,9 @@ public class Tapahtuma {
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
     
-    //Parametriton konstruktori
-    // public Tapahtuma() {
-    // }
+    // Parametriton konstruktori
+    public Tapahtuma() {
+    }
 
 
     public Tapahtuma(String tapahtuman_nimi) {
