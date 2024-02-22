@@ -29,8 +29,11 @@ public class A3004Application {
 			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", nyt, nyt, 667);
 			tapahtumaRepository.save(tapahtuma2);
 
-			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", nyt, nyt, 9999);
+			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDate.of(2031, 12, 22),LocalDate.of(2031, 12, 22), 9999);
 			tapahtumaRepository.save(tapahtuma3);
+
+			Tapahtuma tapahtuma4 = new Tapahtuma("Mysteeritapahtuma");
+			tapahtumaRepository.save(tapahtuma4);
 		};
 	}
 
