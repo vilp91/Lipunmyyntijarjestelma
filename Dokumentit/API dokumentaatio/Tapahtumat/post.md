@@ -1,14 +1,12 @@
 # Luodaan uusi tapahtuma
 
-**URL** : `/localhost:8080/tapahtumat`
+**URL** : `tapahtumat/`
 
 **Metodi** : `POST`
 
 **Autentikaatio** : EI
 
 **Lupia vaadittu** : Ei mitään
-
-**Datan rajoitukset**
 
 Anna luotavan tapahtuman tiedot
 
@@ -21,5 +19,45 @@ Anna luotavan tapahtuman tiedot
   "alku_pvm": "[date]",
   "loppu_pvm": "[date]",
   "lippu_lukum": "[int]"
+}
+```
+
+## Onnistunut tapahtuma
+
+**Ehto:** Tapahtumaa ei ollut olemassa ja uusi tapahtuma luotiin onnistuneesti.
+
+**Koodi:** `200 OK`
+
+**Esimerkkisisältö:** Uusi tapahtuma luotu
+
+```json
+{
+  "tapahtuma_id": 1,
+  "tapahtuman_nimi": "Tapahtuma",
+  "paikka": "Tapahtumapaikka",
+  "katuosoite": "Tapahtumaosotie",
+  "alku_pvm": "2024-02-28",
+  "loppu_pvm": "2024-02-28",
+  "lippu_lukum": 100
+}
+```
+
+## Epäonnistunut tapahtuma
+
+**Ehto:** Syntaxi virhe. Esimerkiksi kirjaimia numero kentällä
+
+**Koodi:** `400 BAD REQUEST`
+
+**Esimerkkisisältö:** Uusi tapahtuma luotu, mutta numero kentässä kirjaimia
+
+```json
+{
+  "tapahtuma_id": 1,
+  "tapahtuman_nimi": "Tapahtuma",
+  "paikka": "Tapahtumapaikka",
+  "katuosoite": "Tapahtumaosotie",
+  "alku_pvm": "2024-02-28",
+  "loppu_pvm": "2024-02-28",
+  "lippu_lukum": "Testi"
 }
 ```
