@@ -44,11 +44,11 @@ Anna luotavan tapahtuman tiedot
 
 ## Epäonnistunut tapahtuma
 
-**Ehto:** Syntaxi virhe. Esimerkiksi kirjaimia numero kentällä
+**Ehto:** Syntaksi virhe. Esimerkiksi kirjaimia numero kentällä.
 
 **Koodi:** `400 BAD REQUEST`
 
-**Esimerkkisisältö:** Uusi tapahtuma luotu, mutta numero kentässä kirjaimia
+**Esimerkkisisältö:** Uusi tapahtuma luotu, mutta numero kentässä kirjaimia.
 
 ```json
 {
