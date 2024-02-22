@@ -30,8 +30,8 @@ public class Tapahtuma {
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
     
     //Parametriton konstruktori
-    public Tapahtuma() {
-    }
+    // public Tapahtuma() {
+    // }
 
 
     public Tapahtuma(String tapahtuman_nimi) {

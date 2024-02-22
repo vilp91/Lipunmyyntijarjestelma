@@ -2,7 +2,7 @@
 
 Päivittää olemassa olevan tapahtuman
 
-URL: `/tapahtumat/:pk`
+URL: `/tapahtumat/{id}`
 
 Metodi: `PUT`
 
