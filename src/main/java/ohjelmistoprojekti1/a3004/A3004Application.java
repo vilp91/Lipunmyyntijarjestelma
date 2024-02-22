@@ -34,6 +34,9 @@ public class A3004Application {
 
 			Tapahtuma tapahtuma4 = new Tapahtuma("Mysteeritapahtuma");
 			tapahtumaRepository.save(tapahtuma4);
+
+			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", nyt, nyt, 9999);
+			tapahtumaRepository.save(tapahtuma5);
 		};
 	}
 
