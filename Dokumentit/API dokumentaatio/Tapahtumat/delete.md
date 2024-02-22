@@ -2,7 +2,7 @@
 
 Poistaa yksittäisen tapahtuman kaikkine tietoineen.
 
-URL: `/tapahtumat`
+URL: `/tapahtumat/{id}`
 
 METODI: `DELETE`
 
