@@ -17,7 +17,7 @@ Poistaa yksittäisen tapahtuman kaikkine tietoineen.
 "tapahtuma_id":5,  
 "tapahtuman_nimi":"Karjumisen MM-kisat",  "paikka":"Tokoinranta",  
 "katuosoite":"Eläintarhantie 3",  
-"alku_pvm":"2024-04-22","loppu_pvm":"2024-04-22",  "lippu_lukum":9999
+"alku":"2024-04-22","loppu":"2024-04-22",  "lippu_lukum":9999
 }
 
 
