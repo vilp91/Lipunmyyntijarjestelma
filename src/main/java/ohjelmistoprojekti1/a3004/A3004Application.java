@@ -20,7 +20,7 @@ public class A3004Application {
 	// lisätään demo data
 	@Bean
 	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository) {
-		LocalDateTime nyt = LocalDateTime.now();
+		// LocalDateTime nyt = LocalDateTime.now();
 
 		return(args) -> {
 			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,04,02, 14, 0), LocalDateTime.of(2024,04,02, 16, 0), 50);

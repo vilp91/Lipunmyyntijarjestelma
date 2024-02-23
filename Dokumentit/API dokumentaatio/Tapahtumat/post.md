@@ -12,19 +12,18 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-  "tapahtuma_id": "[int/auto increment]",
   "tapahtuman_nimi": "[string]",
   "paikka": "[string]",
   "katuosoite": "[string]",
-  "alku_pvm": "[date]",
-  "loppu_pvm": "[date]",
+  "alku": "[date]",
+  "loppu": "[date]",
   "lippu_lukum": "[int]"
 }
 ```
 
 ## Onnistunut tapahtuma
 
-**Ehto:** Tapahtumaa ei ollut olemassa ja uusi tapahtuma luotiin onnistuneesti.
+**Ehto:** Uusi tapahtuma luotiin onnistuneesti.
 
 **Koodi:** `200 OK`
 
@@ -36,8 +35,8 @@ Anna luotavan tapahtuman tiedot
   "tapahtuman_nimi": "Tapahtuma",
   "paikka": "Tapahtumapaikka",
   "katuosoite": "Tapahtumaosotie",
-  "alku_pvm": "2024-02-28",
-  "loppu_pvm": "2024-02-28",
+  "alku": "2024-02-28",
+  "loppu": "2024-02-28",
   "lippu_lukum": 100
 }
 ```
@@ -56,8 +55,13 @@ Anna luotavan tapahtuman tiedot
   "tapahtuman_nimi": "Tapahtuma",
   "paikka": "Tapahtumapaikka",
   "katuosoite": "Tapahtumaosotie",
-  "alku_pvm": "2024-02-28",
-  "loppu_pvm": "2024-02-28",
+  "alku": "2024-02-28",
+  "loppu": "2024-02-28",
   "lippu_lukum": "Testi"
 }
 ```
+TAI
+
+**Ehto**: Vaadittu tieto puuttuu
+
+**Koodi**: `400 BAD REQUEST`

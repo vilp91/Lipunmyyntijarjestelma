@@ -19,7 +19,7 @@ Tapahtumalle, jonka id on 3 paikallisessa tietokannassa ja jonka tietoihin on ta
 "tapahtuma_id":3,  
 "tapahtuman_nimi":"Cheek - Paluu areenalle",  "paikka":"Olympiastadion - Helsinki",  
 "katuosoite":"Paavo Nurmen tie 1",  
-"alku_pvm":"2024-02-22","loppu_pvm":"2024-02-22",  "lippu_lukum":9999
+"alku":"2024-02-22","loppu":"2024-02-22",  "lippu_lukum":9999
 }  
 ```
 
@@ -31,8 +31,8 @@ Tapahtumalle, jonka id on 4 paikallisessa tietokannassa ja jonka tietoihin on ta
 "tapahtuman_nimi":"Mysteeritapahtuma",
 "paikka":null,  
 "katuosoite":null,  
-"alku_pvm":null,
-"loppu_pvm":null,
+"alku":null,
+"loppu":null,
 "lippu_lukum":0
 }  
 ```

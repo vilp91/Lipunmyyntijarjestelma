@@ -16,8 +16,8 @@ __Tietosisältövaatimukset__:
         "tapahtuman_nimi": "[string]",
         "paikka": "[string]",
         "katuosoite": "[string]",
-        "alku_pvm": "[datetime]",
-        "loppu_pvm": "[datetime]",
+        "alku": "[vvvv-kk-ppTHH:mm:ss]",
+        "loppu": "[vvvv-kk-ppTHH:mm:ss]",
         "lippu_lukum": [int],
     }
 ```
@@ -28,8 +28,8 @@ __Tietosisältöesimerkki__:
         "tapahtuman_nimi": "Sukankudontakilpailu",
         "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
         "katuosoite": "Kuninkaantammentie 19",
-        "alku_pvm": "2024-04-02",
-        "loppu_pvm": "2024-04-02",
+        "alku": "2024-04-02",
+        "loppu": "2024-04-02",
         "lippu_lukum": 50
     }
 ```
@@ -47,8 +47,8 @@ __Esimerkkisisältö__, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtu
     "tapahtuman_nimi": "Päivitetty nimi",
     "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
     "katuosoite": "Kuninkaantammentie 19",
-    "alku_pvm": "2024-04-02",
-    "loppu_pvm": "2024-04-02",
+    "alku": "2024-04-02",
+    "loppu": "2024-04-02",
     "lippu_lukum": 50
 }
 ```
@@ -83,8 +83,8 @@ __Tietosisältöesimerkki__ URL:iin `/tapahtumat/1`
     "tapahtuman_nimi": "Päivitetty nimi",
     "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
     "katuosoite": "Kuninkaantammentie 19",
-    "alku_pvm": "2024-04-02",
-    "loppu_pvm": "2024-04-02",
+    "alku": "2024-04-02",
+    "loppu": "2024-04-02",
     "lippu_lukum": 50
 }
 ```
@@ -97,8 +97,8 @@ __Esimerkkivastaus__
     "tapahtuman_nimi": "Päivitetty nimi",
     "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
     "katuosoite": "Kuninkaantammentie 19",
-    "alku_pvm": "2024-04-02",
-    "loppu_pvm": "2024-04-02",
+    "alku": "2024-04-02",
+    "loppu": "2024-04-02",
     "lippu_lukum": 50
 }
 ```

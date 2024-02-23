@@ -1,6 +1,5 @@
 package ohjelmistoprojekti1.a3004.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tapahtuma")
@@ -21,11 +21,11 @@ public class Tapahtuma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tapahtuma_id;
+    @NotNull
     private String tapahtuman_nimi;
     private String paikka, katuosoite;
-    private LocalDateTime alku_pvm, loppu_pvm;
+    private LocalDateTime alku, loppu;
     private int lippu_lukum;
-    private boolean tuleva;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
     @JsonIgnore
@@ -37,31 +37,28 @@ public class Tapahtuma {
 
     public Tapahtuma(String tapahtuman_nimi) {
         this.tapahtuman_nimi = tapahtuman_nimi;
-        this.tuleva = onTuleva();
     }
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm,
-            LocalDateTime loppu_pvm,
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku,
+            LocalDateTime loppu,
             int lippu_lukum) {
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
         this.katuosoite = katuosoite;
-        this.alku_pvm = alku_pvm;
-        this.loppu_pvm = loppu_pvm;
+        this.alku = alku;
+        this.loppu = loppu;
         this.lippu_lukum = lippu_lukum;
-        this.tuleva = onTuleva();
     }
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku_pvm,
-            LocalDateTime loppu_pvm,
+    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku,
+            LocalDateTime loppu,
             int lippu_lukum, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
         this.katuosoite = katuosoite;
-        this.alku_pvm = alku_pvm;
-        this.loppu_pvm = loppu_pvm;
+        this.alku = alku;
+        this.loppu = loppu;
         this.lippu_lukum = lippu_lukum;
-        this.tuleva = onTuleva();
         this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
@@ -97,20 +94,20 @@ public class Tapahtuma {
         this.katuosoite = katuosoite;
     }
 
-    public LocalDateTime getAlku_pvm() {
-        return alku_pvm;
+    public LocalDateTime getAlku() {
+        return alku;
     }
 
-    public void setAlku_pvm(LocalDateTime alku_pvm) {
-        this.alku_pvm = alku_pvm;
+    public void setAlku(LocalDateTime alku) {
+        this.alku = alku;
     }
 
-    public LocalDateTime getLoppu_pvm() {
-        return loppu_pvm;
+    public LocalDateTime getLoppu() {
+        return loppu;
     }
 
-    public void setLoppu_pvm(LocalDateTime loppu_pvm) {
-        this.loppu_pvm = loppu_pvm;
+    public void setLoppu(LocalDateTime loppu) {
+        this.loppu = loppu;
     }
 
     public int getLippu_lukum() {
@@ -121,14 +118,6 @@ public class Tapahtuma {
         this.lippu_lukum = lippu_lukum;
     }
 
-    public boolean isTuleva() {
-        return tuleva;
-    }
-
-    public void setTuleva(boolean saatavilla) {
-        this.tuleva = saatavilla;
-    }
-
     public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
         return tapahtuman_lipputyypit;
     }
@@ -137,24 +126,12 @@ public class Tapahtuma {
         this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
-    // tarkistetaan, ovatko liput vielä myynnissä
-    // tässä mallissa ennakkomyynti päättyy tapahtumaa edeltävänä päivänä
-    private boolean onTuleva() {
-        if (this.alku_pvm != null) {
-            LocalDate pvm = this.alku_pvm.toLocalDate();
-            if (pvm.isAfter(LocalDate.now())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public String toString() {
         return "Tapahtuma [tapahtuma_id=" + tapahtuma_id + ", tapahtuman_nimi=" + tapahtuman_nimi + ", paikka=" + paikka
-                + ", katuosoite=" + katuosoite + ", alku_pvm=" + alku_pvm + ", loppu_pvm=" + loppu_pvm
-                + ", lippu_lukum=" + lippu_lukum + ", tuleva=" + tuleva + ", tapahtuman_lipputyypit="
-                + tapahtuman_lipputyypit + "]";
+                + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum=" + lippu_lukum
+                + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit + "]";
     }
+
 
 }
