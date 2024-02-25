@@ -2,15 +2,15 @@
 
 Poistaa yksittäisen tapahtuman kaikkine tietoineen.
 
-**URL:** `/tapahtumat/{id}`
+__URL__: `/tapahtumat/{id}`
 
-**METODI:** `DELETE`
+__METODI__: `DELETE`
 
-**Onnistuneen deleten vastauskooodi:** `200 OK`
+__Onnistuneen deleten vastauskooodi__: `200 OK`
 
-**Epäonnistuneen deleten vastauskoodi:** `404`
+__Epäonnistuneen deleten vastauskoodi__: `404`
 
-**Esimerkkejä poistettavista tietueista:**
+__Esimerkkejä poistettavista tietueista__:
 
 ```Json
 {

@@ -1,12 +1,12 @@
 # Luodaan uusi tapahtuma
 
-**URL** : `tapahtumat/`
+__URL__: `tapahtumat/`
 
-**Metodi** : `POST`
+__Metodi__: `POST`
 
-**Autentikaatio** : EI
+__Autentikaatio__: EI
 
-**Lupia vaadittu** : Ei mitään
+__Lupia vaadittu__: Ei mitään
 
 Anna luotavan tapahtuman tiedot
 
@@ -23,11 +23,11 @@ Anna luotavan tapahtuman tiedot
 
 ## Onnistunut tapahtuma
 
-**Ehto:** Uusi tapahtuma luotiin onnistuneesti.
+__Ehto__: Uusi tapahtuma luotiin onnistuneesti.
 
-**Koodi:** `200 OK`
+__Koodi__: `200 OK`
 
-**Esimerkkisisältö:** Uusi tapahtuma luotu
+__Esimerkkisisältö__: Uusi tapahtuma luotu
 
 ```json
 {
@@ -43,11 +43,11 @@ Anna luotavan tapahtuman tiedot
 
 ## Epäonnistunut tapahtuma
 
-**Ehto:** Syntaksi virhe. Esimerkiksi kirjaimia numero kentällä.
+__Ehto__: Syntaksi virhe. Esimerkiksi kirjaimia numero kentällä.
 
-**Koodi:** `400 BAD REQUEST`
+__Koodi__: `400 BAD REQUEST`
 
-**Esimerkkisisältö:** Uusi tapahtuma luotu, mutta numero kentässä kirjaimia.
+__Esimerkkisisältö__: Uusi tapahtuma luotu, mutta numero kentässä kirjaimia.
 
 ```json
 {
@@ -62,6 +62,6 @@ Anna luotavan tapahtuman tiedot
 ```
 TAI
 
-**Ehto**: Vaadittu tieto puuttuu
+__Ehto__: Vaadittu tieto puuttuu
 
-**Koodi**: `400 BAD REQUEST`
+__Koodi__: `400 BAD REQUEST`

@@ -2,15 +2,15 @@
 
 Hakee ja näyttää kaikki tietokannassa olevat tapahtumat saatavissa olevine tietoineen.
 
-**URL**: `/tapahtumat`
+__URL__: `/tapahtumat`
 
-**Metodi**: `GET`
+__Metodi__: `GET`
 
 ## Onnistuneen pyynnön palautus
 
-**Vastauskoodi:** `200 OK`
+__Vastauskoodi__: `200 OK`
 
-**Sisältöesimerkejä**
+__Sisältöesimerkejä__:
 
 Tapahtumalle, jonka id on 3 paikallisessa tietokannassa ja jonka tietoihin on tallennettu tapahtuman nimi, paikka, katuosoite, alku- sekä loppupäivämäärät ja lippujen lukumäärä.
 
