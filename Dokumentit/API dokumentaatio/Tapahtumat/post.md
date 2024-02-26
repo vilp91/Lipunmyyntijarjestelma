@@ -47,7 +47,7 @@ Anna luotavan tapahtuman tiedot
 
 **Koodi**: `400 BAD REQUEST`
 
-**Esimerkkisisältö**: Uutta tapahtumaa ei luoda, koska kentässä on siihen kuulumattomia merkkejä.
+**Esimerkkisisältö**: Uutta tapahtumaa ei luotu, koska jossain kentässä on siihen kuulumattomia merkkejä.
 
 ```json
 {
