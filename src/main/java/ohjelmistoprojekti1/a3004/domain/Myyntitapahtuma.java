@@ -16,35 +16,31 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "myyntitapahtuma")        // täsmälleen se kirjoitusasu, mikä tulee tietokantaan
-public class Myyntitapahtuma {          // luokan nimet CamelCasella
+@Table(name = "myyntitapahtuma")
+public class Myyntitapahtuma {       
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long myyntitapahtuma_id;
 
     @ManyToOne
-    @JoinColumn(name = "kayttaja_id")   // linkitettävän luokan primary key
+    @JoinColumn(name = "kayttaja_id")
     private Kayttaja kayttaja;
 
     private LocalDate pvm = LocalDate.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")     // en ole varma cascadetypestä.. ymmärtäiskö joku enemmän?
-    @JsonIgnore                                                             // tarkoittaa kai sitä että jos esim. poistaa myyntitapahtuman niin se poistaa myös sen myyntitapahtumarivin                                              
-    private List<Myyntitapahtumarivi> myyntitapahtumarivit;
+    @JsonIgnore                                                   // tarkoittaa kai sitä että jos esim. poistaa myyntitapahtuman niin se poistaa myös sen myyntitapahtumarivin                                              
+    private List<Lippu> liput;
 
-    public Myyntitapahtuma() {}          // mulla on tapana tehdä kaikkiin luokkiin tyhjä konstruktori, voidaan poistella jos on turhia
-
-    public Myyntitapahtuma(Long myyntitapahtuma_id) {
-        this.myyntitapahtuma_id = myyntitapahtuma_id;
+    public Myyntitapahtuma() {
+        super();
     }
 
-    public Myyntitapahtuma(Long myyntitapahtuma_id, Kayttaja kayttaja, LocalDate pvm,
-            List<Myyntitapahtumarivi> myyntitapahtumarivit) {
-        this.myyntitapahtuma_id = myyntitapahtuma_id;
+    public Myyntitapahtuma(Kayttaja kayttaja, LocalDate pvm, List<Lippu> liput) {
         this.kayttaja = kayttaja;
         this.pvm = pvm;
-        this.myyntitapahtumarivit = myyntitapahtumarivit;
+        this.liput = liput;
     }
 
     public Long getMyyntitapahtuma_id() {
@@ -55,13 +51,13 @@ public class Myyntitapahtuma {          // luokan nimet CamelCasella
         this.myyntitapahtuma_id = myyntitapahtuma_id;
     }
 
-/*     public Kayttaja getKayttaja() {
+    public Kayttaja getKayttaja() {
         return kayttaja;
-    } */
+    }
 
-/*     public void setKayttaja(Kayttaja kayttaja) {
+    public void setKayttaja(Kayttaja kayttaja) {
         this.kayttaja = kayttaja;
-    } */
+    }
 
     public LocalDate getPvm() {
         return pvm;
@@ -71,18 +67,18 @@ public class Myyntitapahtuma {          // luokan nimet CamelCasella
         this.pvm = pvm;
     }
 
-    public List<Myyntitapahtumarivi> getMyyntitapahtumarivit() {
-        return myyntitapahtumarivit;
+    public List<Lippu> getLiput() {
+        return liput;
     }
 
-    public void setMyyntitapahtumarivit(List<Myyntitapahtumarivi> myyntitapahtumarivit) {
-        this.myyntitapahtumarivit = myyntitapahtumarivit;
+    public void setLiput(List<Lippu> liput) {
+        this.liput = liput;
     }
 
     @Override
     public String toString() {
         return "Myyntitapahtuma [myyntitapahtuma_id=" + myyntitapahtuma_id + ", kayttaja=" + kayttaja + ", pvm=" + pvm
-                + ", myyntitapahtumarivit=" + myyntitapahtumarivit + "]";
+                + ", liput=" + liput + "]";
     }
-    
+
 }

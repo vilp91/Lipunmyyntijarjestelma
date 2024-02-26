@@ -15,7 +15,16 @@ public class Lippu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lippu_id;
-    private int hinta;
+
+    @ManyToOne
+    @JoinColumn(name = "tapahtuman_lipputyyppi_id")
+    private TapahtumanLipputyyppi tapahtuman_lipputyyppi;
+
+    @ManyToOne
+    @JoinColumn(name = "myyntitapahtuma_id")
+    private Myyntitapahtuma myyntitapahtuma;
+
+    private float hinta;
 
     @ManyToOne
     @JoinColumn(name = "lipputyyppi_id")
@@ -23,19 +32,18 @@ public class Lippu {
 
     @ManyToOne
     @JoinColumn(name = "tapahtuma_id")
-    private Tapahtuma tapahtuma;
+    private Tapahtuma tapahtuma; 
 
     //Parametriton konstruktori
     public Lippu() {
     }
 
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
-    public Lippu(int hinta, Lipputyyppi lipputyyppi, Tapahtuma tapahtuma) {
+    public Lippu(TapahtumanLipputyyppi tapahtuman_lipputyyppi, Myyntitapahtuma myyntitapahtuma, float hinta) {
+        this.tapahtuman_lipputyyppi = tapahtuman_lipputyyppi;
+        this.myyntitapahtuma = myyntitapahtuma;
         this.hinta = hinta;
-        this.lipputyyppi = lipputyyppi;
-        this.tapahtuma = tapahtuma;
     }
-
     //Getterit ja setterit
     public Long getLippu_id() {
         return lippu_id;
@@ -45,35 +53,35 @@ public class Lippu {
         this.lippu_id = lippu_id;
     }
 
-    public int getHinta() {
+    public TapahtumanLipputyyppi getTapahtuman_lipputyyppi() {
+        return tapahtuman_lipputyyppi;
+    }
+
+    public void setTapahtuman_lipputyyppi(TapahtumanLipputyyppi tapahtuman_lipputyyppi) {
+        this.tapahtuman_lipputyyppi = tapahtuman_lipputyyppi;
+    }
+
+    public Myyntitapahtuma getMyyntitapahtuma() {
+        return myyntitapahtuma;
+    }
+
+    public void setMyyntitapahtuma(Myyntitapahtuma myyntitapahtuma) {
+        this.myyntitapahtuma = myyntitapahtuma;
+    }
+
+    public float getHinta() {
         return hinta;
     }
 
-    public void setHinta(int hinta) {
+    public void setHinta(float hinta) {
         this.hinta = hinta;
     }
 
-    public Lipputyyppi getLipputyyppi() {
-        return lipputyyppi;
-    }
-
-    public void setLipputyyppi(Lipputyyppi lipputyyppi) {
-        this.lipputyyppi = lipputyyppi;
-    }
-
-    public Tapahtuma getTapahtuma() {
-        return tapahtuma;
-    }
-
-    public void setTapahtuma(Tapahtuma tapahtuma) {
-        this.tapahtuma = tapahtuma;
-    }
-
-    //ToString
     @Override
     public String toString() {
-        return "Lippu [lippu_id=" + lippu_id + ", hinta=" + hinta + ", lipputyyppi=" + lipputyyppi + ", tapahtuma="
-                + tapahtuma + "]";
+        return "Lippu [lippu_id=" + lippu_id + ", tapahtuman_lipputyyppi=" + tapahtuman_lipputyyppi
+                + ", myyntitapahtuma=" + myyntitapahtuma + ", hinta=" + hinta + "]";
     }
+
 
 }

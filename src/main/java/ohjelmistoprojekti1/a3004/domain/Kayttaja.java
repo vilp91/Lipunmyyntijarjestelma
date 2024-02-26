@@ -1,16 +1,20 @@
 package ohjelmistoprojekti1.a3004.domain;
 
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 
 @Entity
 @Table(name="kayttaja")
@@ -25,9 +29,11 @@ public class Kayttaja {
     @JoinColumn(name = "rooli_id")
     private Rooli rooli;
 
-    // @ManyToOne
-    // @JoinColumn(name = "postinumero_id")
-    // private Postinumero postinumero;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
+    @JsonIgnore
+    private List<Myyntitapahtuma> myyntitapahtumat;
+
+
 
     @NotBlank
     private String etunimi;
@@ -35,28 +41,19 @@ public class Kayttaja {
     @NotBlank
     private String sukunimi;
 
-    private Integer puhnro;
+    private String puhnro;
 
     private String katuosoite;
 
     // konstruktorit
 
     public Kayttaja() {
-        super();
-        this.kayttaja_id = null;
-        this.rooli = null;
-    //  this.postinumero = null;
-        this.etunimi = null;
-        this.sukunimi = null;
-        this.puhnro = null;
-        this.katuosoite = null;
     }
     
-    public Kayttaja(Long kayttaja_id, Rooli rooli, //Postinumero postinumero, 
-    String etunimi, String sukunimi, Integer puhnro, String katuosoite) {
-        this.kayttaja_id = kayttaja_id;
+    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
+            @NotBlank String sukunimi, String puhnro, String katuosoite) {
         this.rooli = rooli;
-      //  this.postinumero = postinumero;
+        this.myyntitapahtumat = myyntitapahtumat;
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
         this.puhnro = puhnro;
@@ -64,6 +61,7 @@ public class Kayttaja {
     }
     
     // getterit ja setterit
+
 
     public Long getKayttaja_id() {
         return this.kayttaja_id;
@@ -81,14 +79,6 @@ public class Kayttaja {
         this.rooli = rooli;
     }
 
-   // public Postinumero getPostinumero() {
-   //     return this.postinumero;
-   // }
-
-   // public void setPostinumero(Postinumero postinumero) {
-   //     this.postinumero = postinumero;
-   // }
-
     public String getEtunimi() {
         return this.etunimi;
     }
@@ -105,11 +95,11 @@ public class Kayttaja {
         this.sukunimi = sukunimi;
     }
 
-    public Integer getPuhnro() {
+    public String getPuhnro() {
         return this.puhnro;
     }
 
-    public void setPuhnro(Integer puhnro) {
+    public void setPuhnro(String puhnro) {
         this.puhnro = puhnro;
     }
 
@@ -120,21 +110,21 @@ public class Kayttaja {
     public void setKatuosoite(String katuosoite) {
         this.katuosoite = katuosoite;
     }
-   
-    // toString
 
+    public List<Myyntitapahtuma> getMyyntitapahtumat() {
+        return myyntitapahtumat;
+    }
+
+    public void setMyyntitapahtumat(List<Myyntitapahtuma> myyntitapahtumat) {
+        this.myyntitapahtumat = myyntitapahtumat;
+    }
+
+    // toString
     @Override
     public String toString() {
-        return "{" +
-            " kayttaja_id='" + getKayttaja_id() + "'" +
-            ", rooli='" + getRooli() + "'" +
-          //  ", postinumero='" + getPostinumero() + "'" +
-            ", etunimi='" + getEtunimi() + "'" +
-            ", sukunimi='" + getSukunimi() + "'" +
-            ", puhnro='" + getPuhnro() + "'" +
-            ", katuosoite='" + getKatuosoite() + "'" +
-            "}";
-    }
-   
+        return "Kayttaja [kayttaja_id=" + kayttaja_id + ", rooli=" + rooli + ", myyntitapahtumat=" + myyntitapahtumat
+                + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi + ", puhnro=" + puhnro + ", katuosoite="
+                + katuosoite + "]";
+    }   
     
 }
