@@ -8,8 +8,6 @@ __METODI__: `DELETE`
 
 __Onnistuneen deleten vastauskooodi__: `200 OK`
 
-__Epäonnistuneen deleten vastauskoodi__: `404`
-
 __Esimerkkejä poistettavista tietueista__:
 
 ```Json
