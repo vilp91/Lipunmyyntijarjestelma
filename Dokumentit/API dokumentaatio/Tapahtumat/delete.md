@@ -2,22 +2,20 @@
 
 Poistaa yksittäisen tapahtuman kaikkine tietoineen.
 
-**URL:** `/tapahtumat/{id}`
+__URL__: `/tapahtumat/{id}`
 
-**METODI:** `DELETE`
+__METODI__: `DELETE`
 
-**Onnistuneen deleten vastauskooodi:** `200 OK`
+__Onnistuneen deleten vastauskooodi__: `200 OK`
 
-**Epäonnistuneen deleten vastauskoodi:** `404`
-
-**Esimerkkejä poistettavista tietueista:**
+__Esimerkkejä poistettavista tietueista__:
 
 ```Json
 {
 "tapahtuma_id":5,  
 "tapahtuman_nimi":"Karjumisen MM-kisat",  "paikka":"Tokoinranta",  
 "katuosoite":"Eläintarhantie 3",  
-"alku_pvm":"2024-04-22","loppu_pvm":"2024-04-22",  "lippu_lukum":9999
+"alku":"2024-04-22","loppu":"2024-04-22",  "lippu_lukum":9999
 }
 
 

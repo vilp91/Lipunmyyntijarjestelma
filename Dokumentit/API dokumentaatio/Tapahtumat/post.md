@@ -1,34 +1,33 @@
 # Luodaan uusi tapahtuma
 
-**URL** : `tapahtumat/`
+__URL__: `tapahtumat/`
 
-**Metodi** : `POST`
+__Metodi__: `POST`
 
-**Autentikaatio** : EI
+__Autentikaatio__: EI
 
-**Lupia vaadittu** : Ei mitään
+__Lupia vaadittu__: Ei mitään
 
 Anna luotavan tapahtuman tiedot
 
 ```json
 {
-  "tapahtuma_id": "[int/auto increment]",
   "tapahtuman_nimi": "[string]",
   "paikka": "[string]",
   "katuosoite": "[string]",
-  "alku_pvm": "[date]",
-  "loppu_pvm": "[date]",
+  "alku": "[date]",
+  "loppu": "[date]",
   "lippu_lukum": "[int]"
 }
 ```
 
 ## Onnistunut tapahtuma
 
-**Ehto:** Tapahtumaa ei ollut olemassa ja uusi tapahtuma luotiin onnistuneesti.
+__Ehto__: Uusi tapahtuma luotiin onnistuneesti.
 
-**Koodi:** `200 OK`
+__Koodi__: `200 OK`
 
-**Esimerkkisisältö:** Uusi tapahtuma luotu
+__Esimerkkisisältö__: Uusi tapahtuma luotu
 
 ```json
 {
@@ -36,19 +35,19 @@ Anna luotavan tapahtuman tiedot
   "tapahtuman_nimi": "Tapahtuma",
   "paikka": "Tapahtumapaikka",
   "katuosoite": "Tapahtumaosotie",
-  "alku_pvm": "2024-02-28",
-  "loppu_pvm": "2024-02-28",
+  "alku": "2024-02-28",
+  "loppu": "2024-02-28",
   "lippu_lukum": 100
 }
 ```
 
 ## Epäonnistunut tapahtuma
 
-**Ehto:** Syntaksi virhe. Esimerkiksi kirjaimia numero kentällä.
+__Ehto__: Syntaksi virhe. Esimerkiksi kirjaimia numero kentällä.
 
-**Koodi:** `400 BAD REQUEST`
+__Koodi__: `400 BAD REQUEST`
 
-**Esimerkkisisältö:** Uusi tapahtuma luotu, mutta numero kentässä kirjaimia.
+__Esimerkkisisältö__: Uusi tapahtuma luotu, mutta numero kentässä kirjaimia.
 
 ```json
 {
@@ -56,8 +55,13 @@ Anna luotavan tapahtuman tiedot
   "tapahtuman_nimi": "Tapahtuma",
   "paikka": "Tapahtumapaikka",
   "katuosoite": "Tapahtumaosotie",
-  "alku_pvm": "2024-02-28",
-  "loppu_pvm": "2024-02-28",
+  "alku": "2024-02-28",
+  "loppu": "2024-02-28",
   "lippu_lukum": "Testi"
 }
 ```
+TAI
+
+__Ehto__: Vaadittu tieto puuttuu
+
+__Koodi__: `400 BAD REQUEST`
