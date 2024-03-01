@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 
 @RestController
 public class RestTapahtumaController {
 
-    
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
@@ -39,7 +39,6 @@ public class RestTapahtumaController {
     // Tapahtuma uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
     //     return tapahtumaRepository.save(uusiTapahtuma);
     // }
-
     @PostMapping("/tapahtumat")
     public ResponseEntity<Tapahtuma> uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
         // tarkistetaan, onko tapahtumalle annettu nimi. Jos ei, palautetaan 400 - bad request
@@ -61,7 +60,6 @@ public class RestTapahtumaController {
     // public void poistaTapahtuma(@PathVariable("id") Long id) {
     //     tapahtumaRepository.deleteById(id);
     // }
-    
     @DeleteMapping("/tapahtumat/{id}")
     public ResponseEntity<Object> poistaTapahtuma(@PathVariable("id") Long id) {
         // tarkistetaan, löytyykö tietokannasta tietuetta pyydetyllä id:llä

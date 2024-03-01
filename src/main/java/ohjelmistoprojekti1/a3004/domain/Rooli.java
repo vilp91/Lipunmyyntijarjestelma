@@ -1,6 +1,5 @@
 package ohjelmistoprojekti1.a3004.domain;
 
-
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,12 +13,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
-
-
 @Entity
-@Table(name="rooli")
+@Table(name = "rooli")
 public class Rooli {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +29,7 @@ public class Rooli {
     private List<Kayttaja> kayttajat;
 
     // konstruktorit
-
-     public Rooli() {
+    public Rooli() {
         super();
     }
 
@@ -43,8 +38,11 @@ public class Rooli {
         this.kayttajat = kayttajat;
     }
 
-    // getterit ja setterit
+    public Rooli(@NotBlank String rooli) {
+        this.rooli = rooli;
+    }
 
+    // getterit ja setterit
     public Long getRooli_id() {
         return this.rooli_id;
     }
@@ -61,7 +59,7 @@ public class Rooli {
         this.rooli = rooli;
     }
 
-        public List<Kayttaja> getKayttajat() {
+    public List<Kayttaja> getKayttajat() {
         return kayttajat;
     }
 
@@ -73,6 +71,5 @@ public class Rooli {
     public String toString() {
         return "Rooli [rooli_id=" + rooli_id + ", rooli=" + rooli + ", kayttajat=" + kayttajat + "]";
     }
-
 
 }
