@@ -1,5 +1,6 @@
 package ohjelmistoprojekti1.a3004;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
@@ -7,6 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import ohjelmistoprojekti1.a3004.domain.Kayttaja;
+import ohjelmistoprojekti1.a3004.domain.KayttajaRepository;
+import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
+import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
+import ohjelmistoprojekti1.a3004.domain.Rooli;
+import ohjelmistoprojekti1.a3004.domain.RooliRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 
@@ -19,7 +26,7 @@ public class A3004Application {
 
 	// lisätään demo data
 	@Bean
-	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository) {
+	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository) {
 		// LocalDateTime nyt = LocalDateTime.now();
 
 		return(args) -> {
@@ -37,6 +44,18 @@ public class A3004Application {
 
 			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,02, 22, 18, 0), LocalDateTime.of(2024, 02, 22, 21, 0), 9999);
 			tapahtumaRepository.save(tapahtuma5);
+
+			Rooli rooli1 = new Rooli("Admin", null);
+			rooliRepository.save(rooli1);
+
+			Rooli rooli2 = new Rooli("Myyjä", null);
+			rooliRepository.save(rooli2);
+
+			Kayttaja kayttaja1 = new Kayttaja(rooli2, null, "Matti", "Mattinen", "0700123123", "Matinkuja 420, Matinkylä");
+			kayttajaRepository.save(kayttaja1);
+
+			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma(kayttaja1, LocalDate.of(2024, 03, 15), null); 
+			myyntitapahtumaRepository.save(myyntitapahtuma1);
 		};
 	}
 
