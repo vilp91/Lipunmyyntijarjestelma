@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import ohjelmistoprojekti1.a3004.domain.Kayttaja;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
+import ohjelmistoprojekti1.a3004.domain.Rooli;
 
 //En tiedä tämän annotaation toimintoa täysin. -Ali
 @Component
@@ -22,6 +24,20 @@ public class Mapper {
     }
 
     public Myyntitapahtuma toMyyntitapahtuma(MyyntitapahtumaLuontiDTO myyntitapahtumaLuontiDTO) {
+        Kayttaja kayttaja = new Kayttaja();
+        kayttaja.setEtunimi(myyntitapahtumaLuontiDTO.getKayttaja().getEtunimi());
+        kayttaja.setSukunimi(myyntitapahtumaLuontiDTO.getKayttaja().getSukunimi());
+
+        Rooli rooli = new Rooli();
+        rooli.setRooli(myyntitapahtumaLuontiDTO.getKayttaja().getRooli().getRooli());
+
+        kayttaja.setRooli(rooli);
+        kayttaja.setPuhnro(myyntitapahtumaLuontiDTO.getKayttaja().getPuhnro());
+        kayttaja.setKatuosoite(myyntitapahtumaLuontiDTO.getKayttaja().getKatuosoite());
+
+        LocalDateTime aikaleima = myyntitapahtumaLuontiDTO.getAikaleima();
+        List<Lippu> liput = myyntitapahtumaLuontiDTO.getLiput();
+
         return new Myyntitapahtuma(myyntitapahtumaLuontiDTO.getKayttaja(), myyntitapahtumaLuontiDTO.getAikaleima(), myyntitapahtumaLuontiDTO.getLiput());
     }
 

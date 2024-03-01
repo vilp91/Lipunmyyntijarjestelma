@@ -9,8 +9,12 @@ import ohjelmistoprojekti1.a3004.domain.Lippu;
 public class MyyntitapahtumaLuontiDTO {
 
     private Kayttaja kayttaja;
+    private Long kayttaja_id;
     private LocalDateTime aikaleima = LocalDateTime.now();
     private List<Lippu> liput;
+
+    public MyyntitapahtumaLuontiDTO() {
+    }
 
     public MyyntitapahtumaLuontiDTO(Kayttaja kayttaja, List<Lippu> liput) {
         this.kayttaja = kayttaja;
@@ -29,6 +33,14 @@ public class MyyntitapahtumaLuontiDTO {
 
     public void setKayttaja(Kayttaja kayttaja) {
         this.kayttaja = kayttaja;
+    }
+
+    public Long getKayttaja_id() {
+        return kayttaja_id;
+    }
+
+    public void setKayttaja_id(Long kayttaja_id) {
+        this.kayttaja_id = kayttaja_id;
     }
 
     public LocalDateTime getAikaleima() {

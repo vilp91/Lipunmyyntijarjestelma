@@ -13,6 +13,12 @@ public class RestKayttajaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
+    private final KayttajaService kayttajaService;
+
+    public RestKayttajaController(KayttajaService kayttajaService) {
+        this.kayttajaService = kayttajaService;
+    }
+
     @GetMapping("/kayttajat")
     public Iterable<Kayttaja> haeKayttajat() {
         return kayttajaRepository.findAll();
