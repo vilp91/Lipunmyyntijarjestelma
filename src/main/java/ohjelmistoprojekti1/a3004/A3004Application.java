@@ -29,7 +29,7 @@ public class A3004Application {
 			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", LocalDateTime.of(2024,03, 12, 17, 0), LocalDateTime.of(2024,03, 12, 23, 59), 667);
 			tapahtumaRepository.save(tapahtuma2);
 
-			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDateTime.of(2031, 12, 22, 0, 0),LocalDateTime.of(2031, 12, 22, 0, 0), 9999);
+			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDateTime.of(2031, 12, 22, 12, 30),LocalDateTime.of(2031, 12, 22, 14, 15), 9999);
 			tapahtumaRepository.save(tapahtuma3);
 
 			Tapahtuma tapahtuma4 = new Tapahtuma("Mysteeritapahtuma");
