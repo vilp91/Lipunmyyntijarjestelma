@@ -21,7 +21,7 @@ public class TapahtumanLipputyyppi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tapahtuman_lipputyyppi_id;
-    private float hinta;
+    private double hinta;
 
     @ManyToOne
     @JoinColumn(name = "tapahtuma_id")
@@ -39,11 +39,18 @@ public class TapahtumanLipputyyppi {
         super();
     }
 
-    public TapahtumanLipputyyppi(float hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, List<Lippu> liput) {
+    public TapahtumanLipputyyppi(double hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, List<Lippu> liput) {
         this.hinta = hinta;
         this.tapahtuma = tapahtuma;
         this.lipputyyppi = lipputyyppi;
         this.liput = liput;
+    }
+
+    public TapahtumanLipputyyppi(double hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi) {
+        this.hinta = hinta;
+        this.tapahtuma = tapahtuma;
+        this.lipputyyppi = lipputyyppi;
+        
     }
 
     public Long getTapahtuman_lipputyyppi_id() {
@@ -54,11 +61,11 @@ public class TapahtumanLipputyyppi {
         this.tapahtuman_lipputyyppi_id = tapahtuman_lipputyyppi_id;
     }
 
-    public float getHinta() {
+    public double getHinta() {
         return hinta;
     }
 
-    public void setHinta(float hinta) {
+    public void setHinta(double hinta) {
         this.hinta = hinta;
     }
 
