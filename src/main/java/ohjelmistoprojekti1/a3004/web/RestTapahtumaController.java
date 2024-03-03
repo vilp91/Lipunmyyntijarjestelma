@@ -46,8 +46,8 @@ public class RestTapahtumaController {
             return ResponseEntity.badRequest().build();
         }
         // jos tapahtumalle on annettu nimi, palautetaan 200 - ok
-        Tapahtuma tallennettuTapahtuma = tapahtumaRepository.save(uusiTapahtuma);
-        return ResponseEntity.ok(tallennettuTapahtuma);
+        tapahtumaRepository.save(uusiTapahtuma);
+        return ResponseEntity.ok(uusiTapahtuma);
     }
 
     @PutMapping("/tapahtumat/{id}")

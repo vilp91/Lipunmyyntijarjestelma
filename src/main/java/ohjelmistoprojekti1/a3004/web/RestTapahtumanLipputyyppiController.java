@@ -29,6 +29,8 @@ public class RestTapahtumanLipputyyppiController {
         return tapahtumanLipputyyppiRepository.findAll();
     }
 
+    // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
+
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<?> luoTapahtumanLipputyyppi(@RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         // tarkistetaan, onko tietokannassa pyyntöä vastaava tapahtuma
