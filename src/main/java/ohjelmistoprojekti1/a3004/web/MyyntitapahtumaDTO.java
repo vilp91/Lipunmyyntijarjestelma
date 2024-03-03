@@ -3,23 +3,21 @@ package ohjelmistoprojekti1.a3004.web;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import ohjelmistoprojekti1.a3004.domain.Lippu;
 
 public class MyyntitapahtumaDTO {
 
     private Long id;
-    private String kayttaja;
-    private String kayttajaRooli;
-    private List<Lippu> liput;
-    private LocalDateTime aikaleima;
+    private float summa;
+    private LocalDateTime aika;
+    private List<LippuDTO> liput;
+    
+    public MyyntitapahtumaDTO() {
+    }
 
-    public MyyntitapahtumaDTO(Long id, String kayttaja, String kayttajaRooli, List<Lippu> liput,
-            LocalDateTime aikaleima) {
-        this.id = id;
-        this.kayttaja = kayttaja;
-        this.kayttajaRooli = kayttajaRooli;
+    public MyyntitapahtumaDTO(float summa, LocalDateTime aika, List<LippuDTO> liput) {
+        this.summa = summa;
+        this.aika = aika;
         this.liput = liput;
-        this.aikaleima = aikaleima;
     }
 
     public Long getId() {
@@ -30,42 +28,33 @@ public class MyyntitapahtumaDTO {
         this.id = id;
     }
 
-    public String getKayttaja() {
-        return kayttaja;
+    public float getSumma() {
+        return summa;
     }
 
-    public void setKayttaja(String kayttaja) {
-        this.kayttaja = kayttaja;
+    public void setSumma(float summa) {
+        this.summa = summa;
     }
 
-    public String getKayttajaRooli() {
-        return kayttajaRooli;
+    public LocalDateTime getAika() {
+        return aika;
     }
 
-    public void setKayttajaRooli(String kayttajaRooli) {
-        this.kayttajaRooli = kayttajaRooli;
+    public void setAika(LocalDateTime aika) {
+        this.aika = aika;
     }
 
-    public List<Lippu> getLiput() {
+    public List<LippuDTO> getLiput() {
         return liput;
     }
 
-    public void setLiput(List<Lippu> liput) {
+    public void setLiput(List<LippuDTO> liput) {
         this.liput = liput;
-    }
-
-    public LocalDateTime getAikaleima() {
-        return aikaleima;
-    }
-
-    public void setAikaleima(LocalDateTime aikaleima) {
-        this.aikaleima = aikaleima;
     }
 
     @Override
     public String toString() {
-        return "MyyntitapahtumaDTO [id=" + id + ", kayttaja=" + kayttaja + ", kayttajaRooli=" + kayttajaRooli
-                + ", tapahtumaHetki=" + aikaleima + "]";
+        return "MyyntitapahtumaDTO [id=" + id + ", summa=" + summa + ", aika=" + aika + "]";
     }
 
 }

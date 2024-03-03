@@ -9,12 +9,18 @@ import org.springframework.context.annotation.Bean;
 
 import ohjelmistoprojekti1.a3004.domain.Kayttaja;
 import ohjelmistoprojekti1.a3004.domain.KayttajaRepository;
+import ohjelmistoprojekti1.a3004.domain.Lippu;
+import ohjelmistoprojekti1.a3004.domain.LippuRepository;
+import ohjelmistoprojekti1.a3004.domain.Lipputyyppi;
+import ohjelmistoprojekti1.a3004.domain.LipputyyppiRepository;
 import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
 import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.Rooli;
 import ohjelmistoprojekti1.a3004.domain.RooliRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @SpringBootApplication
 public class A3004Application {
@@ -25,7 +31,9 @@ public class A3004Application {
 
 	// lisätään demo data
 	@Bean
-	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository) {
+	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, LipputyyppiRepository lipputyyppiRepository,
+	TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
+	KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository) {
 		// LocalDateTime nyt = LocalDateTime.now();
 
 		return(args) -> {
@@ -44,17 +52,42 @@ public class A3004Application {
 			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,02, 22, 18, 0), LocalDateTime.of(2024, 02, 22, 21, 0), 9999);
 			tapahtumaRepository.save(tapahtuma5);
 
-			Rooli rooli1 = new Rooli("Admin");
+			Lipputyyppi lipputyyppi1 = new Lipputyyppi("perus");
+			Lipputyyppi lipputyyppi2 = new Lipputyyppi("lapsi");
+			lipputyyppiRepository.save(lipputyyppi1);
+			lipputyyppiRepository.save(lipputyyppi2);
+
+			TapahtumanLipputyyppi tapahtumanLipputyyppi1 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi1.setHinta(10);
+			tapahtumanLipputyyppi1.setTapahtuma(tapahtuma1);
+			tapahtumanLipputyyppi1.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi1);
+
+			Rooli rooli1 = new Rooli();
+			rooli1.setRooli("myyjä");
 			rooliRepository.save(rooli1);
 
-			Rooli rooli2 = new Rooli("Myyjä");
-			rooliRepository.save(rooli2);
-
-			Kayttaja kayttaja1 = new Kayttaja(rooli2, null, "Matti", "Mattinen", "0700123123", "Matinkuja 420, Matinkylä");
+			Kayttaja kayttaja1 = new Kayttaja();
+			kayttaja1.setEtunimi("Teppo");
+			kayttaja1.setSukunimi("Testaaja");
+			kayttaja1.setRooli(rooli1);
 			kayttajaRepository.save(kayttaja1);
 
-			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma(kayttaja1, LocalDateTime.of(2024, 03, 15, 12, 30), null);
+			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
+			myyntitapahtuma1.setKayttaja(kayttaja1);
 			myyntitapahtumaRepository.save(myyntitapahtuma1);
+
+			Lippu lippu1 = new Lippu();
+			lippu1.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi1);
+			lippu1.setHinta(tapahtumanLipputyyppi1.getHinta());
+			lippu1.setMyyntitapahtuma(myyntitapahtuma1);
+			lippuRepository.save(lippu1);
+
+			Lippu lippu2 = new Lippu();
+			lippu2.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi1);
+			lippu2.setHinta(tapahtumanLipputyyppi1.getHinta());
+			lippu2.setMyyntitapahtuma(myyntitapahtuma1);
+			lippuRepository.save(lippu2);
 		};
 	}
 
