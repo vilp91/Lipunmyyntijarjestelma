@@ -56,6 +56,7 @@ public class A3004Application {
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma(kayttaja1, LocalDate.of(2024, 03, 15), null); 
 			myyntitapahtumaRepository.save(myyntitapahtuma1);
+
 		};
 	}
 
