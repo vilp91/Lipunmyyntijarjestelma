@@ -12,6 +12,8 @@ import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
 import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @RestController
 public class RestMyyntitapahtumaController {
@@ -20,6 +22,8 @@ public class RestMyyntitapahtumaController {
     MyyntitapahtumaRepository myyntitapahtumaRepository;
     @Autowired
     LippuRepository lippuRepository;
+    @Autowired
+    TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
 
     @GetMapping("/myyntitapahtumat")
     public Iterable<Myyntitapahtuma> haeMyyntitapahtumat() {
@@ -41,13 +45,21 @@ public class RestMyyntitapahtumaController {
         // luo listan lippujen DTO-versioille
         List<LippuDTO> lippuDTOLista = new ArrayList<>();
         // lisää listaan lippujen DTO-versiot (tosin vajailla tiedoilla..)
+        float summa = 0;
         for (Lippu lippu : liput) {
             LippuDTO lippuDTO = new LippuDTO();
+            // id:n lisäys
             lippuDTO.setId(lippu.getLippu_id());
+            // lipputyypin lisäys
+            lippuDTO.setTyyppi(lippu.getTapahtuman_lipputyyppi().getLipputyyppi().getTyyppi());
+            lippuDTO.setTapahtuma(lippu.getTapahtuman_lipputyyppi().getTapahtuma().getTapahtuman_nimi());
+            lippuDTO.setHinta(lippu.getHinta());
+            summa += lippu.getHinta();
             lippuDTOLista.add(lippuDTO);
         }
         // asettaa listan myyntitapahtuman DTO-versioon
         myyntitapahtumaDTO.setLiput(lippuDTOLista);
+        myyntitapahtumaDTO.setSumma(summa);
         return myyntitapahtumaDTO;
     }
 }
