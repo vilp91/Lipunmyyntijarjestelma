@@ -1,10 +1,8 @@
 package ohjelmistoprojekti1.a3004.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 
@@ -20,9 +18,9 @@ public class RestLippuController {
     }
 
     @PostMapping("/lippu")
-    public ResponseEntity<Lippu> createLippu(@RequestBody Lippu lippu) {
-        Lippu newLippu = lippuRepository.save(lippu);
-        return new ResponseEntity<>(newLippu, HttpStatus.CREATED);
-    }
+    public ResponseEntity<Lippu> uusiLippu(@RequestBody Lippu uusiLippu) {
+        Lippu tallennettuLippu = lippuRepository.save(uusiLippu);
+        return ResponseEntity.ok(tallennettuLippu);
+    } 
 
 }

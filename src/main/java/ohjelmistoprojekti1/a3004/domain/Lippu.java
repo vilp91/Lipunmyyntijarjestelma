@@ -24,7 +24,7 @@ public class Lippu {
     @JoinColumn(name = "myyntitapahtuma_id")
     private Myyntitapahtuma myyntitapahtuma;
 
-    private float hinta;
+    private double hinta;
 
     @ManyToOne
     @JoinColumn(name = "lipputyyppi_id")
@@ -39,7 +39,7 @@ public class Lippu {
     }
 
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
-    public Lippu(TapahtumanLipputyyppi tapahtuman_lipputyyppi, Myyntitapahtuma myyntitapahtuma, float hinta) {
+    public Lippu(TapahtumanLipputyyppi tapahtuman_lipputyyppi, Myyntitapahtuma myyntitapahtuma, double hinta) {
         this.tapahtuman_lipputyyppi = tapahtuman_lipputyyppi;
         this.myyntitapahtuma = myyntitapahtuma;
         this.hinta = hinta;
@@ -69,11 +69,11 @@ public class Lippu {
         this.myyntitapahtuma = myyntitapahtuma;
     }
 
-    public float getHinta() {
+    public double getHinta() {
         return hinta;
     }
 
-    public void setHinta(float hinta) {
+    public void setHinta(double hinta) {
         this.hinta = hinta;
     }
 

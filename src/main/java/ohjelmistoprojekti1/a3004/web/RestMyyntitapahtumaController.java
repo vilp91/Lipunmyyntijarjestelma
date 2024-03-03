@@ -1,7 +1,6 @@
 package ohjelmistoprojekti1.a3004.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +21,9 @@ public class RestMyyntitapahtumaController {
         return myyntitapahtumaRepository.findAll();
     }
 
-     @PostMapping("/myyntitapahtuma")
-    public ResponseEntity<Myyntitapahtuma> createMyyntitapahtuma(@RequestBody Myyntitapahtuma myyntitapahtuma) {
-        try {
-            Myyntitapahtuma newMyyntitapahtuma = myyntitapahtumaRepository.save(myyntitapahtuma);
-            return new ResponseEntity<>(newMyyntitapahtuma, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    @PostMapping("/myyntitapahtumat")
+    public ResponseEntity<Myyntitapahtuma> uusiMyyntitapahtuma(@RequestBody Myyntitapahtuma uusiMyyntitapahtuma) {
+        Myyntitapahtuma tallennettuMyyntitapahtuma = myyntitapahtumaRepository.save(uusiMyyntitapahtuma);
+        return ResponseEntity.ok(tallennettuMyyntitapahtuma);
+    } 
 }

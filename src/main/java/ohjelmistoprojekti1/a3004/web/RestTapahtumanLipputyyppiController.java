@@ -1,10 +1,8 @@
 package ohjelmistoprojekti1.a3004.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
@@ -20,10 +18,9 @@ public class RestTapahtumanLipputyyppiController {
     }
 
     @PostMapping("/tapahtumanlipputyypit")
-    public ResponseEntity<TapahtumanLipputyyppi> createTapahtumanLipputyyppi(@RequestBody TapahtumanLipputyyppi tapahtumanlipputyyppi) {
-        TapahtumanLipputyyppi newTapahtumanlipputyyppi = tapahtumanlipputyyppiRepository.save(tapahtumanlipputyyppi);
-        return ResponseEntity.ok(newTapahtumanlipputyyppi);
-    }
-
+    public ResponseEntity<TapahtumanLipputyyppi> uusiTapahtumanLipputyyppi(@RequestBody TapahtumanLipputyyppi uusiTapahtumanLipputyyppi) {
+        TapahtumanLipputyyppi tallennettuTapahtumanlipputyyppi = tapahtumanlipputyyppiRepository.save(uusiTapahtumanLipputyyppi);
+        return ResponseEntity.ok(tallennettuTapahtumanlipputyyppi);
+    } 
     
 }
