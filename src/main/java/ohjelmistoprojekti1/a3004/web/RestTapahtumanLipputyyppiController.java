@@ -22,7 +22,7 @@ public class RestTapahtumanLipputyyppiController {
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<TapahtumanLipputyyppi> createTapahtumanLipputyyppi(@RequestBody TapahtumanLipputyyppi tapahtumanlipputyyppi) {
         TapahtumanLipputyyppi newTapahtumanlipputyyppi = tapahtumanlipputyyppiRepository.save(tapahtumanlipputyyppi);
-        return new ResponseEntity<>(newTapahtumanlipputyyppi, HttpStatus.CREATED);
+        return ResponseEntity.ok(newTapahtumanlipputyyppi);
     }
 
     
