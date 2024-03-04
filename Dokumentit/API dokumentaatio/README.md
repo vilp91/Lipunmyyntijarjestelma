@@ -20,9 +20,15 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae yksittäinen myyntitapahtuma](</Dokumentit/API%20dokumentaatio/Myyntitapahtumat/get(id).md>): `GET /myyntitapahtumat/{id}`
 
+[Tallenna myyntitapahtuma](/Dokumentit/API%20dokumentaatio/Myyntitapahtumat/post.md): `POST /myyntitapahtumat`
+
+
 ## Lipputyypit
 
 [Näytä lipputyypit](/Dokumentit/API%20dokumentaatio/Lipputyypit/get.md): `GET /lipputyypit`
+
+[Poista lipputyyppi](/Dokumentit/API%20dokumentaatio/Lipputyypit/delete.md): `DELETE /lipputyypit/{id}`
+
 
 ## Liput
 
