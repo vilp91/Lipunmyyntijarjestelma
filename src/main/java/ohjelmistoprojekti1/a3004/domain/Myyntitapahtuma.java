@@ -1,6 +1,6 @@
 package ohjelmistoprojekti1.a3004.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +27,7 @@ public class Myyntitapahtuma {
     @JoinColumn(name = "kayttaja_id")
     private Kayttaja kayttaja;
 
-    private LocalDate pvm = LocalDate.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
+    private LocalDateTime aikaleima = LocalDateTime.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")     // en ole varma cascadetypestä.. ymmärtäiskö joku enemmän?
     @JsonIgnore                                                   // tarkoittaa kai sitä että jos esim. poistaa myyntitapahtuman niin se poistaa myös sen myyntitapahtumarivin                                              
@@ -37,9 +37,9 @@ public class Myyntitapahtuma {
         super();
     }
 
-    public Myyntitapahtuma(Kayttaja kayttaja, LocalDate pvm, List<Lippu> liput) {
+    public Myyntitapahtuma(Kayttaja kayttaja, LocalDateTime pvm, List<Lippu> liput) {
         this.kayttaja = kayttaja;
-        this.pvm = pvm;
+        this.aikaleima = pvm;
         this.liput = liput;
     }
 
@@ -59,12 +59,12 @@ public class Myyntitapahtuma {
         this.kayttaja = kayttaja;
     }
 
-    public LocalDate getPvm() {
-        return pvm;
+    public LocalDateTime getAikaleima() {
+        return aikaleima;
     }
 
-    public void setPvm(LocalDate pvm) {
-        this.pvm = pvm;
+    public void setAikaleima(LocalDateTime pvm) {
+        this.aikaleima = pvm;
     }
 
     public List<Lippu> getLiput() {
@@ -77,7 +77,7 @@ public class Myyntitapahtuma {
 
     @Override
     public String toString() {
-        return "Myyntitapahtuma [myyntitapahtuma_id=" + myyntitapahtuma_id + ", kayttaja=" + kayttaja + ", pvm=" + pvm
+        return "Myyntitapahtuma [myyntitapahtuma_id=" + myyntitapahtuma_id + ", kayttaja=" + kayttaja + ", pvm=" + aikaleima
                 + ", liput=" + liput + "]";
     }
 
