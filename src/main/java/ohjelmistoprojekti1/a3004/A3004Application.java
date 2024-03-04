@@ -64,6 +64,12 @@ public class A3004Application {
 			tapahtumanLipputyyppi1.setLipputyyppi(lipputyyppi1);
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi1);
 
+			TapahtumanLipputyyppi tapahtumanLipputyyppi2 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi2.setHinta(10);
+			tapahtumanLipputyyppi2.setTapahtuma(tapahtuma2);
+			tapahtumanLipputyyppi2.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
+
 			Rooli rooli1 = new Rooli();
 			rooli1.setRooli("myyjä");
 			rooliRepository.save(rooli1);
@@ -78,6 +84,10 @@ public class A3004Application {
 			myyntitapahtuma1.setKayttaja(kayttaja1);
 			myyntitapahtumaRepository.save(myyntitapahtuma1);
 
+			Myyntitapahtuma myyntitapahtuma2 = new Myyntitapahtuma();
+			myyntitapahtuma1.setKayttaja(kayttaja1);
+			myyntitapahtumaRepository.save(myyntitapahtuma2);
+
 			Lippu lippu1 = new Lippu();
 			lippu1.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi1);
 			lippu1.setHinta(tapahtumanLipputyyppi1.getHinta());
@@ -89,6 +99,12 @@ public class A3004Application {
 			lippu2.setHinta(tapahtumanLipputyyppi1.getHinta());
 			lippu2.setMyyntitapahtuma(myyntitapahtuma1);
 			lippuRepository.save(lippu2);
+
+			Lippu lippu3 = new Lippu();
+			lippu3.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi2);
+			lippu3.setHinta(tapahtumanLipputyyppi1.getHinta());
+			lippu3.setMyyntitapahtuma(myyntitapahtuma2);
+			lippuRepository.save(lippu3);
 		};
 	}
 

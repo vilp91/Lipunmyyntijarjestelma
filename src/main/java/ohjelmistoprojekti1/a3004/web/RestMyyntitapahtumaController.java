@@ -27,9 +27,23 @@ public class RestMyyntitapahtumaController {
     TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
 
     @GetMapping("/myyntitapahtumat")
-    public Iterable<Myyntitapahtuma> haeMyyntitapahtumat() {
-        return myyntitapahtumaRepository.findAll();
+    public List<MyyntitapahtumaDTO> haeKaikkiMyyntitapahtumat() {
+    // hakee kaikki myyntitapahtumat
+    Iterable<Myyntitapahtuma> myyntitapahtumat = myyntitapahtumaRepository.findAll();
+    List<MyyntitapahtumaDTO> myyntitapahtumaDTOLista = new ArrayList<>();
+
+    // käy läpi haetut myyntitapahtumat
+    for (Myyntitapahtuma myyntitapahtuma : myyntitapahtumat) {
+        // muutetaan myyntitapahtumat DTO versioiksi
+        MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
+        myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
+        // lisätään MyyntitapahtumaDTO listaan
+        myyntitapahtumaDTOLista.add(myyntitapahtumaDTO);
     }
+
+        return myyntitapahtumaDTOLista;
+    }
+
 
     @GetMapping("/myyntitapahtumat/{id}")
     public MyyntitapahtumaDTO haeMyyntitapahtuma(@PathVariable("id") Long id) {
