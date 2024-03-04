@@ -6,7 +6,7 @@ __URL__: `/tapahtumat/{id}`
 
 __METODI__: `DELETE`
 
-__Onnistuneen deleten vastauskooodi__: `200 OK`
+__Onnistuneen deleten vastauskoodi__: `200 OK`
 
 __Esimerkkejä poistettavista tietueista__:
 
