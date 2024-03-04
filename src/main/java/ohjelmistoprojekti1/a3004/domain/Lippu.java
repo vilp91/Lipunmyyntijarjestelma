@@ -26,17 +26,6 @@ public class Lippu {
 
     private float hinta;
 
-    //Onko tämä vanha ja tarpeeton? -Ali
-    // on :) -Satu
-    // @ManyToOne
-    // @JoinColumn(name = "lipputyyppi_id")
-    // private Lipputyyppi lipputyyppi;
-
-    //Onko tämä vanha ja tarpeeton? -Ali
-    // @ManyToOne
-    // @JoinColumn(name = "tapahtuma_id")
-    // private Tapahtuma tapahtuma; 
-
     //Parametriton konstruktori
     public Lippu() {
     }

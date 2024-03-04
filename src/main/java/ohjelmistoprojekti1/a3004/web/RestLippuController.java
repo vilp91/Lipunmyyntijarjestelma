@@ -19,9 +19,4 @@ public class RestLippuController {
         return lippuRepository.findAll();
     }
 
-    // @PostMapping("/liput")
-    // public Lippu luoLippu() {
-
-    // }
-
 }

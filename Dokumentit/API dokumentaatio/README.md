@@ -6,6 +6,8 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Näytä tapahtumat](/Dokumentit/API%20dokumentaatio/Tapahtumat/get.md): `GET /tapahtumat`
 
+[Näytä tulevat tapahtumat](/Dokumentit/API%20dokumentaatio/Tapahtumat/get-tulevat.md): `GET /tapahtumat/tulevat`
+
 [Tallenna tapahtuma](/Dokumentit/API%20dokumentaatio/Tapahtumat/post.md): `POST /tapahtumat`
 
 [Muokkaa tapahtumaa](/Dokumentit/API%20dokumentaatio/Tapahtumat/put.md): `PUT /tapahtumat/{id}`
@@ -14,10 +16,20 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 ## Myyntitapahtumat
 
-[Näytä kaikki myyntitapahtumat](/Dokumentit/API%20dokumentaatio/Myyntitapahtumat/get.md): `GET /myyntitapahtumat`
+[Näytä myyntitapahtumat](/Dokumentit/API%20dokumentaatio/Myyntitapahtumat/get.md): `GET /myyntitapahtumat`
 
 [Hae yksittäinen myyntitapahtuma](</Dokumentit/API%20dokumentaatio/Myyntitapahtumat/get(id).md>): `GET /myyntitapahtumat/{id}`
 
+[Tallenna myyntitapahtuma](/Dokumentit/API%20dokumentaatio/Myyntitapahtumat/post.md): `POST /myyntitapahtumat`
+
+
 ## Lipputyypit
 
+[Näytä lipputyypit](/Dokumentit/API%20dokumentaatio/Lipputyypit/get.md): `GET /lipputyypit`
+
+[Poista lipputyyppi](/Dokumentit/API%20dokumentaatio/Lipputyypit/delete.md): `DELETE /lipputyypit/{id}`
+
+
 ## Liput
+
+<!-- [Näytä kaikki liput](/Dokumentit/API%20dokumentaatio/Liput/get.md) `GET /liput` -->
