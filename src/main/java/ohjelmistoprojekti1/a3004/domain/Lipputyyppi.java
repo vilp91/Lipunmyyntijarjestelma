@@ -2,6 +2,8 @@ package ohjelmistoprojekti1.a3004.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,10 +23,15 @@ public class Lipputyyppi {
     private String tyyppi;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
+    @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
 
     //Parametriton konstruktori
     public Lipputyyppi() {
+    }
+
+    public Lipputyyppi(String tyyppi) {
+        this.tyyppi = tyyppi;
     }
 
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
