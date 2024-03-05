@@ -32,7 +32,9 @@ public class A3004Application {
 
 	// lisätään demo data
 	@Bean
-	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository, LipputyyppiRepository lipputyyppiRepository, TapahtumanLipputyyppiRepository tapahtumanlipputyyppiRepository, LippuRepository lippuRepository) {
+	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, LipputyyppiRepository lipputyyppiRepository,
+	TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
+	KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository) {
 		// LocalDateTime nyt = LocalDateTime.now();
 
 		return(args) -> {
@@ -51,36 +53,58 @@ public class A3004Application {
 			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,02, 22, 18, 0), LocalDateTime.of(2024, 02, 22, 21, 0), 9999);
 			tapahtumaRepository.save(tapahtuma5);
 
-			Lipputyyppi lipputyyppi1 = new Lipputyyppi("Aikuinen", null);
+			Lipputyyppi lipputyyppi1 = new Lipputyyppi("perus");
+			Lipputyyppi lipputyyppi2 = new Lipputyyppi("lapsi");
 			lipputyyppiRepository.save(lipputyyppi1);
-
-			Lipputyyppi lipputyyppi2 = new Lipputyyppi("Lapsi", null);
 			lipputyyppiRepository.save(lipputyyppi2);
 
-			Lipputyyppi lipputyyppi3 = new Lipputyyppi("Opiskelija", null);
-			lipputyyppiRepository.save(lipputyyppi3);
+			TapahtumanLipputyyppi tapahtumanLipputyyppi1 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi1.setHinta(10);
+			tapahtumanLipputyyppi1.setTapahtuma(tapahtuma1);
+			tapahtumanLipputyyppi1.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi1);
 
-			Lipputyyppi lipputyyppi4 = new Lipputyyppi("Eläkeläinen", null);
-			lipputyyppiRepository.save(lipputyyppi4);
+			TapahtumanLipputyyppi tapahtumanLipputyyppi2 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi2.setHinta(10);
+			tapahtumanLipputyyppi2.setTapahtuma(tapahtuma2);
+			tapahtumanLipputyyppi2.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
-			TapahtumanLipputyyppi tapahtumanLipputyyppi1 = new TapahtumanLipputyyppi(25.0, tapahtuma1, lipputyyppi1);
-			tapahtumanlipputyyppiRepository.save(tapahtumanLipputyyppi1);
-
-			Lippu lippu1 = new Lippu(tapahtumanLipputyyppi1, null, 25.0 );
-			lippuRepository.save(lippu1);
-
-			Rooli rooli1 = new Rooli("Admin", null);
+			Rooli rooli1 = new Rooli();
+			rooli1.setRooli("myyjä");
 			rooliRepository.save(rooli1);
 
-			Rooli rooli2 = new Rooli("Myyjä", null);
-			rooliRepository.save(rooli2);
-
-			Kayttaja kayttaja1 = new Kayttaja(rooli2, null, "Matti", "Mattinen", "0700123123", "Matinkuja 420, Matinkylä");
+			Kayttaja kayttaja1 = new Kayttaja();
+			kayttaja1.setEtunimi("Teppo");
+			kayttaja1.setSukunimi("Testaaja");
+			kayttaja1.setRooli(rooli1);
 			kayttajaRepository.save(kayttaja1);
 
-			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma(kayttaja1, LocalDate.of(2024, 03, 15), null); 
+			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
+			myyntitapahtuma1.setKayttaja(kayttaja1);
 			myyntitapahtumaRepository.save(myyntitapahtuma1);
 
+			Myyntitapahtuma myyntitapahtuma2 = new Myyntitapahtuma();
+			myyntitapahtuma1.setKayttaja(kayttaja1);
+			myyntitapahtumaRepository.save(myyntitapahtuma2);
+
+			Lippu lippu1 = new Lippu();
+			lippu1.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi1);
+			lippu1.setHinta(tapahtumanLipputyyppi1.getHinta());
+			lippu1.setMyyntitapahtuma(myyntitapahtuma1);
+			lippuRepository.save(lippu1);
+
+			Lippu lippu2 = new Lippu();
+			lippu2.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi1);
+			lippu2.setHinta(tapahtumanLipputyyppi1.getHinta());
+			lippu2.setMyyntitapahtuma(myyntitapahtuma1);
+			lippuRepository.save(lippu2);
+
+			Lippu lippu3 = new Lippu();
+			lippu3.setTapahtuman_lipputyyppi(tapahtumanLipputyyppi2);
+			lippu3.setHinta(tapahtumanLipputyyppi1.getHinta());
+			lippu3.setMyyntitapahtuma(myyntitapahtuma2);
+			lippuRepository.save(lippu3);
 		};
 	}
 

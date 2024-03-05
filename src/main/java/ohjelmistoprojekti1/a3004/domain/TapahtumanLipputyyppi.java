@@ -38,6 +38,12 @@ public class TapahtumanLipputyyppi {
     public TapahtumanLipputyyppi() {
         super();
     }
+    
+    public TapahtumanLipputyyppi(float hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi) {
+        this.hinta = hinta;
+        this.tapahtuma = tapahtuma;
+        this.lipputyyppi = lipputyyppi;
+    }
 
     public TapahtumanLipputyyppi(double hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, List<Lippu> liput) {
         this.hinta = hinta;
