@@ -1,80 +1,85 @@
-# *TicketGuru*
+# _TicketGuru_
 
 Tiimi: Satu Kulta, Ville Pajukangas, Ali Romar, Tuukka Teilas
 
-## *Johdanto*
+## _Johdanto_
 
 TicketGuru on lipunmyyntijärjestelmä, jonka tilaajana toimii lipputoimisto. Järjestelmä mahdollistaa lipunmyynnin myyntipisteessä, jossa lipppupisteen myyjä voi myydä ja tulostaa liput asiakkaille. Järjestelmän avulla toimisto voi määritellä myytävät tapahtumat ja hallita sekä seurata lippujen myyntiä. Alustavasti järjestelmä tarjoaa lippujen myynnin myyntipisteessä, ja ennakkomyynnin päättyessä loput liput tulostetaan myytäväksi ovella. Tulostettavassa lipussa on skannattava tarkastuskoodi, joka helpottaa lippujen tarkastusta ovella.
 
-*Asiakas* on lipputoimisto, ja järjestelmän tarkoitus on vastata heidän tarpeisiinsa lipunmyynnissä ja tapahtumien hallinnassa. Jatkokehityksen suunnitelmissa on verkkokauppa, josta lipputoimiston asiakkaat voivat itse ostaa lippuja.
+_Asiakas_ on lipputoimisto, ja järjestelmän tarkoitus on vastata heidän tarpeisiinsa lipunmyynnissä ja tapahtumien hallinnassa. Jatkokehityksen suunnitelmissa on verkkokauppa, josta lipputoimiston asiakkaat voivat itse ostaa lippuja.
 
 Järjestelmän palvelinpuolen toiminnot toteutetaan Javalla Spring Boot -kehystä käyttäen. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MariaDb:tä.
 
-Käyttöliittymä on selainpohjainen React-sovellus, joka tarjoaa nykyaikaisen ja responsiivisen käyttökokemuksen. 
+Käyttöliittymä on selainpohjainen React-sovellus, joka tarjoaa nykyaikaisen ja responsiivisen käyttökokemuksen.
 
-## *Järjestelmän määrittely*
+## _Järjestelmän määrittely_
 
-*Määrittelyssä järjestelmää tarkastellaan käyttäjän näkökulmasta. Järjestelmän
+_Määrittelyssä järjestelmää tarkastellaan käyttäjän näkökulmasta. Järjestelmän
 toiminnot hahmotellaan käyttötapausten tai käyttäjätarinoiden kautta, ja kuvataan järjestelmän
-käyttäjäryhmät.*
+käyttäjäryhmät._
 
 ### Käyttäjäryhmät
-*-   Lyhyt kuvaus käyttäjäryhmistä (rooleista)*
+
+_- Lyhyt kuvaus käyttäjäryhmistä (rooleista)_
 
 - Lippupisteen myyjä
-    - Fyysisessä lipunmyyntipisteessä työskentelevä henkilö, joka käyttää lipunmyyntijärjestelmän myyntipuolta etäyhteydellä erillisen päätelaitteen avulla.
+
+  - Fyysisessä lipunmyyntipisteessä työskentelevä henkilö, joka käyttää lipunmyyntijärjestelmän myyntipuolta etäyhteydellä erillisen päätelaitteen avulla.
 
 - Tapahtumien hallinnoija/"toimisto"
-    - Yrityksen sisäinen, toimistolla tai etänä työskentelevä käyttäjä, joka pystyy luomaan lipunmyyntijärjestelmään uusia tapahtumia ja määrittelemään niiden tiedot.
+
+  - Yrityksen sisäinen, toimistolla tai etänä työskentelevä käyttäjä, joka pystyy luomaan lipunmyyntijärjestelmään uusia tapahtumia ja määrittelemään niiden tiedot.
 
 - Järjestelmän ylläpitäjä
-    - Yrityksen sisäinen tai ulkopuolinen henkilö, joka ylläpitää järjestelmän toimivuutta ja mahdollisesti päivittää sitä.
+  - Yrityksen sisäinen tai ulkopuolinen henkilö, joka ylläpitää järjestelmän toimivuutta ja mahdollisesti päivittää sitä.
 
 **Tämä rooli on luotu jatkokehitystä ajatellen, jos/kun järjestelmään lisätään verkkokauppa.**
+
 - **Verkkokauppa asiakas**
-    - **Yrityksen ulkopuolinen henkilö, joka haluaa ostaa lipun tai lippuja yhteen tai useampaan tapahtumaan verkkokaupan kautta.**
+  - **Yrityksen ulkopuolinen henkilö, joka haluaa ostaa lipun tai lippuja yhteen tai useampaan tapahtumaan verkkokaupan kautta.**
 
 **Tämä rooli on luotu jatkokehitystä ajatellen, jos/kun järjestelmään lisätään verkkokauppa.**
 
+### _Käyttötapauskaavio_
 
+- _Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
+  (use case diagram) tai käyttäjätarinoina._
 
+![Käyttötapauskaavio](/Dokumentit/Kaaviot//käyttötapauskaavio.png "Käyttötapauskaavio")
 
-### *Käyttötapauskaavio*
--   *Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
-    (use case diagram) tai käyttäjätarinoina.*
+### _Käyttötapauskuvaukset_
 
-![Käyttötapauskaavio](käyttötapauskaavio.png "Käyttötapauskaavio")
+- _Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat_
 
-### *Käyttötapauskuvaukset*
--   *Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat*
+### _Käyttäjätarinat_
 
-### *Käyttäjätarinat*
+_Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
+tietoa ja keskittyä siihen._
 
-*Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
-tietoa ja keskittyä siihen.*
+## _Käyttöliittymä_
 
-## *Käyttöliittymä*
+![Käyttöliittymäkaavio](/Dokumentit/Kaaviot/käyttöliittymäkaavio.png "käyttöliittymäkaavio")
 
-![Käyttöliittymäkaavio](käyttöliittymäkaavio.png "käyttöliittymäkaavio")
+Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse navipalkki vielä tästä versiosta puuttuu kokonaan. Se tullaa lisäämään projektin edetessä. Kaaviosta löytyvien kuvien perusteella kaikille applikaation sivuille on pääsy paitsi lippujen myynti sivuille. Tämä hoidettaisiin juurikin edellä mainitulla yläpalkilla.
 
-Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse navipalkki vielä tästä versiosta puuttuu kokonaan. Se tullaa lisäämään projektin edetessä. Kaaviosta löytyvien kuvien perusteella kaikille applikaation sivuille on pääsy paitsi lippujen myynti sivuille. Tämä hoidettaisiin juurikin edellä mainitulla yläpalkilla. 
+## _Tietokanta_
 
-## *Tietokanta*
-
-![Tietokantakaavio](tietokantakaavio.png "tietokantakaavio")
+![Tietokantakaavio](/Dokumentit/Kaaviot/tietokantakaavio.png "tietokantakaavio")
 
 > ### _Tapahtuma_
+>
 > _Tapahtuma-taulu sisältää tapahtumat. Tapahtumaan voi olla monta lippua. Tapahtuma kuuluu aina vain yhdelle tapahtumajärjestäjälle ja tapahtumalla on oltava postinumero._
 >
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> tapahtuma_id | int PK | tapahtuman id
-> tapahtuman_nimi | varchar(100) | tapahtuman nimi
-> paikka | varchar(100) | tapahtumapaikka
-> katuosoite | varchar(100) | tapahtumapaikan katuosoite
-> alku | date | tapahtuman alkuaika
-> loppu | date | tapahtuman loppuaika
-> lippu_lkm | int | tapahtumaan myytävien lippujen lukumäärä
+> | Kenttä          | Tyyppi       | Kuvaus                                   |
+> | --------------- | ------------ | ---------------------------------------- |
+> | tapahtuma_id    | int PK       | tapahtuman id                            |
+> | tapahtuman_nimi | varchar(100) | tapahtuman nimi                          |
+> | paikka          | varchar(100) | tapahtumapaikka                          |
+> | katuosoite      | varchar(100) | tapahtumapaikan katuosoite               |
+> | alku            | date         | tapahtuman alkuaika                      |
+> | loppu           | date         | tapahtuman loppuaika                     |
+> | lippu_lkm       | int          | tapahtumaan myytävien lippujen lukumäärä |
+
 <!-- > perushinta | float | tapahtuman lipun perushinta
 > jarjestaja_id | int FK |  tapahtuman järjestäjä, viittaus  [tapahtumajarjestaja](#tapahtumajarjestaja) -tauluun
 > postinumero_id | varchar (10) FK | tapahtuman postinumero, viittaus [postinumero](#Postinumero)-tauluun -->
@@ -118,6 +123,7 @@ Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse na
 > hinta | float | lipun hinta -->
 
 > ### _Lippu_
+>
 > _Lippu-taulu sisältää tapahtumiin myytävät liput. Lippu kuuluu aina yhteen myyntitapahtumaan ja sillä on aina yksi tapahtuman lipputyyppi._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
@@ -127,13 +133,15 @@ Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse na
 > hinta | float | lipun lopullinen hinta, mahdollisine alennuksineen
 
 > ### _Lipputyyppi_
+>
 > _Lipputyyppi-taulu sisältää lipputyypit. Lipputyyppi voi olla useassa lipussa._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > lipputyyppi_id | int PK | lipputyypin id
 > tyyppi | varchar(50) | lipputyypin nimi/kuvaus esim. lastenlippu, eläkeläislippu, jne.
 
-> ### _Tapahtuman\_lipputyyppi_
+> ### _Tapahtuman_lipputyyppi_
+>
 > _Tapahtuman_lipputyyppi-taulu sisältää tapahtumiin määritetyt lipputyypit. Tapahtuman lipputyyppi voi olla useassa lipussa. Sillä on aina yksi lipputyyppi ja se kuuluu yhteen tapahtumaan._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
@@ -174,13 +182,13 @@ Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse na
 > pvm_date | date | myyntitapahtuman tallennuspäivä -->
 
 > ### _Myyntitapahtuma_
+>
 > _Myyntitapahtuma-taulu sisältää lippujen myyntitapahtumat. Myyntitapahtumalla on aina yksi käyttäjä ja myyntitapahtumaan voi sisältyä useita lippuja._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > myyntitapahtuma_id | int PK |myyntitapahtuman id
 > kayttaja_id | int FK | myyntitapahtuman käyttäjätieto, viittaus [käyttäjä](#kayttaja)-tauluun
 > pvm_date | date | myyntitapahtuman tallennuspäivä
-
 
 <!-- > ### _Myyntitapahtumarivi_
 > _Myyntitapahtumarivi-taulu sisältää myyntitapahtuman yksittäiset rivit. Rivi kuuluu aina yhteen myyntitapahtumaan ja sisältää aina yhden lipun._
@@ -191,6 +199,7 @@ Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse na
 > myyntitapahtuma_id | int FK | myyntitapahtuma, johon rivi liittyy, viittaus [myyntitapahtuma](#myyntitapahtuma)-tauluun -->
 
 > ### _Kayttaja_
+>
 > _Käyttäjä-taulu sisältää järjestelmän käyttäjät. Käyttäjällä on aina postinumero ja rooli ja käyttäjä voi liittyä useaan myyntitapahtumaan._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
@@ -200,65 +209,66 @@ Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse na
 > sukunimi | varchar(50) | käyttäjän sukunimi
 > puhnro | varchar(20) | käyttäjän puhelinnumero
 > katuosoite | varchar(100) | käyttäjän katuosoite
+
 <!-- > postinumero_id | varchar(50) FK | käyttäjän postinumero, viittaus [postinumero](#postinumero)-tauluun -->
 
 > ### _Rooli_
+>
 > _Rooli-taulu sisältää käyttäjien roolit. Rooli voi liittyä useaan käyttäjään._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > rooli_id | int PK | käyttäjän id
 > rooli | varchar(50) | roolin nimi/kuvaus
 
+## _Tekninen kuvaus_
 
-## *Tekninen kuvaus*
+_Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
+ratkaisut, esim._
 
-*Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
-ratkaisut, esim.*
+- _Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
+  ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
+  https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)_
+- _Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms._
+- _Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
+  UML-sekvenssikaavioilla._
+- _Toteutuksen yleisiä ratkaisuja, esim. turvallisuus._
 
--   *Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
-    ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
-    https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)*
--   *Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms.*
--   *Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
-    UML-sekvenssikaavioilla.*
--   *Toteutuksen yleisiä ratkaisuja, esim. turvallisuus.*
+_Tämän lisäksi_
 
-*Tämän lisäksi*
+- _ohjelmakoodin tulee olla kommentoitua_
+- _luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
+  johdonmukaisia nimeämiskäytäntöjä_
+- _ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
+  vältytään_
 
--   *ohjelmakoodin tulee olla kommentoitua*
--   *luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
-    johdonmukaisia nimeämiskäytäntöjä*
--   *ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
-    vältytään*
+## _Testaus_
 
-## *Testaus*
-
-*Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
+_Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
 testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
 Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
-erillisiin dokumentteihin.*
+erillisiin dokumentteihin._
 
-*Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.*
+_Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu._
 
-## *Asennustiedot*
+## _Asennustiedot_
 
-*Järjestelmän asennus on syytä dokumentoida kahdesta näkökulmasta:*
+_Järjestelmän asennus on syytä dokumentoida kahdesta näkökulmasta:_
 
--   *järjestelmän kehitysympäristö: miten järjestelmän kehitysympäristön saisi
-    rakennettua johonkin toiseen koneeseen*
+- _järjestelmän kehitysympäristö: miten järjestelmän kehitysympäristön saisi
+  rakennettua johonkin toiseen koneeseen_
 
--   *järjestelmän asentaminen tuotantoympäristöön: miten järjestelmän saisi
-    asennettua johonkin uuteen ympäristöön.*
+- _järjestelmän asentaminen tuotantoympäristöön: miten järjestelmän saisi
+  asennettua johonkin uuteen ympäristöön._
 
-*Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
+_Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
 käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
-käyttäjätunnus, salasana, tietokannan luonti yms.).*
+käyttäjätunnus, salasana, tietokannan luonti yms.)._
 
-## *Käynnistys- ja käyttöohje*
+## _Käynnistys- ja käyttöohje_
 
-*Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
+_Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
 mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
-käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä.*
+käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä._
 
-*Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
-järjestelmän pariin !*
+_Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
+järjestelmän pariin !_
