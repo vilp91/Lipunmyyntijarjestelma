@@ -1,5 +1,6 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
@@ -40,14 +42,19 @@ public class RestTapahtumaController {
     //     return tapahtumaRepository.save(uusiTapahtuma);
     // }
     @PostMapping("/tapahtumat")
-    public ResponseEntity<Tapahtuma> uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
-        // tarkistetaan, onko tapahtumalle annettu nimi. Jos ei, palautetaan 400 - bad request
+    public ResponseEntity<?> uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
+        // tarkistetaan, onko tapahtumalle annettu nimi. Jos ei, palautetaan 400 - bad request ja error viesti.
         if (uusiTapahtuma.getTapahtuman_nimi() == null || uusiTapahtuma.getTapahtuman_nimi().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Tapahtuman nimi puuttuu tai on tyhjä.");
         }
-        // jos tapahtumalle on annettu nimi, palautetaan 200 - ok
-        tapahtumaRepository.save(uusiTapahtuma);
-        return ResponseEntity.ok(uusiTapahtuma);
+        // jos tapahtuma luodaan onnistuneesti, palautetaan 201 - Created ja luodun tapahtuman tiedot.
+        Tapahtuma tallennettuTapahtuma = tapahtumaRepository.save(uusiTapahtuma);
+        URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(tallennettuTapahtuma.getTapahtuma_id())
+            .toUri();
+        return ResponseEntity.created(location).body(tallennettuTapahtuma);
     }
 
     @PutMapping("/tapahtumat/{id}")
