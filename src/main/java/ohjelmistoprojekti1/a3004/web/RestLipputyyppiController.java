@@ -1,5 +1,7 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import ohjelmistoprojekti1.a3004.domain.Lipputyyppi;
 import ohjelmistoprojekti1.a3004.domain.LipputyyppiRepository;
 
@@ -24,8 +28,14 @@ public class RestLipputyyppiController {
     }
 
     @PostMapping("/lipputyypit")
-    public Lipputyyppi luoLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
-        return lipputyyppiRepository.save(lipputyyppi);
+    public ResponseEntity<?> luoLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
+        Lipputyyppi tallennettuLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
+        URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(tallennettuLipputyyppi.getLipputyyppi_id())
+            .toUri();
+        return ResponseEntity.created(location).body(tallennettuLipputyyppi);
     }
 
     @DeleteMapping("/lipputyypit/{id}")
