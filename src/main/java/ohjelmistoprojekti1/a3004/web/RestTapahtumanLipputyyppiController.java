@@ -1,5 +1,7 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ohjelmistoprojekti1.a3004.domain.LipputyyppiRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
@@ -17,6 +20,7 @@ import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @RestController
 public class RestTapahtumanLipputyyppiController {
+
     @Autowired
     private LipputyyppiRepository lipputyyppiRepository;
     @Autowired
@@ -30,7 +34,6 @@ public class RestTapahtumanLipputyyppiController {
     }
 
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
-
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<?> luoTapahtumanLipputyyppi(@RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         // tarkistetaan, onko tietokannassa pyyntöä vastaava tapahtuma
@@ -39,13 +42,18 @@ public class RestTapahtumanLipputyyppiController {
             if (lipputyyppiRepository.existsById(tapahtumanLipputyyppiDto.getLipputyyppi())) {
                 // muunnetaan DTO tapahtumanlipputyypiksi ja tallennetaan se tietokantaan
                 TapahtumanLipputyyppi tapahtumanLipputyyppi = DTOtoEntity(tapahtumanLipputyyppiDto);
-                tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi);
-                // palautetaan clientille vastauksena DTO-versio luodusta tapahtumanlipputyypistä
-                return ResponseEntity.ok(tapahtumanLipputyyppiDto);     
+                TapahtumanLipputyyppi tallennettuTapahtumanLipputyyppi = tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi);
+                URI location = ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(tallennettuTapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id())
+                        .toUri();
+                // palautetaan clientille vastauksena 201 - Created ja DTO-versio luodusta tapahtumanlipputyypistä
+                return ResponseEntity.created(location).body(tapahtumanLipputyyppiDto);
             }
             return ResponseEntity.badRequest().body("Lipputyyppiä ei ole olemassa");
         }
-        return ResponseEntity.badRequest().body("Tapahtumaa ei ole olemassa"); 
+        return ResponseEntity.badRequest().body("Tapahtumaa ei ole olemassa");
     }
 
     @PutMapping("/tapahtumanlipputyypit/{id}")
@@ -57,7 +65,7 @@ public class RestTapahtumanLipputyyppiController {
             muokattuTapahtumanLipputyyppi.setTapahtuman_lipputyyppi_id(id);
             tapahtumanLipputyyppiRepository.save(muokattuTapahtumanLipputyyppi);
             // palautetaan clientille DTO-versio muokatusta tapahtumanlipputyypistä
-            return ResponseEntity.ok().body(muokattuTapahtumanLipputyyppiDto); 
+            return ResponseEntity.ok().body(muokattuTapahtumanLipputyyppiDto);
         }
         return ResponseEntity.notFound().build();
     }
@@ -72,6 +80,7 @@ public class RestTapahtumanLipputyyppiController {
         }
         return ResponseEntity.notFound().build();
     }
+
     // muunnetaan DTO-versio entity-versioksi
     private TapahtumanLipputyyppi DTOtoEntity(TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         TapahtumanLipputyyppi tapahtumanLipputyyppi = new TapahtumanLipputyyppi();
@@ -80,6 +89,5 @@ public class RestTapahtumanLipputyyppiController {
         tapahtumanLipputyyppi.setLipputyyppi(lipputyyppiRepository.findById(tapahtumanLipputyyppiDto.getLipputyyppi()).orElse(null));
         return tapahtumanLipputyyppi;
     }
-    
-}
 
+}
