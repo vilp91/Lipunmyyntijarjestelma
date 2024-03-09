@@ -33,6 +33,20 @@ public class RestTapahtumanLipputyyppiController {
         return tapahtumanLipputyyppiRepository.findAll();
     }
 
+    @GetMapping("/tapahtumanlipputyypit/{id}")
+    public ResponseEntity<?> haeTapahtumanlipputyyppi(@PathVariable("id") Long id) {
+        // tarkistetaan, onko tietokannassa pyyntöä vastaavaa tapahtumanlipputyyppi
+        if (tapahtumanLipputyyppiRepository.existsById(id)) {
+            // jos on, niin haetaan se ja muutetaan DTO-versioksi
+            TapahtumanLipputyyppi tapahtumanLipputyyppi = tapahtumanLipputyyppiRepository.findById(id).orElse(null);
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = EntityToDTO(tapahtumanLipputyyppi);
+            // palautetaan DTO-versio ja koodi 200
+            return ResponseEntity.ok().body(tapahtumanlipputyyppiDTO);
+        }
+        // jos ei, palautetaan koodi 404
+        return ResponseEntity.notFound().build();
+    }
+
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<?> luoTapahtumanLipputyyppi(@RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
@@ -88,6 +102,16 @@ public class RestTapahtumanLipputyyppiController {
         tapahtumanLipputyyppi.setHinta(tapahtumanLipputyyppiDto.getHinta());
         tapahtumanLipputyyppi.setLipputyyppi(lipputyyppiRepository.findById(tapahtumanLipputyyppiDto.getLipputyyppi()).orElse(null));
         return tapahtumanLipputyyppi;
+    }
+
+    // muunnetaan entity-versio DTO-versioksi
+    private TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
+        TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
+        tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
+        tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
+        tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
+        return tapahtumanlipputyyppiDTO;
+
     }
 
 }

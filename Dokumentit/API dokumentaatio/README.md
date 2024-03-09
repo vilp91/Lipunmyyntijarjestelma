@@ -30,6 +30,10 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 [Poista lipputyyppi](/Dokumentit/API%20dokumentaatio/Lipputyypit/delete.md): `DELETE /lipputyypit/{id}`
 
 
-## Liput
+<!-- ## Liput -->
 
 <!-- [Näytä kaikki liput](/Dokumentit/API%20dokumentaatio/Liput/get.md) `GET /liput` -->
+
+## Tapahtumanlipputyypit
+
+[Hae yksittäinen tapahtumanlipputyypi](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/get(id).md): `GET /tapahtumanlipputyypit/{id}` 
