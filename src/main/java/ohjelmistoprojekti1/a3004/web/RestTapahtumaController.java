@@ -35,11 +35,6 @@ public class RestTapahtumaController {
     @Autowired
     private RestTapahtumanLipputyyppiController restTapahtumanLipputyyppiController;
 
-    // @GetMapping("/tapahtumat")
-    // public Iterable<Tapahtuma> haeTapahtumat() {
-    //     return tapahtumaRepository.findAll();
-    // }
-
     @GetMapping("/tapahtumat")
     public List<TapahtumaDTO> haeTapahtumat() {
         Iterable<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
