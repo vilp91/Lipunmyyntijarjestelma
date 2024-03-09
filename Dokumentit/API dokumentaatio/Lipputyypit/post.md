@@ -26,8 +26,18 @@ __Sisältöesimerkkejä__:
     "tyyppi": "opiskelija"
 }
 ```
-<!-- ## Epäonnistuneen pyynnön palautus
+## Epäonnistuneen pyynnön palautus
 
-__Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
+__Ehto__: Pakollinen tieto puuttuu
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+```
+
+<!-- __Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
 
 __Vastauskoodi__: `403 Forbidden` -->
