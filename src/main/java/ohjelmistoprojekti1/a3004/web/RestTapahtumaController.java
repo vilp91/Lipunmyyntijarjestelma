@@ -43,6 +43,10 @@ public class RestTapahtumaController {
     // }
     @PostMapping("/tapahtumat")
     public ResponseEntity<?> uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
+        // tarkistetaan onko pyynnön rungossa annettu tapahtuma_id
+        if (uusiTapahtuma.getTapahtuma_id() != null) {
+            return ResponseEntity.badRequest().body("Poista pyynnöstä tapahtuma id");
+        }
         // tarkistetaan, onko tapahtumalle annettu nimi. Jos ei, palautetaan 400 - bad request ja error viesti.
         if (uusiTapahtuma.getTapahtuman_nimi() == null || uusiTapahtuma.getTapahtuman_nimi().isEmpty()) {
             return ResponseEntity.badRequest().body("Tapahtuman nimi puuttuu tai on tyhjä.");
