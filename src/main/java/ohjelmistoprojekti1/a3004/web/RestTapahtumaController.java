@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 
@@ -42,15 +43,15 @@ public class RestTapahtumaController {
     //     return tapahtumaRepository.save(uusiTapahtuma);
     // }
     @PostMapping("/tapahtumat")
-    public ResponseEntity<?> uusiTapahtuma(@RequestBody Tapahtuma uusiTapahtuma) {
+    public ResponseEntity<?> uusiTapahtuma(@Valid @RequestBody Tapahtuma uusiTapahtuma) {
         // tarkistetaan onko pyynnön rungossa annettu tapahtuma_id
         if (uusiTapahtuma.getTapahtuma_id() != null) {
             return ResponseEntity.badRequest().body("Poista pyynnöstä tapahtuma id");
         }
         // tarkistetaan, onko tapahtumalle annettu nimi. Jos ei, palautetaan 400 - bad request ja error viesti.
-        if (uusiTapahtuma.getTapahtuman_nimi() == null || uusiTapahtuma.getTapahtuman_nimi().isEmpty()) {
-            return ResponseEntity.badRequest().body("Tapahtuman nimi puuttuu tai on tyhjä.");
-        }
+        // if (uusiTapahtuma.getTapahtuman_nimi() == null || uusiTapahtuma.getTapahtuman_nimi().isEmpty()) {
+        //     return ResponseEntity.badRequest().body("Tapahtuman nimi puuttuu tai on tyhjä.");
+        // }
         // jos tapahtuma luodaan onnistuneesti, palautetaan 201 - Created ja luodun tapahtuman tiedot.
         Tapahtuma tallennettuTapahtuma = tapahtumaRepository.save(uusiTapahtuma);
         URI location = ServletUriComponentsBuilder
