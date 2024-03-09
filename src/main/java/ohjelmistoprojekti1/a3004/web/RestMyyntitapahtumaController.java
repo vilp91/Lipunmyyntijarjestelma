@@ -47,16 +47,32 @@ public class RestMyyntitapahtumaController {
     }
 
 
-    @GetMapping("/myyntitapahtumat/{id}")
-    public MyyntitapahtumaDTO haeMyyntitapahtuma(@PathVariable("id") Long id) {
+    // @GetMapping("/myyntitapahtumat/{id}")
+    // public MyyntitapahtumaDTO haeMyyntitapahtuma(@PathVariable("id") Long id) {
+    //     // hakee myyntitapahtuman tiedot
+    //     Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id)
+    //             .orElseThrow(() -> new RuntimeException("Myyntitapahtuma not found with id " + id));
+
+    //     // luo uuden DTO-version
+    //     MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
+    //     myyntitapahtumaDTO.setId(id);
+    //     return myyntitapahtumaDTO;
+    // }
+
+        @GetMapping("/myyntitapahtumat/{id}")
+    public ResponseEntity<?> haeMyyntitapahtuma(@PathVariable("id") Long id) {
+        // tarkistaa, että tietokannassa on tietue annetulla id:llä
+        // jos ei, niin palauttaa koodin 404
+        if (!myyntitapahtumaRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }        
         // hakee myyntitapahtuman tiedot
-        Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Myyntitapahtuma not found with id " + id));
+        Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
 
         // luo uuden DTO-version
         MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
         myyntitapahtumaDTO.setId(id);
-        return myyntitapahtumaDTO;
+        return ResponseEntity.ok().body(myyntitapahtumaDTO);
     }
 
     private MyyntitapahtumaDTO EntitytoDTO(Myyntitapahtuma myyntitapahtuma) {
