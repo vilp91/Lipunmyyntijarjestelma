@@ -12,6 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -21,10 +24,20 @@ public class Tapahtuma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tapahtuma_id;
+
     @NotNull
+    @NotBlank(message = "Tapahtuman nimi on pakolline tieto")
     private String tapahtuman_nimi;
+
+    @NotBlank(message = "Paikka ja katuosoite ovat pakollisia tietoja")
     private String paikka, katuosoite;
-    private LocalDateTime alku, loppu;
+
+    @NotNull
+    @FutureOrPresent(message = "Tapahtuma-aika ei voi olla menneisyydessä")
+    private LocalDateTime alku;
+    private LocalDateTime loppu;
+    
+    @Min(value = 1, message = "Lippujen lukumäärä on oltava vähintään 1")
     private int lippu_lukum;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
