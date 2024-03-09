@@ -33,6 +33,17 @@ public class RestTapahtumanLipputyyppiController {
         return tapahtumanLipputyyppiRepository.findAll();
     }
 
+    @GetMapping("/tapahtumanlipputyypit/{id}")
+    public ResponseEntity<?> haeTapahtumanlipputyyppi(@PathVariable("id") Long id) {
+        // tarkistetaan, onko tietokannassa pyyntöä vastaavaa tapahtumanlipputyyppiä
+        if (tapahtumanLipputyyppiRepository.existsById(id)) {
+            // jos on, palautetaan se
+            return ResponseEntity.ok().body(tapahtumanLipputyyppiRepository.findById(id));
+        }
+        // jos ei, palautetaan koodi 404
+        return ResponseEntity.notFound().build();
+    }
+
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<?> luoTapahtumanLipputyyppi(@RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
