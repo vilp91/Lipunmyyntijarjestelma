@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Lipputyyppi;
 import ohjelmistoprojekti1.a3004.domain.LipputyyppiRepository;
 
@@ -28,7 +29,7 @@ public class RestLipputyyppiController {
     }
 
     @PostMapping("/lipputyypit")
-    public ResponseEntity<?> luoLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
+    public ResponseEntity<?> luoLipputyyppi(@Valid @RequestBody Lipputyyppi lipputyyppi) {
         Lipputyyppi tallennettuLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
         URI location = ServletUriComponentsBuilder
             .fromCurrentRequest()
