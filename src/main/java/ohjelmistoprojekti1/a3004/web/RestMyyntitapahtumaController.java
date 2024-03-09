@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -114,5 +116,17 @@ public class RestMyyntitapahtumaController {
         myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
         return myyntitapahtumaDTO;
 
+    }
+
+    @DeleteMapping("/myyntitapahtumat/{id}")
+    public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
+        // tarkistetaan löytyykö tietokannasta tietuetta annetulla id:llä
+        if (myyntitapahtumaRepository.existsById(id)) {
+            // jos tietue löytyy, se poistetaan ja vastataan koodilla 204
+            myyntitapahtumaRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        // jos tietuetta ei löydy, vastataan koodilla 404
+        return ResponseEntity.notFound().build();
     }
 }
