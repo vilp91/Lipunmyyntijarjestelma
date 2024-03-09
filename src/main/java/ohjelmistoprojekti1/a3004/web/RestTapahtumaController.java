@@ -3,6 +3,8 @@ package ohjelmistoprojekti1.a3004.web;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @RestController
 public class RestTapahtumaController {
@@ -25,9 +29,46 @@ public class RestTapahtumaController {
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
+    @Autowired
+    private TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
+
+    @Autowired
+    private RestTapahtumanLipputyyppiController restTapahtumanLipputyyppiController;
+
+    // @GetMapping("/tapahtumat")
+    // public Iterable<Tapahtuma> haeTapahtumat() {
+    //     return tapahtumaRepository.findAll();
+    // }
+
     @GetMapping("/tapahtumat")
-    public Iterable<Tapahtuma> haeTapahtumat() {
-        return tapahtumaRepository.findAll();
+    public List<TapahtumaDTO> haeTapahtumat() {
+        Iterable<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
+        List<TapahtumaDTO> tapahtumaDTOt = new ArrayList<>();
+
+        for (Tapahtuma tapahtuma : tapahtumat) {
+            TapahtumaDTO tapahtumaDTO = EntityToDTO(tapahtuma);
+            tapahtumaDTOt.add(tapahtumaDTO);
+        }
+        return tapahtumaDTOt;
+    }
+
+    private TapahtumaDTO EntityToDTO(Tapahtuma tapahtuma) {
+        TapahtumaDTO tapahtumaDTO = new TapahtumaDTO();
+        tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtuma_id());
+        tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtuman_nimi());
+        tapahtumaDTO.setPaikka(tapahtuma.getPaikka());
+        tapahtumaDTO.setKatuosoite(tapahtuma.getKatuosoite());
+        tapahtumaDTO.setAlku(tapahtuma.getAlku());
+        tapahtumaDTO.setLoppu(tapahtuma.getLoppu());
+        tapahtumaDTO.setLippu_lukum(tapahtuma.getLippu_lukum());
+        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
+        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
+        for (TapahtumanLipputyyppi tapahtumanLipputyyppi: tapahtumanLipputyypit) {
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = restTapahtumanLipputyyppiController.EntityToDTO(tapahtumanLipputyyppi);
+            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+        }
+        tapahtumaDTO.setTapahtuman_lipputyypit(tapahtumanlipputyyppiDTOt);
+        return tapahtumaDTO;
     }
 
     // haetaan tapahtumat, joiden alku on kuluvan vuorokauden jälkeen

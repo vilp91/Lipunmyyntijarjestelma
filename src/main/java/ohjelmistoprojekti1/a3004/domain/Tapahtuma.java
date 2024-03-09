@@ -26,7 +26,7 @@ public class Tapahtuma {
     private Long tapahtuma_id;
 
     @NotNull
-    @NotBlank(message = "Tapahtuman nimi on pakolline tieto")
+    @NotBlank(message = "Tapahtuman nimi on pakollinen tieto")
     private String tapahtuman_nimi;
 
     @NotBlank(message = "Paikka ja katuosoite ovat pakollisia tietoja")

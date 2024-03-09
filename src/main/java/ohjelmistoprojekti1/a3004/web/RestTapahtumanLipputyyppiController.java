@@ -96,7 +96,7 @@ public class RestTapahtumanLipputyyppiController {
     }
 
     // muunnetaan DTO-versio entity-versioksi
-    private TapahtumanLipputyyppi DTOtoEntity(TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
+    public TapahtumanLipputyyppi DTOtoEntity(TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         TapahtumanLipputyyppi tapahtumanLipputyyppi = new TapahtumanLipputyyppi();
         tapahtumanLipputyyppi.setTapahtuma(tapahtumaRepository.findById(tapahtumanLipputyyppiDto.getTapahtuma()).orElse(null));
         tapahtumanLipputyyppi.setHinta(tapahtumanLipputyyppiDto.getHinta());
@@ -105,7 +105,7 @@ public class RestTapahtumanLipputyyppiController {
     }
 
     // muunnetaan entity-versio DTO-versioksi
-    private TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
+    public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
         tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
