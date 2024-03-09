@@ -40,6 +40,6 @@ Haetaan myyntitapahtuma id:n perusteella.
 
 **Ehto**: Haetaan id:n perusteella myyntitapahtumaa, mutta myyntitapahtumaa haetulla id:llä ei ole olemassa.
 
-**Koodi**: `500 INTERNAL SERVER ERROR`
+**Koodi**: `404 NOT FOUND`
 
 **Esimerkkisisältö**: Haku epäonnistui.
