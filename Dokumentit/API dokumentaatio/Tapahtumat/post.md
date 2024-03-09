@@ -51,7 +51,6 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-  "tapahtuma_id": 1,
   "tapahtuman_nimi": "Tapahtuma",
   "paikka": "Tapahtumapaikka",
   "katuosoite": "Tapahtumaosotie",
@@ -64,5 +63,11 @@ Anna luotavan tapahtuman tiedot
 TAI
 
 **Ehto**: Vaadittu tieto puuttuu
+
+**Koodi**: `400 BAD REQUEST`
+
+TAI
+
+**Ehto**: Pyynnössä on tapahtuma_id.
 
 **Koodi**: `400 BAD REQUEST`
