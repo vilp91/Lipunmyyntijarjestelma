@@ -66,6 +66,11 @@ TAI
 
 **Koodi**: `400 BAD REQUEST`
 
+**Sisältöesimerkki**:
+```json
+"defaultMessage": "Paikka ja katuosoite ovat pakollisia tietoja"
+```
+
 TAI
 
 **Ehto**: Pyynnössä on tapahtuma_id.
