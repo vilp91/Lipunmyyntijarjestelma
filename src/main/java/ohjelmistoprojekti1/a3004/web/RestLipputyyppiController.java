@@ -45,14 +45,14 @@ public class RestLipputyyppiController {
         if (lipputyyppiRepository.existsById(id)) {
             // jos lipputyyppi on olemassa, se poistetaan
             lipputyyppiRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/lipputyypit/{id}")
     public ResponseEntity<?> muokkaaLipputyyppi(@PathVariable("id") Long id,
-            @RequestBody Lipputyyppi muokattuLipputyyppi) {
+            @Valid @RequestBody Lipputyyppi muokattuLipputyyppi) {
                 // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
         if (lipputyyppiRepository.existsById(id)) {
             // jos lipputyyppi on olemassa, se päivitetään annetuilla tiedoilla
