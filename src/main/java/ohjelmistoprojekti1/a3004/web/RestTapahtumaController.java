@@ -56,6 +56,7 @@ public class RestTapahtumaController {
         tapahtumaDTO.setAlku(tapahtuma.getAlku());
         tapahtumaDTO.setLoppu(tapahtuma.getLoppu());
         tapahtumaDTO.setLippu_lukum(tapahtuma.getLippu_lukum());
+        tapahtumaDTO.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum());
         List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
         List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
         for (TapahtumanLipputyyppi tapahtumanLipputyyppi: tapahtumanLipputyypit) {
