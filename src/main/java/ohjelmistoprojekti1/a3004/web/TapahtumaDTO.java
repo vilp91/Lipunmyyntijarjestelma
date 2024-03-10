@@ -8,13 +8,29 @@ public class TapahtumaDTO {
     private String tapahtuman_nimi, paikka, katuosoite;
     private LocalDateTime alku, loppu;
     private int lippu_lukum;
-    private List <TapahtumanlipputyyppiDTO> tapahtuman_lipputyypit;
-    
+    private int myydyt_liput_lukum;
+    private List<TapahtumanlipputyyppiDTO> tapahtuman_lipputyypit;
+
     public TapahtumaDTO() {
     }
 
+    // public TapahtumaDTO(Long tapahtuma_id, String tapahtuman_nimi, String paikka,
+    // String katuosoite, LocalDateTime alku,
+    // LocalDateTime loppu, int lippu_lukum, List<TapahtumanlipputyyppiDTO>
+    // tapahtuman_lipputyypit) {
+    // this.tapahtuma_id = tapahtuma_id;
+    // this.tapahtuman_nimi = tapahtuman_nimi;
+    // this.paikka = paikka;
+    // this.katuosoite = katuosoite;
+    // this.alku = alku;
+    // this.loppu = loppu;
+    // this.lippu_lukum = lippu_lukum;
+    // this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
+    // }
+
     public TapahtumaDTO(Long tapahtuma_id, String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku,
-            LocalDateTime loppu, int lippu_lukum, List<TapahtumanlipputyyppiDTO> tapahtuman_lipputyypit) {
+            LocalDateTime loppu, int lippu_lukum, int myydyt_liput_lukum,
+            List<TapahtumanlipputyyppiDTO> tapahtuman_lipputyypit) {
         this.tapahtuma_id = tapahtuma_id;
         this.tapahtuman_nimi = tapahtuman_nimi;
         this.paikka = paikka;
@@ -22,6 +38,7 @@ public class TapahtumaDTO {
         this.alku = alku;
         this.loppu = loppu;
         this.lippu_lukum = lippu_lukum;
+        this.myydyt_liput_lukum = myydyt_liput_lukum;
         this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
     }
 
@@ -81,6 +98,14 @@ public class TapahtumaDTO {
         this.lippu_lukum = lippu_lukum;
     }
 
+    public int getMyydyt_liput_lukum() {
+        return myydyt_liput_lukum;
+    }
+
+    public void setMyydyt_liput_lukum(int myydyt_liput_lukum) {
+        this.myydyt_liput_lukum = myydyt_liput_lukum;
+    }
+
     public List<TapahtumanlipputyyppiDTO> getTapahtuman_lipputyypit() {
         return tapahtuman_lipputyypit;
     }
@@ -93,7 +118,15 @@ public class TapahtumaDTO {
     public String toString() {
         return "TapahtumaDTO [tapahtuma_id=" + tapahtuma_id + ", tapahtuman_nimi=" + tapahtuman_nimi + ", paikka="
                 + paikka + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum="
-                + lippu_lukum + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit + "]";
+                + lippu_lukum + ", myydyt_liput_lukum=" + myydyt_liput_lukum + ", tapahtuman_lipputyypit="
+                + tapahtuman_lipputyypit + "]";
     }
+
+    // @Override
+    // public String toString() {
+    //     return "TapahtumaDTO [tapahtuma_id=" + tapahtuma_id + ", tapahtuman_nimi=" + tapahtuman_nimi + ", paikka="
+    //             + paikka + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum="
+    //             + lippu_lukum + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit + "]";
+    // }
 
 }
