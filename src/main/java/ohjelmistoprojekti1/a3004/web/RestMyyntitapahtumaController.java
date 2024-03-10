@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class RestMyyntitapahtumaController {
     TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
 
     @GetMapping("/myyntitapahtumat")
-    public List<MyyntitapahtumaDTO> haeKaikkiMyyntitapahtumat() {
+    public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
     // hakee kaikki myyntitapahtumat
     Iterable<Myyntitapahtuma> myyntitapahtumat = myyntitapahtumaRepository.findAll();
     List<MyyntitapahtumaDTO> myyntitapahtumaDTOLista = new ArrayList<>();
@@ -43,8 +44,15 @@ public class RestMyyntitapahtumaController {
         myyntitapahtumaDTOLista.add(myyntitapahtumaDTO);
     }
 
-        return myyntitapahtumaDTOLista;
+    // jos listaa ei löydy annetaan 404
+    if (myyntitapahtumaDTOLista.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    } else {
+        // jos löytyy annetaan 200
+        return ResponseEntity.ok(myyntitapahtumaDTOLista);
     }
+    }
+    
 
 
     // @GetMapping("/myyntitapahtumat/{id}")
@@ -59,7 +67,7 @@ public class RestMyyntitapahtumaController {
     //     return myyntitapahtumaDTO;
     // }
 
-        @GetMapping("/myyntitapahtumat/{id}")
+    @GetMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> haeMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
@@ -101,9 +109,9 @@ public class RestMyyntitapahtumaController {
     }
 
     @PostMapping("/myynti")
-    public MyyntitapahtumaDTO myyLippuja(@RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
-        // luodaan uusi myyntitapahtuma ja asetetaan sille käyttäjätieto (kunhan tietäis
-        // mistä se saadaan :D
+    public ResponseEntity<?> myyLippuja(@RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
+    try {
+        // luodaan uusi myyntitapahtuma ja asetetaan sille käyttäjätieto
         Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
         myyntitapahtuma.setKayttaja(null); // voisko tämä tulla polkumuuttujana?
 
@@ -130,9 +138,12 @@ public class RestMyyntitapahtumaController {
         MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
         // lisätään DTO-versioon id ja tallennetaan se
         myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
-        return myyntitapahtumaDTO;
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDTO);
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body("Jokin meni vikaan :(");
     }
+    }
+
 
     @DeleteMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
