@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -117,7 +118,7 @@ public class RestMyyntitapahtumaController {
     @PostMapping("/myynti")
     @Transactional
     public ResponseEntity<?> myyLippuja(@RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
-        // try {
+        try {
             // luodaan uusi myyntitapahtuma ja asetetaan sille käyttäjätieto
             Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
             myyntitapahtuma.setKayttaja(null); // voisko tämä tulla polkumuuttujana?
@@ -148,9 +149,10 @@ public class RestMyyntitapahtumaController {
                         lippu.setHinta(lippu.getTapahtuman_lipputyyppi().getHinta());
                         lippuRepository.save(lippu);
                     }
-                    // jos jotain lippua ei ole saatavilla, annetaan virheilmoitus ja perutaan tehdyt muutokset tietokantaan
+                    // jos jotain lippua ei ole saatavilla, annetaan virheilmoitus ja perutaan tietokantaan tehdyt muutokset 
                     else {
-                        throw new RuntimeException("Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        return ResponseEntity.badRequest().body("Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
                     }
                 }
             }
@@ -159,9 +161,11 @@ public class RestMyyntitapahtumaController {
             // lisätään DTO-versioon id ja tallennetaan se
             myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
             return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDTO);
-        // } catch (Exception e) {
-        //     return ResponseEntity.badRequest().body("Jokin meni vikaan :(");
-        // }
+        } catch (Exception e) {
+            // perutaan tietokantaan tehdyt muutokset
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResponseEntity.badRequest().body("Jokin meni vikaan :(");
+        }
     }
 
     @DeleteMapping("/myyntitapahtumat/{id}")

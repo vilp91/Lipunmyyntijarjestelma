@@ -86,3 +86,13 @@ Anna luotavan tapahtuman tiedot:
 ```json
     "message": "JSON parse error: Cannot deserialize value of type `int`  from String \"unlimited power\": not a valid `int` value",
 ```
+
+TAI
+
+**Ehto**: Pyydettyä lippua ei ole saatavilla
+
+**Vastauskoodi**: `400 BAD REQUEST`
+
+```json
+Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.
+```
