@@ -69,3 +69,15 @@ Haetaan kaikki tallennetut tapahtumat.
   }
 ]
 ```
+
+## Epäonnistuneen pyynnön palautus
+
+**Vastauskoodi**: `404 NOT FOUND`
+
+**Sisältöesimerkejä**:
+
+Haetaan kaikki tallennetut tapahtumat, mutta listasta ei löydy tapahtumia (Ei haku tulosta).
+
+```json
+
+```
