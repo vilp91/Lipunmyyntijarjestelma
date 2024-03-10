@@ -33,8 +33,6 @@ public class Kayttaja {
     @JsonIgnore
     private List<Myyntitapahtuma> myyntitapahtumat;
 
-
-
     @NotBlank
     private String etunimi;
 
