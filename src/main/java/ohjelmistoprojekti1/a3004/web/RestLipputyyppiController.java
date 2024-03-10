@@ -52,7 +52,7 @@ public class RestLipputyyppiController {
 
     @PutMapping("/lipputyypit/{id}")
     public ResponseEntity<?> muokkaaLipputyyppi(@PathVariable("id") Long id,
-            @RequestBody Lipputyyppi muokattuLipputyyppi) {
+            @Valid @RequestBody Lipputyyppi muokattuLipputyyppi) {
                 // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
         if (lipputyyppiRepository.existsById(id)) {
             // jos lipputyyppi on olemassa, se päivitetään annetuilla tiedoilla
