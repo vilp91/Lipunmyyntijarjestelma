@@ -8,7 +8,7 @@ __METODI__: `DELETE`
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+__Vastauskoodi__: `201 NO CONTENT`
 
 __Esimerkkejä poistettavista tietueista__:
 

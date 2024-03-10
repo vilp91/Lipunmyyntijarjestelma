@@ -13,6 +13,9 @@ Jokaisella on oma nimetty työskentelyhaaransa, jossa tiimin jäsenet työskente
 
 ### Suositeltu työjärjestys 
 
+
+![mallard duck commitment advice](image.png)
+
 *NÄMÄ OHJEET EIVÄT VÄLTTÄMÄTTÄ TOIMI SINULLA JOS ESIMERKIKSI PAIKALLINEN HAARASI EI SEURAA SAMAN NIMISTÄ ETÄREPOSITORION HAARAA TAI OLET TEHNYT MUITA OMANLAISIA MUUTOKSIA*
 
 Kun aloitat työskentelyn paikallisesti varmista ensin, että paikallinen repositoriosi on ajan tasalla. Tämä kannattaa aloittaa siirtymällä dev haaraan komennolla `git checkout dev`, jonka jälkeen komennolla `git fetch` tarkistat onko etärepositorioon tullut uusia päivityksiä. Jos etärepositorio on paikallistasi edellä, lataa uusin tilanne paikalliseen repositorioosi komennolla `git pull` kunkin päivitetyn haaran kohdalla jota seuraat (eli todennäköisesti vain dev).

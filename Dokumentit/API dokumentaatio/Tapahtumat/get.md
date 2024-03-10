@@ -10,31 +10,48 @@ __Metodi__: `GET`
 
 __Vastauskoodi__: `200 OK`
 
-__Sisältöesimerkejä__:
-
-Tapahtumalle, jonka id on 3 paikallisessa tietokannassa ja jonka tietoihin on tallennettu tapahtuman nimi, paikka, katuosoite, alku- sekä loppupäivämäärät ja lippujen lukumäärä.
+__Sisältöesimerkkejä__:
 
 ```json
-{
-"tapahtuma_id":3,  
-"tapahtuman_nimi":"Cheek - Paluu areenalle",  "paikka":"Olympiastadion - Helsinki",  
-"katuosoite":"Paavo Nurmen tie 1",  
-"alku":"2024-02-22","loppu":"2024-02-22",  "lippu_lukum":9999
-}  
-```
-
-Tapahtumalle, jonka id on 4 paikallisessa tietokannassa ja jonka tietoihin on tallennettu tapahtuman nimi.
-
-```json
-{
-"tapahtuma_id":4,  
-"tapahtuman_nimi":"Mysteeritapahtuma",
-"paikka":null,  
-"katuosoite":null,  
-"alku":null,
-"loppu":null,
-"lippu_lukum":0
-}  
+[
+    {
+        "tapahtuma_id": 2,
+        "tapahtuman_nimi": "Kekkosen synttärit",
+        "paikka": "Vaasa",
+        "katuosoite": "Vaasankatu 1",
+        "alku": "2024-06-12T17:00:00",
+        "loppu": "2024-06-12T23:59:00",
+        "lippu_lukum": 667,
+        "tapahtuman_lipputyypit": [
+            {
+                "hinta": 10.0,
+                "tapahtuma": 2,
+                "lipputyyppi": 2
+            }
+        ]
+    },
+    {
+        "tapahtuma_id": 3,
+        "tapahtuman_nimi": "Cheek - Paluu areenalle",
+        "paikka": "Olympiastadion - Helsinki",
+        "katuosoite": "Paavo Nurmen tie 1",
+        "alku": "2031-12-22T12:30:00",
+        "loppu": "2031-12-22T14:15:00",
+        "lippu_lukum": 9999,
+        "tapahtuman_lipputyypit": [
+            {
+                "hinta": 7.0,
+                "tapahtuma": 3,
+                "lipputyyppi": 3
+            },
+            {
+                "hinta": 10.0,
+                "tapahtuma": 3,
+                "lipputyyppi": 4
+            }
+        ]
+    }
+]
 ```
 
 ## Muistiinpanoja

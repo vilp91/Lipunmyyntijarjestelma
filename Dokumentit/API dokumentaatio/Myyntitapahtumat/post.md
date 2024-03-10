@@ -10,38 +10,38 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 [
-    {
-        "tapahtumanLipputyyppi": "[long]",
-        "maara": "[int]"
-    }
+  {
+    "tapahtumanLipputyyppi": "[long]",
+    "maara": "[int]"
+  }
 ]
 ```
 
 ## Onnistuneen pyynnön palautus
 
-**Vastauskoodi**: `200 OK`
+**Vastauskoodi**: `201 CREATED`
 
 **Sisältöesimerkkejä**:
 
 ```json
 {
-    "id": 4,
-    "summa": 20.0,
-    "aika": "2024-03-04T18:43:59.2011012",
-    "liput": [
-        {
-            "id": 6,
-            "tyyppi": "perus",
-            "tapahtuma": "Sukankudontakilpailu",
-            "hinta": 10.0
-        },
-        {
-            "id": 7,
-            "tyyppi": "perus",
-            "tapahtuma": "Sukankudontakilpailu",
-            "hinta": 10.0
-        }
-    ]
+  "id": 4,
+  "summa": 20.0,
+  "aika": "2024-03-04T18:43:59.2011012",
+  "liput": [
+    {
+      "id": 6,
+      "tyyppi": "perus",
+      "tapahtuma": "Sukankudontakilpailu",
+      "hinta": 10.0
+    },
+    {
+      "id": 7,
+      "tyyppi": "perus",
+      "tapahtuma": "Sukankudontakilpailu",
+      "hinta": 10.0
+    }
+  ]
 }
 ```
 
@@ -55,19 +55,20 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 [
-    {
-        "tapahtumanLipputyyppi": 999,
-        "maara": 2
-    }
+  {
+    "tapahtumanLipputyyppi": 999,
+    "maara": 2
+  }
 ]
 ```
+
 ```json
     "message": "TapahtumanLipputyyppi not found with id 999",
 ```
 
---------------------------------------------------------------
+---
 
-**Ehto**: Virheellinen arvo/tietotyyppi kentässä.
+**Ehto**: Virheellinen arvo/tietotyyppi kentässä tai virheellinen endpoint.
 
 **Vastauskoodi**: `400 BAD REQUEST`
 
@@ -75,14 +76,13 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 [
-    {
-        "tapahtumanLipputyyppi": 1,
-        "maara": "unlimited power"
-    }
+  {
+    "tapahtumanLipputyyppi": 1,
+    "maara": "unlimited power"
+  }
 ]
 ```
+
 ```json
     "message": "JSON parse error: Cannot deserialize value of type `int`  from String \"unlimited power\": not a valid `int` value",
 ```
-
-

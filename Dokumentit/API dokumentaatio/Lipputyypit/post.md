@@ -6,26 +6,38 @@ __URL__: `/lipputyypit`
 
 __Metodi__: `POST`
 
+Anna luotavan lipputyypin tiedot:
+
+```json
+{
+        "tyyppi": "[string]"
+}
+```
+
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+__Vastauskoodi__: `201 CREATED`
 
 __Sisältöesimerkkejä__:
-Luodut lipputyypit.
+
 ```json
-[
-    {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-    },
-    {
-        "lipputyyppi_id": 2,
-        "tyyppi": "lapsi"
-    }
-]
+{
+    "lipputyyppi_id": 4,
+    "tyyppi": "opiskelija"
+}
 ```
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
+__Ehto__: Pakollinen tieto puuttuu
 
-__Vastauskoodi__: `403 Forbidden`
+__Vastauskoodi__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+```
+
+<!-- __Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
+
+__Vastauskoodi__: `403 Forbidden` -->
