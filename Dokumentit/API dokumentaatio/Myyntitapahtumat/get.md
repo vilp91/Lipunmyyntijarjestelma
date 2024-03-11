@@ -76,7 +76,7 @@ Haetaan kaikki tallennetut tapahtumat.
 
 **Sisältöesimerkejä**:
 
-Haetaan kaikki tallennetut tapahtumat, mutta listasta ei löydy tapahtumia (Ei haku tulosta).
+Haetaan kaikki tallennetut tapahtumat, mutta listasta ei löydy tapahtumia (Ei hakutulosta).
 
 ```json
 
