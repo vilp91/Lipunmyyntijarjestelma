@@ -3,6 +3,7 @@ package ohjelmistoprojekti1.a3004.web;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,20 @@ public class RestLipputyyppiController {
     @GetMapping("/lipputyypit")
     public Iterable<Lipputyyppi> haeLipputyypit() {
         return lipputyyppiRepository.findAll();
+    }
+
+    @GetMapping("/lipputyypit/{id}")
+    public ResponseEntity<?> haeLippulipputyyppi(@PathVariable("id") Long id) {
+        // tarkistaa, että tietokannassa on tietue annetulla id:llä
+        // jos ei, niin palauttaa koodin 404
+        if (!lipputyyppiRepository.existsById(id)) {
+            String errorMessage = "Lipputyyppiä syötetyllä id:llä: " + id + ", ei löydy :(";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+        // hakee lipun tiedot
+        Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
+        return ResponseEntity.ok().body(lipputyyppi);
+
     }
 
     @PostMapping("/lipputyypit")

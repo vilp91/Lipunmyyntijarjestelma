@@ -36,7 +36,7 @@ Haetaan myyntitapahtuma id:n perusteella.
 }
 ```
 
-## Epäonnistunut tapahtuma
+## Epäonnistunut pyyntö
 
 **Ehto**: Haetaan id:n perusteella myyntitapahtumaa, mutta myyntitapahtumaa haetulla id:llä ei ole olemassa.
 

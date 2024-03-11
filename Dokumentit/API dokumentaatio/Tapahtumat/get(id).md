@@ -34,7 +34,7 @@ Haetaan tapahtumaa id:n perusteella.
 }
 ```
 
-## Epäonnistunut tapahtuma
+## Epäonnistunut pyyntö
 
 **Ehto**: Haetaan id:n perusteella tapahtumaa, mutta tapahtumaa haetulla id:llä ei ole olemassa.
 
