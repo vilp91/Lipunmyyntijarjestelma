@@ -117,7 +117,7 @@ public class RestMyyntitapahtumaController {
         return myyntitapahtumaDTO;
     }
 
-    @PostMapping("/myynti")
+    @PostMapping("/myyntitapahtumat")
     @Transactional
     public ResponseEntity<?> myyLippuja(@Valid @RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
         try {

@@ -111,9 +111,13 @@ public class RestTapahtumaController {
     }
 
     @PutMapping("/tapahtumat/{id}")
-    Tapahtuma muokattuTapahtuma(@PathVariable("id") Long id, @RequestBody Tapahtuma muokattuTapahtuma) {
-        muokattuTapahtuma.setTapahtuma_id(id);
-        return tapahtumaRepository.save(muokattuTapahtuma);
+    public ResponseEntity<?> muokattuTapahtuma(@PathVariable("id") Long id, @Valid @RequestBody Tapahtuma muokattuTapahtuma) {
+        if (tapahtumaRepository.existsById(id)) {
+            muokattuTapahtuma.setTapahtuma_id(id);
+            tapahtumaRepository.save(muokattuTapahtuma);
+            return ResponseEntity.ok().body(muokattuTapahtuma);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/tapahtumat/{id}")
@@ -125,7 +129,7 @@ public class RestTapahtumaController {
         }
         // jos tietue löytyy, se poistetaan ja palautetaan koodi 200 - ok
         tapahtumaRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }
