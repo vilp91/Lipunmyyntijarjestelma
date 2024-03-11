@@ -129,7 +129,7 @@ public class RestTapahtumaController {
         }
         // jos tietue löytyy, se poistetaan ja palautetaan koodi 200 - ok
         tapahtumaRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }
