@@ -51,3 +51,5 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 [Hae yksittäinen tapahtumanlipputyypi](</Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/get(id).md>): `GET /tapahtumanlipputyypit/{id}`
 
 [Tallenna tapahtumanlipputyyppi](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/post.md): `POST /tapahtumanlipputyypit`
+
+[Poista tapahtumanlipputyypi](</Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/delete.md>): `DELETE /tapahtumanlipputyypit/{id}`
