@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "lipputyyppi")
@@ -20,6 +21,7 @@ public class Lipputyyppi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lipputyyppi_id;
 
+    @NotEmpty(message = "Lipputyypin tyyppi on pakollinen tieto")
     private String tyyppi;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")

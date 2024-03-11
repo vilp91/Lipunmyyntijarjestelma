@@ -25,19 +25,20 @@ Anna luotavan tapahtuman tiedot
 
 **Ehto**: Uusi tapahtuma luotiin onnistuneesti.
 
-**Koodi**: `200 OK`
+**Koodi**: `201 CREATED`
 
 **Esimerkkisisältö**: Uusi tapahtuma luotu
 
 ```json
 {
-  "tapahtuma_id": 1,
-  "tapahtuman_nimi": "Tapahtuma",
-  "paikka": "Tapahtumapaikka",
-  "katuosoite": "Tapahtumaosotie",
-  "alku": "2024-02-28",
-  "loppu": "2024-02-28",
-  "lippu_lukum": 100
+    "tapahtuma_id": 6,
+    "tapahtuman_nimi": "Karin karaokeiltama",
+    "paikka": "Lepakkomies",
+    "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
+    "alku": "2024-04-06T19:00:00",
+    "loppu": "2024-04-06T23:30:00",
+    "lippu_lukum": 50,
+    "myydyt_liput_lukum": 0
 }
 ```
 
@@ -51,14 +52,17 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-  "tapahtuma_id": 1,
-  "tapahtuman_nimi": "Tapahtuma",
-  "paikka": "Tapahtumapaikka",
-  "katuosoite": "Tapahtumaosotie",
-  "alku": "2024-02-28",
-  "loppu": "2024-02-28",
-  "lippu_lukum": "Testi"
+  "tapahtuman_nimi": "Karin karaokeiltama",
+  "paikka": "Lepakkomies",
+  "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
+  "alku": "2024-04-06T19:00:00",
+  "loppu": "2024-04-06T23:30:00",
+  "lippu_lukum": "Tarpeeksi"
 }
+```
+
+```json
+    "message": "JSON parse error: Cannot deserialize value of type `int` from String \"Tarpeeksi\": not a valid `int` value",
 ```
 
 TAI
@@ -66,3 +70,45 @@ TAI
 **Ehto**: Vaadittu tieto puuttuu
 
 **Koodi**: `400 BAD REQUEST`
+
+**Esimerkkisisältö**:
+
+```json
+{
+  "tapahtuman_nimi": "Karin karaokeiltama",
+  "paikka": "Lepakkomies",
+  "katuosoite": "",
+  "alku": "2024-04-06T19:00:00",
+  "loppu": "2024-04-06T23:30:00",
+  "lippu_lukum": "50"
+}
+```
+
+```json
+"defaultMessage": "Paikka ja katuosoite ovat pakollisia tietoja"
+```
+
+TAI
+
+**Ehto**: Pyynnössä on tapahtuma_id.
+
+**Koodi**: `400 BAD REQUEST`
+
+**Esimerkkisisältö**:
+
+```json
+{
+  "tapahtuma_id": 5,
+  "tapahtuman_nimi": "Karin karaokeiltama",
+  "paikka": "Lepakkomies",
+  "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
+  "alku": "2024-04-06T19:00:00",
+  "loppu": "2024-04-06T23:30:00",
+  "lippu_lukum": "50"
+}
+```
+
+```json
+"Poista pyynnöstä tapahtuma id"
+```
+

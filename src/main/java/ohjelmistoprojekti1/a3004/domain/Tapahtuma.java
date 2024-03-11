@@ -12,6 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -21,11 +24,23 @@ public class Tapahtuma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tapahtuma_id;
+
     @NotNull
+    @NotBlank(message = "Tapahtuman nimi on pakollinen tieto")
     private String tapahtuman_nimi;
+
+    @NotBlank(message = "Paikka ja katuosoite ovat pakollisia tietoja")
     private String paikka, katuosoite;
-    private LocalDateTime alku, loppu;
+
+    @NotNull(message = "Tapahtuman alkuaika on pakollinen tieto")
+    @FutureOrPresent(message = "Tapahtuma-aika ei voi olla menneisyydessä")
+    private LocalDateTime alku;
+    private LocalDateTime loppu;
+    
+    @Min(value = 1, message = "Lippujen lukumäärä on oltava vähintään 1")
     private int lippu_lukum;
+
+    private int myydyt_liput_lukum = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
     @JsonIgnore
@@ -49,6 +64,7 @@ public class Tapahtuma {
         this.loppu = loppu;
         this.lippu_lukum = lippu_lukum;
     }
+    
 
     public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku,
             LocalDateTime loppu,
@@ -118,6 +134,14 @@ public class Tapahtuma {
         this.lippu_lukum = lippu_lukum;
     }
 
+    public int getMyydyt_liput_lukum() {
+        return myydyt_liput_lukum;
+    }
+
+    public void setMyydyt_liput_lukum(int myydyt_liput_lukum) {
+        this.myydyt_liput_lukum = myydyt_liput_lukum;
+    }
+
     public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
         return tapahtuman_lipputyypit;
     }
@@ -130,7 +154,8 @@ public class Tapahtuma {
     public String toString() {
         return "Tapahtuma [tapahtuma_id=" + tapahtuma_id + ", tapahtuman_nimi=" + tapahtuman_nimi + ", paikka=" + paikka
                 + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum=" + lippu_lukum
-                + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit + "]";
+                + ", myydyt_liput_lukum=" + myydyt_liput_lukum + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit
+                + "]";
     }
 
 

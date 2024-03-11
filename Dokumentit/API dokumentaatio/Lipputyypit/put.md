@@ -6,6 +6,14 @@ __URL__: `/lipputyypit/{id}`
 
 __METODI__: `PUT`
 
+Anna päivitettävän lipputyypin tiedot:
+
+```json
+{
+        "tyyppi": "[string]"
+}
+```
+
 ## Onnistuneen pyynnön palautus
 
 __Vastauskoodi__: `200 OK`
@@ -30,3 +38,16 @@ __Ehto__: {id} arvoa ei löydy tietokannasta.
 
 __Vastauskoodi__: `404 NOT FOUND`
 
+TAI
+
+__Ehto__: Pakollinen tieto puuttuu
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+{
+    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+}
+```

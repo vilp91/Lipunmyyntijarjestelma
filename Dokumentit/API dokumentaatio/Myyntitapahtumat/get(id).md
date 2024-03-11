@@ -36,10 +36,16 @@ Haetaan myyntitapahtuma id:n perusteella.
 }
 ```
 
-## Epäonnistunut tapahtuma
+## Epäonnistunut pyyntö
 
 **Ehto**: Haetaan id:n perusteella myyntitapahtumaa, mutta myyntitapahtumaa haetulla id:llä ei ole olemassa.
 
-**Koodi**: `500 INTERNAL SERVER ERROR`
+**Koodi**: `404 NOT FOUND`
 
-**Esimerkkisisältö**: Haku epäonnistui.
+**Sisältöesimerkki**:
+
+Tehdään GET pyyntö /myyntitapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+Myyntitapahtumaa syötetyllä id:llä: 10, ei löydy :(
+```

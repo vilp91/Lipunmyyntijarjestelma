@@ -38,19 +38,19 @@ public class A3004Application {
 		// LocalDateTime nyt = LocalDateTime.now();
 
 		return(args) -> {
-			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,04,02, 14, 0), LocalDateTime.of(2024,04,02, 16, 0), 50);
+			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,04,06, 14, 0), LocalDateTime.of(2024,04,06, 16, 0), 10);
 			tapahtumaRepository.save(tapahtuma1);
 
-			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", LocalDateTime.of(2024,03, 12, 17, 0), LocalDateTime.of(2024,03, 12, 23, 59), 667);
+			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", LocalDateTime.of(2024,06, 12, 17, 0), LocalDateTime.of(2024,06, 12, 23, 59), 667);
 			tapahtumaRepository.save(tapahtuma2);
 
 			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDateTime.of(2031, 12, 22, 12, 30),LocalDateTime.of(2031, 12, 22, 14, 15), 9999);
 			tapahtumaRepository.save(tapahtuma3);
 
-			Tapahtuma tapahtuma4 = new Tapahtuma("Mysteeritapahtuma");
-			tapahtumaRepository.save(tapahtuma4);
+			// Tapahtuma tapahtuma4 = new Tapahtuma("Mysteeritapahtuma");
+			// tapahtumaRepository.save(tapahtuma4);
 
-			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,02, 22, 18, 0), LocalDateTime.of(2024, 02, 22, 21, 0), 9999);
+			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,07, 22, 18, 0), LocalDateTime.of(2024, 07, 22, 21, 0), 9999);
 			tapahtumaRepository.save(tapahtuma5);
 
 			Lipputyyppi lipputyyppi1 = new Lipputyyppi("perus");
