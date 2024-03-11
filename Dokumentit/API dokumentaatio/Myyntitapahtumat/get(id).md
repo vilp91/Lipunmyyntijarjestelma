@@ -42,4 +42,10 @@ Haetaan myyntitapahtuma id:n perusteella.
 
 **Koodi**: `404 NOT FOUND`
 
-**Esimerkkisisältö**: Haku epäonnistui.
+**Sisältöesimerkki**:
+
+Tehdään GET pyyntö /myyntitapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+Myyntitapahtumaa syötetyllä id:llä: 10, ei löydy :(
+```

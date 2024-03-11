@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
+import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
@@ -45,6 +47,23 @@ public class RestTapahtumaController {
             tapahtumaDTOt.add(tapahtumaDTO);
         }
         return tapahtumaDTOt;
+    }
+
+    @GetMapping("/tapahtumat/{id}")
+    public ResponseEntity<?> haeTapahtuma(@PathVariable("id") Long id) {
+        // tarkistaa, että tietokannassa on tietue annetulla id:llä
+        // jos ei, niin palauttaa koodin 404
+        if (!tapahtumaRepository.existsById(id)) {
+            String errorMessage = "Tapahtumaa syötetyllä id:llä: " + id + ", ei löydy :(";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+        // hakee tapahtuman tiedot
+        Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
+
+        // luo uuden DTO-version
+        TapahtumaDTO tapahtumaDTO = EntityToDTO(tapahtuma);
+        tapahtumaDTO.setTapahtuma_id(id);
+        return ResponseEntity.ok().body(tapahtumaDTO);
     }
 
     private TapahtumaDTO EntityToDTO(Tapahtuma tapahtuma) {
