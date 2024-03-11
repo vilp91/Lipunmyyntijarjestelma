@@ -1,0 +1,82 @@
+# Luo uuden tapahtumanlipputyypin
+
+Luo uusi tapahtumanlipputyyppi.
+
+__URL__: `/tapahtumanlipputyypit`
+
+__Metodi__: `POST`
+
+__Esimerkkisisältö__:
+
+```json
+{
+  "hinta": "[float]",
+  "tapahtuma": "[Long]",
+  "lipputyyppi": "[Long]"
+}
+```
+
+## Onnistuneen pyynnön palautus
+
+__Ehto__: Pyynnössä on valmiiksi olemassa olevat tapahtuma ja lipputyyppi sekä hinta on positiivinen luku.
+
+__Vastauskoodi__: `201 CREATED`
+
+__Esimerkkisisältö__:
+
+```json
+{
+  "hinta": 25.0,
+  "tapahtuma": 1,
+  "lipputyyppi": 2
+}
+```
+## Epäonnistuneen pyynnön palautus
+
+__Ehto__: Pakollinen tieto on virheellinen
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+{
+    "hinta": -1,
+    "tapahtuma": 1,
+    "lipputyyppi": 1
+}
+```
+__Vastaus__:
+```json
+"defaultMessage": "Hinnan pitää olla positiivinen arvo"
+```
+---
+__Esimerkkisisältö__:
+```json
+{
+    "hinta": 25.00,
+    "tapahtuma": 999,
+    "lipputyyppi": 1
+}
+```
+__Vastaus__:
+```json
+"defaultMessage": "Tapahtumaa ei ole olemassa"
+```
+---
+__Esimerkkisisältö__:
+```json
+{
+    "hinta": 25.00,
+    "tapahtuma": 1,
+    "lipputyyppi": 999
+}
+```
+
+ __Vastaus__:
+```json
+    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+```
+
+<!-- En jaksanut muuttaa virheviestejä tai tehdä uutta/erillistä sille puuttuuko tieto tai onko se virheellinen. Tänne saa vaikka ja minkälaisia 400 Bad Requesteja ilman virheviestejä ja 500 Internal Server Erroreita Postmanilla jos laittaa noihin kenttiin mitä sattuu arvoja tai jättää koko kentän laittamatta... 
+-Ali -->

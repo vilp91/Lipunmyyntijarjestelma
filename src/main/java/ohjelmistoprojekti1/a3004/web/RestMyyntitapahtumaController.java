@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
@@ -79,7 +80,8 @@ public class RestMyyntitapahtumaController {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!myyntitapahtumaRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+            String errorMessage = "Myyntitapahtumaa syötetyllä id:llä: " + id + ", ei löydy :(";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         // hakee myyntitapahtuman tiedot
         Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
@@ -117,7 +119,7 @@ public class RestMyyntitapahtumaController {
 
     @PostMapping("/myyntitapahtumat")
     @Transactional
-    public ResponseEntity<?> myyLippuja(@RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
+    public ResponseEntity<?> myyLippuja(@Valid @RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
         try {
             // luodaan uusi myyntitapahtuma ja asetetaan sille käyttäjätieto
             Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
@@ -164,7 +166,7 @@ public class RestMyyntitapahtumaController {
         } catch (Exception e) {
             // perutaan tietokantaan tehdyt muutokset
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return ResponseEntity.badRequest().body("Jokin meni vikaan :(");
+            return ResponseEntity.badRequest().body("Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).");
         }
     }
 

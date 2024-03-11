@@ -1,8 +1,14 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import jakarta.validation.constraints.NotNull;
+
 public class TapahtumanlipputyyppiDTO {
+
+    @NotNull(message = "Hinta on pakollinen")
     private float hinta;
+    @NotNull(message = "Valitse tapahtuma")
     private Long tapahtuma;
+    @NotNull(message = "Lipputyyppi on pakollinen")
     private Long lipputyyppi;
     
     public TapahtumanlipputyyppiDTO() {
