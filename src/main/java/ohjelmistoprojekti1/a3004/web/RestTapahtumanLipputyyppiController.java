@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.LipputyyppiRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
@@ -49,7 +50,7 @@ public class RestTapahtumanLipputyyppiController {
 
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
     @PostMapping("/tapahtumanlipputyypit")
-    public ResponseEntity<?> luoTapahtumanLipputyyppi(@RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
+    public ResponseEntity<?> luoTapahtumanLipputyyppi(@Valid @RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         // tarkistetaan, onko tietokannassa pyyntöä vastaava tapahtuma
         if (tapahtumanLipputyyppiDto.getHinta() > 0) {
 

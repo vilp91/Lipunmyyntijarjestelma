@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
@@ -117,7 +118,7 @@ public class RestMyyntitapahtumaController {
 
     @PostMapping("/myynti")
     @Transactional
-    public ResponseEntity<?> myyLippuja(@RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
+    public ResponseEntity<?> myyLippuja(@Valid @RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
         try {
             // luodaan uusi myyntitapahtuma ja asetetaan sille käyttäjätieto
             Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
@@ -164,7 +165,7 @@ public class RestMyyntitapahtumaController {
         } catch (Exception e) {
             // perutaan tietokantaan tehdyt muutokset
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return ResponseEntity.badRequest().body("Jokin meni vikaan :(");
+            return ResponseEntity.badRequest().body("Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).");
         }
     }
 
