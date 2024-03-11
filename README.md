@@ -14,7 +14,7 @@ Jokaisella on oma nimetty työskentelyhaaransa, jossa tiimin jäsenet työskente
 ### Suositeltu työjärjestys 
 
 
-![mallard duck commitment advice](image.png)
+![mallard duck commitment advice](Wise_Mallard_of_Commits.png)
 
 *NÄMÄ OHJEET EIVÄT VÄLTTÄMÄTTÄ TOIMI SINULLA JOS ESIMERKIKSI PAIKALLINEN HAARASI EI SEURAA SAMAN NIMISTÄ ETÄREPOSITORION HAARAA TAI OLET TEHNYT MUITA OMANLAISIA MUUTOKSIA*
 
