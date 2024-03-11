@@ -1,8 +1,13 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class OstettuLippuDTO {
 
+    @NotNull(message = "Tapahtuman lipputyyppi on pakollinen")
     private Long tapahtumanLipputyyppi;
+    @Min(message = "Osta ainakin yksi lippu", value = 1)
     private int maara;
     
     public OstettuLippuDTO() {

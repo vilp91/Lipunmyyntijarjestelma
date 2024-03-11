@@ -47,9 +47,9 @@ Anna luotavan tapahtuman tiedot:
 
 ## Epäonnistunut tapahtuma
 
-**Ehto**: Virheellinen tapahtumanLipputyyppi/tapahtumanLipputyyppiä ei löydy tietokannasta.
+**Ehto**: Virheellinen tapahtumanLipputyyppi/tapahtumanLipputyyppiä ei löydy tietokannasta (esim. negatiivinen numero).
 
-**Vastauskoodi**: `500 INTERNAL SERVER ERROR`
+**Vastauskoodi**: `400 BAD REQUEST`
 
 **Sisältöesimerkkejä**:
 
@@ -63,12 +63,12 @@ Anna luotavan tapahtuman tiedot:
 ```
 
 ```json
-    "message": "TapahtumanLipputyyppi not found with id 999",
+Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).
 ```
 
 ---
 
-**Ehto**: Virheellinen arvo/tietotyyppi kentässä tai virheellinen endpoint.
+**Ehto**: Virheellinen arvo/tietotyyppi kentässä.
 
 **Vastauskoodi**: `400 BAD REQUEST`
 
@@ -92,6 +92,15 @@ TAI
 **Ehto**: Pyydettyä lippua ei ole saatavilla
 
 **Vastauskoodi**: `400 BAD REQUEST`
+
+```json
+[
+  {
+    "tapahtumanLipputyyppi": 1,
+    "maara": 9999
+  }
+]
+```
 
 ```json
 Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.
