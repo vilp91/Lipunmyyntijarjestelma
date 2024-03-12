@@ -15,8 +15,8 @@ Anna luotavan tapahtuman tiedot
   "tapahtuman_nimi": "[string]",
   "paikka": "[string]",
   "katuosoite": "[string]",
-  "alku": "[date]",
-  "loppu": "[date]",
+  "alku": "[YYYY-MM-DDTHH:mm:ss]",
+  "loppu": "[YYYY-MM-DDTHH:mm:ss]",
   "lippu_lukum": "[int]"
 }
 ```
