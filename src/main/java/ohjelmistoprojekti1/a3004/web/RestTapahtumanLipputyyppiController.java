@@ -69,6 +69,7 @@ public class RestTapahtumanLipputyyppiController {
                             .toUri();
                     // palautetaan clientille vastauksena 201 - Created ja DTO-versio luodusta
                     // tapahtumanlipputyypistä
+                    tapahtumanLipputyyppiDto.setId(tallennettuTapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
                     return ResponseEntity.created(location).body(tapahtumanLipputyyppiDto);
                 }
                 return ResponseEntity.badRequest().body("Lipputyyppiä ei ole olemassa");
@@ -125,9 +126,10 @@ public class RestTapahtumanLipputyyppiController {
     // muunnetaan entity-versio DTO-versioksi
     public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
+        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
         tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
-        tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppi_id());
         return tapahtumanlipputyyppiDTO;
 
     }

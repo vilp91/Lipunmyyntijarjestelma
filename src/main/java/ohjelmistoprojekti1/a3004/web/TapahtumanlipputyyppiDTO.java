@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class TapahtumanlipputyyppiDTO {
 
+    private Long id;
     @NotNull(message = "Hinta on pakollinen")
     private float hinta;
     @NotNull(message = "Valitse tapahtuma")
@@ -18,6 +19,14 @@ public class TapahtumanlipputyyppiDTO {
         this.hinta = hinta;
         this.tapahtuma = tapahtuma;
         this.lipputyyppi = lipputyyppi;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public float getHinta() {
@@ -46,9 +55,13 @@ public class TapahtumanlipputyyppiDTO {
 
     @Override
     public String toString() {
-        return "TapahtumanlipputyyppiDTO [hinta=" + hinta + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi
-                + "]";
+        return "TapahtumanlipputyyppiDTO [id=" + id + ", hinta=" + hinta + ", tapahtuma=" + tapahtuma + ", lipputyyppi="
+                + lipputyyppi + "]";
     }
+
+
+
+
 
     
 }
