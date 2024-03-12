@@ -24,9 +24,10 @@ __Sisältöesimerkkejä__:
         "lippu_lukum": 667,
         "tapahtuman_lipputyypit": [
             {
+                "id": 2,
                 "hinta": 10.0,
                 "tapahtuma": 2,
-                "lipputyyppi": 2
+                "lipputyyppi": 1
             }
         ]
     },
@@ -40,14 +41,16 @@ __Sisältöesimerkkejä__:
         "lippu_lukum": 9999,
         "tapahtuman_lipputyypit": [
             {
+                "id": 3,
                 "hinta": 7.0,
                 "tapahtuma": 3,
-                "lipputyyppi": 3
+                "lipputyyppi": 2
             },
             {
+                "id": 4,
                 "hinta": 10.0,
                 "tapahtuma": 3,
-                "lipputyyppi": 4
+                "lipputyyppi": 1
             }
         ]
     }

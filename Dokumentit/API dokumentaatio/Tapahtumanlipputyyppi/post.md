@@ -26,6 +26,7 @@ __Esimerkkisisältö__:
 
 ```json
 {
+  "id": 3,
   "hinta": 25.0,
   "tapahtuma": 1,
   "lipputyyppi": 2
