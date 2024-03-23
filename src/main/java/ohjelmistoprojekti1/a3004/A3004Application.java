@@ -77,7 +77,10 @@ public class A3004Application {
 			Kayttaja kayttaja1 = new Kayttaja();
 			kayttaja1.setEtunimi("Teppo");
 			kayttaja1.setSukunimi("Testaaja");
-			kayttaja1.setRooli(rooli1);
+			String[] rooliArray = {"USER_ROLE"}; 
+			kayttaja1.setRooli(rooliArray);
+			kayttaja1.setKayttajanimi("teppo");
+			kayttaja1.setSalasana("salasana");
 			kayttajaRepository.save(kayttaja1);
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();

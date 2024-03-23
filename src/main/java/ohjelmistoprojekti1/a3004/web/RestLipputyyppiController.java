@@ -37,7 +37,7 @@ public class RestLipputyyppiController {
             String errorMessage = "Lipputyyppiä syötetyllä id:llä: " + id + ", ei löydy :(";
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-        // hakee lipun tiedot
+        // hakee lipputyypin tiedot
         Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
         return ResponseEntity.ok().body(lipputyyppi);
 

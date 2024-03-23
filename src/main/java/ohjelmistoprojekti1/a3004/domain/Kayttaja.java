@@ -3,6 +3,9 @@ package ohjelmistoprojekti1.a3004.domain;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -20,20 +23,18 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name="kayttaja")
 public class Kayttaja {
 
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kayttaja_id;
 
-    @ManyToOne
-    @JoinColumn(name = "rooli_id")
-    private Rooli rooli;
+    @JsonIgnore
+    private String[] rooli;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
     @JsonIgnore
     private List<Myyntitapahtuma> myyntitapahtumat;
-
-
 
     @NotBlank
     private String etunimi;
@@ -45,19 +46,27 @@ public class Kayttaja {
 
     private String katuosoite;
 
+    @JsonIgnore
+    private String salasana;
+
+    private String kayttajanimi;
+
+
     // konstruktorit
 
     public Kayttaja() {
     }
     
-    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
-            @NotBlank String sukunimi, String puhnro, String katuosoite) {
+    public Kayttaja(String[] rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
+            @NotBlank String sukunimi, String puhnro, String katuosoite, String salasana, String kayttajanimi) {
         this.rooli = rooli;
         this.myyntitapahtumat = myyntitapahtumat;
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
         this.puhnro = puhnro;
         this.katuosoite = katuosoite;
+        this.kayttajanimi = kayttajanimi;
+        setSalasana(salasana);
     }
     
     // getterit ja setterit
@@ -71,11 +80,11 @@ public class Kayttaja {
         this.kayttaja_id = kayttaja_id;
     }
 
-    public Rooli getRooli() {
+    public String[] getRooli() {
         return this.rooli;
     }
 
-    public void setRooli(Rooli rooli) {
+    public void setRooli(String[] rooli) {
         this.rooli = rooli;
     }
 
@@ -117,6 +126,22 @@ public class Kayttaja {
 
     public void setMyyntitapahtumat(List<Myyntitapahtuma> myyntitapahtumat) {
         this.myyntitapahtumat = myyntitapahtumat;
+    }
+
+    public String getKayttajanimi() {
+        return kayttajanimi;
+    }
+
+    public void setKayttajanimi(String kayttajanimi) {
+        this.kayttajanimi = kayttajanimi;
+    }
+
+    public String getSalasana() {
+        return salasana;
+    }
+
+    public void setSalasana(String salasana) {
+        this.salasana = PASSWORD_ENCODER.encode(salasana);
     }
 
     // toString
