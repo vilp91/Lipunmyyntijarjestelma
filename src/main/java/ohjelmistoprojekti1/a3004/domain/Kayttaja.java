@@ -1,7 +1,8 @@
 package ohjelmistoprojekti1.a3004.domain;
 
-
 import java.util.List;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,9 +18,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="kayttaja")
+@Table(name = "kayttaja")
 public class Kayttaja {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +27,18 @@ public class Kayttaja {
 
     @ManyToOne
     @JoinColumn(name = "rooli_id")
+    @JsonIgnore
     private Rooli rooli;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
     @JsonIgnore
     private List<Myyntitapahtuma> myyntitapahtumat;
 
+    @NotBlank
+    private String kayttajatunnus;
 
+    @JsonIgnore
+    private String salasanaHash;
 
     @NotBlank
     private String etunimi;
@@ -46,23 +51,23 @@ public class Kayttaja {
     private String katuosoite;
 
     // konstruktorit
-
     public Kayttaja() {
     }
-    
-    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
+
+    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String kayttajatunnus, @NotBlank String salasana, @NotBlank String etunimi,
             @NotBlank String sukunimi, String puhnro, String katuosoite) {
         this.rooli = rooli;
         this.myyntitapahtumat = myyntitapahtumat;
+        this.kayttajatunnus = kayttajatunnus;
+        //Mahdollinen ongelma: Overrideable methodcall in constructor.
+        setSalasanaHash(salasana);
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
         this.puhnro = puhnro;
         this.katuosoite = katuosoite;
     }
-    
+
     // getterit ja setterit
-
-
     public Long getKayttaja_id() {
         return this.kayttaja_id;
     }
@@ -77,6 +82,24 @@ public class Kayttaja {
 
     public void setRooli(Rooli rooli) {
         this.rooli = rooli;
+    }
+
+    public String getKayttajatunnus() {
+        return kayttajatunnus;
+    }
+
+    public void setKayttajatunnus(String kayttajatunnus) {
+        this.kayttajatunnus = kayttajatunnus;
+    }
+
+    public String getSalasanaHash() {
+        return salasanaHash;
+    }
+
+    public void setSalasanaHash(String salasana) {
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    String hashedPassword = passwordEncoder.encode(salasana);
+    this.salasanaHash = hashedPassword;
     }
 
     public String getEtunimi() {
@@ -119,12 +142,10 @@ public class Kayttaja {
         this.myyntitapahtumat = myyntitapahtumat;
     }
 
-    // toString
     @Override
     public String toString() {
-        return "Kayttaja [kayttaja_id=" + kayttaja_id + ", rooli=" + rooli + ", myyntitapahtumat=" + myyntitapahtumat
+        return "Kayttaja [kayttaja_id=" + kayttaja_id + ", rooli=" + rooli + ", kayttajatunnus=" + kayttajatunnus
                 + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi + ", puhnro=" + puhnro + ", katuosoite="
                 + katuosoite + "]";
-    }   
-    
+    }
 }

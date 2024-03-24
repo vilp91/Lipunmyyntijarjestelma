@@ -1,12 +1,12 @@
 package ohjelmistoprojekti1.a3004;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import ohjelmistoprojekti1.a3004.domain.Kayttaja;
 import ohjelmistoprojekti1.a3004.domain.KayttajaRepository;
@@ -71,14 +71,25 @@ public class A3004Application {
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			Rooli rooli1 = new Rooli();
-			rooli1.setRooli("myyjä");
+			rooli1.setRooli("Myyjä");
 			rooliRepository.save(rooli1);
+			Rooli rooli2 = new Rooli();
+			rooli2.setRooli("Tapahtumaluoja");
+			rooliRepository.save(rooli2);
 
 			Kayttaja kayttaja1 = new Kayttaja();
-			kayttaja1.setEtunimi("Teppo");
-			kayttaja1.setSukunimi("Testaaja");
+			kayttaja1.setKayttajatunnus("Matmyy");
+			kayttaja1.setSalasanaHash("Matmyy");
+			kayttaja1.setEtunimi("Matti");
+			kayttaja1.setSukunimi("Myyjänen");
 			kayttaja1.setRooli(rooli1);
 			kayttajaRepository.save(kayttaja1);
+
+			Kayttaja kayttaja2 = new Kayttaja();
+			kayttaja2.setKayttajatunnus("Teptap");
+			kayttaja2.setSalasanaHash("Teptap");
+			kayttaja2.setEtunimi("Teppo");
+			kayttaja2.setSukunimi("Tapahtuvainen");
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
 			myyntitapahtuma1.setKayttaja(kayttaja1);
@@ -106,6 +117,11 @@ public class A3004Application {
 			lippu3.setMyyntitapahtuma(myyntitapahtuma2);
 			lippuRepository.save(lippu3);
 		};
+	}
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
