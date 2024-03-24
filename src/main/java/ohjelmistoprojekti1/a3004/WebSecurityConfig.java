@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .anyRequest().authenticated())
                 .httpBasic(withDefaults());
+        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 
