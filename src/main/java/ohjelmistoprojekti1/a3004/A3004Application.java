@@ -76,6 +76,9 @@ public class A3004Application {
 			Rooli rooli2 = new Rooli();
 			rooli2.setRooli("Tapahtumaluoja");
 			rooliRepository.save(rooli2);
+			Rooli rooli3 = new Rooli();
+			rooli3.setRooli("Admin");
+			rooliRepository.save(rooli3);
 
 			Kayttaja kayttaja1 = new Kayttaja();
 			kayttaja1.setKayttajatunnus("Matmyy");
@@ -90,6 +93,16 @@ public class A3004Application {
 			kayttaja2.setSalasanaHash("Teptap");
 			kayttaja2.setEtunimi("Teppo");
 			kayttaja2.setSukunimi("Tapahtuvainen");
+			kayttaja2.setRooli(rooli2);
+			kayttajaRepository.save(kayttaja2);
+
+			Kayttaja kayttaja3 = new Kayttaja();
+			kayttaja3.setKayttajatunnus("Aapadm");
+			kayttaja3.setSalasanaHash("Aapadm");
+			kayttaja3.setEtunimi("Aapo");
+			kayttaja3.setSukunimi("Administraattori");
+			kayttaja3.setRooli(rooli3);
+			kayttajaRepository.save(kayttaja3);
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
 			myyntitapahtuma1.setKayttaja(kayttaja1);
