@@ -6,7 +6,14 @@ Hakee tapahtuman id:n perusteella yhden tapahtuman.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
+
 ## Onnistuneen pyynnön palautus
+
+**Ehto**: Autentikointi onnistuu
 
 **Vastauskoodi**: `200 OK`
 
@@ -47,3 +54,9 @@ Tehdään GET pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 ```json
 Tapahtumaa syötetyllä id:llä: 10, ei löydy :(
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

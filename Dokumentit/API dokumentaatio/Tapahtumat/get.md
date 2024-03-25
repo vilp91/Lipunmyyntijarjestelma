@@ -6,7 +6,13 @@ __URL__: `/tapahtumat`
 
 __Metodi__: `GET`
 
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Ei mitään
+
 ## Onnistuneen pyynnön palautus
+
+__Ehto__: Autentikointi onnistuu
 
 __Vastauskoodi__: `200 OK`
 
@@ -57,6 +63,8 @@ __Sisältöesimerkkejä__:
 ]
 ```
 
-## Muistiinpanoja
+## Epäonnistuneen pyynnön palautus
 
-- tapahtuma_id generoituu automaattisesti ja on juokseva luku.
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

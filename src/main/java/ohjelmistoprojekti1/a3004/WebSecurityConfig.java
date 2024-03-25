@@ -16,7 +16,7 @@ import ohjelmistoprojekti1.a3004.web.DetailsService;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
+@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
     @Autowired

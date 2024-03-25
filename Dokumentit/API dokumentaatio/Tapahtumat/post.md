@@ -1,12 +1,14 @@
 # Luodaan uusi tapahtuma
 
+Luo uuden tapahtuman, kun käyttäjällä on vaadittavat oikeudet
+
 **URL**: `/tapahtumat`
 
 **Metodi**: `POST`
 
-<!--  __Autentikaatio__: EI  -->
+__Autentikointi vaaditaan__: Kyllä
 
-<!--  __Lupia vaadittu__: Ei mitään  -->
+__Vaadittavat oikeudet__: Admin
 
 Anna luotavan tapahtuman tiedot
 
@@ -111,4 +113,16 @@ TAI
 ```json
 "Poista pyynnöstä tapahtuma id"
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Koodi__: `403 FORBIDDEN`
 
