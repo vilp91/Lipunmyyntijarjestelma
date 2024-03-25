@@ -29,7 +29,7 @@ public class RestLipputyyppiController {
     public Iterable<Lipputyyppi> haeLipputyypit() {
         return lipputyyppiRepository.findAll();
     }
-
+    
     @GetMapping("/lipputyypit/{id}")
     public ResponseEntity<?> haeLippulipputyyppi(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä

@@ -6,6 +6,10 @@ __URL__: `/tapahtumanlipputyypit`
 
 __Metodi__: `POST`
 
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Admin
+
 __Esimerkkisisältö__:
 
 ```json
@@ -78,6 +82,18 @@ __Esimerkkisisältö__:
 ```json
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Koodi__: `403 FORBIDDEN`
 
 <!-- En jaksanut muuttaa virheviestejä tai tehdä uutta/erillistä sille puuttuuko tieto tai onko se virheellinen. Tänne saa vaikka ja minkälaisia 400 Bad Requesteja ilman virheviestejä ja 500 Internal Server Erroreita Postmanilla jos laittaa noihin kenttiin mitä sattuu arvoja tai jättää koko kentän laittamatta... 
 -Ali -->

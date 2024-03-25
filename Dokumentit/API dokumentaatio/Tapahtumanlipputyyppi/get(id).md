@@ -6,6 +6,10 @@ Hakee tapahtumanlipputyypin id:n perusteella yhden tapahtumanlipputyypin.
 
 **Metodi**: `GET`
 
+__Autentikointi vaaditaan__: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -25,3 +29,9 @@ Hakee tapahtumanlipputyypin id:n perusteella yhden tapahtumanlipputyypin.
 **Ehto**: Haetaan tapahtumanlipputyyppiä, jota ei ole olemassa.
 
 **Koodi**: `404 NOT FOUND`
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

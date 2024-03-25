@@ -6,6 +6,10 @@ Hakee ja näyttää kaikki tietokannassa olevat myyntitapahtumat saatavissa olev
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -81,3 +85,9 @@ Haetaan kaikki tallennetut tapahtumat, mutta listasta ei löydy tapahtumia (Ei h
 ```json
 
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
