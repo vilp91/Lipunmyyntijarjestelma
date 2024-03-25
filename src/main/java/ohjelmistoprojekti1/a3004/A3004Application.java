@@ -78,10 +78,8 @@ public class A3004Application {
 			rooliRepository.save(rooli2);
 
 			Kayttaja kayttaja1 = new Kayttaja();
-			kayttaja1.setKayttajatunnus("Matmyy");
-			kayttaja1.setSalasanaHash("Matmyy");
-			kayttaja1.setEtunimi("Matti");
-			kayttaja1.setSukunimi("Myyjänen");
+			kayttaja1.setEtunimi("Teppo");
+			kayttaja1.setSukunimi("Testaaja");
 			kayttaja1.setRooli(rooli1);
 			kayttaja1.setKayttajanimi("teppo");
 			kayttaja1.setSalasana("salasana");
