@@ -6,6 +6,10 @@ Luo uuden myyntitapahtuman ilman käyttäjää (käyttäjän liittäminen myynti
 
 **Metodi**: `POST`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
 Anna luotavan tapahtuman tiedot:
 
 ```json
@@ -105,3 +109,9 @@ TAI
 ```json
 Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

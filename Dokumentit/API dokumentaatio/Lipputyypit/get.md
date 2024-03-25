@@ -6,6 +6,10 @@ __URL__: `/lipputyypit`
 
 __Metodi__: `GET`
 
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Ei mitään
+
 ## Onnistuneen pyynnön palautus
 
 __Vastauskoodi__: `200 OK`
@@ -32,3 +36,9 @@ Tallennettuja lipputyyppejä ei ole.
 ```json
 []
 ```
+
+## Epäonnistuneen pyynnön palautus
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

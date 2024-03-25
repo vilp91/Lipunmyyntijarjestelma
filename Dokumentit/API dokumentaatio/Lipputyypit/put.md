@@ -1,10 +1,14 @@
 # Päivitä yksittäinen lipputyyppi
 
-Päivittää yksittäisen lipputyypin tietoineen.
+Päivittää yksittäisen lipputyypin tietoineen, kun käyttäjällä on vaadittavat oikeudet.
 
 __URL__: `/lipputyypit/{id}`
 
 __METODI__: `PUT`
+
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Admin
 
 Anna päivitettävän lipputyypin tiedot:
 
@@ -51,3 +55,15 @@ __Esimerkkisisältö__:
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
 }
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Koodi__: `403 FORBIDDEN`

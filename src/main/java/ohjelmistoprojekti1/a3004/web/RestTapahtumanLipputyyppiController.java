@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,7 @@ public class RestTapahtumanLipputyyppiController {
     }
 
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<?> luoTapahtumanLipputyyppi(
             @Valid @RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
@@ -69,6 +71,7 @@ public class RestTapahtumanLipputyyppiController {
                             .toUri();
                     // palautetaan clientille vastauksena 201 - Created ja DTO-versio luodusta
                     // tapahtumanlipputyypistä
+                    tapahtumanLipputyyppiDto.setId(tallennettuTapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
                     return ResponseEntity.created(location).body(tapahtumanLipputyyppiDto);
                 }
                 return ResponseEntity.badRequest().body("Lipputyyppiä ei ole olemassa");
@@ -77,7 +80,7 @@ public class RestTapahtumanLipputyyppiController {
         }
         return ResponseEntity.badRequest().body("Hinnan pitää olla positiivinen arvo");
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> muokkaaTapahtumanlipputyyppi(@PathVariable("id") Long id,
             @RequestBody TapahtumanlipputyyppiDTO muokattuTapahtumanLipputyyppiDto) {
@@ -100,6 +103,7 @@ public class RestTapahtumanLipputyyppiController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> poistaTapahtumanlipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa id:tä vastaava tapahtumanlipputyyppi
@@ -125,9 +129,10 @@ public class RestTapahtumanLipputyyppiController {
     // muunnetaan entity-versio DTO-versioksi
     public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
+        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
         tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
-        tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppi_id());
         return tapahtumanlipputyyppiDTO;
 
     }

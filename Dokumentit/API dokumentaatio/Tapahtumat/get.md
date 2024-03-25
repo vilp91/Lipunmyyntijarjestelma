@@ -6,7 +6,13 @@ __URL__: `/tapahtumat`
 
 __Metodi__: `GET`
 
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Ei mitään
+
 ## Onnistuneen pyynnön palautus
+
+__Ehto__: Autentikointi onnistuu
 
 __Vastauskoodi__: `200 OK`
 
@@ -24,9 +30,10 @@ __Sisältöesimerkkejä__:
         "lippu_lukum": 667,
         "tapahtuman_lipputyypit": [
             {
+                "id": 2,
                 "hinta": 10.0,
                 "tapahtuma": 2,
-                "lipputyyppi": 2
+                "lipputyyppi": 1
             }
         ]
     },
@@ -40,20 +47,24 @@ __Sisältöesimerkkejä__:
         "lippu_lukum": 9999,
         "tapahtuman_lipputyypit": [
             {
+                "id": 3,
                 "hinta": 7.0,
                 "tapahtuma": 3,
-                "lipputyyppi": 3
+                "lipputyyppi": 2
             },
             {
+                "id": 4,
                 "hinta": 10.0,
                 "tapahtuma": 3,
-                "lipputyyppi": 4
+                "lipputyyppi": 1
             }
         ]
     }
 ]
 ```
 
-## Muistiinpanoja
+## Epäonnistuneen pyynnön palautus
 
-- tapahtuma_id generoituu automaattisesti ja on juokseva luku.
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

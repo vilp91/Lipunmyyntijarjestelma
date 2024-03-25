@@ -16,10 +16,12 @@ public class RestLippuController {
     @Autowired
     LippuRepository lippuRepository;
 
+
     @GetMapping("/liput")
     public Iterable<Lippu> haeLiput() {
         return lippuRepository.findAll();
     }
+
 
     @GetMapping("/liput/{id}")
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
@@ -27,7 +29,7 @@ public class RestLippuController {
         // jos ei, niin palauttaa koodin 404
         if (!lippuRepository.existsById(id)) {
             String errorMessage = "Lippua syötetyllä id:llä: " + id + ", ei löydy :(";
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         // hakee lipun tiedot
         Lippu lippu = lippuRepository.findById(id).orElse(null);

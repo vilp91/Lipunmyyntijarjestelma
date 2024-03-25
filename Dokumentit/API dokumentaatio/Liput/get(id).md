@@ -6,6 +6,10 @@ Hakee lipun id:n perusteella yhden lipun.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -59,6 +63,12 @@ Haetaan lipun tietoja id:n perusteella.
 **Ehto**: Haetaan id:n perusteella lippua, mutta lippua haetulla id:llä ei ole olemassa.
 
 **Koodi**: `404 NOT FOUND`
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
 
 **Sisältöesimerkki**:
 

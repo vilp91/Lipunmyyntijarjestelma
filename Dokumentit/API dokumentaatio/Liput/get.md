@@ -6,6 +6,10 @@ Hakee ja näyttää kaikki tietokannassa olevat liput tietoineen
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -119,3 +123,9 @@ Haetaan liput.
   }
 ]
 ```
+
+## Epäonnistunut pyyntö
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

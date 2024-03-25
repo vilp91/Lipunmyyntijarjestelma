@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +23,6 @@ import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
 import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
-import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @RestController
@@ -37,7 +37,9 @@ public class RestMyyntitapahtumaController {
 
     @Autowired
     TapahtumaRepository tapahtumaRepository;
-
+    
+    
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/myyntitapahtumat")
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
         // hakee kaikki myyntitapahtumat
@@ -74,7 +76,7 @@ public class RestMyyntitapahtumaController {
     // myyntitapahtumaDTO.setId(id);
     // return myyntitapahtumaDTO;
     // }
-
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> haeMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
@@ -117,6 +119,7 @@ public class RestMyyntitapahtumaController {
         return myyntitapahtumaDTO;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @PostMapping("/myyntitapahtumat")
     @Transactional
     public ResponseEntity<?> myyLippuja(@Valid @RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
@@ -170,6 +173,7 @@ public class RestMyyntitapahtumaController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistetaan löytyykö tietokannasta tietuetta annetulla id:llä

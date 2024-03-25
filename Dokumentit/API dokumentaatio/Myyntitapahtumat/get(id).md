@@ -6,6 +6,10 @@ Hakee myyntitapahtuman id:n perusteella yhden myyntitapahtuman.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -49,3 +53,9 @@ Tehdään GET pyyntö /myyntitapahtumat/10 endpointtiin. Saadaan seuraava vastau
 ```json
 Myyntitapahtumaa syötetyllä id:llä: 10, ei löydy :(
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`

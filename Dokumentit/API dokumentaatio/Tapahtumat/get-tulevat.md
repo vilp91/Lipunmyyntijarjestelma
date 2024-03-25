@@ -6,11 +6,11 @@ __URL__: `/tapahtumat/tulevat`
 
 __Metodi__: `GET`
 
-<!-- Autentikointi vaadittu: `KYLLÄ` -->
+__Autentikointi vaaditaan__: Kyllä
 
-<!-- Tarvittava käyttöoikeus: ?? -->
+__Vaadittavat oikeudet__: Ei mitään
 
-## Vastauskoodit - Success
+## Onnistuneen pyynnön palautus
 
 __Ehto__: Kuluvan päivän jälkeisiä tapahtumia ei ole tai tapahtumille ei ole asetettu alkupäivää. Käyttäjälle ei näytetä tuloksia.
 
@@ -65,3 +65,9 @@ __Esimerkkisisältö__, 23.2.2024 tehtynä hakuna käyttäjälle näytetään ka
     }
 ]
 ```
+
+## Epäonnistuneen pyynnön palautus
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
