@@ -1,6 +1,6 @@
 # Hae kaikki tapahtumat
 
-Hakee ja näyttää kaikki tietokannassa olevat tapahtumat saatavissa olevine tietoineen, kun käyttäjällä on vaadittavat oikeudet.
+Hakee ja näyttää kaikki tietokannassa olevat tapahtumat saatavissa olevine tietoineen.
 
 __URL__: `/tapahtumat`
 
@@ -8,11 +8,11 @@ __Metodi__: `GET`
 
 __Autentikointi vaaditaan__: Kyllä
 
-__Vaadittavat oikeudet__: Myyjä tai Admin
+__Vaadittavat oikeudet__: Ei mitään
 
 ## Onnistuneen pyynnön palautus
 
-__Ehto__: Autentikoidulla käyttäjällä on vaadittavat oikeudet
+__Ehto__: Autentikointi onnistuu
 
 __Vastauskoodi__: `200 OK`
 
@@ -68,9 +68,3 @@ __Sisältöesimerkkejä__:
 __Ehto__: Autentikointi epäonnistuu
 
 __Koodi__: `401 UNAUTHORIZED`
-
-TAI
-
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
-
-__Koodi__: `403 FORBIDDEN`
