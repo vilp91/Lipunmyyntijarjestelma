@@ -40,7 +40,7 @@ public class RestMyyntitapahtumaController {
     TapahtumaRepository tapahtumaRepository;
     
     
-    @PreAuthorize("hasAuthority('USER_MYYJA')")
+    @PreAuthorize("hasAuthority('ROLE_MYYJA')")
     @GetMapping("/myyntitapahtumat")
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
         // hakee kaikki myyntitapahtumat
@@ -77,7 +77,7 @@ public class RestMyyntitapahtumaController {
     // myyntitapahtumaDTO.setId(id);
     // return myyntitapahtumaDTO;
     // }
-    @PreAuthorize("hasAuthority('USER_MYYJA')")
+    @PreAuthorize("hasAuthority('ROLE_MYYJA')")
     @GetMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> haeMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
