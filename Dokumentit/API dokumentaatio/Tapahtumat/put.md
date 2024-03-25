@@ -1,14 +1,14 @@
 # Päivitä tapahtuma
 
-Päivittää olemassa olevan tapahtuman
+Päivittää olemassa olevan tapahtuman, kun käyttäjällä on vaadittavat oikeudet.
 
 __URL__: `/tapahtumat/{id}`
 
 __Metodi__: `PUT`
 
-<!-- Autentikointi vaadittu: `KYLLÄ` -->
+__Autentikointi vaaditaan__: Kyllä
 
-<!-- Tarvittava käyttöoikeus: ?? -->
+__Vaadittavat oikeudet__: Admin
 
 __Tietosisältövaatimukset__:
 ```json
@@ -60,13 +60,17 @@ __Koodi__: `404 NOT FOUND`
 
 __Sisältö__: `{}`
 
-<!-- TAI
+TAI
 
-Ehto: Käyttäjällä ei ole oikeutta päivittää tapahtumaa
+__Ehto__: Autentikointi epäonnistuu
 
-Koodi: `403 FORBIDDEN`
+__Koodi__: `401 UNAUTHORIZED`
 
-Sisältö: `{}` -->
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Koodi__: `403 FORBIDDEN`
 
 ## Lisätiedot
 
