@@ -1,10 +1,14 @@
 # Luo uuden lipputyypin
 
-Luo tapahtumalle uuden lipputyypin.
+Luo tapahtumalle uuden lipputyypin, kun käyttäjällä on vaadittavat oikeudet.
 
 __URL__: `/lipputyypit`
 
 __Metodi__: `POST`
+
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Admin
 
 Anna luotavan lipputyypin tiedot:
 
@@ -37,6 +41,17 @@ __Esimerkkisisältö__:
 ```json
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
 ```
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Koodi__: `403 FORBIDDEN`
 
 <!-- __Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
 
