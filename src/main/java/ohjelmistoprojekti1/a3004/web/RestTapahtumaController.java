@@ -87,7 +87,7 @@ public class RestTapahtumaController {
     }
 
     // haetaan tapahtumat, joiden alku on kuluvan vuorokauden jälkeen
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/tulevat")
     public Iterable<Tapahtuma> tulevatTapahtumat() {
         // haetaan vertailuajaksi kuluvan vuorokauden viimeinen hetki
