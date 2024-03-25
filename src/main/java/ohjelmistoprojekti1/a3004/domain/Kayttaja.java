@@ -29,8 +29,9 @@ public class Kayttaja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kayttaja_id;
 
-    @JsonIgnore
-    private String[] rooli;
+    @ManyToOne
+    @JoinColumn(name = "rooli_id")
+    private Rooli rooli;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
     @JsonIgnore
@@ -57,7 +58,7 @@ public class Kayttaja {
     public Kayttaja() {
     }
     
-    public Kayttaja(String[] rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
+    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
             @NotBlank String sukunimi, String puhnro, String katuosoite, String salasana, String kayttajanimi) {
         this.rooli = rooli;
         this.myyntitapahtumat = myyntitapahtumat;
@@ -80,11 +81,11 @@ public class Kayttaja {
         this.kayttaja_id = kayttaja_id;
     }
 
-    public String[] getRooli() {
+    public Rooli getRooli() {
         return this.rooli;
     }
 
-    public void setRooli(String[] rooli) {
+    public void setRooli(Rooli rooli) {
         this.rooli = rooli;
     }
 
