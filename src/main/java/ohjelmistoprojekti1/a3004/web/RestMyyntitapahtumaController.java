@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,6 +39,7 @@ public class RestMyyntitapahtumaController {
     @Autowired
     TapahtumaRepository tapahtumaRepository;
 
+    @PreAuthorize("hasAuthority('USER_MYYJA')")
     @GetMapping("/myyntitapahtumat")
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
         // hakee kaikki myyntitapahtumat

@@ -26,7 +26,7 @@ public class DetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
             kayttaja.getKayttajanimi(),
             kayttaja.getSalasana(),
-            AuthorityUtils.createAuthorityList(kayttaja.getRooli())
+            AuthorityUtils.createAuthorityList(kayttaja.getRooli().toString())
         );
     }
     

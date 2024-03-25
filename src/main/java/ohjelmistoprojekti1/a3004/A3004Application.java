@@ -71,14 +71,13 @@ public class A3004Application {
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			Rooli rooli1 = new Rooli();
-			rooli1.setRooli("myyjä");
+			rooli1.setRooli("USER_MYYJA");
 			rooliRepository.save(rooli1);
 
 			Kayttaja kayttaja1 = new Kayttaja();
 			kayttaja1.setEtunimi("Teppo");
 			kayttaja1.setSukunimi("Testaaja");
-			String[] rooliArray = {"USER_ROLE"}; 
-			kayttaja1.setRooli(rooliArray);
+			kayttaja1.setRooli(rooli1);
 			kayttaja1.setKayttajanimi("teppo");
 			kayttaja1.setSalasana("salasana");
 			kayttajaRepository.save(kayttaja1);
