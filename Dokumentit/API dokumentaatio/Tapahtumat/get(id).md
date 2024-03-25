@@ -1,6 +1,6 @@
 # Hae yksittäisen tapahtuman tiedot
 
-Hakee tapahtuman id:n perusteella yhden tapahtuman, kun käyttäjällä on vaadittavat oikeudet.
+Hakee tapahtuman id:n perusteella yhden tapahtuman.
 
 **URL**: `/tapahtumat/{id}`
 
@@ -8,12 +8,12 @@ Hakee tapahtuman id:n perusteella yhden tapahtuman, kun käyttäjällä on vaadi
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Myyjä tai Admin
+**Vaadittavat oikeudet**: Ei mitään
 
 
 ## Onnistuneen pyynnön palautus
 
-**Ehto**: Autentikoidulla käyttäjällä on vaadittavat oikeudet
+**Ehto**: Autentikointi onnistuu
 
 **Vastauskoodi**: `200 OK`
 
@@ -60,9 +60,3 @@ TAI
 __Ehto__: Autentikointi epäonnistuu
 
 __Koodi__: `401 UNAUTHORIZED`
-
-TAI
-
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
-
-__Koodi__: `403 FORBIDDEN`
