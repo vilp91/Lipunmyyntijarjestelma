@@ -5,6 +5,7 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,25 +36,27 @@ public class RestLipputyyppiController {
         // jos ei, niin palauttaa koodin 404
         if (!lipputyyppiRepository.existsById(id)) {
             String errorMessage = "Lipputyyppiä syötetyllä id:llä: " + id + ", ei löydy :(";
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-        // hakee lipun tiedot
+        // hakee lipputyypin tiedot
         Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
         return ResponseEntity.ok().body(lipputyyppi);
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/lipputyypit")
     public ResponseEntity<?> luoLipputyyppi(@Valid @RequestBody Lipputyyppi lipputyyppi) {
         Lipputyyppi tallennettuLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
         URI location = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(tallennettuLipputyyppi.getLipputyyppi_id())
-            .toUri();
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(tallennettuLipputyyppi.getLipputyyppi_id())
+                .toUri();
         return ResponseEntity.created(location).body(tallennettuLipputyyppi);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/lipputyypit/{id}")
     public ResponseEntity<?> poistaLipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
@@ -65,10 +68,11 @@ public class RestLipputyyppiController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/lipputyypit/{id}")
     public ResponseEntity<?> muokkaaLipputyyppi(@PathVariable("id") Long id,
             @Valid @RequestBody Lipputyyppi muokattuLipputyyppi) {
-                // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
+        // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
         if (lipputyyppiRepository.existsById(id)) {
             // jos lipputyyppi on olemassa, se päivitetään annetuilla tiedoilla
             muokattuLipputyyppi.setLipputyyppi_id(id);

@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import ohjelmistoprojekti1.a3004.domain.Kayttaja;
 import ohjelmistoprojekti1.a3004.domain.KayttajaRepository;
@@ -71,14 +70,12 @@ public class A3004Application {
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			Rooli rooli1 = new Rooli();
-			rooli1.setRooli("Myyjä");
+			rooli1.setRooli("ROLE_MYYJA");
 			rooliRepository.save(rooli1);
+
 			Rooli rooli2 = new Rooli();
-			rooli2.setRooli("Tapahtumaluoja");
+			rooli2.setRooli("ROLE_ADMIN");
 			rooliRepository.save(rooli2);
-			Rooli rooli3 = new Rooli();
-			rooli3.setRooli("Admin");
-			rooliRepository.save(rooli3);
 
 			Kayttaja kayttaja1 = new Kayttaja();
 			kayttaja1.setKayttajatunnus("Matmyy");
@@ -86,23 +83,17 @@ public class A3004Application {
 			kayttaja1.setEtunimi("Matti");
 			kayttaja1.setSukunimi("Myyjänen");
 			kayttaja1.setRooli(rooli1);
+			kayttaja1.setKayttajanimi("teppo");
+			kayttaja1.setSalasana("salasana");
 			kayttajaRepository.save(kayttaja1);
 
 			Kayttaja kayttaja2 = new Kayttaja();
-			kayttaja2.setKayttajatunnus("Teptap");
-			kayttaja2.setSalasanaHash("Teptap");
-			kayttaja2.setEtunimi("Teppo");
-			kayttaja2.setSukunimi("Tapahtuvainen");
+			kayttaja2.setEtunimi("Heikki");
+			kayttaja2.setSukunimi("Hallinnoija");
 			kayttaja2.setRooli(rooli2);
+			kayttaja2.setKayttajanimi("heikki");
+			kayttaja2.setSalasana("salaisempisana");
 			kayttajaRepository.save(kayttaja2);
-
-			Kayttaja kayttaja3 = new Kayttaja();
-			kayttaja3.setKayttajatunnus("Aapadm");
-			kayttaja3.setSalasanaHash("Aapadm");
-			kayttaja3.setEtunimi("Aapo");
-			kayttaja3.setSukunimi("Administraattori");
-			kayttaja3.setRooli(rooli3);
-			kayttajaRepository.save(kayttaja3);
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
 			myyntitapahtuma1.setKayttaja(kayttaja1);
@@ -130,11 +121,6 @@ public class A3004Application {
 			lippu3.setMyyntitapahtuma(myyntitapahtuma2);
 			lippuRepository.save(lippu3);
 		};
-	}
-
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
 	}
 
 }

@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +30,13 @@ public class RestTapahtumanLipputyyppiController {
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumanlipputyypit")
     public Iterable<TapahtumanLipputyyppi> haeTapahtumanLipputyypit() {
         return tapahtumanLipputyyppiRepository.findAll();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> haeTapahtumanlipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa pyyntöä vastaavaa tapahtumanlipputyyppi
@@ -49,6 +52,7 @@ public class RestTapahtumanLipputyyppiController {
     }
 
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/tapahtumanlipputyypit")
     public ResponseEntity<?> luoTapahtumanLipputyyppi(
             @Valid @RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
@@ -78,7 +82,7 @@ public class RestTapahtumanLipputyyppiController {
         }
         return ResponseEntity.badRequest().body("Hinnan pitää olla positiivinen arvo");
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> muokkaaTapahtumanlipputyyppi(@PathVariable("id") Long id,
             @RequestBody TapahtumanlipputyyppiDTO muokattuTapahtumanLipputyyppiDto) {
@@ -101,6 +105,7 @@ public class RestTapahtumanLipputyyppiController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> poistaTapahtumanlipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa id:tä vastaava tapahtumanlipputyyppi

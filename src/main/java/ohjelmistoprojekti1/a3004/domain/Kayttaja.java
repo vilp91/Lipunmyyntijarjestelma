@@ -3,6 +3,7 @@ package ohjelmistoprojekti1.a3004.domain;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,6 +22,8 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "kayttaja")
 public class Kayttaja {
 
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kayttaja_id;
@@ -35,12 +38,6 @@ public class Kayttaja {
     private List<Myyntitapahtuma> myyntitapahtumat;
 
     @NotBlank
-    private String kayttajatunnus;
-
-    @JsonIgnore
-    private String salasanaHash;
-
-    @NotBlank
     private String etunimi;
 
     @NotBlank
@@ -50,21 +47,28 @@ public class Kayttaja {
 
     private String katuosoite;
 
+    @JsonIgnore
+    private String salasana;
+
+    @JsonIgnore
+    private String kayttajanimi;
+
+
     // konstruktorit
     public Kayttaja() {
     }
-
-    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String kayttajatunnus, @NotBlank String salasana, @NotBlank String etunimi,
-            @NotBlank String sukunimi, String puhnro, String katuosoite) {
+    
+    public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
+            @NotBlank String sukunimi, String puhnro, String katuosoite, String salasana, String kayttajanimi) {
         this.rooli = rooli;
         this.myyntitapahtumat = myyntitapahtumat;
-        this.kayttajatunnus = kayttajatunnus;
         //Mahdollinen ongelma: Overrideable methodcall in constructor.
-        setSalasanaHash(salasana);
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
         this.puhnro = puhnro;
         this.katuosoite = katuosoite;
+        this.kayttajanimi = kayttajanimi;
+        setSalasana(salasana);
     }
 
     // getterit ja setterit
@@ -82,24 +86,6 @@ public class Kayttaja {
 
     public void setRooli(Rooli rooli) {
         this.rooli = rooli;
-    }
-
-    public String getKayttajatunnus() {
-        return kayttajatunnus;
-    }
-
-    public void setKayttajatunnus(String kayttajatunnus) {
-        this.kayttajatunnus = kayttajatunnus;
-    }
-
-    public String getSalasanaHash() {
-        return salasanaHash;
-    }
-
-    public void setSalasanaHash(String salasana) {
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    String hashedPassword = passwordEncoder.encode(salasana);
-    this.salasanaHash = hashedPassword;
     }
 
     public String getEtunimi() {
@@ -142,10 +128,27 @@ public class Kayttaja {
         this.myyntitapahtumat = myyntitapahtumat;
     }
 
+    public String getKayttajanimi() {
+        return kayttajanimi;
+    }
+
+    public void setKayttajanimi(String kayttajanimi) {
+        this.kayttajanimi = kayttajanimi;
+    }
+
+    public String getSalasana() {
+        return salasana;
+    }
+
+    public void setSalasana(String salasana) {
+        this.salasana = PASSWORD_ENCODER.encode(salasana);
+    }
+
     @Override
     public String toString() {
-        return "Kayttaja [kayttaja_id=" + kayttaja_id + ", rooli=" + rooli + ", kayttajatunnus=" + kayttajatunnus
-                + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi + ", puhnro=" + puhnro + ", katuosoite="
-                + katuosoite + "]";
+        return "Kayttaja [kayttaja_id=" + kayttaja_id + ", rooli=" + rooli + ", etunimi=" + etunimi + ", sukunimi="
+                + sukunimi + ", puhnro=" + puhnro + ", katuosoite=" + katuosoite + "]";
     }
+
+
 }
