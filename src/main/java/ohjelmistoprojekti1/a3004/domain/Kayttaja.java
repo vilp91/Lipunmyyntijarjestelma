@@ -50,6 +50,7 @@ public class Kayttaja {
     @JsonIgnore
     private String salasana;
 
+    @JsonIgnore
     private String kayttajanimi;
 
 

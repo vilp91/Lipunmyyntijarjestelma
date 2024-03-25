@@ -1,6 +1,5 @@
 package ohjelmistoprojekti1.a3004;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
@@ -74,6 +73,10 @@ public class A3004Application {
 			rooli1.setRooli("ROLE_MYYJA");
 			rooliRepository.save(rooli1);
 
+			Rooli rooli2 = new Rooli();
+			rooli2.setRooli("ROLE_ADMIN");
+			rooliRepository.save(rooli2);
+
 			Kayttaja kayttaja1 = new Kayttaja();
 			kayttaja1.setEtunimi("Teppo");
 			kayttaja1.setSukunimi("Testaaja");
@@ -81,6 +84,14 @@ public class A3004Application {
 			kayttaja1.setKayttajanimi("teppo");
 			kayttaja1.setSalasana("salasana");
 			kayttajaRepository.save(kayttaja1);
+
+			Kayttaja kayttaja2 = new Kayttaja();
+			kayttaja2.setEtunimi("Heikki");
+			kayttaja2.setSukunimi("Hallinnoija");
+			kayttaja2.setRooli(rooli2);
+			kayttaja2.setKayttajanimi("heikki");
+			kayttaja2.setSalasana("salaisempisana");
+			kayttajaRepository.save(kayttaja2);
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
 			myyntitapahtuma1.setKayttaja(kayttaja1);
