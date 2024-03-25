@@ -71,7 +71,7 @@ public class A3004Application {
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			Rooli rooli1 = new Rooli();
-			rooli1.setRooli("USER_MYYJA");
+			rooli1.setRooli("ROLE_MYYJA");
 			rooliRepository.save(rooli1);
 
 			Kayttaja kayttaja1 = new Kayttaja();
