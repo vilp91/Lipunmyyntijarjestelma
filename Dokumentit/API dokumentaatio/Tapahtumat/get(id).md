@@ -1,12 +1,19 @@
 # Hae yksittäisen tapahtuman tiedot
 
-Hakee tapahtuman id:n perusteella yhden tapahtuman.
+Hakee tapahtuman id:n perusteella yhden tapahtuman, kun käyttäjällä on vaadittavat oikeudet.
 
 **URL**: `/tapahtumat/{id}`
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
+
 ## Onnistuneen pyynnön palautus
+
+**Ehto**: Autentikoidulla käyttäjällä on vaadittavat oikeudet
 
 **Vastauskoodi**: `200 OK`
 
@@ -47,3 +54,15 @@ Tehdään GET pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 ```json
 Tapahtumaa syötetyllä id:llä: 10, ei löydy :(
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Koodi__: `403 FORBIDDEN`
