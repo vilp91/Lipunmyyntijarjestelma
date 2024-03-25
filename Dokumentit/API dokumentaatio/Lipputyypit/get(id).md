@@ -6,6 +6,11 @@ Hakee lipputyypin id:n perusteella yhden lipputyypin.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Ei mitään
+
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -21,11 +26,18 @@ Haetaan lipputyypin tietoja id:n perusteella.
 }
 ```
 
-## Epäonnistunut pyyntö
+## Epäonnistuneen pyynnön palautus
 
 **Ehto**: Haetaan id:n perusteella lipputyyppiä, mutta lipputyyppiä haetulla id:llä ei ole olemassa.
 
 **Koodi**: `404 NOT FOUND`
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+
 
 **Sisältöesimerkki**:
 
