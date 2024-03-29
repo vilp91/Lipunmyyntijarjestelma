@@ -35,13 +35,11 @@ public class RestLipputyyppiController {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!lipputyyppiRepository.existsById(id)) {
-            String errorMessage = "Lipputyyppiä syötetyllä id:llä: " + id + ", ei löydy :(";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            return ResponseEntity.notFound().build();
         }
         // hakee lipputyypin tiedot
         Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
         return ResponseEntity.ok().body(lipputyyppi);
-
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
