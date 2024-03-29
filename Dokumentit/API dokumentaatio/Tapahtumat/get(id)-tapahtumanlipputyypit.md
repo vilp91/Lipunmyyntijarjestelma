@@ -23,7 +23,8 @@ __Esimerkkisisältö__:
         "id": 2,
         "hinta": 10.0,
         "tapahtuma": 2,
-        "lipputyyppi": 1
+        "lipputyyppiId": 1,
+        "lipputyyppi": "perus"
     }
 ]
 ```

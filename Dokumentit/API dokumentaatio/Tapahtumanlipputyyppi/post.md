@@ -30,10 +30,11 @@ __Esimerkkisisältö__:
 
 ```json
 {
-  "id": 3,
-  "hinta": 25.0,
-  "tapahtuma": 1,
-  "lipputyyppi": 2
+    "id": 1,
+    "hinta": 10.0,
+    "tapahtuma": 1,
+    "lipputyyppiId": 1,
+    "lipputyyppi": "perus"
 }
 ```
 ## Epäonnistuneen pyynnön palautus

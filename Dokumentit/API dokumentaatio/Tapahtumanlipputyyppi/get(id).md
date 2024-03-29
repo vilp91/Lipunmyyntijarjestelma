@@ -18,9 +18,11 @@ __Autentikointi vaaditaan__: Kyllä
 
 ```json
 {
+    "id": 1,
     "hinta": 10.0,
-    "tapahtuma": 2,
-    "lipputyyppi": 2
+    "tapahtuma": 1,
+    "lipputyyppiId": 1,
+    "lipputyyppi": "perus"
 }
 ```
 

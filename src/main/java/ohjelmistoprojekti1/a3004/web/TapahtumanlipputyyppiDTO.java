@@ -9,16 +9,18 @@ public class TapahtumanlipputyyppiDTO {
     private float hinta;
     @NotNull(message = "Valitse tapahtuma")
     private Long tapahtuma;
-    @NotNull(message = "Lipputyyppi on pakollinen")
-    private Long lipputyyppi;
+    @NotNull(message = "Lipputyyppi Id on pakollinen")
+    private Long lipputyyppiId;
+    private String lipputyyppi;
     
     public TapahtumanlipputyyppiDTO() {
     }
 
-    public TapahtumanlipputyyppiDTO(float hinta, Long tapahtuma, Long lipputyyppi) {
+    public TapahtumanlipputyyppiDTO(float hinta, Long tapahtuma, Long lipputyyppiId
+    ) {
         this.hinta = hinta;
         this.tapahtuma = tapahtuma;
-        this.lipputyyppi = lipputyyppi;
+        this.lipputyyppiId = lipputyyppiId;
     }
 
     public Long getId() {
@@ -45,23 +47,26 @@ public class TapahtumanlipputyyppiDTO {
         this.tapahtuma = tapahtuma;
     }
 
-    public Long getLipputyyppi() {
+    public Long getLipputyyppiId() {
+        return lipputyyppiId;
+    }
+
+    public void setLipputyyppiId(Long lipputyyppiId) {
+        this.lipputyyppiId = lipputyyppiId;
+    }
+
+    public String getLipputyyppi() {
         return lipputyyppi;
     }
 
-    public void setLipputyyppi(Long lipputyyppi) {
+    public void setLipputyyppi(String lipputyyppi) {
         this.lipputyyppi = lipputyyppi;
     }
 
     @Override
     public String toString() {
-        return "TapahtumanlipputyyppiDTO [id=" + id + ", hinta=" + hinta + ", tapahtuma=" + tapahtuma + ", lipputyyppi="
-                + lipputyyppi + "]";
+        return "TapahtumanlipputyyppiDTO [id=" + id + ", hinta=" + hinta + ", tapahtuma=" + tapahtuma
+                + ", lipputyyppiId=" + lipputyyppiId + ", lipputyyppi=" + lipputyyppi + "]";
     }
-
-
-
-
-
     
 }
