@@ -35,7 +35,7 @@ public class RestTapahtumaController {
     private TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
 
     @Autowired
-    private RestTapahtumanLipputyyppiController restTapahtumanLipputyyppiController;
+    private RestTapahtumanLipputyyppiController tapahtumanLipputyyppiController;
 
     @GetMapping("/tapahtumat")
     public List<TapahtumaDTO> haeTapahtumat() {
@@ -79,7 +79,7 @@ public class RestTapahtumaController {
         List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
         List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
         for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanLipputyypit) {
-            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = restTapahtumanLipputyyppiController.EntityToDTO(tapahtumanLipputyyppi);
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = tapahtumanLipputyyppiController.EntityToDTO(tapahtumanLipputyyppi);
             tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
         }
         tapahtumaDTO.setTapahtuman_lipputyypit(tapahtumanlipputyyppiDTOt);
@@ -87,12 +87,29 @@ public class RestTapahtumaController {
     }
 
     // haetaan tapahtumat, joiden alku on kuluvan vuorokauden jälkeen
-    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/tulevat")
     public Iterable<Tapahtuma> tulevatTapahtumat() {
         // haetaan vertailuajaksi kuluvan vuorokauden viimeinen hetki
         LocalDateTime tanaan = LocalDateTime.now().with(LocalTime.MAX);
         return tapahtumaRepository.findAllByAlkuAfter(tanaan);
+    }
+
+    // haetaan yhteen tapahtumaan liittyvät tapahtumanlipputyypit
+    @GetMapping("/tapahtumat/{id}/tapahtumanlipputyypit")
+    public ResponseEntity<?> haeTapahtumakohtaisetTapahtumanlipputyypit(@PathVariable("id") Long id) {
+        // tarkistetaan, että tapahtuma on olemassa
+        if (!tapahtumaRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        // haetaan tapahtumanlipputyypit ja muutetaan ne DTO-versioiksi
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtuman_lipputyypit();
+        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
+        
+        for (TapahtumanLipputyyppi tapahtumanlipputyyppi : tapahtumanlipputyypit) {
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = tapahtumanLipputyyppiController.EntityToDTO(tapahtumanlipputyyppi);
+            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+        }
+        return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
