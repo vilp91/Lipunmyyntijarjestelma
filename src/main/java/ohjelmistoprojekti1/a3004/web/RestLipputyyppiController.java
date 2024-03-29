@@ -47,13 +47,17 @@ public class RestLipputyyppiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/lipputyypit")
     public ResponseEntity<?> luoLipputyyppi(@Valid @RequestBody Lipputyyppi lipputyyppi) {
-        Lipputyyppi tallennettuLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(tallennettuLipputyyppi.getLipputyyppi_id())
-                .toUri();
-        return ResponseEntity.created(location).body(tallennettuLipputyyppi);
+        // jos tietokannassa ei ole saman nimistä lipputyyppiä, luodaan uusi lipputyyppi
+        if (lipputyyppiOnUniikki(lipputyyppi.getTyyppi())) {
+            Lipputyyppi tallennettuLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(tallennettuLipputyyppi.getLipputyyppi_id())
+                    .toUri();
+            return ResponseEntity.created(location).body(tallennettuLipputyyppi);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -80,6 +84,11 @@ public class RestLipputyyppiController {
             return ResponseEntity.ok().body(muokattuLipputyyppi);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    // tarkistaa löytyykö tietokannasta Lipputyyppi, jolla on jo annettu tyyppi(nimi)
+    public boolean lipputyyppiOnUniikki(String tyyppi) {
+        return lipputyyppiRepository.findByTyyppi(tyyppi) == null;
     }
 
 }
