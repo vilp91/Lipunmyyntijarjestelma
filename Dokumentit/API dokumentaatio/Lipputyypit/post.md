@@ -41,6 +41,13 @@ __Esimerkkisisältö__:
 ```json
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
 ```
+
+TAI
+
+__Ehto__: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
 TAI
 
 __Ehto__: Autentikointi epäonnistuu
@@ -52,7 +59,3 @@ TAI
 __Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
 __Koodi__: `403 FORBIDDEN`
-
-<!-- __Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
-
-__Vastauskoodi__: `403 Forbidden` -->
