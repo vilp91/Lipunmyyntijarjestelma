@@ -76,10 +76,16 @@ public class RestLipputyyppiController {
             @Valid @RequestBody Lipputyyppi muokattuLipputyyppi) {
         // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
         if (lipputyyppiRepository.existsById(id)) {
-            // jos lipputyyppi on olemassa, se päivitetään annetuilla tiedoilla
-            muokattuLipputyyppi.setLipputyyppi_id(id);
-            lipputyyppiRepository.save(muokattuLipputyyppi);
-            return ResponseEntity.ok().body(muokattuLipputyyppi);
+            // tarkistetaan, onko tietokannassa jo käytössä lipputyypin tyyppi
+            // jos tyyppi on uniikki, tallennetaan muutokset
+            if (lipputyyppiOnUniikki(muokattuLipputyyppi.getTyyppi())) {
+                muokattuLipputyyppi.setLipputyyppi_id(id);
+                lipputyyppiRepository.save(muokattuLipputyyppi);
+                return ResponseEntity.ok().body(muokattuLipputyyppi);
+            }
+            else {
+                return ResponseEntity.badRequest().build();
+            }
         }
         return ResponseEntity.notFound().build();
     }
