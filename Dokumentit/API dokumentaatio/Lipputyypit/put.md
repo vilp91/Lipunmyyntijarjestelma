@@ -58,6 +58,13 @@ __Esimerkkisisältö__:
 
 TAI
 
+__Ehto__: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
+
+TAI
+
 __Ehto__: Autentikointi epäonnistuu
 
 __Koodi__: `401 UNAUTHORIZED`
