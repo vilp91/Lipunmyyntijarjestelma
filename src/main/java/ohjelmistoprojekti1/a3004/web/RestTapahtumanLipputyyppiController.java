@@ -83,7 +83,7 @@ public class RestTapahtumanLipputyyppiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> muokkaaTapahtumanlipputyyppi(@PathVariable("id") Long id,
-            @RequestBody TapahtumanlipputyyppiDTO muokattuTapahtumanLipputyyppiDto) {
+            @Valid @RequestBody TapahtumanlipputyyppiDTO muokattuTapahtumanLipputyyppiDto) {
         // tarkistetaan, onko tietokannassa id:tä vastaava tapahtumanlipputyyppi
         if (tapahtumanLipputyyppiRepository.existsById(id)) {
             if (tapahtumaRepository.existsById(muokattuTapahtumanLipputyyppiDto.getTapahtuma())) {
@@ -94,6 +94,7 @@ public class RestTapahtumanLipputyyppiController {
                     muokattuTapahtumanLipputyyppi.setTapahtuman_lipputyyppi_id(id);
                     tapahtumanLipputyyppiRepository.save(muokattuTapahtumanLipputyyppi);
                     // palautetaan clientille DTO-versio muokatusta tapahtumanlipputyypistä
+                    muokattuTapahtumanLipputyyppiDto = EntityToDTO(muokattuTapahtumanLipputyyppi);
                     return ResponseEntity.ok().body(muokattuTapahtumanLipputyyppiDto);
                 }
                 return ResponseEntity.badRequest().body("Lipputyyppiä ei ole olemassa");
