@@ -1,6 +1,6 @@
 # Poista yksittäinen tapahtuman
 
-Poistaa yksittäisen tapahtuman kaikkine tietoineen, kun käyttäjällä on vaadittavat oikeudet.
+Poistaa yksittäisen tapahtuman kaikkine tietoineen, kun tapahtumaan ei liity myytyjä lippuja ja käyttäjällä on vaadittavat oikeudet.
 
 __URL__: `/tapahtumat/{id}`
 
@@ -19,6 +19,13 @@ __Vastauskoodi__: `204 NO CONTENT`
 __Ehto__: {id} arvoa ei löydy tietokannasta.
 
 __Vastauskoodi__: `404 NOT FOUND`
+
+TAI
+
+__Ehto__: tietokannassa on tapahtumaan myytyjä lippuja
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
 
 TAI
 

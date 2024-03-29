@@ -131,7 +131,11 @@ public class RestTapahtumaController {
             // jos ei löydy, palautetaan koodi 404 - not found 
             return ResponseEntity.notFound().build();
         }
-        // jos tietue löytyy, se poistetaan ja palautetaan koodi 200 - ok
+        // jos tietue löytyy, tarkistetaan liittyykö siihen myytyjä lippuja
+        if ((tapahtumaRepository.findById(id).orElse(null).getMyydyt_liput_lukum()) != 0) {
+            // jos löytyy, tietuetta ei voida poistaa
+            return ResponseEntity.badRequest().build();
+        }
         tapahtumaRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
