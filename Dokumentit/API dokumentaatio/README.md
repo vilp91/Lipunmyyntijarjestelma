@@ -44,6 +44,9 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae yksittäinen lippu](</Dokumentit/API%20dokumentaatio/Liput/get(id).md>) `GET /liput/{id}`
 
+[Poista lippu](</Dokumentit/API%20dokumentaatio/Liput/delete.md>): `DELETE /liput/{id}`
+
+
 ## Tapahtumanlipputyypit
 
 [Näytä tapahtumanlipputyypit](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/get.md): `GET /tapahtumanlipputyypit`
