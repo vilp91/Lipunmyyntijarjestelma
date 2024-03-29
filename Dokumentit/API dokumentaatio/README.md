@@ -55,4 +55,6 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Tallenna tapahtumanlipputyyppi](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/post.md): `POST /tapahtumanlipputyypit`
 
+[Muokkaa tapahtumanlipputyyppiä](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/put.md): `PUT /tapahtumanlipputyypit/{id}`
+
 [Poista tapahtumanlipputyypi](</Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/delete.md>): `DELETE /tapahtumanlipputyypit/{id}`
