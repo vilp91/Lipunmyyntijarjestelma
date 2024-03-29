@@ -1,11 +1,13 @@
 package ohjelmistoprojekti1.a3004.web;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class TapahtumanlipputyyppiDTO {
 
     private Long id;
     @NotNull(message = "Hinta on pakollinen")
+    @Positive
     private float hinta;
     @NotNull(message = "Valitse tapahtuma")
     private Long tapahtuma;
