@@ -1,6 +1,6 @@
 # Poista yksittäinen myyntitapahtuma
 
-Poistaa yksittäisen myyntitapahtuman kaikkine tietoineen.
+Poistaa yksittäisen myyntitapahtuman ja siihen liittyvät liput.
 
 __URL__: `/myyntitapahtumat/{id}`
 

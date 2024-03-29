@@ -8,7 +8,7 @@ __METODI__: `DELETE`
 
 __Autentikointi vaaditaan__: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+__Vaadittavat oikeudet__: Admin tai Myyjä
 
 ## Onnistuneen pyynnön palautus
 

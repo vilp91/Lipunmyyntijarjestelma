@@ -33,6 +33,9 @@ public class RestMyyntitapahtumaController {
     @Autowired
     LippuRepository lippuRepository;
     @Autowired
+    RestLippuController lippuController;
+
+    @Autowired
     TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
 
     @Autowired
@@ -178,7 +181,13 @@ public class RestMyyntitapahtumaController {
     public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistetaan löytyykö tietokannasta tietuetta annetulla id:llä
         if (myyntitapahtumaRepository.existsById(id)) {
-            // jos tietue löytyy, se poistetaan ja vastataan koodilla 204
+            // jos tietue löytyy haetaan siihen liittyvät liput ja poistetaan ne
+            Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
+            List<Lippu> liput = myyntitapahtuma.getLiput();
+            for (Lippu lippu : liput) {
+                lippuController.poistaLippu(lippu.getLippu_id());
+            }
+            // poistetaan myyntitapahtuma
             myyntitapahtumaRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }

@@ -40,7 +40,7 @@ public class RestLippuController {
 
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/liput/{id}")
     public ResponseEntity<?> poistaLippu(@PathVariable("id") Long id) {
         // tarkistetaan, että tietokannassa on haettu tietue ja haetaan se
