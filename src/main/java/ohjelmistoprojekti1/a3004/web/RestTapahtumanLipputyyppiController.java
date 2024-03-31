@@ -3,6 +3,7 @@ package ohjelmistoprojekti1.a3004.web;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
@@ -46,7 +48,7 @@ public class RestTapahtumanLipputyyppiController {
             return ResponseEntity.ok().body(tapahtumanlipputyyppiDTO);
         }
         // jos ei, palautetaan koodi 404
-        return ResponseEntity.notFound().build();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumanlipputyyppiä ei löytynyt id:llä '" + id + "'.");
     }
 
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
@@ -80,6 +82,7 @@ public class RestTapahtumanLipputyyppiController {
         }
         return ResponseEntity.badRequest().body("Hinnan pitää olla positiivinen arvo");
     }
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> muokkaaTapahtumanlipputyyppi(@PathVariable("id") Long id,
@@ -113,7 +116,7 @@ public class RestTapahtumanLipputyyppiController {
             tapahtumanLipputyyppiRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumanlipputyyppiä id:llä '" + id + "' ei löydy");
     }
 
     // muunnetaan DTO-versio entity-versioksi
