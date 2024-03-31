@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
@@ -40,8 +41,7 @@ public class RestMyyntitapahtumaController {
 
     @Autowired
     TapahtumaRepository tapahtumaRepository;
-    
-    
+
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/myyntitapahtumat")
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
@@ -73,7 +73,6 @@ public class RestMyyntitapahtumaController {
     // Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id)
     // .orElseThrow(() -> new RuntimeException("Myyntitapahtuma not found with id "
     // + id));
-
     // // luo uuden DTO-version
     // MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
     // myyntitapahtumaDTO.setId(id);
@@ -85,8 +84,7 @@ public class RestMyyntitapahtumaController {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!myyntitapahtumaRepository.existsById(id)) {
-            String errorMessage = "Myyntitapahtumaa syötetyllä id:llä: " + id + ", ei löydy :(";
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa syötetyllä id:llä '" + id + "'', ei löydy :(");
         }
         // hakee myyntitapahtuman tiedot
         Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
@@ -151,13 +149,12 @@ public class RestMyyntitapahtumaController {
                         lippu.setTapahtuman_lipputyyppi(tapahtumanLipputyyppiRepository
                                 .findById(ostettuLippuDTO.getTapahtumanLipputyyppi())
                                 .orElseThrow(() -> new RuntimeException(
-                                        "TapahtumanLipputyyppi not found with id "
-                                                + ostettuLippuDTO.getTapahtumanLipputyyppi())));
+                                "TapahtumanLipputyyppi not found with id "
+                                + ostettuLippuDTO.getTapahtumanLipputyyppi())));
                         lippu.setMyyntitapahtuma(myyntitapahtuma);
                         lippu.setHinta(lippu.getTapahtuman_lipputyyppi().getHinta());
                         lippuRepository.save(lippu);
-                    }
-                    // jos jotain lippua ei ole saatavilla, annetaan virheilmoitus ja perutaan tietokantaan tehdyt muutokset 
+                    } // jos jotain lippua ei ole saatavilla, annetaan virheilmoitus ja perutaan tietokantaan tehdyt muutokset 
                     else {
                         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                         return ResponseEntity.badRequest().body("Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
@@ -172,7 +169,7 @@ public class RestMyyntitapahtumaController {
         } catch (Exception e) {
             // perutaan tietokantaan tehdyt muutokset
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return ResponseEntity.badRequest().body("Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).");
         }
     }
 
@@ -192,6 +189,6 @@ public class RestMyyntitapahtumaController {
             return ResponseEntity.noContent().build();
         }
         // jos tietuetta ei löydy, vastataan koodilla 404
-        return ResponseEntity.notFound().build();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa syötetyllä id:llä '" + id + "', ei löydy :(");
     }
 }
