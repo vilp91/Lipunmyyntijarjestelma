@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
@@ -29,13 +30,13 @@ public class RestLipputyyppiController {
     public Iterable<Lipputyyppi> haeLipputyypit() {
         return lipputyyppiRepository.findAll();
     }
-    
+
     @GetMapping("/lipputyypit/{id}")
     public ResponseEntity<?> haeLippulipputyyppi(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!lipputyyppiRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä id:llä " + id + " ei löydy");
         }
         // hakee lipputyypin tiedot
         Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
@@ -55,7 +56,7 @@ public class RestLipputyyppiController {
                     .toUri();
             return ResponseEntity.created(location).body(tallennettuLipputyyppi);
         }
-        return ResponseEntity.badRequest().build();
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppi '" + lipputyyppi.getTyyppi() + "' löytyy jo tietokannasta.");
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -67,7 +68,7 @@ public class RestLipputyyppiController {
             lipputyyppiRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä id:llä " + id + " ei löydy");
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -82,12 +83,12 @@ public class RestLipputyyppiController {
                 muokattuLipputyyppi.setLipputyyppi_id(id);
                 lipputyyppiRepository.save(muokattuLipputyyppi);
                 return ResponseEntity.ok().body(muokattuLipputyyppi);
-            }
-            else {
-                return ResponseEntity.badRequest().build();
+            } else {
+
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppi '" + muokattuLipputyyppi.getTyyppi() + "' löytyy jo tietokannasta.");
             }
         }
-        return ResponseEntity.notFound().build();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä id:llä " + id + " ei löydy");
     }
 
     // tarkistaa löytyykö tietokannasta Lipputyyppi, jolla on jo annettu tyyppi(nimi)

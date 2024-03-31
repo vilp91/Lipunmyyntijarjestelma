@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
@@ -19,20 +20,17 @@ public class RestLippuController {
     @Autowired
     LippuRepository lippuRepository;
 
-
     @GetMapping("/liput")
     public Iterable<Lippu> haeLiput() {
         return lippuRepository.findAll();
     }
-
 
     @GetMapping("/liput/{id}")
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!lippuRepository.existsById(id)) {
-            String errorMessage = "Lippua syötetyllä id:llä: " + id + ", ei löydy :(";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lippua syötetyllä id:llä: " + id + ", ei löydy :(");
         }
         // hakee lipun tiedot
         Lippu lippu = lippuRepository.findById(id).orElse(null);
