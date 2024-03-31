@@ -16,7 +16,7 @@ Anna päivitettävän lipputyypin tiedot:
 {
   "hinta": "[float]",
   "tapahtuma": "[Long]",
-  "lipputyyppi": "[Long]"
+  "lipputyyppiId": "[Long]"
 }
 ```
 
