@@ -67,17 +67,6 @@ public class RestMyyntitapahtumaController {
         }
     }
 
-    // @GetMapping("/myyntitapahtumat/{id}")
-    // public MyyntitapahtumaDTO haeMyyntitapahtuma(@PathVariable("id") Long id) {
-    // // hakee myyntitapahtuman tiedot
-    // Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id)
-    // .orElseThrow(() -> new RuntimeException("Myyntitapahtuma not found with id "
-    // + id));
-    // // luo uuden DTO-version
-    // MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
-    // myyntitapahtumaDTO.setId(id);
-    // return myyntitapahtumaDTO;
-    // }
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> haeMyyntitapahtuma(@PathVariable("id") Long id) {
@@ -93,31 +82,6 @@ public class RestMyyntitapahtumaController {
         MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
         myyntitapahtumaDTO.setId(id);
         return ResponseEntity.ok().body(myyntitapahtumaDTO);
-    }
-
-    private MyyntitapahtumaDTO EntitytoDTO(Myyntitapahtuma myyntitapahtuma) {
-        MyyntitapahtumaDTO myyntitapahtumaDTO = new MyyntitapahtumaDTO();
-        myyntitapahtumaDTO.setAika(myyntitapahtuma.getAikaleima());
-        // hakee tietokannasta myyntitapahtumaan liittyvät liput
-        List<Lippu> liput = lippuRepository.findByMyyntitapahtuma(myyntitapahtuma);
-        // luo listan lippujen DTO-versioille
-        List<LippuDTO> lippuDTOLista = new ArrayList<>();
-        float summa = 0;
-        for (Lippu lippu : liput) {
-            LippuDTO lippuDTO = new LippuDTO();
-            // id:n lisäys
-            lippuDTO.setId(lippu.getLippu_id());
-            // lipputyypin lisäys
-            lippuDTO.setTyyppi(lippu.getTapahtuman_lipputyyppi().getLipputyyppi().getTyyppi());
-            lippuDTO.setTapahtuma(lippu.getTapahtuman_lipputyyppi().getTapahtuma().getTapahtuman_nimi());
-            lippuDTO.setHinta(lippu.getHinta());
-            summa += lippu.getHinta();
-            lippuDTOLista.add(lippuDTO);
-        }
-        // asettaa listan myyntitapahtuman DTO-versioon
-        myyntitapahtumaDTO.setLiput(lippuDTOLista);
-        myyntitapahtumaDTO.setSumma(summa);
-        return myyntitapahtumaDTO;
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
@@ -190,5 +154,30 @@ public class RestMyyntitapahtumaController {
         }
         // jos tietuetta ei löydy, vastataan koodilla 404
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa syötetyllä id:llä '" + id + "', ei löydy :(");
+    }
+
+    private MyyntitapahtumaDTO EntitytoDTO(Myyntitapahtuma myyntitapahtuma) {
+        MyyntitapahtumaDTO myyntitapahtumaDTO = new MyyntitapahtumaDTO();
+        myyntitapahtumaDTO.setAika(myyntitapahtuma.getAikaleima());
+        // hakee tietokannasta myyntitapahtumaan liittyvät liput
+        List<Lippu> liput = lippuRepository.findByMyyntitapahtuma(myyntitapahtuma);
+        // luo listan lippujen DTO-versioille
+        List<LippuDTO> lippuDTOLista = new ArrayList<>();
+        float summa = 0;
+        for (Lippu lippu : liput) {
+            LippuDTO lippuDTO = new LippuDTO();
+            // id:n lisäys
+            lippuDTO.setId(lippu.getLippu_id());
+            // lipputyypin lisäys
+            lippuDTO.setTyyppi(lippu.getTapahtuman_lipputyyppi().getLipputyyppi().getTyyppi());
+            lippuDTO.setTapahtuma(lippu.getTapahtuman_lipputyyppi().getTapahtuma().getTapahtuman_nimi());
+            lippuDTO.setHinta(lippu.getHinta());
+            summa += lippu.getHinta();
+            lippuDTOLista.add(lippuDTO);
+        }
+        // asettaa listan myyntitapahtuman DTO-versioon
+        myyntitapahtumaDTO.setLiput(lippuDTOLista);
+        myyntitapahtumaDTO.setSumma(summa);
+        return myyntitapahtumaDTO;
     }
 }
