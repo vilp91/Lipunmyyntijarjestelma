@@ -1,6 +1,5 @@
 package ohjelmistoprojekti1.a3004;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
@@ -35,7 +34,6 @@ public class A3004Application {
 	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, LipputyyppiRepository lipputyyppiRepository,
 	TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
 	KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository) {
-		// LocalDateTime nyt = LocalDateTime.now();
 
 		return(args) -> {
 			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,04,06, 14, 0), LocalDateTime.of(2024,04,06, 16, 0), 10);
@@ -46,9 +44,6 @@ public class A3004Application {
 
 			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDateTime.of(2031, 12, 22, 12, 30),LocalDateTime.of(2031, 12, 22, 14, 15), 9999);
 			tapahtumaRepository.save(tapahtuma3);
-
-			// Tapahtuma tapahtuma4 = new Tapahtuma("Mysteeritapahtuma");
-			// tapahtumaRepository.save(tapahtuma4);
 
 			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,07, 22, 18, 0), LocalDateTime.of(2024, 07, 22, 21, 0), 9999);
 			tapahtumaRepository.save(tapahtuma5);
@@ -71,14 +66,28 @@ public class A3004Application {
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			Rooli rooli1 = new Rooli();
-			rooli1.setRooli("myyjä");
+			rooli1.setRooli("ROLE_MYYJA");
 			rooliRepository.save(rooli1);
+
+			Rooli rooli2 = new Rooli();
+			rooli2.setRooli("ROLE_ADMIN");
+			rooliRepository.save(rooli2);
 
 			Kayttaja kayttaja1 = new Kayttaja();
 			kayttaja1.setEtunimi("Teppo");
 			kayttaja1.setSukunimi("Testaaja");
 			kayttaja1.setRooli(rooli1);
+			kayttaja1.setKayttajanimi("teppo");
+			kayttaja1.setSalasana("salasana");
 			kayttajaRepository.save(kayttaja1);
+
+			Kayttaja kayttaja2 = new Kayttaja();
+			kayttaja2.setEtunimi("Heikki");
+			kayttaja2.setSukunimi("Hallinnoija");
+			kayttaja2.setRooli(rooli2);
+			kayttaja2.setKayttajanimi("heikki");
+			kayttaja2.setSalasana("salaisempisana");
+			kayttajaRepository.save(kayttaja2);
 
 			Myyntitapahtuma myyntitapahtuma1 = new Myyntitapahtuma();
 			myyntitapahtuma1.setKayttaja(kayttaja1);

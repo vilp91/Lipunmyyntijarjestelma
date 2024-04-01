@@ -6,15 +6,15 @@ __URL__: `/tapahtumat/tulevat`
 
 __Metodi__: `GET`
 
-<!-- Autentikointi vaadittu: `KYLLÄ` -->
+__Autentikointi vaaditaan__: Kyllä
 
-<!-- Tarvittava käyttöoikeus: ?? -->
+__Vaadittavat oikeudet__: Myyjä tai Admin
 
-## Vastauskoodit - Success
+## Onnistuneen pyynnön palautus
 
 __Ehto__: Kuluvan päivän jälkeisiä tapahtumia ei ole tai tapahtumille ei ole asetettu alkupäivää. Käyttäjälle ei näytetä tuloksia.
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Sisältö__: `{[]}`
 
@@ -22,7 +22,7 @@ TAI
 
 __Ehto__: Käyttäjälle näytetään tulokset.
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Esimerkkisisältö__, 23.2.2024 tehtynä hakuna käyttäjälle näytetään kaksi ensimmäistä Tapahtumaa:
 ```json
@@ -64,4 +64,32 @@ __Esimerkkisisältö__, 23.2.2024 tehtynä hakuna käyttäjälle näytetään ka
         "lippu_lukum": 9999
     }
 ]
+```
+
+## Epäonnistuneen pyynnön palautus
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastausoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`
+
+TAI
+
+__Ehto__: Ei tulevia tapahtumia
+
+__Vastauskoodi__: `404 NOT FOUND`
+
+__Sisältöesimerkki__: 
+
+```json
+{
+...
+    "message": "Ei tulevia tapahtumia",
+...
+}
 ```

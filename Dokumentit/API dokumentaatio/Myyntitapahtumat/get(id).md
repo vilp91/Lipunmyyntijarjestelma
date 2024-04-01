@@ -6,6 +6,10 @@ Hakee myyntitapahtuman id:n perusteella yhden myyntitapahtuman.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -40,12 +44,28 @@ Haetaan myyntitapahtuma id:n perusteella.
 
 **Ehto**: Haetaan id:n perusteella myyntitapahtumaa, mutta myyntitapahtumaa haetulla id:llä ei ole olemassa.
 
-**Koodi**: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
 **Sisältöesimerkki**:
 
 Tehdään GET pyyntö /myyntitapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-Myyntitapahtumaa syötetyllä id:llä: 10, ei löydy :(
+{
+...
+    "message": "Myyntitapahtumaa syötetyllä id:llä '10'', ei löydy",
+...
+}
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`

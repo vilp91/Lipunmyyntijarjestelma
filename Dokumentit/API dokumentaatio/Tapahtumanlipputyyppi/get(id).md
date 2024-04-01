@@ -6,6 +6,10 @@ Hakee tapahtumanlipputyypin id:n perusteella yhden tapahtumanlipputyypin.
 
 **Metodi**: `GET`
 
+__Autentikointi vaaditaan__: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -14,14 +18,38 @@ Hakee tapahtumanlipputyypin id:n perusteella yhden tapahtumanlipputyypin.
 
 ```json
 {
+    "id": 1,
     "hinta": 10.0,
-    "tapahtuma": 2,
-    "lipputyyppi": 2
+    "tapahtuma": 1,
+    "lipputyyppiId": 1,
+    "lipputyyppi": "perus"
 }
 ```
 
 ## Epäonnistuneen pyynnön palautus
 
-**Ehto**: Haetaan tapahtumanlipputyyppiä, jota ei ole olemassa.
+**Ehto**: Haetaan id:n perusteella tapahtumanlipputyyppiä, mutta tapahtumanlipputyyppiä haetulla id:llä ei ole olemassa.
 
-**Koodi**: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
+
+**Sisältöesimerkki**:
+
+Tehdään GET pyyntö /tapahtumanlipputyypit/7 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Tapahtumanlipputyyppiä ei löytynyt id:llä '7'.",
+...
+}
+```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`

@@ -1,16 +1,18 @@
-# Hae liput
+# Hae tapahtuman kaikki liput
 
-Hakee ja näyttää kaikki tietokannassa olevat liput tietoineen
+Hakee kaikki tietokannassa olevat pyydettyyn tapahtumaan liittyvät liput tietoineen
 
-**URL**: `/liput`
+**URL**: `/tapahtumat/{id}/liput`
 
 **Metodi**: `GET`
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Myyjä tai Admin
+**Vaadittavat oikeudet**: Admin
 
 ## Onnistuneen pyynnön palautus
+
+**Ehto**: Käyttäjän autentikointi onnistuu ja tapahtumaan on myyty lippuja
 
 **Vastauskoodi**: `200 OK`
 
@@ -93,35 +95,20 @@ Haetaan liput.
       "aikaleima": "2024-03-11T13:11:20.715442"
     },
     "hinta": 10.0
-  },
-  {
-    "lippu_id": 3,
-    "tapahtuman_lipputyyppi": {
-      "tapahtuman_lipputyyppi_id": 2,
-      "hinta": 10.0,
-      "tapahtuma": {
-        "tapahtuma_id": 2,
-        "tapahtuman_nimi": "Kekkosen synttärit",
-        "paikka": "Vaasa",
-        "katuosoite": "Vaasankatu 1",
-        "alku": "2024-06-12T17:00:00",
-        "loppu": "2024-06-12T23:59:00",
-        "lippu_lukum": 667,
-        "myydyt_liput_lukum": 0
-      },
-      "lipputyyppi": {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-      }
-    },
-    "myyntitapahtuma": {
-      "myyntitapahtuma_id": 2,
-      "kayttaja": null,
-      "aikaleima": "2024-03-11T13:11:20.717444"
-    },
-    "hinta": 10.0
   }
 ]
+```
+
+TAI
+
+**Vastauskoodi**: `200 OK`
+
+**Ehto**: Autentikointi onnistuu, mutta tapahtumaan ei ole myyty lippuja
+
+**Sisältöesimerkkejä**:
+
+```json
+[]
 ```
 
 ## Epäonnistunut pyyntö
@@ -136,3 +123,20 @@ __Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
 __Vastauskoodi__: `403 FORBIDDEN`
 
+TAI
+
+__Ehto__: Tapahtumaa ei ole olemassa
+
+__Vastauskoodi__: `404 NOT FOUND`
+
+__Sisältöesimerkki__: 
+
+Tehdään GET pyyntö /tapahtumat/30/liput endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Tapahtumaa id:llä: '30' ei löytynyt",
+...
+}
+```

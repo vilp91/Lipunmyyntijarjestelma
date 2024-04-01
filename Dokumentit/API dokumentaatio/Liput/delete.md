@@ -1,14 +1,14 @@
-# Poista yksittäinen tapahtumanlipputyyppi
+# Poista yksittäinen lippu
 
-Poistaa yksittäisen tapahtumanlipputyypin kaikkine tietoineen.
+Poistaa yksittäisen lipun ja päivittää tapahtumaan myytyjen lippujen määrän.
 
-__URL__: `/tapahtumanlipputyypit/{id}`
+__URL__: `/liput/{id}`
 
 __METODI__: `DELETE`
 
 __Autentikointi vaaditaan__: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+__Vaadittavat oikeudet__: Admin tai Myyjä
 
 ## Onnistuneen pyynnön palautus
 

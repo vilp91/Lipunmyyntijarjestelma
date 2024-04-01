@@ -1,12 +1,14 @@
 # Luodaan uusi tapahtuma
 
+Luo uuden tapahtuman, kun käyttäjällä on vaadittavat oikeudet
+
 **URL**: `/tapahtumat`
 
 **Metodi**: `POST`
 
-<!--  __Autentikaatio__: EI  -->
+__Autentikointi vaaditaan__: Kyllä
 
-<!--  __Lupia vaadittu__: Ei mitään  -->
+__Vaadittavat oikeudet__: Admin
 
 Anna luotavan tapahtuman tiedot
 
@@ -15,17 +17,17 @@ Anna luotavan tapahtuman tiedot
   "tapahtuman_nimi": "[string]",
   "paikka": "[string]",
   "katuosoite": "[string]",
-  "alku": "[date]",
-  "loppu": "[date]",
+  "alku": "[YYYY-MM-DDTHH:mm:ss]",
+  "loppu": "[YYYY-MM-DDTHH:mm:ss]",
   "lippu_lukum": "[int]"
 }
 ```
 
-## Onnistunut tapahtuma
+## Onnistuneen pyynnön palautus
 
 **Ehto**: Uusi tapahtuma luotiin onnistuneesti.
 
-**Koodi**: `201 CREATED`
+**Vastauskoodi**: `201 CREATED`
 
 **Esimerkkisisältö**: Uusi tapahtuma luotu
 
@@ -42,11 +44,11 @@ Anna luotavan tapahtuman tiedot
 }
 ```
 
-## Epäonnistunut tapahtuma
+## Epäonnistuneen pyynnön palautus
 
 **Ehto**: Syntaksi virhe. Esimerkiksi kirjaimia numero kentällä.
 
-**Koodi**: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
 **Esimerkkisisältö**: Uutta tapahtumaa ei luotu, koska jossain kentässä on siihen kuulumattomia merkkejä.
 
@@ -62,14 +64,18 @@ Anna luotavan tapahtuman tiedot
 ```
 
 ```json
+{
+...
     "message": "JSON parse error: Cannot deserialize value of type `int` from String \"Tarpeeksi\": not a valid `int` value",
+...
+}
 ```
 
 TAI
 
 **Ehto**: Vaadittu tieto puuttuu
 
-**Koodi**: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
 **Esimerkkisisältö**:
 
@@ -85,16 +91,20 @@ TAI
 ```
 
 ```json
-"defaultMessage": "Paikka ja katuosoite ovat pakollisia tietoja"
+{
+...
+    "defaultMessage": "Paikka ja katuosoite ovat pakollisia tietoja"
+...
+}
 ```
 
 TAI
 
 **Ehto**: Pyynnössä on tapahtuma_id.
 
-**Koodi**: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-**Esimerkkisisältö**:
+**Sisältöesimerkki**:
 
 ```json
 {
@@ -109,6 +119,23 @@ TAI
 ```
 
 ```json
-"Poista pyynnöstä tapahtuma id"
+{
+...
+    "message": "Poista pyynnöstä tapahtuma_id",
+...
+}
+
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`
 

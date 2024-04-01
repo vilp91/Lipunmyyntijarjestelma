@@ -1,10 +1,14 @@
 # Päivitä yksittäinen lipputyyppi
 
-Päivittää yksittäisen lipputyypin tietoineen.
+Päivittää yksittäisen lipputyypin tietoineen, kun käyttäjällä on vaadittavat oikeudet.
 
 __URL__: `/lipputyypit/{id}`
 
 __METODI__: `PUT`
+
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Admin
 
 Anna päivitettävän lipputyypin tiedot:
 
@@ -48,6 +52,37 @@ __Esimerkkisisältö__:
 
 ```json
 {
+...
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+...
 }
 ```
+
+TAI
+
+__Ehto__: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+{
+...
+    "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
+...
+}
+```
+
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`

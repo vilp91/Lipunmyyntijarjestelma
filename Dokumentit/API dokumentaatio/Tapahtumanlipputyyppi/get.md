@@ -6,6 +6,10 @@ Hakee kaikki luodut tapahtumanlipputyypit.
 
 **Metodi**: `GET`
 
+__Autentikointi vaaditaan__: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -52,3 +56,15 @@ Hakee kaikki luodut tapahtumanlipputyypit.
     }
 ]
 ```
+
+**Epäonnistuneen pyynnön palautus**
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`

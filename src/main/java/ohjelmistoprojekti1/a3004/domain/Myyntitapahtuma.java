@@ -29,8 +29,8 @@ public class Myyntitapahtuma {
 
     private LocalDateTime aikaleima = LocalDateTime.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")     // en ole varma cascadetypestä.. ymmärtäiskö joku enemmän?
-    @JsonIgnore                                                   // tarkoittaa kai sitä että jos esim. poistaa myyntitapahtuman niin se poistaa myös sen myyntitapahtumarivin                                              
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")
+    @JsonIgnore                                              
     private List<Lippu> liput;
 
     public Myyntitapahtuma() {

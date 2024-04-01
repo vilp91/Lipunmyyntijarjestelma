@@ -6,7 +6,13 @@ Hakee tapahtuman id:n perusteella yhden tapahtuman.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
 ## Onnistuneen pyynnön palautus
+
+**Ehto**: Autentikointi onnistuu
 
 **Vastauskoodi**: `200 OK`
 
@@ -38,12 +44,28 @@ Haetaan tapahtumaa id:n perusteella.
 
 **Ehto**: Haetaan id:n perusteella tapahtumaa, mutta tapahtumaa haetulla id:llä ei ole olemassa.
 
-**Koodi**: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
 **Sisältöesimerkki**:
 
 Tehdään GET pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-Tapahtumaa syötetyllä id:llä: 10, ei löydy :(
+{
+...
+    "message": "Tapahtumaa syötetyllä id:llä '10'', ei löydy.",
+...
+}
 ```
+
+TAI
+
+**Ehto**: Autentikointi epäonnistuu
+
+**Vastauskoodi**: `401 UNAUTHORIZED`
+
+TAI
+
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+**Vastauskoodi**: `403 FORBIDDEN`

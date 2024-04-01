@@ -1,10 +1,14 @@
 # Luo uuden lipputyypin
 
-Luo tapahtumalle uuden lipputyypin.
+Luo tapahtumalle uuden lipputyypin, kun käyttäjällä on vaadittavat oikeudet.
 
 __URL__: `/lipputyypit`
 
 __Metodi__: `POST`
+
+__Autentikointi vaaditaan__: Kyllä
+
+__Vaadittavat oikeudet__: Admin
 
 Anna luotavan lipputyypin tiedot:
 
@@ -35,9 +39,37 @@ __Vastauskoodi__: `400 BAD REQUEST`
 __Esimerkkisisältö__:
 
 ```json
+{
+...
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+...
+}
 ```
 
-<!-- __Ehto__: lipputyyppi oli jo tietokannassa. Ei voi luoda duplikaattia.
+TAI
 
-__Vastauskoodi__: `403 Forbidden` -->
+__Ehto__: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+
+__Vastauskoodi__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+{
+...
+    "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
+...
+}
+```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`

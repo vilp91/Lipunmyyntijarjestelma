@@ -6,6 +6,10 @@ Hakee lipputyypin id:n perusteella yhden lipputyypin.
 
 **Metodi**: `GET`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
 ## Onnistuneen pyynnön palautus
 
 **Vastauskoodi**: `200 OK`
@@ -21,16 +25,32 @@ Haetaan lipputyypin tietoja id:n perusteella.
 }
 ```
 
-## Epäonnistunut pyyntö
+## Epäonnistuneen pyynnön palautus
 
 **Ehto**: Haetaan id:n perusteella lipputyyppiä, mutta lipputyyppiä haetulla id:llä ei ole olemassa.
 
-**Koodi**: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
 **Sisältöesimerkki**:
 
 Tehdään GET pyyntö /lipputyypit/3 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-Lipputyyppiä syötetyllä id:llä: 3, ei löydy :(
+{
+...
+    "message": "Lipputyyppiä id:llä 3 ei löydy",
+...
+}
 ```
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`
