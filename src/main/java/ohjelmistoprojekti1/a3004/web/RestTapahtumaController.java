@@ -70,26 +70,6 @@ public class RestTapahtumaController {
         return ResponseEntity.ok().body(tapahtumaDTO);
     }
 
-    private TapahtumaDTO TapahtumaEntityToDTO(Tapahtuma tapahtuma) {
-        TapahtumaDTO tapahtumaDTO = new TapahtumaDTO();
-        tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtuma_id());
-        tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtuman_nimi());
-        tapahtumaDTO.setPaikka(tapahtuma.getPaikka());
-        tapahtumaDTO.setKatuosoite(tapahtuma.getKatuosoite());
-        tapahtumaDTO.setAlku(tapahtuma.getAlku());
-        tapahtumaDTO.setLoppu(tapahtuma.getLoppu());
-        tapahtumaDTO.setLippu_lukum(tapahtuma.getLippu_lukum());
-        tapahtumaDTO.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum());
-        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
-        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
-        for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanLipputyypit) {
-            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = tapahtumanLipputyyppiController.EntityToDTO(tapahtumanLipputyyppi);
-            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
-        }
-        tapahtumaDTO.setTapahtuman_lipputyypit(tapahtumanlipputyyppiDTOt);
-        return tapahtumaDTO;
-    }
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/{id}/liput")
     public ResponseEntity<?> haeTapahtumanLiput(@PathVariable("id") Long id) {
@@ -171,7 +151,6 @@ public class RestTapahtumaController {
             return ResponseEntity.ok().body(muokattuTapahtuma);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löydy");
-
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -200,6 +179,25 @@ public class RestTapahtumaController {
         tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppi_id());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
         return tapahtumanlipputyyppiDTO;
+    }
 
+    private TapahtumaDTO TapahtumaEntityToDTO(Tapahtuma tapahtuma) {
+        TapahtumaDTO tapahtumaDTO = new TapahtumaDTO();
+        tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtuma_id());
+        tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtuman_nimi());
+        tapahtumaDTO.setPaikka(tapahtuma.getPaikka());
+        tapahtumaDTO.setKatuosoite(tapahtuma.getKatuosoite());
+        tapahtumaDTO.setAlku(tapahtuma.getAlku());
+        tapahtumaDTO.setLoppu(tapahtuma.getLoppu());
+        tapahtumaDTO.setLippu_lukum(tapahtuma.getLippu_lukum());
+        tapahtumaDTO.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum());
+        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
+        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
+        for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanLipputyypit) {
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = tapahtumanLipputyyppiController.EntityToDTO(tapahtumanLipputyyppi);
+            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+        }
+        tapahtumaDTO.setTapahtuman_lipputyypit(tapahtumanlipputyyppiDTOt);
+        return tapahtumaDTO;
     }
 }
