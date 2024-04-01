@@ -1,5 +1,8 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +16,17 @@ import org.springframework.web.server.ResponseStatusException;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
+import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
 
 @RestController
 public class RestLippuController {
 
     @Autowired
     LippuRepository lippuRepository;
+
+    @Autowired
+    TapahtumaRepository tapahtumaRepository;
 
     @GetMapping("/liput")
     public Iterable<Lippu> haeLiput() {
@@ -35,7 +43,29 @@ public class RestLippuController {
         // hakee lipun tiedot
         Lippu lippu = lippuRepository.findById(id).orElse(null);
         return ResponseEntity.ok().body(lippu);
+    }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/tapahtumat/{id}/liput")
+    public ResponseEntity<?> haeTapahtumanLiput(@PathVariable("id") Long id) {
+        // tarkistaa onko tapahtuma on olemassa. Jos ei, palauttaa koodin 404
+        if (!tapahtumaRepository.existsById(id)) {         
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa syötetyllä id:llä: " + id + ", ei löydy");
+        }
+        // haetaan tapahtuma
+        Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
+        // haetaan tapahtumaan liittyvät tapahtumanlipputyypit
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtuma.getTapahtuman_lipputyypit();
+        // luodaan lipuille tyhjä lista
+        List<Lippu> tapahtumanLiput = new ArrayList<>();
+        // haetaan tapahtumanlipputyyppeihin liittyvät liput ja lisätään ne listaan
+        for (TapahtumanLipputyyppi tapahtumanLipputyyppi: tapahtumanlipputyypit) {
+            List<Lippu> liput = tapahtumanLipputyyppi.getLiput();
+            for (Lippu lippu : liput) {
+                tapahtumanLiput.add(lippu);
+            }
+        }
+        return ResponseEntity.ok().body(tapahtumanLiput);
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
