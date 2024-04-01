@@ -8,7 +8,7 @@ Hakee myyntitapahtuman id:n perusteella yhden myyntitapahtuman.
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Ei mitään
+**Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
@@ -63,3 +63,9 @@ TAI
 __Ehto__: Autentikointi epäonnistuu
 
 __Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`
