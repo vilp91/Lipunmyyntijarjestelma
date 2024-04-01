@@ -7,7 +7,7 @@ public class TapahtumanlipputyyppiDTO {
 
     private Long id;
     @NotNull(message = "Hinta on pakollinen")
-    @Positive
+    @Positive(message = "Hinnan pitää olla positiivinen")
     private float hinta;
     @NotNull(message = "Valitse tapahtuma")
     private Long tapahtuma;
