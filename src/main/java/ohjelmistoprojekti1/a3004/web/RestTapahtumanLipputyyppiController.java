@@ -32,11 +32,13 @@ public class RestTapahtumanLipputyyppiController {
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumanlipputyypit")
     public Iterable<TapahtumanLipputyyppi> haeTapahtumanLipputyypit() {
         return tapahtumanLipputyyppiRepository.findAll();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> haeTapahtumanlipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa pyyntöä vastaavaa tapahtumanlipputyyppi
@@ -50,8 +52,6 @@ public class RestTapahtumanLipputyyppiController {
         // jos ei, palautetaan koodi 404
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumanlipputyyppiä ei löytynyt id:llä '" + id + "'.");
     }
-
-    // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/tapahtumanlipputyypit")
