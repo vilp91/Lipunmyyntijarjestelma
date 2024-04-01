@@ -16,7 +16,7 @@ __Esimerkkisisältö__:
 {
   "hinta": "[float]",
   "tapahtuma": "[Long]",
-  "lipputyyppi": "[Long]"
+  "lipputyyppiId": "[Long]"
 }
 ```
 
@@ -49,7 +49,7 @@ __Esimerkkisisältö__:
 {
     "hinta": -1,
     "tapahtuma": 1,
-    "lipputyyppi": 1
+    "lipputyyppiId": 1
 }
 ```
 __Vastaus__:
@@ -62,7 +62,7 @@ __Esimerkkisisältö__:
 {
     "hinta": 25.00,
     "tapahtuma": 999,
-    "lipputyyppi": 1
+    "lipputyyppiId": 1
 }
 ```
 __Vastaus__:
@@ -75,7 +75,7 @@ __Esimerkkisisältö__:
 {
     "hinta": 25.00,
     "tapahtuma": 1,
-    "lipputyyppi": 999
+    "lipputyyppiId": 999
 }
 ```
 
