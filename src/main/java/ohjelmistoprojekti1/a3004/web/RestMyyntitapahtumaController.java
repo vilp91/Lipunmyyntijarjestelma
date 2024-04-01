@@ -84,7 +84,7 @@ public class RestMyyntitapahtumaController {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!myyntitapahtumaRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa syötetyllä id:llä '" + id + "'', ei löydy :(");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa syötetyllä id:llä '" + id + "'', ei löydy");
         }
         // hakee myyntitapahtuman tiedot
         Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
