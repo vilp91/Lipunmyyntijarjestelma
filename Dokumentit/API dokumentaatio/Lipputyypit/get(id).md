@@ -44,5 +44,7 @@ __Koodi__: `401 UNAUTHORIZED`
 Tehdään GET pyyntö /lipputyypit/3 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-Lipputyyppiä syötetyllä id:llä: 3, ei löydy :(
+...
+    "message": "Lipputyyppiä id:llä 3 ei löydy",
+...
 ```
