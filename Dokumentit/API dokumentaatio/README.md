@@ -42,6 +42,8 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Näytä kaikki liput](/Dokumentit/API%20dokumentaatio/Liput/get.md) `GET /liput`
 
+[Hae kaikki yksittäisen tapahtuman liput](/Dokumentit/API%20dokumentaatio/Liput/get(tapahtumat-liput).md): `GET /tapahtumat/{id}/liput`
+
 [Hae yksittäinen lippu](</Dokumentit/API%20dokumentaatio/Liput/get(id).md>) `GET /liput/{id}`
 
 [Poista lippu](</Dokumentit/API%20dokumentaatio/Liput/delete.md>): `DELETE /liput/{id}`
