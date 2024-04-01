@@ -52,13 +52,17 @@ __Esimerkkisisältö__:
 
 ```json
 {
+...
     "defaultMessage": "Valitse tapahtuma"
+...
 }
 ```
 
 ```json
 {
+...
     "defaultMessage": "Lipputyyppi Id on pakollinen"
+...
 }
 ```
 

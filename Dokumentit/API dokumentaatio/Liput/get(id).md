@@ -84,3 +84,11 @@ Tehdään GET pyyntö /liput/35 endpointtiin. Saadaan seuraava vastaus:
 ```json
     "message": "Lippua syötetyllä id:llä: 35, ei löydy",
 ```
+
+
+TAI
+
+__Ehto__: Autentikointi epäonnistuu
+
+__Koodi__: `401 UNAUTHORIZED`
+

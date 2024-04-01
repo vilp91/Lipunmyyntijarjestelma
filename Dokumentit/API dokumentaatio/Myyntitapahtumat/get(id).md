@@ -51,7 +51,11 @@ Haetaan myyntitapahtuma id:n perusteella.
 Tehdään GET pyyntö /myyntitapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-Myyntitapahtumaa syötetyllä id:llä: 10, ei löydy :(
+{
+...
+    "message": "Myyntitapahtumaa syötetyllä id:llä '10'', ei löydy",
+...
+}
 ```
 
 TAI

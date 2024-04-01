@@ -32,6 +32,18 @@ Haetaan lipputyypin tietoja id:n perusteella.
 
 **Koodi**: `404 NOT FOUND`
 
+**Sisältöesimerkki**:
+
+Tehdään GET pyyntö /lipputyypit/3 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Lipputyyppiä id:llä 3 ei löydy",
+...
+}
+```
+
 TAI
 
 __Ehto__: Autentikointi epäonnistuu
@@ -39,12 +51,4 @@ __Ehto__: Autentikointi epäonnistuu
 __Koodi__: `401 UNAUTHORIZED`
 
 
-**Sisältöesimerkki**:
 
-Tehdään GET pyyntö /lipputyypit/3 endpointtiin. Saadaan seuraava vastaus:
-
-```json
-...
-    "message": "Lipputyyppiä id:llä 3 ei löydy",
-...
-```

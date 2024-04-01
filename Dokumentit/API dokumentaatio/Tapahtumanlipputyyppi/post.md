@@ -54,7 +54,11 @@ __Esimerkkisisältö__:
 ```
 __Vastaus__:
 ```json
-"defaultMessage": "Hinnan pitää olla positiivinen arvo"
+{
+...
+    "defaultMessage": "Hinnan pitää olla positiivinen",
+...
+}
 ```
 ---
 __Esimerkkisisältö__:
@@ -67,7 +71,11 @@ __Esimerkkisisältö__:
 ```
 __Vastaus__:
 ```json
-"defaultMessage": "Tapahtumaa ei ole olemassa"
+{
+...
+    "message": "Tapahtumaa id:llä '999' ei löydy.",
+...
+}
 ```
 ---
 __Esimerkkisisältö__:
@@ -81,7 +89,11 @@ __Esimerkkisisältö__:
 
  __Vastaus__:
 ```json
-    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
+{
+...
+    "message": "Lipputyyppiä id:llä '999' ei löydy",
+...
+}
 ```
 
 TAI
@@ -95,6 +107,3 @@ TAI
 __Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
 __Koodi__: `403 FORBIDDEN`
-
-<!-- En jaksanut muuttaa virheviestejä tai tehdä uutta/erillistä sille puuttuuko tieto tai onko se virheellinen. Tänne saa vaikka ja minkälaisia 400 Bad Requesteja ilman virheviestejä ja 500 Internal Server Erroreita Postmanilla jos laittaa noihin kenttiin mitä sattuu arvoja tai jättää koko kentän laittamatta... 
--Ali -->

@@ -12,6 +12,8 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae kaikki yksittäisen tapahtuman liput](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-liput).md): `GET /tapahtumat/{id}/liput`
 
+[Hae kaikki yksittäisen tapahtuman tapahtumanlipputyypit](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-tapahtumanlipputyypit).md): `GET /tapahtumat/{id}/tapahtumanlipputyypit`
+
 [Tallenna tapahtuma](/Dokumentit/API%20dokumentaatio/Tapahtumat/post.md): `POST /tapahtumat`
 
 [Muokkaa tapahtumaa](/Dokumentit/API%20dokumentaatio/Tapahtumat/put.md): `PUT /tapahtumat/{id}`
@@ -53,9 +55,6 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 [Hae tapahtumanlipputyypit](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/get.md): `GET /tapahtumanlipputyypit`
 
 [Hae yksittäinen tapahtumanlipputyypi](</Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/get(id).md>): `GET /tapahtumanlipputyypit/{id}`
-
-[Hae kaikki yksittäisen tapahtuman tapahtumanlipputyypit](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/get(tapahtumat-tapahtumanlipputyypit).md): `GET /tapahtumat/{id}/tapahtumanlipputyypit`
-
 
 [Tallenna tapahtumanlipputyyppi](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/post.md): `POST /tapahtumanlipputyypit`
 
