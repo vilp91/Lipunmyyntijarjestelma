@@ -104,7 +104,8 @@ public class RestTapahtumanLipputyyppiController {
             }
             return ResponseEntity.badRequest().body("Tapahtumaa ei ole olemassa");
         }
-        return ResponseEntity.notFound().build();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumanlipputyyppiä ei löydy id:llä '" + id + "'.");
+
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
