@@ -8,7 +8,7 @@ Hakee lipun id:n perusteella yhden lipun.
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Ei mitään
+**Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
@@ -64,16 +64,25 @@ Haetaan lipun tietoja id:n perusteella.
 
 **Vastauskoodi**: `404 NOT FOUND`
 
+TAI
+
+**Ehto**: Autentikointi epäonnistuu
+
+**Koodi**:: `401 UNAUTHORIZED`
+
+TAI
+
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+**Koodi**:: `403 FORBIDDEN`
+
+
 **Sisältöesimerkki**:
 
 Tehdään GET pyyntö /liput/35 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-{
-...
     "message": "Lippua syötetyllä id:llä: 35, ei löydy",
-...
-}
 ```
 
 

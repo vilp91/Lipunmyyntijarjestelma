@@ -8,7 +8,7 @@ Hakee ja näyttää kaikki tietokannassa olevat liput tietoineen
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Ei mitään
+**Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
@@ -129,3 +129,10 @@ Haetaan liput.
 __Ehto__: Autentikointi epäonnistuu
 
 __Vastauskoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`
+
