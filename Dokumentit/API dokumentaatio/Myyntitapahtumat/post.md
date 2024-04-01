@@ -67,7 +67,9 @@ Anna luotavan tapahtuman tiedot:
 ```
 
 ```json
-Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).
+...
+    "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).",
+...
 ```
 
 ---
