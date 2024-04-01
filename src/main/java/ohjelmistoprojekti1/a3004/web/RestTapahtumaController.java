@@ -101,24 +101,6 @@ public class RestTapahtumaController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ei tulevia tapahtumia");
     }
 
-    // haetaan yhteen tapahtumaan liittyvät tapahtumanlipputyypit
-    @GetMapping("/tapahtumat/{id}/tapahtumanlipputyypit")
-    public ResponseEntity<?> haeTapahtumakohtaisetTapahtumanlipputyypit(@PathVariable("id") Long id) {
-        // tarkistetaan, että tapahtuma on olemassa
-        if (!tapahtumaRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löytynyt");
-        }
-        // haetaan tapahtumanlipputyypit ja muutetaan ne DTO-versioiksi
-        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtuman_lipputyypit();
-        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
-
-        for (TapahtumanLipputyyppi tapahtumanlipputyyppi : tapahtumanlipputyypit) {
-            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = tapahtumanLipputyyppiController.EntityToDTO(tapahtumanlipputyyppi);
-            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
-        }
-        return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
-    }
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/tapahtumat")
     public ResponseEntity<?> uusiTapahtuma(@Valid @RequestBody Tapahtuma uusiTapahtuma) {

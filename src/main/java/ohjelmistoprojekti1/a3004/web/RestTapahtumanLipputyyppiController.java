@@ -1,6 +1,8 @@
 package ohjelmistoprojekti1.a3004.web;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,6 +51,24 @@ public class RestTapahtumanLipputyyppiController {
         }
         // jos ei, palautetaan koodi 404
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumanlipputyyppiä ei löytynyt id:llä '" + id + "'.");
+    }
+
+        // haetaan yhteen tapahtumaan liittyvät tapahtumanlipputyypit
+    @GetMapping("/tapahtumat/{id}/tapahtumanlipputyypit")
+    public ResponseEntity<?> haeTapahtumakohtaisetTapahtumanlipputyypit(@PathVariable("id") Long id) {
+        // tarkistetaan, että tapahtuma on olemassa
+        if (!tapahtumaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löytynyt");
+        }
+        // haetaan tapahtumanlipputyypit ja muutetaan ne DTO-versioiksi
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtuman_lipputyypit();
+        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
+
+        for (TapahtumanLipputyyppi tapahtumanlipputyyppi : tapahtumanlipputyypit) {
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = EntityToDTO(tapahtumanlipputyyppi);
+            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+        }
+        return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
     }
 
     // pitäisi varmaan lisätä Get-metodi tietyn tapahtuman lipputyypeille..?
