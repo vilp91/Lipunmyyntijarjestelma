@@ -24,11 +24,13 @@ public class RestLippuController {
     @Autowired
     TapahtumaRepository tapahtumaRepository;
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/liput")
     public Iterable<Lippu> haeLiput() {
         return lippuRepository.findAll();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/liput/{id}")
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
