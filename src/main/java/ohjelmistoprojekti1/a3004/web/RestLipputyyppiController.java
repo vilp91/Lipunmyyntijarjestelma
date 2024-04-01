@@ -26,11 +26,12 @@ public class RestLipputyyppiController {
     @Autowired
     private LipputyyppiRepository lipputyyppiRepository;
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/lipputyypit")
     public Iterable<Lipputyyppi> haeLipputyypit() {
         return lipputyyppiRepository.findAll();
     }
-
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/lipputyypit/{id}")
     public ResponseEntity<?> haeLippulipputyyppi(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
