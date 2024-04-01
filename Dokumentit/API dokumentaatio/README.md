@@ -61,3 +61,12 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 [Muokkaa tapahtumanlipputyyppiä](/Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/put.md): `PUT /tapahtumanlipputyypit/{id}`
 
 [Poista tapahtumanlipputyypi](</Dokumentit/API%20dokumentaatio/Tapahtumanlipputyyppi/delete.md>): `DELETE /tapahtumanlipputyypit/{id}`
+
+## Kayttajat
+
+[Hae käyttäjät ](/Dokumentit/API%20dokumentaatio/Kayttajat/get.md): `GET /kayttajat`
+
+
+## Roolit
+
+[Hae roolit ](/Dokumentit/API%20dokumentaatio/Roolit/get.md): `GET /roolit`

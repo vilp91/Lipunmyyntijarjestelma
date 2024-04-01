@@ -12,8 +12,6 @@ Hakee kaikki tietokannassa olevat roolit tietoineen
 
 ## Onnistuneen pyynnön palautus
 
-**
-
 **Vastauskoodi**: `200 OK`
 
 **Sisältöesimerkkejä**:
