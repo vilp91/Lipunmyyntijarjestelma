@@ -41,4 +41,4 @@ Tallennettuja lipputyyppejä ei ole.
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`

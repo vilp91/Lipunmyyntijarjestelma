@@ -30,7 +30,7 @@ __Autentikointi vaaditaan__: Kyllä
 
 **Ehto**: Haetaan id:n perusteella tapahtumanlipputyyppiä, mutta tapahtumanlipputyyppiä haetulla id:llä ei ole olemassa.
 
-**Koodi**: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
 **Sisältöesimerkki**:
 
@@ -49,4 +49,4 @@ TAI
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`

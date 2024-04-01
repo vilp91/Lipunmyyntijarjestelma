@@ -45,18 +45,22 @@ Haetaan tapahtumaa id:n perusteella.
 
 **Ehto**: Haetaan id:n perusteella tapahtumaa, mutta tapahtumaa haetulla id:llä ei ole olemassa.
 
-**Koodi**: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
 **Sisältöesimerkki**:
 
 Tehdään GET pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
-Tapahtumaa syötetyllä id:llä: 10, ei löydy :(
+{
+...
+    "message": "Tapahtumaa syötetyllä id:llä '10'', ei löydy.",
+...
+}
 ```
 
 TAI
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`

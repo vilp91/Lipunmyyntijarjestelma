@@ -131,6 +131,12 @@ __Vastauskoodi__: `404 NOT FOUND`
 
 __Sisältöesimerkki__: 
 
+Tehdään GET pyyntö /tapahtumat/30/liput endpointtiin. Saadaan seuraava vastaus:
+
 ```json
-  "message": "Tapahtumaa syötetyllä id:llä: 30, ei löydy"
+{
+...
+    "message": "Tapahtumaa id:llä: '30' ei löytynyt",
+...
+}
 ```

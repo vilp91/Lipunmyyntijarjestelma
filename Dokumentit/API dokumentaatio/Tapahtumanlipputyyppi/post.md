@@ -52,7 +52,6 @@ __Esimerkkisisältö__:
     "lipputyyppiId": 1
 }
 ```
-__Vastaus__:
 ```json
 {
 ...
@@ -69,7 +68,6 @@ __Esimerkkisisältö__:
     "lipputyyppiId": 1
 }
 ```
-__Vastaus__:
 ```json
 {
 ...
@@ -87,7 +85,6 @@ __Esimerkkisisältö__:
 }
 ```
 
- __Vastaus__:
 ```json
 {
 ...

@@ -14,7 +14,7 @@ __Vaadittavat oikeudet__: Ei mitään
 
 __Ehto__: Autentikointi onnistuu ja käyttäjälle näytetään tulokset.
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Esimerkkisisältö__:
 ```json
@@ -33,7 +33,7 @@ TAI
 
 __Ehto__: Autentikointi onnistuu ja tapahtumaan ei ole liitetty tapahtumanlipputyyppejä.
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Sisältö__: `[]`
 
@@ -41,11 +41,22 @@ __Sisältö__: `[]`
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Tapahtumaa ei löydy
+__Ehto__: Tapahtumaa ei ole olemassa
 
-__Koodi__: `404 NOT FOUND`
+__Vastauskoodi__: `404 NOT FOUND`
 
+__Sisältöesimerkki__: 
+
+Tehdään GET pyyntö /tapahtumat/30/liput endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Tapahtumaa id:llä '30' ei löytynyt",
+...
+}
+```
