@@ -19,7 +19,7 @@ public class Rooli {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rooli_id;
+    private Long rooliId;
 
     @NotBlank
     private String rooli;
@@ -43,12 +43,12 @@ public class Rooli {
     }
 
     // getterit ja setterit
-    public Long getRooli_id() {
-        return this.rooli_id;
+    public Long getRooliId() {
+        return this.rooliId;
     }
 
-    public void setRooli_id(Long rooli_id) {
-        this.rooli_id = rooli_id;
+    public void setRooliId(Long rooliId) {
+        this.rooliId = rooliId;
     }
 
     public String getRooli() {
@@ -69,7 +69,7 @@ public class Rooli {
 
     @Override
     public String toString() {
-        return "Rooli [rooli_id=" + rooli_id + ", rooli=" + rooli + ", kayttajat=" + kayttajat + "]";
+        return "Rooli [rooli_id=" + rooliId + ", rooli=" + rooli + ", kayttajat=" + kayttajat + "]";
     }
 
 }

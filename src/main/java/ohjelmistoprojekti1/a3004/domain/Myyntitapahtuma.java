@@ -21,10 +21,10 @@ public class Myyntitapahtuma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long myyntitapahtuma_id;
+    private Long myyntitapahtumaId;
 
     @ManyToOne
-    @JoinColumn(name = "kayttaja_id")
+    @JoinColumn(name = "kayttajaId")
     private Kayttaja kayttaja;
 
     private LocalDateTime aikaleima = LocalDateTime.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
@@ -44,11 +44,11 @@ public class Myyntitapahtuma {
     }
 
     public Long getMyyntitapahtuma_id() {
-        return myyntitapahtuma_id;
+        return myyntitapahtumaId;
     }
 
-    public void setMyyntitapahtuma_id(Long myyntitapahtuma_id) {
-        this.myyntitapahtuma_id = myyntitapahtuma_id;
+    public void setMyyntitapahtumaId(Long myyntitapahtumaId) {
+        this.myyntitapahtumaId = myyntitapahtumaId;
     }
 
     public Kayttaja getKayttaja() {
@@ -77,7 +77,7 @@ public class Myyntitapahtuma {
 
     @Override
     public String toString() {
-        return "Myyntitapahtuma [myyntitapahtuma_id=" + myyntitapahtuma_id + ", kayttaja=" + kayttaja + ", pvm=" + aikaleima
+        return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", kayttaja=" + kayttaja + ", pvm=" + aikaleima
                 + ", liput=" + liput + "]";
     }
 

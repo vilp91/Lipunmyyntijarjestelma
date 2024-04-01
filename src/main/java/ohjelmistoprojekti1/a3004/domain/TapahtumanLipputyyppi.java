@@ -16,25 +16,25 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Positive;
 
 @Entity
-@Table(name = "tapahtuman_lipputyyppi")
+@Table(name = "tapahtumanLipputyyppi")
 public class TapahtumanLipputyyppi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tapahtuman_lipputyyppi_id;
+    private Long tapahtumanLipputyyppiId;
     
     @Positive
     private float hinta;
 
     @ManyToOne
-    @JoinColumn(name = "tapahtuma_id")
+    @JoinColumn(name = "tapahtumaId")
     private Tapahtuma tapahtuma;
 
     @ManyToOne
-    @JoinColumn(name = "lipputyyppi_id")
+    @JoinColumn(name = "lipputyyppiId")
     private Lipputyyppi lipputyyppi;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuman_lipputyyppi")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumanLipputyyppi")
     @JsonIgnore
     private List<Lippu> liput;
 
@@ -55,12 +55,12 @@ public class TapahtumanLipputyyppi {
         this.liput = liput;
     }
 
-    public Long getTapahtuman_lipputyyppi_id() {
-        return tapahtuman_lipputyyppi_id;
+    public Long getTapahtumanLipputyyppiId() {
+        return tapahtumanLipputyyppiId;
     }
 
-    public void setTapahtuman_lipputyyppi_id(Long tapahtuman_lipputyyppi_id) {
-        this.tapahtuman_lipputyyppi_id = tapahtuman_lipputyyppi_id;
+    public void setTapahtumanLipputyyppiId(Long tapahtumanLipputyyppiId) {
+        this.tapahtumanLipputyyppiId = tapahtumanLipputyyppiId;
     }
 
     public float getHinta() {
@@ -97,7 +97,7 @@ public class TapahtumanLipputyyppi {
 
     @Override
     public String toString() {
-        return "TapahtumanLipputyyppi [tapahtuman_lipputyyppi_id=" + tapahtuman_lipputyyppi_id + ", hinta=" + hinta
+        return "TapahtumanLipputyyppi [tapahtumanLipputyyppiId=" + tapahtumanLipputyyppiId + ", hinta=" + hinta
                 + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", liput=" + liput + "]";
     }
     

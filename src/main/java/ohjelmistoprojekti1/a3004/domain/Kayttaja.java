@@ -26,10 +26,10 @@ public class Kayttaja {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long kayttaja_id;
+    private Long kayttajaId;
 
     @ManyToOne
-    @JoinColumn(name = "rooli_id")
+    @JoinColumn(name = "rooliId")
     @JsonIgnore
     private Rooli rooli;
 
@@ -72,12 +72,12 @@ public class Kayttaja {
     }
 
     // getterit ja setterit
-    public Long getKayttaja_id() {
-        return this.kayttaja_id;
+    public Long getKayttajaId() {
+        return this.kayttajaId;
     }
 
     public void setKayttaja_id(Long kayttaja_id) {
-        this.kayttaja_id = kayttaja_id;
+        this.kayttajaId = kayttaja_id;
     }
 
     public Rooli getRooli() {
@@ -146,7 +146,7 @@ public class Kayttaja {
 
     @Override
     public String toString() {
-        return "Kayttaja [kayttaja_id=" + kayttaja_id + ", rooli=" + rooli + ", etunimi=" + etunimi + ", sukunimi="
+        return "Kayttaja [kayttajaId=" + kayttajaId + ", rooli=" + rooli + ", etunimi=" + etunimi + ", sukunimi="
                 + sukunimi + ", puhnro=" + puhnro + ", katuosoite=" + katuosoite + "]";
     }
 

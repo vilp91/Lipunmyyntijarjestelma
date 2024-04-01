@@ -19,14 +19,14 @@ public class Lipputyyppi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lipputyyppi_id;
+    private Long lipputyyppiId;
 
     @NotEmpty(message = "Lipputyypin tyyppi on pakollinen tieto")
     private String tyyppi;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
     @JsonIgnore
-    private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
+    private List<TapahtumanLipputyyppi> tapahtumanLipputyypit;
 
     //Parametriton konstruktori
     public Lipputyyppi() {
@@ -37,19 +37,19 @@ public class Lipputyyppi {
     }
 
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
-     public Lipputyyppi(String tyyppi, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
+     public Lipputyyppi(String tyyppi, List<TapahtumanLipputyyppi> tapahtumanLipputyypit) {
         super();
         this.tyyppi = tyyppi;
-        this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
+        this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
     //Getterit ja setterit
-    public Long getLipputyyppi_id() {
-        return lipputyyppi_id;
+    public Long getLipputyyppiId() {
+        return lipputyyppiId;
     }
 
-    public void setLipputyyppi_id(Long lipputyyppi_id) {
-        this.lipputyyppi_id = lipputyyppi_id;
+    public void setLipputyyppiId(Long lipputyyppiId) {
+        this.lipputyyppiId = lipputyyppiId;
     }
 
     public String getTyyppi() {
@@ -60,18 +60,18 @@ public class Lipputyyppi {
         this.tyyppi = tyyppi;
     }
 
-    public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
-        return tapahtuman_lipputyypit;
+    public List<TapahtumanLipputyyppi> getTapahtumanLipputyypit() {
+        return tapahtumanLipputyypit;
     }
 
-    public void setTapahtuman_lipputyypit(List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
-        this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
+    public void setTapahtumanLipputyypit(List<TapahtumanLipputyyppi> tapahtumanLipputyypit) {
+        this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
     @Override
     public String toString() {
-        return "Lipputyyppi [lipputyyppi_id=" + lipputyyppi_id + ", tyyppi=" + tyyppi + ", tapahtuman_lipputyypit="
-                + tapahtuman_lipputyypit + "]";
+        return "Lipputyyppi [lipputyyppiId=" + lipputyyppiId + ", tyyppi=" + tyyppi + ", tapahtumanLipputyypit="
+                + tapahtumanLipputyypit + "]";
     }
 
 

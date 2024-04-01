@@ -23,11 +23,11 @@ public class Tapahtuma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tapahtuma_id;
+    private Long tapahtumaId;
 
     @NotNull
     @NotBlank(message = "Tapahtuman nimi on pakollinen tieto")
-    private String tapahtuman_nimi;
+    private String tapahtumanNimi;
 
     @NotBlank(message = "Paikka ja katuosoite ovat pakollisia tietoja")
     private String paikka, katuosoite;
@@ -38,60 +38,61 @@ public class Tapahtuma {
     private LocalDateTime loppu;
     
     @Min(value = 1, message = "Lippujen lukumäärä on oltava vähintään 1")
-    private int lippu_lukum;
+    private int lippuLukum;
 
-    private int myydyt_liput_lukum = 0;
+    private int myydytLiputLukum = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
     @JsonIgnore
-    private List<TapahtumanLipputyyppi> tapahtuman_lipputyypit;
+    private List<TapahtumanLipputyyppi> tapahtumanLipputyypit;
 
     // Parametriton konstruktori
     public Tapahtuma() {
     }
 
-    public Tapahtuma(String tapahtuman_nimi) {
-        this.tapahtuman_nimi = tapahtuman_nimi;
+    public Tapahtuma(String tapahtumanNimi) {
+        this.tapahtumanNimi = tapahtumanNimi;
     }
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku,
+    public Tapahtuma(String tapahtumanNimi, String paikka, String katuosoite, LocalDateTime alku,
             LocalDateTime loppu,
-            int lippu_lukum) {
-        this.tapahtuman_nimi = tapahtuman_nimi;
+            int lippuLukum) {
+        this.tapahtumanNimi = tapahtumanNimi;
         this.paikka = paikka;
         this.katuosoite = katuosoite;
         this.alku = alku;
         this.loppu = loppu;
-        this.lippu_lukum = lippu_lukum;
+        this.lippuLukum = lippuLukum;
+        
     }
     
 
-    public Tapahtuma(String tapahtuman_nimi, String paikka, String katuosoite, LocalDateTime alku,
+    public Tapahtuma(String tapahtumanNimi, String paikka, String katuosoite, LocalDateTime alku,
             LocalDateTime loppu,
-            int lippu_lukum, List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
-        this.tapahtuman_nimi = tapahtuman_nimi;
+            int lippuLukum, List<TapahtumanLipputyyppi> tapahtumanLipputyypit) {
+        this.tapahtumanNimi = tapahtumanNimi;
         this.paikka = paikka;
         this.katuosoite = katuosoite;
         this.alku = alku;
         this.loppu = loppu;
-        this.lippu_lukum = lippu_lukum;
-        this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
+        this.lippuLukum = lippuLukum;
+        this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
     public Long getTapahtuma_id() {
-        return tapahtuma_id;
+        return tapahtumaId;
     }
 
-    public void setTapahtuma_id(Long tapahtuma_id) {
-        this.tapahtuma_id = tapahtuma_id;
+    public void setTapahtumaId(Long tapahtumaId) {
+        this.tapahtumaId = tapahtumaId;
     }
 
-    public String getTapahtuman_nimi() {
-        return tapahtuman_nimi;
+    public String getTapahtumanNimi() {
+        return tapahtumanNimi;
     }
 
-    public void setTapahtuman_nimi(String tapahtuman_nimi) {
-        this.tapahtuman_nimi = tapahtuman_nimi;
+    public void setTapahtumanNimi(String tapahtumanNimi) {
+        this.tapahtumanNimi = tapahtumanNimi;
     }
 
     public String getPaikka() {
@@ -126,35 +127,35 @@ public class Tapahtuma {
         this.loppu = loppu;
     }
 
-    public int getLippu_lukum() {
-        return lippu_lukum;
+    public int getLippuLukum() {
+        return lippuLukum;
     }
 
-    public void setLippu_lukum(int lippu_lukum) {
-        this.lippu_lukum = lippu_lukum;
+    public void setLippu_lukum(int lippuLukum) {
+        this.lippuLukum = lippuLukum;
     }
 
-    public int getMyydyt_liput_lukum() {
-        return myydyt_liput_lukum;
+    public int getMyydytLiputLukum() {
+        return myydytLiputLukum;
     }
 
-    public void setMyydyt_liput_lukum(int myydyt_liput_lukum) {
-        this.myydyt_liput_lukum = myydyt_liput_lukum;
+    public void setMyydytLiputLukum(int myydytLiputLukum) {
+        this.myydytLiputLukum = myydytLiputLukum;
     }
 
-    public List<TapahtumanLipputyyppi> getTapahtuman_lipputyypit() {
-        return tapahtuman_lipputyypit;
+    public List<TapahtumanLipputyyppi> getTapahtumanLipputyypit() {
+        return tapahtumanLipputyypit;
     }
 
-    public void setTapahtuman_lipputyypit(List<TapahtumanLipputyyppi> tapahtuman_lipputyypit) {
-        this.tapahtuman_lipputyypit = tapahtuman_lipputyypit;
+    public void setTapahtuman_lipputyypit(List<TapahtumanLipputyyppi> tapahtumanLipputyypit) {
+        this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
     @Override
     public String toString() {
-        return "Tapahtuma [tapahtuma_id=" + tapahtuma_id + ", tapahtuman_nimi=" + tapahtuman_nimi + ", paikka=" + paikka
-                + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum=" + lippu_lukum
-                + ", myydyt_liput_lukum=" + myydyt_liput_lukum + ", tapahtuman_lipputyypit=" + tapahtuman_lipputyypit
+        return "Tapahtuma [tapahtuma_id=" + tapahtumaId + ", tapahtuman_nimi=" + tapahtumanNimi + ", paikka=" + paikka
+                + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum=" + lippuLukum
+                + ", myydyt_liput_lukum=" + myydytLiputLukum + ", tapahtuman_lipputyypit=" + tapahtumanLipputyypit
                 + "]";
     }
 

@@ -14,14 +14,14 @@ public class Lippu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lippu_id;
+    private Long lippuId;
 
     @ManyToOne
-    @JoinColumn(name = "tapahtuman_lipputyyppi_id")
-    private TapahtumanLipputyyppi tapahtuman_lipputyyppi;
+    @JoinColumn(name = "tapahtumanLipputyyppiId")
+    private TapahtumanLipputyyppi tapahtumanLipputyyppi;
 
     @ManyToOne
-    @JoinColumn(name = "myyntitapahtuma_id")
+    @JoinColumn(name = "myyntitapahtumaId")
     private Myyntitapahtuma myyntitapahtuma;
 
     private float hinta;
@@ -31,26 +31,26 @@ public class Lippu {
     }
 
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
-    public Lippu(TapahtumanLipputyyppi tapahtuman_lipputyyppi, Myyntitapahtuma myyntitapahtuma, float hinta) {
-        this.tapahtuman_lipputyyppi = tapahtuman_lipputyyppi;
+    public Lippu(TapahtumanLipputyyppi tapahtumanLipputyyppi, Myyntitapahtuma myyntitapahtuma, float hinta) {
+        this.tapahtumanLipputyyppi = tapahtumanLipputyyppi;
         this.myyntitapahtuma = myyntitapahtuma;
         this.hinta = hinta;
     }
     //Getterit ja setterit
     public Long getLippu_id() {
-        return lippu_id;
+        return lippuId;
     }
 
     public void setLippu_id(Long lippu_id) {
-        this.lippu_id = lippu_id;
+        this.lippuId = lippu_id;
     }
 
-    public TapahtumanLipputyyppi getTapahtuman_lipputyyppi() {
-        return tapahtuman_lipputyyppi;
+    public TapahtumanLipputyyppi getTapahtumanLipputyyppi() {
+        return tapahtumanLipputyyppi;
     }
 
-    public void setTapahtuman_lipputyyppi(TapahtumanLipputyyppi tapahtuman_lipputyyppi) {
-        this.tapahtuman_lipputyyppi = tapahtuman_lipputyyppi;
+    public void setTapahtuman_lipputyyppi(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
+        this.tapahtumanLipputyyppi = tapahtumanLipputyyppi;
     }
 
     public Myyntitapahtuma getMyyntitapahtuma() {
@@ -71,7 +71,7 @@ public class Lippu {
 
     @Override
     public String toString() {
-        return "Lippu [lippu_id=" + lippu_id + ", tapahtuman_lipputyyppi=" + tapahtuman_lipputyyppi
+        return "Lippu [lippu_id=" + lippuId + ", tapahtuman_lipputyyppi=" + tapahtumanLipputyyppi
                 + ", myyntitapahtuma=" + myyntitapahtuma + ", hinta=" + hinta + "]";
     }
 
