@@ -6,6 +6,10 @@ Luo uuden myyntitapahtuman ilman käyttäjää (käyttäjän liittäminen myynti
 
 **Metodi**: `POST`
 
+**Autentikointi vaaditaan**: Kyllä
+
+**Vaadittavat oikeudet**: Myyjä tai Admin
+
 Anna luotavan tapahtuman tiedot:
 
 ```json
@@ -47,9 +51,9 @@ Anna luotavan tapahtuman tiedot:
 
 ## Epäonnistunut tapahtuma
 
-**Ehto**: Virheellinen tapahtumanLipputyyppi/tapahtumanLipputyyppiä ei löydy tietokannasta.
+**Ehto**: Virheellinen tapahtumanLipputyyppi/tapahtumanLipputyyppiä ei löydy tietokannasta (esim. negatiivinen numero).
 
-**Vastauskoodi**: `500 INTERNAL SERVER ERROR`
+**Vastauskoodi**: `400 BAD REQUEST`
 
 **Sisältöesimerkkejä**:
 
@@ -63,12 +67,16 @@ Anna luotavan tapahtuman tiedot:
 ```
 
 ```json
-    "message": "TapahtumanLipputyyppi not found with id 999",
+{
+...
+    "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.",
+...
+}
 ```
 
 ---
 
-**Ehto**: Virheellinen arvo/tietotyyppi kentässä tai virheellinen endpoint.
+**Ehto**: Virheellinen arvo/tietotyyppi kentässä.
 
 **Vastauskoodi**: `400 BAD REQUEST`
 
@@ -84,5 +92,44 @@ Anna luotavan tapahtuman tiedot:
 ```
 
 ```json
+{
+...
     "message": "JSON parse error: Cannot deserialize value of type `int`  from String \"unlimited power\": not a valid `int` value",
+...
+}
 ```
+
+TAI
+
+**Ehto**: Pyydettyä lippua ei ole saatavilla
+
+**Vastauskoodi**: `400 BAD REQUEST`
+
+```json
+[
+  {
+    "tapahtumanLipputyyppi": 1,
+    "maara": 9999
+  }
+]
+```
+
+```json
+{
+...
+  "message": "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.",
+...
+}
+```
+
+TAI
+
+**Ehto**: Autentikointi epäonnistuu
+
+**Vastauskoodi**: `401 UNAUTHORIZED`
+
+TAI
+
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+**Vastauskoodi**: `403 FORBIDDEN`

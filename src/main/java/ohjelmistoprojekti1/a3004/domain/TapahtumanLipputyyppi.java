@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "tapahtuman_lipputyyppi")
@@ -21,6 +22,8 @@ public class TapahtumanLipputyyppi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tapahtuman_lipputyyppi_id;
+    
+    @Positive
     private float hinta;
 
     @ManyToOne

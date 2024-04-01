@@ -32,7 +32,7 @@ public class Tapahtuma {
     @NotBlank(message = "Paikka ja katuosoite ovat pakollisia tietoja")
     private String paikka, katuosoite;
 
-    @NotNull
+    @NotNull(message = "Tapahtuman alkuaika on pakollinen tieto")
     @FutureOrPresent(message = "Tapahtuma-aika ei voi olla menneisyydessä")
     private LocalDateTime alku;
     private LocalDateTime loppu;

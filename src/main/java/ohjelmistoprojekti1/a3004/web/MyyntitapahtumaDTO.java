@@ -3,12 +3,20 @@ package ohjelmistoprojekti1.a3004.web;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 public class MyyntitapahtumaDTO {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Summa on pakollinen")
     private float summa;
     private LocalDateTime aika;
+    @NotBlank(message = "Pakollinen")
     private List<LippuDTO> liput;
     
     public MyyntitapahtumaDTO() {
