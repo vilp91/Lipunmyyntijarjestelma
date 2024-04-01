@@ -10,6 +10,8 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae tulevat tapahtumat](/Dokumentit/API%20dokumentaatio/Tapahtumat/get-tulevat.md): `GET /tapahtumat/tulevat`
 
+[Hae kaikki yksittäisen tapahtuman liput](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-liput).md): `GET /tapahtumat/{id}/liput`
+
 [Tallenna tapahtuma](/Dokumentit/API%20dokumentaatio/Tapahtumat/post.md): `POST /tapahtumat`
 
 [Muokkaa tapahtumaa](/Dokumentit/API%20dokumentaatio/Tapahtumat/put.md): `PUT /tapahtumat/{id}`
@@ -43,8 +45,6 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 [Hae kaikki liput](/Dokumentit/API%20dokumentaatio/Liput/get.md) `GET /liput`
 
 [Hae yksittäinen lippu](</Dokumentit/API%20dokumentaatio/Liput/get(id).md>) `GET /liput/{id}`
-
-[Hae kaikki yksittäisen tapahtuman liput](/Dokumentit/API%20dokumentaatio/Liput/get(tapahtumat-liput).md): `GET /tapahtumat/{id}/liput`
 
 [Poista lippu](</Dokumentit/API%20dokumentaatio/Liput/delete.md>): `DELETE /liput/{id}`
 

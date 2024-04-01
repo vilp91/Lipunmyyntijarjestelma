@@ -22,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
+import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
@@ -85,6 +86,29 @@ public class RestTapahtumaController {
         }
         tapahtumaDTO.setTapahtuman_lipputyypit(tapahtumanlipputyyppiDTOt);
         return tapahtumaDTO;
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/tapahtumat/{id}/liput")
+    public ResponseEntity<?> haeTapahtumanLiput(@PathVariable("id") Long id) {
+        // tarkistaa onko tapahtuma on olemassa. Jos ei, palauttaa koodin 404
+        if (!tapahtumaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa syötetyllä id:llä: " + id + ", ei löydy");
+        }
+        // haetaan tapahtuma
+        Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
+        // haetaan tapahtumaan liittyvät tapahtumanlipputyypit
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtuma.getTapahtuman_lipputyypit();
+        // luodaan lipuille tyhjä lista
+        List<Lippu> tapahtumanLiput = new ArrayList<>();
+        // haetaan tapahtumanlipputyyppeihin liittyvät liput ja lisätään ne listaan
+        for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanlipputyypit) {
+            List<Lippu> liput = tapahtumanLipputyyppi.getLiput();
+            for (Lippu lippu : liput) {
+                tapahtumanLiput.add(lippu);
+            }
+        }
+        return ResponseEntity.ok().body(tapahtumanLiput);
     }
 
     // haetaan tapahtumat, joiden alku on kuluvan vuorokauden jälkeen
