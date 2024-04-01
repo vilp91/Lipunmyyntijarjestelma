@@ -28,9 +28,22 @@ __Autentikointi vaaditaan__: Kyllä
 
 ## Epäonnistuneen pyynnön palautus
 
-**Ehto**: Haetaan tapahtumanlipputyyppiä, jota ei ole olemassa.
+**Ehto**: Haetaan id:n perusteella tapahtumanlipputyyppiä, mutta tapahtumanlipputyyppiä haetulla id:llä ei ole olemassa.
 
 **Koodi**: `404 NOT FOUND`
+
+**Sisältöesimerkki**:
+
+Tehdään GET pyyntö /tapahtumanlipputyypit/7 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Tapahtumanlipputyyppiä ei löytynyt id:llä '7'.",
+...
+}
+```
+
 
 TAI
 

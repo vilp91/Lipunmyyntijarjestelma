@@ -39,9 +39,11 @@ __Vastauskoodi__: `400 BAD REQUEST`
 __Esimerkkisisältö__:
 
 ```json
+{
 ...
     "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
 ...
+}
 ```
 
 TAI
@@ -53,9 +55,11 @@ __Vastauskoodi__: `400 BAD REQUEST`
 __Esimerkkisisältö__:
 
 ```json
+{
 ...
     "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
 ...
+}
 ```
 
 TAI

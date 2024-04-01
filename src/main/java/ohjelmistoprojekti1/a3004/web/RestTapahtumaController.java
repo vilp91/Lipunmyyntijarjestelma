@@ -46,7 +46,7 @@ public class RestTapahtumaController {
         List<TapahtumaDTO> tapahtumaDTOt = new ArrayList<>();
 
         for (Tapahtuma tapahtuma : tapahtumat) {
-            TapahtumaDTO tapahtumaDTO = EntityToDTO(tapahtuma);
+            TapahtumaDTO tapahtumaDTO = TapahtumaEntityToDTO(tapahtuma);
             tapahtumaDTOt.add(tapahtumaDTO);
         }
         return tapahtumaDTOt;
@@ -63,12 +63,12 @@ public class RestTapahtumaController {
         Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
 
         // luo uuden DTO-version
-        TapahtumaDTO tapahtumaDTO = EntityToDTO(tapahtuma);
+        TapahtumaDTO tapahtumaDTO = TapahtumaEntityToDTO(tapahtuma);
         tapahtumaDTO.setTapahtuma_id(id);
         return ResponseEntity.ok().body(tapahtumaDTO);
     }
 
-    private TapahtumaDTO EntityToDTO(Tapahtuma tapahtuma) {
+    private TapahtumaDTO TapahtumaEntityToDTO(Tapahtuma tapahtuma) {
         TapahtumaDTO tapahtumaDTO = new TapahtumaDTO();
         tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtuma_id());
         tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtuman_nimi());
@@ -109,6 +109,24 @@ public class RestTapahtumaController {
             }
         }
         return ResponseEntity.ok().body(tapahtumanLiput);
+    }
+
+    // haetaan yhteen tapahtumaan liittyvät tapahtumanlipputyypit
+    @GetMapping("/tapahtumat/{id}/tapahtumanlipputyypit")
+    public ResponseEntity<?> haeTapahtumakohtaisetTapahtumanlipputyypit(@PathVariable("id") Long id) {
+        // tarkistetaan, että tapahtuma on olemassa
+        if (!tapahtumaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löytynyt");
+        }
+        // haetaan tapahtumanlipputyypit ja muutetaan ne DTO-versioiksi
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtuman_lipputyypit();
+        List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
+
+        for (TapahtumanLipputyyppi tapahtumanlipputyyppi : tapahtumanlipputyypit) {
+            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = TapahtumanlipputyyppiEntityToDTO(tapahtumanlipputyyppi);
+            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+        }
+        return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
     }
 
     // haetaan tapahtumat, joiden alku on kuluvan vuorokauden jälkeen
@@ -171,4 +189,15 @@ public class RestTapahtumaController {
         return ResponseEntity.noContent().build();
     }
 
+    // muunnetaan entity-versio DTO-versioksi
+    public TapahtumanlipputyyppiDTO TapahtumanlipputyyppiEntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
+        TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
+        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
+        tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
+        tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
+        return tapahtumanlipputyyppiDTO;
+
+    }
 }

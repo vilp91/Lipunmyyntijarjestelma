@@ -64,18 +64,22 @@ Haetaan lipun tietoja id:n perusteella.
 
 **Koodi**: `404 NOT FOUND`
 
+**Sisältöesimerkki**:
+
+Tehdään GET pyyntö /liput/35 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Lippua syötetyllä id:llä: 35, ei löydy",
+...
+}
+```
+
+
 TAI
 
 __Ehto__: Autentikointi epäonnistuu
 
 __Koodi__: `401 UNAUTHORIZED`
 
-**Sisältöesimerkki**:
-
-Tehdään GET pyyntö /liput/35 endpointtiin. Saadaan seuraava vastaus:
-
-```json
-...
-    "message": "Lippua syötetyllä id:llä: 35, ei löydy",
-...
-```

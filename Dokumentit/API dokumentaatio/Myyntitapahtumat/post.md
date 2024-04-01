@@ -67,9 +67,11 @@ Anna luotavan tapahtuman tiedot:
 ```
 
 ```json
+{
 ...
     "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).",
 ...
+}
 ```
 
 ---
@@ -90,7 +92,11 @@ Anna luotavan tapahtuman tiedot:
 ```
 
 ```json
+{
+...
     "message": "JSON parse error: Cannot deserialize value of type `int`  from String \"unlimited power\": not a valid `int` value",
+...
+}
 ```
 
 TAI
