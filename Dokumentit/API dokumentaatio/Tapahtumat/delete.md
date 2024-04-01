@@ -20,12 +20,23 @@ __Ehto__: {id} arvoa ei löydy tietokannasta.
 
 __Vastauskoodi__: `404 NOT FOUND`
 
+__Esimerkkisisältö__:
+
+```json
+    "message": "Tapahtumaa id:llä '1', ei löydy",
+```
+
 TAI
 
 __Ehto__: tietokannassa on tapahtumaan myytyjä lippuja
 
 __Vastauskoodi__: `400 BAD REQUEST`
 
+__Esimerkkisisältö__:
+
+```json
+    "message": "Tapahtumalla on myytyjä lippuja, tapahtumaa ei voi poistaa."
+```
 
 TAI
 

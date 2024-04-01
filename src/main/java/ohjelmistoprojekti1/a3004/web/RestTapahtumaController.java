@@ -40,6 +40,7 @@ public class RestTapahtumaController {
     @Autowired
     private RestTapahtumanLipputyyppiController tapahtumanLipputyyppiController;
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat")
     public List<TapahtumaDTO> haeTapahtumat() {
         Iterable<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
@@ -52,6 +53,7 @@ public class RestTapahtumaController {
         return tapahtumaDTOt;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/{id}")
     public ResponseEntity<?> haeTapahtuma(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
@@ -111,7 +113,7 @@ public class RestTapahtumaController {
         return ResponseEntity.ok().body(tapahtumanLiput);
     }
 
-    // haetaan yhteen tapahtumaan liittyvät tapahtumanlipputyypit
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/{id}/tapahtumanlipputyypit")
     public ResponseEntity<?> haeTapahtumakohtaisetTapahtumanlipputyypit(@PathVariable("id") Long id) {
         // tarkistetaan, että tapahtuma on olemassa
@@ -129,7 +131,7 @@ public class RestTapahtumaController {
         return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
     }
 
-    // haetaan tapahtumat, joiden alku on kuluvan vuorokauden jälkeen
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/tulevat")
     public Iterable<Tapahtuma> tulevatTapahtumat() {
         // haetaan vertailuajaksi kuluvan vuorokauden viimeinen hetki

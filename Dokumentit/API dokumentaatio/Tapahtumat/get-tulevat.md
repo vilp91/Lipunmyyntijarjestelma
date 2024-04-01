@@ -8,7 +8,7 @@ __Metodi__: `GET`
 
 __Autentikointi vaaditaan__: Kyllä
 
-__Vaadittavat oikeudet__: Ei mitään
+__Vaadittavat oikeudet__: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
@@ -71,6 +71,12 @@ __Esimerkkisisältö__, 23.2.2024 tehtynä hakuna käyttäjälle näytetään ka
 __Ehto__: Autentikointi epäonnistuu
 
 __Vastausoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+__Vastauskoodi__: `403 FORBIDDEN`
 
 TAI
 

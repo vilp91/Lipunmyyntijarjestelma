@@ -8,8 +8,7 @@ Hakee tapahtuman id:n perusteella yhden tapahtuman.
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Ei mitään
-
+**Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
@@ -61,6 +60,12 @@ Tehdään GET pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
+
+TAI
+
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+**Vastauskoodi**: `403 FORBIDDEN`
