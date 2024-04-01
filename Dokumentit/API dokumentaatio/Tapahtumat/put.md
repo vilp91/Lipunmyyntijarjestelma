@@ -34,11 +34,11 @@ __Tietosisältöesimerkki__:
     }
 ```
 
-## Vastauskoodit - Success
+## Onnistunut tapahtuma
 
 __Ehto__: Tapahtuma on olemassa ja sen päivitys onnistui
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Esimerkkisisältö__, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtumat/1`:
 ```json
@@ -52,25 +52,35 @@ __Esimerkkisisältö__, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtu
     "lippu_lukum": 50
 }
 ```
-## Vastauskoodit - Error
+## Epäonnistunut tapahtuma
 
-__Ehto__: Tapahtumaa ei ole olemassa
+**Ehto**: Haetaan id:n perusteella tapahtumaa, mutta tapahtumaa haetulla id:llä ei ole olemassa.
 
-__Koodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
-__Sisältö__: `{}`
+**Sisältöesimerkki**:
+
+Tehdään PUT pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
+
+```json
+{
+...
+    "message": "Tapahtumaa id:llä '10' ei löydy",
+...
+}
+```
 
 TAI
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`
 
 TAI
 
 __Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Koodi__: `403 FORBIDDEN`
+__Vastauskoodi__: `403 FORBIDDEN`
 
 ## Lisätiedot
 
@@ -92,7 +102,7 @@ __Tietosisältöesimerkki__ URL:iin `/tapahtumat/1`
     "lippu_lukum": 50
 }
 ```
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Esimerkkivastaus__
 ```json

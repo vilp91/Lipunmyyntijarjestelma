@@ -14,7 +14,7 @@ __Vaadittavat oikeudet__: Ei mitään
 
 __Ehto__: Kuluvan päivän jälkeisiä tapahtumia ei ole tai tapahtumille ei ole asetettu alkupäivää. Käyttäjälle ei näytetä tuloksia.
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Sisältö__: `{[]}`
 
@@ -22,7 +22,7 @@ TAI
 
 __Ehto__: Käyttäjälle näytetään tulokset.
 
-__Koodi__: `200 OK`
+__Vastauskoodi__: `200 OK`
 
 __Esimerkkisisältö__, 23.2.2024 tehtynä hakuna käyttäjälle näytetään kaksi ensimmäistä Tapahtumaa:
 ```json
@@ -70,4 +70,20 @@ __Esimerkkisisältö__, 23.2.2024 tehtynä hakuna käyttäjälle näytetään ka
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastausoodi__: `401 UNAUTHORIZED`
+
+TAI
+
+__Ehto__: Ei tulevia tapahtumia
+
+__Vastauskoodi__: `404 NOT FOUND`
+
+__Sisältöesimerkki__: 
+
+```json
+{
+...
+    "message": "Ei tulevia tapahtumia",
+...
+}
+```

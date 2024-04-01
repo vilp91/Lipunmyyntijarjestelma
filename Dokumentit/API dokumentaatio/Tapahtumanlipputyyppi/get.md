@@ -61,4 +61,4 @@ __Autentikointi vaaditaan__: Kyllä
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`

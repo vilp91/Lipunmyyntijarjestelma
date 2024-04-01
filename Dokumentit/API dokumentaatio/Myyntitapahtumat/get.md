@@ -90,4 +90,4 @@ TAI
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`

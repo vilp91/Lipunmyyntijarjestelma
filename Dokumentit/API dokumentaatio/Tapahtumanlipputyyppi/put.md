@@ -52,9 +52,25 @@ __Esimerkkisisältö__:
 
 ```json
 {
+    "hinta": "69",
+    "lipputyyppiId": "1"
+}
+```
+
+```json
+{
 ...
     "defaultMessage": "Valitse tapahtuma"
 ...
+}
+```
+---
+__Esimerkkisisältö__:
+
+```json
+{
+    "hinta": "69",
+    "tapahtuma": "1"
 }
 ```
 

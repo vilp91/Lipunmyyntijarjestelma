@@ -128,11 +128,11 @@ Haetaan liput.
 
 __Ehto__: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+__Vastauskoodi__: `401 UNAUTHORIZED`
 
 TAI
 
 __Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Koodi__: `403 FORBIDDEN`
+__Vastauskoodi__: `403 FORBIDDEN`
 

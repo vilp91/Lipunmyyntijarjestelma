@@ -57,7 +57,7 @@ public class RestTapahtumaController {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
         if (!tapahtumaRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa syötetyllä id:llä '" + id + "'', ei löydy :(");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa syötetyllä id:llä '" + id + "'', ei löydy.");
         }
         // hakee tapahtuman tiedot
         Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
@@ -93,7 +93,7 @@ public class RestTapahtumaController {
     public ResponseEntity<?> haeTapahtumanLiput(@PathVariable("id") Long id) {
         // tarkistaa onko tapahtuma on olemassa. Jos ei, palauttaa koodin 404
         if (!tapahtumaRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa syötetyllä id:llä: " + id + ", ei löydy");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä: '" + id + "' ei löytynyt");
         }
         // haetaan tapahtuma
         Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
@@ -168,7 +168,7 @@ public class RestTapahtumaController {
             tapahtumaRepository.save(muokattuTapahtuma);
             return ResponseEntity.ok().body(muokattuTapahtuma);
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "', ei löydy");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löydy");
 
     }
 
