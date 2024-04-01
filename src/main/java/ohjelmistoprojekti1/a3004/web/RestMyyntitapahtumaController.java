@@ -98,7 +98,7 @@ public class RestMyyntitapahtumaController {
                 if (!tapahtumanLipputyyppiRepository.existsById(ostettuLippuDTO.getTapahtumanLipputyyppi())) {
                     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                            "Tapahtuman lipputyypin valinnassa virhe. Myyntitapahtuma on peruttu.");
+                            "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.");
                 }
 
                 Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
