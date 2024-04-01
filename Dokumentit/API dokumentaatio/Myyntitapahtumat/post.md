@@ -69,7 +69,7 @@ Anna luotavan tapahtuman tiedot:
 ```json
 {
 ...
-    "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko Tapahtuman lipputyyppiä syöttämällä ID:lläsi olemassa (GET /tapahtumanlipputyypit).",
+    "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.",
 ...
 }
 ```
@@ -115,17 +115,21 @@ TAI
 ```
 
 ```json
-Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.
+{
+...
+  "message": "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.",
+...
+}
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

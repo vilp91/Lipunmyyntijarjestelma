@@ -25,6 +25,7 @@ import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class RestMyyntitapahtumaController {
@@ -97,7 +98,7 @@ public class RestMyyntitapahtumaController {
                 if (!tapahtumanLipputyyppiRepository.existsById(ostettuLippuDTO.getTapahtumanLipputyyppi())) {
                     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                            "Tapahtuman lipputyypin valinnassa virhe. Myyntitapahtuma on peruttu.");
+                            "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.");
                 }
 
                 Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
