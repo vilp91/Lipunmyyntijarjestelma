@@ -51,8 +51,8 @@ public class RestLippuController {
             Lippu lippu = lippuRepository.findById(id).orElse(null);
 
             // vähennetään tapahtuman myydyistä lipuista 1 ja poistetaan lippu
-            Tapahtuma tapahtuma = lippu.getTapahtuman_lipputyyppi().getTapahtuma();
-            tapahtuma.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum() - 1);
+            Tapahtuma tapahtuma = lippu.getTapahtumanLipputyyppi().getTapahtuma();
+            tapahtuma.setMyydytLiputLukum(tapahtuma.getMyydytLiputLukum() - 1);
             lippuRepository.delete(lippu);
 
             return ResponseEntity.noContent().build();

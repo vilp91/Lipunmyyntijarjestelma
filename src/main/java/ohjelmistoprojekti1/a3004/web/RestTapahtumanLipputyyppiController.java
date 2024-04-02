@@ -65,16 +65,13 @@ public class RestTapahtumanLipputyyppiController {
         if (!lipputyyppiRepository.existsById(tapahtumanLipputyyppiDto.getLipputyyppiId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppiä id:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' ei löydy");
         }
-        /* 
-        // TÄMÄ TARKISTUS PITÄÄ TEHDÄ LOPPUUN KUN ENTITYJEN ID ATTRIBUUTIT ON MUUTETTU CAMELCASEEN.
-        // Syynä se, että nyt JPA/hibernate whatever ei löydä nyt oikeita attribuutteja, koska '_' -merkillä on erityinen käyttötarkoitus hauissa.
-
+/* 
+        // KESKENERÄINEN.
         // tarkistetaan onko annetulla lipputyyppiId:llä jo olemassa tapahtuman lipputyyppi
         if (tapahtumanLipputyyppiRepository.existsByLipputyyppiId(lipputyyppiRepository.existsById(tapahtumanLipputyyppiDto.getLipputyyppiId()))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppi id:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' on jo olemassa tapahtuman lipputyyppi");
         }
-         */
-
+*/
         // tarkistetaan onko hinta positiivinen
         if (tapahtumanLipputyyppiDto.getHinta() < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Hinnan pitää olla positiivinen");
@@ -86,7 +83,7 @@ public class RestTapahtumanLipputyyppiController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(tallennettuTapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id())
+                .buildAndExpand(tallennettuTapahtumanLipputyyppi.getTapahtumanLipputyyppiId())
                 .toUri();
         // palautetaan clientille vastauksena 201 - Created ja DTO-versio luodusta
         // tapahtumanlipputyypistä
@@ -105,7 +102,7 @@ public class RestTapahtumanLipputyyppiController {
                     // muunnetaan DTO tapahtumanlipputyypiksi, asetetaan sille oikea id ja
                     // tallennetaan se tietokantaan
                     TapahtumanLipputyyppi muokattuTapahtumanLipputyyppi = DTOtoEntity(muokattuTapahtumanLipputyyppiDto);
-                    muokattuTapahtumanLipputyyppi.setTapahtuman_lipputyyppi_id(id);
+                    muokattuTapahtumanLipputyyppi.setTapahtumanLipputyyppiId(id);
                     tapahtumanLipputyyppiRepository.save(muokattuTapahtumanLipputyyppi);
                     // palautetaan clientille DTO-versio muokatusta tapahtumanlipputyypistä
                     muokattuTapahtumanLipputyyppiDto = EntityToDTO(muokattuTapahtumanLipputyyppi);
@@ -143,10 +140,10 @@ public class RestTapahtumanLipputyyppiController {
     // muunnetaan entity-versio DTO-versioksi
     public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
-        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtumanLipputyyppiId());
         tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
-        tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppiId());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
         return tapahtumanlipputyyppiDTO;
 

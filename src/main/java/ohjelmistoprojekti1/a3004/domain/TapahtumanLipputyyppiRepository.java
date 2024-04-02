@@ -9,9 +9,9 @@ public interface TapahtumanLipputyyppiRepository extends CrudRepository<Tapahtum
     List<TapahtumanLipputyyppi> findByTapahtuma(Tapahtuma tapahtuma);
 
     Boolean existsByLipputyyppi(Lipputyyppi lipputyyppi);
-    /* 
+/*  
+    //Tämä metodi on vielä kesken ja rikkoo ohjelman.
     //Tämä on @PostMapping("/tapahtumanlipputyypit") yhtä error tarkistusta varten.
-    //Voi ottaa käyttöön kun entityjen id:t on CamelCase.
     Boolean existsByLipputyyppiId(Boolean b);
-     */
+*/
 }

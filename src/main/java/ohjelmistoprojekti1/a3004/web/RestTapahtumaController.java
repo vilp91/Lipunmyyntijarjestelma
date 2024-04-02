@@ -80,7 +80,7 @@ public class RestTapahtumaController {
         // haetaan tapahtuma
         Tapahtuma tapahtuma = tapahtumaRepository.findById(id).orElse(null);
         // haetaan tapahtumaan liittyvät tapahtumanlipputyypit
-        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtuma.getTapahtuman_lipputyypit();
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtuma.getTapahtumanLipputyypit();
         // luodaan lipuille tyhjä lista
         List<Lippu> tapahtumanLiput = new ArrayList<>();
         // haetaan tapahtumanlipputyyppeihin liittyvät liput ja lisätään ne listaan
@@ -101,7 +101,7 @@ public class RestTapahtumaController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löytynyt");
         }
         // haetaan tapahtumanlipputyypit ja muutetaan ne DTO-versioiksi
-        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtuman_lipputyypit();
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtumanLipputyypit();
         List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
 
         for (TapahtumanLipputyyppi tapahtumanlipputyyppi : tapahtumanlipputyypit) {
@@ -146,7 +146,7 @@ public class RestTapahtumaController {
     @PutMapping("/tapahtumat/{id}")
     public ResponseEntity<?> muokattuTapahtuma(@PathVariable("id") Long id, @Valid @RequestBody Tapahtuma muokattuTapahtuma) {
         if (tapahtumaRepository.existsById(id)) {
-            muokattuTapahtuma.setTapahtuma_id(id);
+            muokattuTapahtuma.setTapahtumaId(id);
             tapahtumaRepository.save(muokattuTapahtuma);
             return ResponseEntity.ok().body(muokattuTapahtuma);
         }
@@ -162,7 +162,7 @@ public class RestTapahtumaController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "', ei löydy");
         }
         // jos tietue löytyy, tarkistetaan liittyykö siihen myytyjä lippuja
-        if ((tapahtumaRepository.findById(id).orElse(null).getMyydyt_liput_lukum()) != 0) {
+        if ((tapahtumaRepository.findById(id).orElse(null).getMyydytLiputLukum()) != 0) {
             // jos löytyy, tietuetta ei voida poistaa
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumalla on myytyjä lippuja, tapahtumaa ei voi poistaa.");
         }
@@ -173,10 +173,10 @@ public class RestTapahtumaController {
     // muunnetaan entity-versio DTO-versioksi
     public TapahtumanlipputyyppiDTO TapahtumanlipputyyppiEntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
-        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtuman_lipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtumanLipputyyppiId());
         tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
-        tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppi_id());
+        tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppiId());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
         return tapahtumanlipputyyppiDTO;
     }
@@ -184,13 +184,13 @@ public class RestTapahtumaController {
     private TapahtumaDTO TapahtumaEntityToDTO(Tapahtuma tapahtuma) {
         TapahtumaDTO tapahtumaDTO = new TapahtumaDTO();
         tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtuma_id());
-        tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtuman_nimi());
+        tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtumanNimi());
         tapahtumaDTO.setPaikka(tapahtuma.getPaikka());
         tapahtumaDTO.setKatuosoite(tapahtuma.getKatuosoite());
         tapahtumaDTO.setAlku(tapahtuma.getAlku());
         tapahtumaDTO.setLoppu(tapahtuma.getLoppu());
-        tapahtumaDTO.setLippu_lukum(tapahtuma.getLippu_lukum());
-        tapahtumaDTO.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum());
+        tapahtumaDTO.setLippu_lukum(tapahtuma.getLippuLukum());
+        tapahtumaDTO.setMyydyt_liput_lukum(tapahtuma.getMyydytLiputLukum());
         List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
         List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
         for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanLipputyypit) {

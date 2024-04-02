@@ -53,7 +53,7 @@ public class RestLipputyyppiController {
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(tallennettuLipputyyppi.getLipputyyppi_id())
+                    .buildAndExpand(tallennettuLipputyyppi.getLipputyyppiId())
                     .toUri();
             return ResponseEntity.created(location).body(tallennettuLipputyyppi);
         }
@@ -81,7 +81,7 @@ public class RestLipputyyppiController {
             // tarkistetaan, onko tietokannassa jo käytössä lipputyypin tyyppi
             // jos tyyppi on uniikki, tallennetaan muutokset
             if (lipputyyppiOnUniikki(muokattuLipputyyppi.getTyyppi())) {
-                muokattuLipputyyppi.setLipputyyppi_id(id);
+                muokattuLipputyyppi.setLipputyyppiId(id);
                 lipputyyppiRepository.save(muokattuLipputyyppi);
                 return ResponseEntity.ok().body(muokattuLipputyyppi);
             } else {

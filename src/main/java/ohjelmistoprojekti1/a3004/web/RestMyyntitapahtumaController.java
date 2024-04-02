@@ -25,7 +25,6 @@ import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class RestMyyntitapahtumaController {
@@ -104,18 +103,18 @@ public class RestMyyntitapahtumaController {
                 Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
                         .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null)).getTapahtuma();
 
-                if (tapahtuma.getMyydyt_liput_lukum() + 1 > tapahtuma.getLippu_lukum()) {
+                if (tapahtuma.getMyydytLiputLukum() + 1 > tapahtuma.getLippuLukum()) {
                     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                             "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
                 }
 
-                tapahtuma.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum() + 1);
+                tapahtuma.setMyydytLiputLukum(tapahtuma.getMyydytLiputLukum() + 1);
                 Lippu lippu = new Lippu();
                 lippu.setTapahtuman_lipputyyppi(tapahtumanLipputyyppiRepository
                         .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null));
                 lippu.setMyyntitapahtuma(myyntitapahtuma);
-                lippu.setHinta(lippu.getTapahtuman_lipputyyppi().getHinta());
+                lippu.setHinta(lippu.getTapahtumanLipputyyppi().getHinta());
                 lippuRepository.save(lippu);
             }
         }
@@ -156,8 +155,8 @@ public class RestMyyntitapahtumaController {
             // id:n lisäys
             lippuDTO.setId(lippu.getLippu_id());
             // lipputyypin lisäys
-            lippuDTO.setTyyppi(lippu.getTapahtuman_lipputyyppi().getLipputyyppi().getTyyppi());
-            lippuDTO.setTapahtuma(lippu.getTapahtuman_lipputyyppi().getTapahtuma().getTapahtuman_nimi());
+            lippuDTO.setTyyppi(lippu.getTapahtumanLipputyyppi().getLipputyyppi().getTyyppi());
+            lippuDTO.setTapahtuma(lippu.getTapahtumanLipputyyppi().getTapahtuma().getTapahtumanNimi());
             lippuDTO.setHinta(lippu.getHinta());
             summa += lippu.getHinta();
             lippuDTOLista.add(lippuDTO);
@@ -167,69 +166,4 @@ public class RestMyyntitapahtumaController {
         myyntitapahtumaDTO.setSumma(summa);
         return myyntitapahtumaDTO;
     }
-<<<<<<< HEAD
-
-    @PostMapping("/myyntitapahtumat")
-    @Transactional
-    public ResponseEntity<?> myyLippuja(@RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
-        // try {
-            // luodaan uusi myyntitapahtuma ja asetetaan sille käyttäjätieto
-            Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
-            myyntitapahtuma.setKayttaja(null); // voisko tämä tulla polkumuuttujana?
-
-            // tallennetaan myyntitapahtuma niin saadaan sille id
-            myyntitapahtumaRepository.save(myyntitapahtuma);
-
-            // käydään pyynnön rungossa saatu OstettuLippuDTO-olioiden lista läpi ja
-            // muodostetaan niistä lippuja
-            for (OstettuLippuDTO ostettuLippuDTO : ostetutLiputDTO) {
-                // muodostetaan niin monta saman tapahtumanlipputyypin lippua, kuin on ostettu
-                for (int i = 0; i < ostettuLippuDTO.getMaara(); i++) {
-                    // varmistetaan, ettei myydä enempää lippuja, kuin saatavilla on:
-                    // haetaan tapahtuma, johon lippua ollaan myymässä
-                    Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
-                            .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null)).getTapahtuma();
-                    // tarkistetaan, onko lippu saatavilla
-                    if (tapahtuma.getMyydyt_liput_lukum() + 1 <= tapahtuma.getLippu_lukum()) {
-                        // jos lippu on saatavilla, lisätään myytyjen lippujen määrä yhdellä ja luodaan lippu
-                        tapahtuma.setMyydyt_liput_lukum(tapahtuma.getMyydyt_liput_lukum() + 1);
-                        Lippu lippu = new Lippu();
-                        lippu.setTapahtuman_lipputyyppi(tapahtumanLipputyyppiRepository
-                                .findById(ostettuLippuDTO.getTapahtumanLipputyyppi())
-                                .orElseThrow(() -> new RuntimeException(
-                                        "TapahtumanLipputyyppi not found with id "
-                                                + ostettuLippuDTO.getTapahtumanLipputyyppi())));
-                        lippu.setMyyntitapahtuma(myyntitapahtuma);
-                        lippu.setHinta(lippu.getTapahtuman_lipputyyppi().getHinta());
-                        lippuRepository.save(lippu);
-                    }
-                    // jos jotain lippua ei ole saatavilla, annetaan virheilmoitus ja perutaan tehdyt muutokset tietokantaan
-                    else {
-                        throw new RuntimeException("Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
-                    }
-                }
-            }
-            // muutetaan myyntitapahtuma DTO-versioksi
-            MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
-            // lisätään DTO-versioon id ja tallennetaan se
-            myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
-            return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDTO);
-        // } catch (Exception e) {
-        //     return ResponseEntity.badRequest().body("Jokin meni vikaan :(");
-        // }
-    }
-
-    @DeleteMapping("/myyntitapahtumat/{id}")
-    public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
-        // tarkistetaan löytyykö tietokannasta tietuetta annetulla id:llä
-        if (myyntitapahtumaRepository.existsById(id)) {
-            // jos tietue löytyy, se poistetaan ja vastataan koodilla 204
-            myyntitapahtumaRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        // jos tietuetta ei löydy, vastataan koodilla 404
-        return ResponseEntity.notFound().build();
-    }
-=======
->>>>>>> dev
 }
