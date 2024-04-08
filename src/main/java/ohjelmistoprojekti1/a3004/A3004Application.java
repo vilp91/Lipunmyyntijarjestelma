@@ -35,7 +35,7 @@ public class A3004Application {
 	}
 
 	// lisätään demo data
-	@Bean
+	/* @Bean
 	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, LipputyyppiRepository lipputyyppiRepository,
         TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
         KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, DataSource dataSource) {
@@ -137,6 +137,6 @@ public class A3004Application {
 			lippu3.setMyyntitapahtuma(myyntitapahtuma2);
 			lippuRepository.save(lippu3);
 		};
-	}
+	} */
 
 }
