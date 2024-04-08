@@ -26,10 +26,11 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(authorize -> authorize
-                .requestMatchers(("/tapahtumat/**")).permitAll()
+            .authorizeRequests(authorize -> authorize
+                .requestMatchers("/tapahtumat/**").permitAll()
+                .requestMatchers("/kayttajat/**").permitAll()
                 .anyRequest().authenticated())
-                .httpBasic(withDefaults());
+            .httpBasic(withDefaults());
         http.csrf(csrf -> csrf.disable());
         return http.build();
     }
