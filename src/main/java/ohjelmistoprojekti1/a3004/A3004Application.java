@@ -36,7 +36,7 @@ public class A3004Application {
 	KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository) {
 
 		return(args) -> {
-			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,04,06, 14, 0), LocalDateTime.of(2024,04,06, 16, 0), 10);
+			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,06,06, 14, 0), LocalDateTime.of(2024,06,06, 16, 0), 10);
 			tapahtumaRepository.save(tapahtuma1);
 
 			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", LocalDateTime.of(2024,06, 12, 17, 0), LocalDateTime.of(2024,06, 12, 23, 59), 667);
