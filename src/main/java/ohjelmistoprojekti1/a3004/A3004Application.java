@@ -1,6 +1,11 @@
 package ohjelmistoprojekti1.a3004;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
+
+import javax.sql.DataSource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,10 +37,27 @@ public class A3004Application {
 	// lisätään demo data
 	@Bean
 	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, LipputyyppiRepository lipputyyppiRepository,
-	TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
-	KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository) {
+        TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
+        KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, DataSource dataSource) {
 
-		return(args) -> {
+			return(args) -> {
+				String[] sqlStatements = {
+						"DELETE FROM lippu",
+						"DELETE FROM myyntitapahtuma",
+						"DELETE FROM kayttaja",
+						"DELETE FROM rooli",
+						"DELETE FROM tapahtuman_lipputyyppi",
+						"DELETE FROM lipputyyppi",
+						"DELETE FROM tapahtuma"
+				};
+				try (Connection connection = dataSource.getConnection()) {
+					Statement statement = connection.createStatement();
+					for (String sql : sqlStatements) {
+						statement.executeUpdate(sql);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,06,06, 14, 0), LocalDateTime.of(2024,06,06, 16, 0), 10);
 			tapahtumaRepository.save(tapahtuma1);
 
