@@ -40,7 +40,7 @@ public class RestTapahtumaController {
     @Autowired
     private RestTapahtumanLipputyyppiController tapahtumanLipputyyppiController;
 
-    // @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat")
     public List<TapahtumaDTO> haeTapahtumat() {
         Iterable<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();

@@ -14,7 +14,7 @@ public class RestKayttajaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
-    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/kayttajat")
     public Iterable<Kayttaja> haeKayttajat() {
         return kayttajaRepository.findAll();
