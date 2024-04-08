@@ -22,7 +22,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "kayttaja")
 public class Kayttaja {
 
-    // public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Kayttaja {
 
     @ManyToOne
     @JoinColumn(name = "rooliId")
-    @JsonIgnore
+    // @JsonIgnore
     private Rooli rooli;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
@@ -47,10 +47,10 @@ public class Kayttaja {
 
     private String katuosoite;
 
-    @JsonIgnore
+    // @JsonIgnore
     private String salasana;
 
-    @JsonIgnore
+    // @JsonIgnore
     private String kayttajanimi;
 
 
@@ -141,8 +141,7 @@ public class Kayttaja {
     }
 
     public void setSalasana(String salasana) {
-       // this.salasana = PASSWORD_ENCODER.encode(salasana);
-       this.salasana = salasana;
+       this.salasana = PASSWORD_ENCODER.encode(salasana);
     }
 
     @Override
