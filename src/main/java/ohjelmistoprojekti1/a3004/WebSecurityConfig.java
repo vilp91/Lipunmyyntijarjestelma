@@ -26,11 +26,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests(authorize -> authorize
-                .requestMatchers("/tapahtumat/**").permitAll()
-                .requestMatchers("/kayttajat/**").permitAll()
-                .anyRequest().authenticated())
-            .httpBasic(withDefaults());
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .anyRequest().authenticated())
+                .httpBasic(withDefaults());
         http.csrf(csrf -> csrf.disable());
         return http.build();
     }
