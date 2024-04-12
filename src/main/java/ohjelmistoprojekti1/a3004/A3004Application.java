@@ -31,10 +31,11 @@ import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 @SpringBootApplication
 public class A3004Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(A3004Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(A3004Application.class, args);
+    }
 
+    /* 
 	// lisätään demo data
 	 @Bean
 	 @Profile("dev")
@@ -140,5 +141,5 @@ public class A3004Application {
 			lippuRepository.save(lippu3);
 		};
 	} 
-
+     */
 }
