@@ -1,5 +1,9 @@
 package ohjelmistoprojekti1.a3004.domain;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +20,9 @@ public class Lippu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lippuId;
 
+    @Column(unique = true)
+    private UUID lippunumero = UUID.randomUUID();
+
     @ManyToOne
     @JoinColumn(name = "tapahtumanLipputyyppiId")
     private TapahtumanLipputyyppi tapahtumanLipputyyppi;
@@ -26,16 +33,19 @@ public class Lippu {
 
     private float hinta;
 
+    private LocalDateTime kaytetty = null;
+
     //Parametriton konstruktori
     public Lippu() {
     }
-
+    
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
     public Lippu(TapahtumanLipputyyppi tapahtumanLipputyyppi, Myyntitapahtuma myyntitapahtuma, float hinta) {
         this.tapahtumanLipputyyppi = tapahtumanLipputyyppi;
         this.myyntitapahtuma = myyntitapahtuma;
         this.hinta = hinta;
     }
+
     //Getterit ja setterit
     public Long getLippu_id() {
         return lippuId;
@@ -43,6 +53,14 @@ public class Lippu {
 
     public void setLippu_id(Long lippu_id) {
         this.lippuId = lippu_id;
+    }
+
+    public UUID getLippunumero() {
+        return lippunumero;
+    }
+
+    public void setLippunumero(UUID lippunumero) {
+        this.lippunumero = lippunumero;
     }
 
     public TapahtumanLipputyyppi getTapahtumanLipputyyppi() {
@@ -69,11 +87,19 @@ public class Lippu {
         this.hinta = hinta;
     }
 
-    @Override
-    public String toString() {
-        return "Lippu [lippu_id=" + lippuId + ", tapahtuman_lipputyyppi=" + tapahtumanLipputyyppi
-                + ", myyntitapahtuma=" + myyntitapahtuma + ", hinta=" + hinta + "]";
+    public LocalDateTime getKaytetty() {
+        return kaytetty;
     }
 
+    public void setKaytetty(LocalDateTime kaytetty) {
+        this.kaytetty = kaytetty;
+    }
+
+    @Override
+    public String toString() {
+        return "Lippu [lippuId=" + lippuId + ", lippunumero=" + lippunumero + ", tapahtumanLipputyyppi="
+                + tapahtumanLipputyyppi + ", myyntitapahtuma=" + myyntitapahtuma + ", hinta=" + hinta + ", kaytetty="
+                + kaytetty + "]";
+    }
 
 }

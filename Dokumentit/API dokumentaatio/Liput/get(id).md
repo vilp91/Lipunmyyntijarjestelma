@@ -20,41 +20,45 @@ Haetaan lipun tietoja id:n perusteella.
 
 ```json
 {
-  "lippu_id": 2,
-  "tapahtuman_lipputyyppi": {
-    "tapahtuman_lipputyyppi_id": 1,
-    "hinta": 10.0,
-    "tapahtuma": {
-      "tapahtuma_id": 1,
-      "tapahtuman_nimi": "Sukankudontakilpailu",
-      "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-      "katuosoite": "Kuninkaantammentie 19",
-      "alku": "2024-04-06T14:00:00",
-      "loppu": "2024-04-06T16:00:00",
-      "lippu_lukum": 10,
-      "myydyt_liput_lukum": 0
-    },
-    "lipputyyppi": {
-      "lipputyyppi_id": 1,
-      "tyyppi": "perus"
-    }
+  "lippunumero": "64745d3d-490a-49e3-9f60-1e3f1f6b62e2",
+  "tapahtumanLipputyyppi": {
+      "tapahtumanLipputyyppiId": 1,
+      "hinta": 10.0,
+      "tapahtuma": {
+          "tapahtumanNimi": "Sukankudontakilpailu",
+          "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+          "katuosoite": "Kuninkaantammentie 19",
+          "alku": "2024-06-06T14:00:00",
+          "loppu": "2024-06-06T16:00:00",
+          "lippuLukum": 10,
+          "myydytLiputLukum": 2,
+          "tapahtuma_id": 1
+      },
+      "lipputyyppi": {
+          "lipputyyppiId": 1,
+          "tyyppi": "perus"
+      }
   },
   "myyntitapahtuma": {
-    "myyntitapahtuma_id": 1,
-    "kayttaja": {
-      "kayttaja_id": 1,
-      "rooli": {
-        "rooli_id": 1,
-        "rooli": "myyjä"
+      "kayttaja": {
+          "kayttajaId": 1,
+          "rooli": {
+              "rooliId": 1,
+              "rooli": "ROLE_MYYJA"
+          },
+          "etunimi": "Teppo",
+          "sukunimi": "Testaaja",
+          "puhnro": null,
+          "katuosoite": null,
+          "salasana": "$2a$10$iWu9jKWk.x4BVFHzO/FNTu1PZ5qX0cAy2HtwS05bHBgG8OxBhDA3C",
+          "kayttajanimi": "teppo"
       },
-      "etunimi": "Teppo",
-      "sukunimi": "Testaaja",
-      "puhnro": null,
-      "katuosoite": null
-    },
-    "aikaleima": "2024-03-11T13:00:13.826432"
+      "aikaleima": "2024-04-12T23:11:14.775349",
+      "myyntitapahtuma_id": 1
   },
-  "hinta": 10.0
+  "hinta": 10.0,
+  "kaytetty": null,
+  "lippu_id": 1
 }
 ```
 
