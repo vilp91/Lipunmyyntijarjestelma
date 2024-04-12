@@ -35,7 +35,6 @@ public class A3004Application {
         SpringApplication.run(A3004Application.class, args);
     }
 
-    /* 
 	// lisätään demo data
 	 @Bean
 	 @Profile("dev")
@@ -141,5 +140,5 @@ public class A3004Application {
 			lippuRepository.save(lippu3);
 		};
 	} 
-     */
+
 }

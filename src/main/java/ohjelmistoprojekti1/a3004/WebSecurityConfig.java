@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -24,7 +25,8 @@ public class WebSecurityConfig {
 
     @SuppressWarnings("deprecation")
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Profile("dev")
+    public SecurityFilterChain securityFilterChainDev(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
@@ -32,6 +34,18 @@ public class WebSecurityConfig {
                 .httpBasic(withDefaults());
         http.csrf(csrf -> csrf.disable());
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+        return http.build();
+    }
+
+    @SuppressWarnings("deprecation")
+    @Bean
+    @Profile("rahti")
+    public SecurityFilterChain securityFilterChainRahti(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                .anyRequest().authenticated())
+                .httpBasic(withDefaults());
+        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 
