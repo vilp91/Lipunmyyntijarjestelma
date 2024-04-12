@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import ohjelmistoprojekti1.a3004.domain.Kayttaja;
 import ohjelmistoprojekti1.a3004.domain.KayttajaRepository;
@@ -35,7 +36,8 @@ public class A3004Application {
 	}
 
 	// lisätään demo data
-	/* @Bean
+	 @Bean
+	 @Profile("dev")
 	public CommandLineRunner demo(TapahtumaRepository tapahtumaRepository, LipputyyppiRepository lipputyyppiRepository,
         TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository, LippuRepository lippuRepository, RooliRepository rooliRepository,
         KayttajaRepository kayttajaRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, DataSource dataSource) {
@@ -137,6 +139,6 @@ public class A3004Application {
 			lippu3.setMyyntitapahtuma(myyntitapahtuma2);
 			lippuRepository.save(lippu3);
 		};
-	} */
+	} 
 
 }
