@@ -1,6 +1,7 @@
 package ohjelmistoprojekti1.a3004;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -12,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import ohjelmistoprojekti1.a3004.web.DetailsService;
-
 
 @Configuration
 @EnableWebSecurity
@@ -27,14 +27,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .anyRequest().authenticated())
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
+                .anyRequest().authenticated())
                 .httpBasic(withDefaults());
         http.csrf(csrf -> csrf.disable());
+        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
         return http.build();
     }
 
     @Autowired
-    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(detailsService).passwordEncoder((new BCryptPasswordEncoder()));
     }
 }
