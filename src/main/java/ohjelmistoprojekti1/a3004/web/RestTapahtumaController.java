@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -42,15 +43,27 @@ public class RestTapahtumaController {
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat")
-    public List<TapahtumaDTO> haeTapahtumat() {
-        Iterable<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
-        List<TapahtumaDTO> tapahtumaDTOt = new ArrayList<>();
-
-        for (Tapahtuma tapahtuma : tapahtumat) {
-            TapahtumaDTO tapahtumaDTO = TapahtumaEntityToDTO(tapahtuma);
-            tapahtumaDTOt.add(tapahtumaDTO);
+    public Iterable<Tapahtuma> haeTapahtumat(
+            @RequestParam(value = "alkaen", required = false) LocalDateTime alkaen,
+            @RequestParam(value = "paattyen", required = false) LocalDateTime paattyen) {
+        // jos parametria "alkaen" ei ole annettu, määritetään se 1.1.1970
+        if (alkaen == null) {
+            alkaen = LocalDateTime.of(1970, 01, 01, 00, 00, 00);
         }
-        return tapahtumaDTOt;
+        // jos parametria "paattyen" ei ole annettu, määritetään se 100 vuoden päästä nykyhetkestä
+        if (paattyen == null) {
+            paattyen = LocalDateTime.now().plusYears(100).with(LocalTime.MAX);
+        }
+        
+        // haetaan parametreihin sopivat tapahtumat listaan
+        Optional<List<Tapahtuma>> optionalTapahtumat = Optional
+                .ofNullable(tapahtumaRepository.findAllByAlkuAfterAndAlkuBefore(alkaen, paattyen).orElse(null));
+        // jos listassa on tapahtumia palautetaan ne
+        if (optionalTapahtumat.isPresent() && !optionalTapahtumat.get().isEmpty()) {
+            return optionalTapahtumat.get();
+        }
+        // jos tapahtumia ei ole, palautetaan 404
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ei tulevia tapahtumia");
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
@@ -109,20 +122,6 @@ public class RestTapahtumaController {
             tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
         }
         return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
-    }
-
-    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/tapahtumat/tulevat")
-    public Iterable<Tapahtuma> tulevatTapahtumat() {
-        // haetaan vertailuajaksi kuluvan vuorokauden viimeinen hetki
-        LocalDateTime tanaan = LocalDateTime.now().with(LocalTime.MAX);
-        Optional<List<Tapahtuma>> optionalTapahtumat = Optional.ofNullable(tapahtumaRepository.findAllByAlkuAfter(tanaan).orElse(null));
-        // jos tulevia tapahtumia on, ne palautetaan vastauksessa
-        if (optionalTapahtumat.isPresent() && !optionalTapahtumat.get().isEmpty()) {
-            return tapahtumaRepository.findAllByAlkuAfter(tanaan).get();
-        }
-        // jos tulevia tapahtumia ei ole, palautetaan seuraava
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ei tulevia tapahtumia");
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

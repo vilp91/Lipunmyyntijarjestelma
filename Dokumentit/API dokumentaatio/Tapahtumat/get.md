@@ -4,6 +4,10 @@ Hakee ja näyttää kaikki tietokannassa olevat tapahtumat saatavissa olevine ti
 
 __URL__: `/tapahtumat`
 
+__Vapaaehtoiset parametrit__: "alkaen" - haetaan tapahtumat annetusta hetkestä alkaen, "paattyen" - haetaan tapahtumat annettuun hetkeen saakka
+
+esim. `/tapahtumat?alkaen=2024-04-01T00:00:00&paattyen=2024-06-30T23:59:59`
+
 __Metodi__: `GET`
 
 __Autentikointi vaaditaan__: Kyllä
