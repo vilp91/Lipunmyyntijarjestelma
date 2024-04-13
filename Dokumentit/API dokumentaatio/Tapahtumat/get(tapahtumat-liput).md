@@ -23,78 +23,86 @@ Haetaan liput.
 ```json
 [
   {
-    "lippu_id": 1,
-    "tapahtuman_lipputyyppi": {
-      "tapahtuman_lipputyyppi_id": 1,
+      "lippunumero": "157934e5-189c-4076-9532-f6b1202b9ac7",
+      "tapahtumanLipputyyppi": {
+          "tapahtumanLipputyyppiId": 1,
+          "hinta": 10.0,
+          "tapahtuma": {
+              "tapahtumanNimi": "Sukankudontakilpailu",
+              "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+              "katuosoite": "Kuninkaantammentie 19",
+              "alku": "2024-06-06T14:00:00",
+              "loppu": "2024-06-06T16:00:00",
+              "lippuLukum": 10,
+              "myydytLiputLukum": 0,
+              "tapahtuma_id": 1
+          },
+          "lipputyyppi": {
+              "lipputyyppiId": 1,
+              "tyyppi": "perus"
+          }
+      },
+      "myyntitapahtuma": {
+          "kayttaja": {
+              "kayttajaId": 1,
+              "rooli": {
+                  "rooliId": 1,
+                  "rooli": "ROLE_MYYJA"
+              },
+              "etunimi": "Teppo",
+              "sukunimi": "Testaaja",
+              "puhnro": null,
+              "katuosoite": null,
+              "salasana": "$2a$10$Yf1pwD1XzmI2bSilfoA1TOZ81v2fWrMdRU8qv6JOEqX6de6Vpzxyu",
+              "kayttajanimi": "teppo"
+          },
+          "aikaleima": "2024-04-13T16:22:41.855274",
+          "myyntitapahtuma_id": 1
+      },
       "hinta": 10.0,
-      "tapahtuma": {
-        "tapahtuma_id": 1,
-        "tapahtuman_nimi": "Sukankudontakilpailu",
-        "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-        "katuosoite": "Kuninkaantammentie 19",
-        "alku": "2024-04-06T14:00:00",
-        "loppu": "2024-04-06T16:00:00",
-        "lippu_lukum": 10,
-        "myydyt_liput_lukum": 0
-      },
-      "lipputyyppi": {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-      }
-    },
-    "myyntitapahtuma": {
-      "myyntitapahtuma_id": 1,
-      "kayttaja": {
-        "kayttaja_id": 1,
-        "rooli": {
-          "rooli_id": 1,
-          "rooli": "myyjä"
-        },
-        "etunimi": "Teppo",
-        "sukunimi": "Testaaja",
-        "puhnro": null,
-        "katuosoite": null
-      },
-      "aikaleima": "2024-03-11T13:11:20.715442"
-    },
-    "hinta": 10.0
+      "kaytetty": null,
+      "lippu_id": 1
   },
   {
-    "lippu_id": 2,
-    "tapahtuman_lipputyyppi": {
-      "tapahtuman_lipputyyppi_id": 1,
+      "lippunumero": "6c3b3dc6-0378-431c-9b8e-dd7304a6236c",
+      "tapahtumanLipputyyppi": {
+          "tapahtumanLipputyyppiId": 1,
+          "hinta": 10.0,
+          "tapahtuma": {
+              "tapahtumanNimi": "Sukankudontakilpailu",
+              "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+              "katuosoite": "Kuninkaantammentie 19",
+              "alku": "2024-06-06T14:00:00",
+              "loppu": "2024-06-06T16:00:00",
+              "lippuLukum": 10,
+              "myydytLiputLukum": 0,
+              "tapahtuma_id": 1
+          },
+          "lipputyyppi": {
+              "lipputyyppiId": 1,
+              "tyyppi": "perus"
+          }
+      },
+      "myyntitapahtuma": {
+          "kayttaja": {
+              "kayttajaId": 1,
+              "rooli": {
+                  "rooliId": 1,
+                  "rooli": "ROLE_MYYJA"
+              },
+              "etunimi": "Teppo",
+              "sukunimi": "Testaaja",
+              "puhnro": null,
+              "katuosoite": null,
+              "salasana": "$2a$10$Yf1pwD1XzmI2bSilfoA1TOZ81v2fWrMdRU8qv6JOEqX6de6Vpzxyu",
+              "kayttajanimi": "teppo"
+          },
+          "aikaleima": "2024-04-13T16:22:41.855274",
+          "myyntitapahtuma_id": 1
+      },
       "hinta": 10.0,
-      "tapahtuma": {
-        "tapahtuma_id": 1,
-        "tapahtuman_nimi": "Sukankudontakilpailu",
-        "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-        "katuosoite": "Kuninkaantammentie 19",
-        "alku": "2024-04-06T14:00:00",
-        "loppu": "2024-04-06T16:00:00",
-        "lippu_lukum": 10,
-        "myydyt_liput_lukum": 0
-      },
-      "lipputyyppi": {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-      }
-    },
-    "myyntitapahtuma": {
-      "myyntitapahtuma_id": 1,
-      "kayttaja": {
-        "kayttaja_id": 1,
-        "rooli": {
-          "rooli_id": 1,
-          "rooli": "myyjä"
-        },
-        "etunimi": "Teppo",
-        "sukunimi": "Testaaja",
-        "puhnro": null,
-        "katuosoite": null
-      },
-      "aikaleima": "2024-03-11T13:11:20.715442"
-    },
-    "hinta": 10.0
+      "kaytetty": null,
+      "lippu_id": 2
   }
 ]
 ```
