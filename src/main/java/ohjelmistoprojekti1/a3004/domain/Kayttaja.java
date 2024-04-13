@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -48,18 +49,20 @@ public class Kayttaja {
     private String katuosoite;
 
     // @JsonIgnore
+    @NotBlank
     private String salasana;
 
     // @JsonIgnore
+    @Column(unique = true)
+    @NotBlank
     private String kayttajanimi;
-
 
     // konstruktorit
     public Kayttaja() {
     }
-    
+
     public Kayttaja(Rooli rooli, List<Myyntitapahtuma> myyntitapahtumat, @NotBlank String etunimi,
-            @NotBlank String sukunimi, String puhnro, String katuosoite, String salasana, String kayttajanimi) {
+            @NotBlank String sukunimi, String puhnro, String katuosoite, @NotBlank String salasana, String kayttajanimi) {
         this.rooli = rooli;
         this.myyntitapahtumat = myyntitapahtumat;
         //Mahdollinen ongelma: Overrideable methodcall in constructor.
@@ -141,7 +144,7 @@ public class Kayttaja {
     }
 
     public void setSalasana(String salasana) {
-       this.salasana = PASSWORD_ENCODER.encode(salasana);
+        this.salasana = PASSWORD_ENCODER.encode(salasana);
     }
 
     @Override
@@ -149,6 +152,5 @@ public class Kayttaja {
         return "Kayttaja [kayttajaId=" + kayttajaId + ", rooli=" + rooli + ", etunimi=" + etunimi + ", sukunimi="
                 + sukunimi + ", puhnro=" + puhnro + ", katuosoite=" + katuosoite + "]";
     }
-
 
 }

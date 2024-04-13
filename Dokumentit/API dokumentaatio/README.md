@@ -66,7 +66,11 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae käyttäjät ](/Dokumentit/API%20dokumentaatio/Kayttajat/get.md): `GET /kayttajat`
 
+[Tallenna käyttäjä](/Dokumentit/API%20dokumentaatio/Kayttajat/post.md): `POST /kayttajat`
+
 
 ## Roolit
 
 [Hae roolit ](/Dokumentit/API%20dokumentaatio/Roolit/get.md): `GET /roolit`
+
+[Tallenna rooli](/Dokumentit/API%20dokumentaatio/Roolit/post.md): `POST /roolit`
