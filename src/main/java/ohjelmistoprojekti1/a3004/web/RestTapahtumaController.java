@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
+import ohjelmistoprojekti1.a3004.domain.LippuRepository;
+import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
+import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
@@ -41,6 +45,12 @@ public class RestTapahtumaController {
     @Autowired
     private RestTapahtumanLipputyyppiController tapahtumanLipputyyppiController;
 
+    @Autowired
+    private MyyntitapahtumaRepository myyntitapahtumaRepository;
+
+    @Autowired
+    private LippuRepository lippuRepository;
+
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat")
     public Iterable<Tapahtuma> haeTapahtumat(
@@ -54,8 +64,8 @@ public class RestTapahtumaController {
         if (paattyen == null) {
             paattyen = LocalDateTime.now().plusYears(100).with(LocalTime.MAX);
         }
-        
-        // haetaan parametreihin sopivat tapahtumat listaan
+
+        // haetaan parametreihin sopivat tapahtuma listaan
         Optional<List<Tapahtuma>> optionalTapahtumat = Optional
                 .ofNullable(tapahtumaRepository.findAllByAlkuAfterAndAlkuBefore(alkaen, paattyen).orElse(null));
         // jos listassa on tapahtumia palautetaan ne
@@ -122,6 +132,26 @@ public class RestTapahtumaController {
             tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
         }
         return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
+    }
+
+    @GetMapping("/tapahtumat/{id}/myyntitapahtumat")
+    public ResponseEntity<?> getTapahtumanMyyntitapahtumat(@PathVariable Long id) {
+
+        // tarkistetaan löytyykö annetulla id:llä tapahtuma ja palautetaan virhe viesti jos ei löydy
+        if (!tapahtumaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa ei löydy annetulla id:llä '" + id + "'.");
+        }
+
+        Tapahtuma tapahtuma = tapahtumaRepository.findByTapahtumaId(id);
+        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
+        List<Lippu> liput = lippuRepository.findByTapahtumanLipputyyppiIn(tapahtumanLipputyypit);
+        List<Myyntitapahtuma> myyntitapahtumat = myyntitapahtumaRepository.findByLiputIn(liput);
+
+        List<MyyntitapahtumaDTO> myyntitapahtumaDTOs = myyntitapahtumat.stream()
+        .map(this::EntitytoDTO)
+        .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(myyntitapahtumaDTOs);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -198,5 +228,32 @@ public class RestTapahtumaController {
         }
         tapahtumaDTO.setTapahtuman_lipputyypit(tapahtumanlipputyyppiDTOt);
         return tapahtumaDTO;
+    }
+
+    // tapahtuma/{id}/myyntitapahtumat käyttöön
+    private MyyntitapahtumaDTO EntitytoDTO(Myyntitapahtuma myyntitapahtuma) {
+        MyyntitapahtumaDTO myyntitapahtumaDTO = new MyyntitapahtumaDTO();
+        myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtumaId());
+        myyntitapahtumaDTO.setAika(myyntitapahtuma.getAikaleima());
+        // hakee tietokannasta myyntitapahtumaan liittyvät liput
+        List<Lippu> liput = lippuRepository.findByMyyntitapahtuma(myyntitapahtuma);
+        // luo listan lippujen DTO-versioille
+        List<LippuDTO> lippuDTOLista = new ArrayList<>();
+        float summa = 0;
+        for (Lippu lippu : liput) {
+            LippuDTO lippuDTO = new LippuDTO();
+            // id:n lisäys
+            lippuDTO.setId(lippu.getLippu_id());
+            // lipputyypin lisäys
+            lippuDTO.setTyyppi(lippu.getTapahtumanLipputyyppi().getLipputyyppi().getTyyppi());
+            lippuDTO.setTapahtuma(lippu.getTapahtumanLipputyyppi().getTapahtuma().getTapahtumanNimi());
+            lippuDTO.setHinta(lippu.getHinta());
+            summa += lippu.getHinta();
+            lippuDTOLista.add(lippuDTO);
+        }
+        // asettaa listan myyntitapahtuman DTO-versioon
+        myyntitapahtumaDTO.setLiput(lippuDTOLista);
+        myyntitapahtumaDTO.setSumma(summa);
+        return myyntitapahtumaDTO;
     }
 }

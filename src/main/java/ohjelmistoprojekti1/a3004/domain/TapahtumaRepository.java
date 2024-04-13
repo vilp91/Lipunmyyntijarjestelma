@@ -10,4 +10,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface TapahtumaRepository extends CrudRepository<Tapahtuma, Long>{
     Optional<List<Tapahtuma>> findAllByAlkuAfter(LocalDateTime pvm);
     Optional<List<Tapahtuma>> findAllByAlkuAfterAndAlkuBefore(LocalDateTime alkaen, LocalDateTime paattyen);
+    Tapahtuma findByTapahtumaId(Long id);
 }

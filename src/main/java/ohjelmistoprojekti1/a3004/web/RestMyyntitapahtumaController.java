@@ -53,7 +53,7 @@ public class RestMyyntitapahtumaController {
         for (Myyntitapahtuma myyntitapahtuma : myyntitapahtumat) {
             // muutetaan myyntitapahtumat DTO versioiksi
             MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
-            myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
+            myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtumaId());
             // lisätään MyyntitapahtumaDTO listaan
             myyntitapahtumaDTOLista.add(myyntitapahtumaDTO);
         }
@@ -119,7 +119,7 @@ public class RestMyyntitapahtumaController {
             }
         }
         MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
-        myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtuma_id());
+        myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtumaId());
         return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDTO);
     }
 

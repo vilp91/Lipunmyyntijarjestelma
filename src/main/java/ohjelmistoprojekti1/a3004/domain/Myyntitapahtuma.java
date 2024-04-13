@@ -43,7 +43,7 @@ public class Myyntitapahtuma {
         this.liput = liput;
     }
 
-    public Long getMyyntitapahtuma_id() {
+    public Long getMyyntitapahtumaId() {
         return myyntitapahtumaId;
     }
 
