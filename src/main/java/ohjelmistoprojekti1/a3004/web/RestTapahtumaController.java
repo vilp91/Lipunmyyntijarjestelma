@@ -134,6 +134,7 @@ public class RestTapahtumaController {
         return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat/{id}/myyntitapahtumat")
     public ResponseEntity<?> getTapahtumanMyyntitapahtumat(@PathVariable Long id) {
 

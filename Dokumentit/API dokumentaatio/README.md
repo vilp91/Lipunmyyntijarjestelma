@@ -14,6 +14,8 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae kaikki yksittäisen tapahtuman tapahtumanlipputyypit](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-tapahtumanlipputyypit).md): `GET /tapahtumat/{id}/tapahtumanlipputyypit`
 
+[Hae kaikki yksittäisen tapahtuman myyntitapahtumat](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-myyntitapahtumat).md): `GET /tapahtumat/{id}/myyntitapahtumat`
+
 [Tallenna tapahtuma](/Dokumentit/API%20dokumentaatio/Tapahtumat/post.md): `POST /tapahtumat`
 
 [Muokkaa tapahtumaa](/Dokumentit/API%20dokumentaatio/Tapahtumat/put.md): `PUT /tapahtumat/{id}`
