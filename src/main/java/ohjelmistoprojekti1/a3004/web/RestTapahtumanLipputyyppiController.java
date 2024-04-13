@@ -65,13 +65,12 @@ public class RestTapahtumanLipputyyppiController {
         if (!lipputyyppiRepository.existsById(tapahtumanLipputyyppiDto.getLipputyyppiId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppiä id:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' ei löydy");
         }
-/* 
-        // KESKENERÄINEN.
+
         // tarkistetaan onko annetulla lipputyyppiId:llä jo olemassa tapahtuman lipputyyppi
-        if (tapahtumanLipputyyppiRepository.existsByLipputyyppiId(lipputyyppiRepository.existsById(tapahtumanLipputyyppiDto.getLipputyyppiId()))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppi id:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' on jo olemassa tapahtuman lipputyyppi");
+        if (tapahtumanLipputyyppiRepository.existsByLipputyyppiLipputyyppiId(tapahtumanLipputyyppiDto.getLipputyyppiId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "LipputyyppiId:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' on jo olemassa tapahtumanlipputyyppi");
         }
-*/
+
         // tarkistetaan onko hinta positiivinen
         if (tapahtumanLipputyyppiDto.getHinta() < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Hinnan pitää olla positiivinen");

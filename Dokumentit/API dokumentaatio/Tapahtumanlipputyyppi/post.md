@@ -95,6 +95,28 @@ __Esimerkkisisältö__:
 
 TAI
 
+__Ehto__: Annetulla lipputyyppiId:llä on jo tapahtumanlipputyyppi.
+
+__Vastauskood__: `400 BAD REQUEST`
+
+__Esimerkkisisältö__:
+
+```json
+{
+  "hinta": "5",
+  "tapahtuma": "1",
+  "lipputyyppiId": "2"
+}
+```
+
+```json
+{
+    "message": "LipputyyppiId:llä '2' on jo olemassa tapahtumanlipputyyppi",
+}
+```
+
+
+
 __Ehto__: Autentikointi epäonnistuu
 
 __Koodi__: `401 UNAUTHORIZED`
