@@ -4,7 +4,7 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 ## Tapahtumat
 
-[Hae tapahtumat](/Dokumentit/API%20dokumentaatio/Tapahtumat/get.md): `GET /tapahtumat`
+[Hae tapahtumia](/Dokumentit/API%20dokumentaatio/Tapahtumat/get.md): `GET /tapahtumat`
 
 [Hae yksittäinen tapahtuma](</Dokumentit/API%20dokumentaatio/Tapahtumat/get(id).md>): `GET /tapahtumat/{id}`
 
@@ -46,9 +46,11 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 ## Liput
 
-[Hae kaikki liput](/Dokumentit/API%20dokumentaatio/Liput/get.md) `GET /liput`
+[Hae lippuja](/Dokumentit/API%20dokumentaatio/Liput/get.md) `GET /liput`
 
 [Hae yksittäinen lippu](</Dokumentit/API%20dokumentaatio/Liput/get(id).md>) `GET /liput/{id}`
+
+[Päivitä lippu käytetyksi](</Dokumentit/API%20dokumentaatio/Liput/patch.md>): `PATCH /liput/{id}`
 
 [Poista lippu](</Dokumentit/API%20dokumentaatio/Liput/delete.md>): `DELETE /liput/{id}`
 
