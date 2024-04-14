@@ -56,6 +56,7 @@ public class RestLippuController {
             return lippuRepository.findAll();
     }
 
+    @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/liput/{id}")
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
