@@ -11,7 +11,7 @@
     <div id="root"></div>
 
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script> -->
+    <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>  -->
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <!-- <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script> -->
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
@@ -22,41 +22,55 @@
             const [ticketnumber, setTicketNumber] = React.useState('');
             const [ticket, setTicket] = React.useState();
 
-            let baseURL = 'http://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi';
+            // let baseURL = 'http://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi';  // KoodiKolibri tuotanto
+            let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
+            let pathCheck = '/liput?lippunumero='      // KoodiKolibri
+            let pathUsed = '/liput/'                   // KoodiKolibri
+            let user = "heikki";                       // KoodiKolibri
+            let pw = "salaisempisana";                 // KoodiKolibri
+
+            // let baseURL = 'http://ohjelmistoprojekti1-ticketguru-kovas.rahtiapp.fi';  // KOVAS
+            // let endpoint = ''                      // KOVAS
+
+            // let user = "mikko";                    // KOVAS
+            // let pw = "admin";                      // KOVAS
+
+            const cred = btoa(`${user}:${pw}`);
+            const auth = "Basic " + cred;
 
             const handleCheck = () => {
-                // fetch(`${baseURL}/liput?code=${ticketnumber}`)
-                //     .then(response => response.json())
-                //     .then(data => {
-                //         setTicket(data)
-                //     })
-                //     .catch(error => console.error(error))
-
-                setTicket({
-                    id: 10,
-                    tapahtuman_nimi: "Sukankudontakilpailu",
-                    alku: "2024-05-31T14:00:00",
-                    lipputyyppi: "perus",
-                    kaytetty: ''
+                    fetch(baseURL + pathCheck + ticketnumber, {
+                    headers: {
+                        Authorization: auth
+                    }
                 })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data[0])
+                        setTicket(data[0])
+                    })
+                    .catch(error => console.error(error))
+
                 setTicketNumber('');
+                console.log(ticket, ticketnumber);
             };
 
             const handleMerkitseKaytetyksi = () => {
                 let nyt = new Date();
                 nyt = nyt.toISOString().slice(0, 19).replace('T', ' ');
-                console.log(nyt)
-                // fetch(`${baseURL}/liput/${ticket.id}`, {
-                //     method: 'PATCH',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify({ kaytetty: '' }),
-                // })
-                // .then(response => response.json())
-                // .then(data => console.log(data))
-                // .catch(error => console.error('Virhe: ', error))
-                setTicket(null);
+
+                fetch(baseURL + pathUsed + ticket.lippu_id, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: auth
+                    },
+                    body: JSON.stringify({ kaytetty: nyt }),
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Virhe: ', error))
+                setTicket();
             }
 
             return (
@@ -73,9 +87,9 @@
                     {ticket != null &&
                         <div>
                             <h5>Lipun tiedot</h5>
-                            Tapahtuma: {ticket.tapahtuman_nimi}<br />
-                            Aika: {ticket.alku}<br />
-                            Lipputyyppi: {ticket.lipputyyppi} <br />
+                            Tapahtuma: {ticket.tapahtumanLipputyyppi.tapahtuma.tapahtumanNimi}<br />
+                            Aika: {ticket.tapahtumanLipputyyppi.tapahtuma.alku}<br />
+                            Lipputyyppi: {ticket.tapahtumanLipputyyppi.lipputyyppi.tyyppi} <br />
                             Käytetty: {ticket.kaytetty}<br />
                             <p>
                                 <button onClick={handleMerkitseKaytetyksi}>Merkitse käytetyksi</button>
