@@ -21,11 +21,13 @@
         const GateGuard = () => {
             const [ticketnumber, setTicketNumber] = React.useState('');
             const [ticket, setTicket] = React.useState();
+            const [success, setSuccess] = React.useState();
+            const [used, setUsed] = React.useState(false);
 
-            // let baseURL = 'http://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi';  // KoodiKolibri tuotanto
-            let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
-            let pathCheck = '/liput?lippunumero='      // KoodiKolibri
-            let pathUsed = '/liput/'                   // KoodiKolibri
+            let baseURL = 'http://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi';  // KoodiKolibri tuotanto
+            // let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
+            let pathCheck = '/liput?lippunumero='  // KoodiKolibri
+            let pathUsed = '/liput/'                // KoodiKolibri
             let user = "heikki";                       // KoodiKolibri
             let pw = "salaisempisana";                 // KoodiKolibri
 
@@ -46,18 +48,23 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data[0])
                         setTicket(data[0])
                     })
                     .catch(error => console.error(error))
 
-                setTicketNumber('');
-                console.log(ticket, ticketnumber);
+                setTicketNumber('');                
             };
+
+            React.useEffect(() => {
+                if (ticket != null) {
+                    setUsed(ticket.kaytetty != null)
+                }
+            }, [ticket])
+
 
             const handleMerkitseKaytetyksi = () => {
                 let nyt = new Date();
-                nyt = nyt.toISOString().slice(0, 19).replace('T', ' ');
+                nyt = nyt.toISOString().slice(0, 19);
 
                 fetch(baseURL + pathUsed + ticket.lippu_id, {
                     method: 'PATCH',
@@ -69,17 +76,25 @@
                 })
                 .then(response => response.json())
                 .then(data => console.log(data))
-                .catch(error => console.error('Virhe: ', error))
+                .catch(error => console.error(error))
+                setSuccess(true);
                 setTicket();
             }
 
             return (
                 <div>
                     <h1>GateGuard</h1>
+                    {success && 
+                        <p>Lippu on nyt merkitty käytetyksi</p>
+                    }
                     Ticket number <br />
                     <input type="text"
                         value={ticketnumber}
-                        onChange={(event) => setTicketNumber(event.target.value)} 
+                        onChange={(event) => {
+                            setTicketNumber(event.target.value)
+                            setSuccess(null)
+                            setTicket(null)
+                        }} 
                         />
                     <p>
                         <button onClick={handleCheck}>Check</button>
@@ -92,7 +107,7 @@
                             Lipputyyppi: {ticket.tapahtumanLipputyyppi.lipputyyppi.tyyppi} <br />
                             Käytetty: {ticket.kaytetty}<br />
                             <p>
-                                <button onClick={handleMerkitseKaytetyksi}>Merkitse käytetyksi</button>
+                                    <button onClick={handleMerkitseKaytetyksi} disabled={used} >Merkitse käytetyksi</button>                           
                             </p>
                         </div>
                     }
