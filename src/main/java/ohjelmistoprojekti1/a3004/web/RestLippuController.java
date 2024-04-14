@@ -57,7 +57,7 @@ public class RestLippuController {
     }
 
     @CrossOrigin
-    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput/{id}")
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
