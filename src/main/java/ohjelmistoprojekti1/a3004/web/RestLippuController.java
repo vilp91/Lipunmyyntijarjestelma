@@ -1,12 +1,17 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,10 +29,36 @@ public class RestLippuController {
     @Autowired
     TapahtumaRepository tapahtumaRepository;
 
-    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
+    // @CrossOrigin
+    // @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
+    // @GetMapping("/liput")
+    // public Iterable<Lippu> haeLiput() {
+    //     return lippuRepository.findAll();
+    // }
+
+    @CrossOrigin
+    @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput")
-    public Iterable<Lippu> haeLiput() {
-        return lippuRepository.findAll();
+    public Iterable<Lippu> haeLiput(
+        @RequestParam(value = "lippunumero", required = false) Optional<String> lippunumero) {
+            // tarkistetaan onko pyynnön mukana annettu parametria
+            if (lippunumero.isPresent()) {
+                // tarkistetaan onko annettu parametri tyhjä
+                if (lippunumero.get() == "") {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnössä ei ole lippunumeroa");
+                } else {
+                    UUID lippunumeroUuid = UUID.fromString(lippunumero.get());
+                    // tarkistetaan löytyykö annetulla parametrilla lippua
+                    if (lippuRepository.existsByLippunumero(lippunumeroUuid)) {
+                        System.out.println("Lippu löytyi");
+                        return lippuRepository.findByLippunumero(lippunumeroUuid);
+                    } else {
+                        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+                    }
+                }
+            }
+            // palautetaan kaikki liput, jos parametria ei ole annettu
+            return lippuRepository.findAll();
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
