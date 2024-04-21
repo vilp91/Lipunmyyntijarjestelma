@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,9 +52,10 @@ public class RestTapahtumaController {
     @Autowired
     private LippuRepository lippuRepository;
 
+    @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumat")
-    public Iterable<Tapahtuma> haeTapahtumat(
+    public Iterable<TapahtumaDTO> haeTapahtumat(
             @RequestParam(value = "alkaen", required = false) LocalDateTime alkaen,
             @RequestParam(value = "paattyen", required = false) LocalDateTime paattyen) {
         // jos parametria "alkaen" ei ole annettu, määritetään se 1.1.1970
@@ -68,10 +70,14 @@ public class RestTapahtumaController {
         // haetaan parametreihin sopivat tapahtuma listaan
         Optional<List<Tapahtuma>> optionalTapahtumat = Optional
                 .ofNullable(tapahtumaRepository.findAllByAlkuAfterAndAlkuBefore(alkaen, paattyen).orElse(null));
-        // jos listassa on tapahtumia palautetaan ne
+        // jos listassa on tapahtumia, muunnetaan ne DTO-versioiksi ja palautetaan ne
         if (optionalTapahtumat.isPresent() && !optionalTapahtumat.get().isEmpty()) {
-            return optionalTapahtumat.get();
-        }
+            List<TapahtumaDTO> tapahtumaDtot = new ArrayList<>();
+            optionalTapahtumat.get().forEach(tapahtuma -> {
+                tapahtumaDtot.add(TapahtumaEntityToDTO(tapahtuma));
+            });
+            return tapahtumaDtot;
+            }
         // jos tapahtumia ei ole, palautetaan 404
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ei tulevia tapahtumia");
     }
