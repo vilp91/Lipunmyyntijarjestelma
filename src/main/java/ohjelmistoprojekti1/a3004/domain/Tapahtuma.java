@@ -79,7 +79,7 @@ public class Tapahtuma {
         this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
-    public Long getTapahtuma_id() {
+    public Long getTapahtumaId() {
         return tapahtumaId;
     }
 

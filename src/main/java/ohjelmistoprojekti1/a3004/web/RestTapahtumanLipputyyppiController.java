@@ -1,6 +1,7 @@
 package ohjelmistoprojekti1.a3004.web;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,9 +67,15 @@ public class RestTapahtumanLipputyyppiController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppiä id:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' ei löydy");
         }
 
-        // tarkistetaan onko annetulla lipputyyppiId:llä jo olemassa tapahtuman lipputyyppi
+        // tarkistetaan onko annetulla lipputyyppiId:llä jo olemassa tapahtumanLipputyyppi samassa tapahtumassa
         if (tapahtumanLipputyyppiRepository.existsByLipputyyppiLipputyyppiId(tapahtumanLipputyyppiDto.getLipputyyppiId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "LipputyyppiId:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' on jo olemassa tapahtumanlipputyyppi");
+            List<TapahtumanLipputyyppi> tapahtumanLipputyyppiTapahtumaIdTest = tapahtumanLipputyyppiRepository.findByLipputyyppiLipputyyppiId(tapahtumanLipputyyppiDto.getLipputyyppiId());
+
+            for (TapahtumanLipputyyppi tapahtumanLipputyyppiIdTest : tapahtumanLipputyyppiTapahtumaIdTest) {
+                if (tapahtumanLipputyyppiIdTest.getTapahtuma().getTapahtumaId().equals(tapahtumanLipputyyppiDto.getTapahtuma())) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "LipputyyppiId:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' on jo olemassa tapahtumanlipputyyppi");
+                }
+            }
         }
 
         // tarkistetaan onko hinta positiivinen
@@ -140,7 +147,7 @@ public class RestTapahtumanLipputyyppiController {
     public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
         tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtumanLipputyyppiId());
-        tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
+        tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtumaId());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
         tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppiId());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());

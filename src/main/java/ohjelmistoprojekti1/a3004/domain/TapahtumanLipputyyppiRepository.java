@@ -10,7 +10,8 @@ public interface TapahtumanLipputyyppiRepository extends CrudRepository<Tapahtum
 
     Boolean existsByLipputyyppi(Lipputyyppi lipputyyppi);
 
-    //Tämä on @PostMapping("/tapahtumanlipputyypit") yhtä error tarkistusta varten.
+    //Nämä on @PostMapping("/tapahtumanlipputyypit") yhtä error tarkistusta varten.
     Boolean existsByLipputyyppiLipputyyppiId(Long lipputyyppiId);
+    List<TapahtumanLipputyyppi> findByLipputyyppiLipputyyppiId(Long lipputyyppiId);
 
 }

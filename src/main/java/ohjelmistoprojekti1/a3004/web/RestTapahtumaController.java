@@ -159,7 +159,7 @@ public class RestTapahtumaController {
     @PostMapping("/tapahtumat")
     public ResponseEntity<?> uusiTapahtuma(@Valid @RequestBody Tapahtuma uusiTapahtuma) {
         // tarkistetaan onko pyynnön rungossa annettu tapahtuma_id
-        if (uusiTapahtuma.getTapahtuma_id() != null) {
+        if (uusiTapahtuma.getTapahtumaId() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Poista pyynnöstä tapahtuma_id");
         }
         // jos tapahtuma luodaan onnistuneesti, palautetaan 201 - Created ja luodun tapahtuman tiedot.
@@ -167,7 +167,7 @@ public class RestTapahtumaController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(tallennettuTapahtuma.getTapahtuma_id())
+                .buildAndExpand(tallennettuTapahtuma.getTapahtumaId())
                 .toUri();
         return ResponseEntity.created(location).body(tallennettuTapahtuma);
     }
@@ -204,7 +204,7 @@ public class RestTapahtumaController {
     public TapahtumanlipputyyppiDTO TapahtumanlipputyyppiEntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
         tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtumanLipputyyppiId());
-        tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtuma_id());
+        tapahtumanlipputyyppiDTO.setTapahtuma(tapahtumanLipputyyppi.getTapahtuma().getTapahtumaId());
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
         tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppiId());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
@@ -213,7 +213,7 @@ public class RestTapahtumaController {
 
     private TapahtumaDTO TapahtumaEntityToDTO(Tapahtuma tapahtuma) {
         TapahtumaDTO tapahtumaDTO = new TapahtumaDTO();
-        tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtuma_id());
+        tapahtumaDTO.setTapahtuma_id(tapahtuma.getTapahtumaId());
         tapahtumaDTO.setTapahtuman_nimi(tapahtuma.getTapahtumanNimi());
         tapahtumaDTO.setPaikka(tapahtuma.getPaikka());
         tapahtumaDTO.setKatuosoite(tapahtuma.getKatuosoite());
