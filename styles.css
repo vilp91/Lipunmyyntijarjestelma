@@ -18,7 +18,7 @@ body {
     align-items: center;
     justify-content: space-around;
     height: 100vh;
-    border: 1px solid black;
     font-size: large;
     font-weight: bolder;
+    /* border: 1px solid black; */
 }
