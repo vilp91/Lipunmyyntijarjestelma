@@ -84,7 +84,7 @@ public class RestMyyntitapahtumaController {
         myyntitapahtumaDTO.setId(id);
         return ResponseEntity.ok().body(myyntitapahtumaDTO);
     }
-
+    
     @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @PostMapping("/myyntitapahtumat")
