@@ -98,12 +98,12 @@
                     })
                     .then(response => response.json())
                     .then(data => setEvents(data))
-                    .catch(error => console.error(error))
+                    .catch(error => console.error("Virhe - " + error))
             };
 
             useEffect(() => {
                 getEvents()
-            }, [login]);
+            }, [login, success]);
 
             const handleSelect = (event) => {
                 setSuccess({});
@@ -211,6 +211,19 @@
                             </p>
                         }
                         <table>
+                            <thead>
+                                <tr>
+                                    <th colSpan='2'>
+                                        Aika
+                                    </th>
+                                    <th>
+                                        Tapahtuma
+                                    </th>
+                                    <th>
+                                        Lippuja
+                                    </th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {events.map((event, index) => (
                                     event.tapahtuman_lipputyypit.length > 0 &&
@@ -221,6 +234,9 @@
                                             </th>
                                             <th align='left'>
                                                 {event.tapahtuman_nimi}
+                                            </th>
+                                            <th>
+                                                {event.lippu_lukum - event.myydyt_liput_lukum}
                                             </th>
                                         </tr>
                                         {event.tapahtuman_lipputyypit.map(tapahtuman_lipputyyppi => (
