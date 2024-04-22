@@ -13,12 +13,23 @@ body {
     /* border: 1px solid black; */
 }
 
-.links {
+.container {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     height: 100vh;
     font-size: large;
     font-weight: bolder;
     /* border: 1px solid black; */
+}
+
+.linksContainer {
+    padding: 30px;
+}
+
+.links {
+    /* border: 1px solid black; */
+    flex-direction: column;
+    padding-top: 10px;
 }
