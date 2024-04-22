@@ -7,9 +7,12 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
         table {
-            width: 450px;
             border-collapse: collapse;
             font-size: large;
+        }
+
+        .transaction tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
         th {
@@ -19,7 +22,8 @@
         }
 
         td {
-            padding: 4px
+            padding: 4px;
+            white-space: nowrap;
         }
 
         button {
@@ -66,6 +70,7 @@
             const [events, setEvents] = useState([]);
             const [tickets, setTickets] = useState([]);
             const [selectValues, setSelectValues] = useState([]);
+            const [transaction, setTransaction] = useState({});
             let errorHelp;
 
             let baseURL = 'https://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi';  // KoodiKolibri tuotanto
@@ -154,18 +159,25 @@
                             return
                         }
                         handleReset()
-                        setSuccess({success: true, msg: `Myyntitapahtuma no. ${data.id} on tallennettu.`})
+                        setSuccess({ success: true, msg: `Myyntitapahtuma no. ${data.id} on tallennettu.` })
+                        setTransaction(data);
                     })
                     .catch(error => {
                         console.error(error)
                     })
             };
+            console.log(transaction);
 
             const handleReset = () => {
                 setSelectValues({});
                 setError({ error: false, msg: '' });
                 setTickets([]);
                 setSuccess({});
+            }
+
+            const handleReturn = () => {
+                setSuccess({});
+                setTransaction({});
             }
 
             const dateFormat = (dateStr) => {
@@ -196,7 +208,62 @@
                     </div>
                 )
 
-            } else if (login) {
+            } else if (login && success.success) {
+                return (
+                    <div>
+                        <div>
+                            <h2>Myyntitapahtuma {transaction.id}</h2>
+                            <p>
+                                Maksettu {dateFormat(transaction.aika)}
+                                <br />Summa {transaction.summa.toFixed(2)} €
+                            </p>
+                        </div>
+                        <div>
+                            <table class="transaction" style={{ width: '690px' }}>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Tapahtuma
+                                        </th>
+                                        <th>
+                                            Lippu
+                                        </th>
+                                        <th>
+                                            Hinta
+                                        </th>
+                                        <th>
+                                            Koodi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {transaction.liput.map((item, index) => (
+                                        <tr>
+                                            <td>
+                                                {item.tapahtuma}
+                                            </td>
+                                            <td>
+                                                {item.tyyppi}
+                                            </td>
+                                            <td>
+                                                {item.hinta.toFixed(2)} €
+                                            </td>
+                                            <td style={{ fontsize: 7, whiteSpace: 'nowrap' }} align='right'>
+                                                {item.lippunumero}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <p>
+                                <button onClick={handleReturn}>Return</button>
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+
+            else if (login) {
                 return (
                     <div>
                         <h1>Myy lippuja</h1>
@@ -210,7 +277,7 @@
                                 {success.msg}
                             </p>
                         }
-                        <table>
+                        <table width={{ width: '450px' }}>
                             <thead>
                                 <tr>
                                     <th colSpan='2'>
@@ -254,7 +321,7 @@
                                                             onChange={event => handleSelect(event)}
                                                             value={selectValues[tapahtuman_lipputyyppi.id]}
                                                             key={Date.now()}
-                                                            disabled={error.error}
+                                                            disabled={(event.lippu_lukum - event.myydyt_liput_lukum) < 1 || error.error}
                                                         >
                                                             {Array.from("0123456789").map((item) =>
                                                                 <option value={item}>{item}</option>
@@ -268,9 +335,10 @@
                                 ))}
                             </tbody>
                         </table>
-                        {}
-                        <button onClick={handleSave} disabled={error.error}>Save</button>
-                        <button onClick={handleReset}>Reset</button>
+                        <p>
+                            <button onClick={handleSave} disabled={error.error}>Save</button>
+                            <button onClick={handleReset}>Reset</button>
+                        </p>
                     </div>
                 )
             }

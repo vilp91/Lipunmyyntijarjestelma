@@ -1,8 +1,7 @@
 body {
-    width: 600px;
+    width: 800px;
     margin: 0 auto;
     display: block;
-    /* border: 1px solid black; */
 }
 
 #root {
@@ -10,8 +9,9 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    /* border: 1px solid black; */
 }
+
+/* index muotoilut */
 
 .container {
     display: flex;
@@ -21,7 +21,6 @@ body {
     height: 100vh;
     font-size: large;
     font-weight: bolder;
-    /* border: 1px solid black; */
 }
 
 .linksContainer {
@@ -29,7 +28,6 @@ body {
 }
 
 .links {
-    /* border: 1px solid black; */
     flex-direction: column;
     padding-top: 10px;
 }
