@@ -95,7 +95,6 @@
                     .then(response => {
                         if (response.status != 200) {
                             setError({ error: true, msg: response.status })
-                            console.log(response)
                         } else {
                             setError({});
                         }
@@ -166,7 +165,6 @@
                         console.error(error)
                     })
             };
-            console.log(transaction);
 
             const handleReset = () => {
                 setSelectValues({});
