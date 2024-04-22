@@ -116,10 +116,20 @@ TAI
 
 ```json
 {
-...
   "message": "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.",
-...
 }
+```
+
+TAI
+
+**Ehto**: Pyynnössä ei ole yhdenkään lipun tietoja
+
+**Vastauskoodi**: `400 BAD REQUEST`
+
+```json
+    {
+      "message": "Myyntitapahtuma ei sisällä lippuja. Myyntitapahtuma on peruttu"
+    }
 ```
 
 TAI

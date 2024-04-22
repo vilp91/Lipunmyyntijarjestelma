@@ -94,35 +94,41 @@ public class RestMyyntitapahtumaController {
         myyntitapahtuma.setKayttaja(null); // voisko tämä tulla polkumuuttujana?
         myyntitapahtumaRepository.save(myyntitapahtuma);
 
-        for (OstettuLippuDTO ostettuLippuDTO : ostetutLiputDTO) {
-            for (int i = 0; i < ostettuLippuDTO.getMaara(); i++) {
-                if (!tapahtumanLipputyyppiRepository.existsById(ostettuLippuDTO.getTapahtumanLipputyyppi())) {
-                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                            "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.");
+        if (ostetutLiputDTO.size() < 1) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Myyntitapahtuma ei sisällä lippuja. Myyntitapahtuma on peruttu");
+        } else {
+            for (OstettuLippuDTO ostettuLippuDTO : ostetutLiputDTO) {
+                for (int i = 0; i < ostettuLippuDTO.getMaara(); i++) {
+                    if (!tapahtumanLipputyyppiRepository.existsById(ostettuLippuDTO.getTapahtumanLipputyyppi())) {
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                                "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.");
+                    }
+
+                    Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
+                            .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null)).getTapahtuma();
+
+                    if (tapahtuma.getMyydytLiputLukum() + 1 > tapahtuma.getLippuLukum()) {
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                                "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
+                    }
+
+                    tapahtuma.setMyydytLiputLukum(tapahtuma.getMyydytLiputLukum() + 1);
+                    Lippu lippu = new Lippu();
+                    lippu.setTapahtuman_lipputyyppi(tapahtumanLipputyyppiRepository
+                            .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null));
+                    lippu.setMyyntitapahtuma(myyntitapahtuma);
+                    lippu.setHinta(lippu.getTapahtumanLipputyyppi().getHinta());
+                    lippuRepository.save(lippu);
                 }
-
-                Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
-                        .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null)).getTapahtuma();
-
-                if (tapahtuma.getMyydytLiputLukum() + 1 > tapahtuma.getLippuLukum()) {
-                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                            "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
-                }
-
-                tapahtuma.setMyydytLiputLukum(tapahtuma.getMyydytLiputLukum() + 1);
-                Lippu lippu = new Lippu();
-                lippu.setTapahtuman_lipputyyppi(tapahtumanLipputyyppiRepository
-                        .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null));
-                lippu.setMyyntitapahtuma(myyntitapahtuma);
-                lippu.setHinta(lippu.getTapahtumanLipputyyppi().getHinta());
-                lippuRepository.save(lippu);
             }
+            MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
+            myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtumaId());
+            return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDTO);
         }
-        MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
-        myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtumaId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDTO);
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
