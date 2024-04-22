@@ -74,20 +74,54 @@ public class A3004Application {
 
 			Lipputyyppi lipputyyppi1 = new Lipputyyppi("perus");
 			Lipputyyppi lipputyyppi2 = new Lipputyyppi("lapsi");
+			Lipputyyppi lipputyyppi3 = new Lipputyyppi("opiskelija");
+			Lipputyyppi lipputyyppi4 = new Lipputyyppi("eläkeläinen");
 			lipputyyppiRepository.save(lipputyyppi1);
 			lipputyyppiRepository.save(lipputyyppi2);
+			lipputyyppiRepository.save(lipputyyppi3);
+			lipputyyppiRepository.save(lipputyyppi4);
 
 			TapahtumanLipputyyppi tapahtumanLipputyyppi1 = new TapahtumanLipputyyppi();
-			tapahtumanLipputyyppi1.setHinta(10);
+			tapahtumanLipputyyppi1.setHinta(15);
 			tapahtumanLipputyyppi1.setTapahtuma(tapahtuma1);
 			tapahtumanLipputyyppi1.setLipputyyppi(lipputyyppi1);
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi1);
 
 			TapahtumanLipputyyppi tapahtumanLipputyyppi2 = new TapahtumanLipputyyppi();
-			tapahtumanLipputyyppi2.setHinta(10);
-			tapahtumanLipputyyppi2.setTapahtuma(tapahtuma2);
-			tapahtumanLipputyyppi2.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppi2.setHinta(8);
+			tapahtumanLipputyyppi2.setTapahtuma(tapahtuma1);
+			tapahtumanLipputyyppi2.setLipputyyppi(lipputyyppi2);
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
+
+			TapahtumanLipputyyppi tapahtumanLipputyyppi3 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi3.setHinta(20);
+			tapahtumanLipputyyppi3.setTapahtuma(tapahtuma2);
+			tapahtumanLipputyyppi3.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi3);
+
+			TapahtumanLipputyyppi tapahtumanLipputyyppi4 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi4.setHinta(10);
+			tapahtumanLipputyyppi4.setTapahtuma(tapahtuma2);
+			tapahtumanLipputyyppi4.setLipputyyppi(lipputyyppi2);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi4);
+
+			TapahtumanLipputyyppi tapahtumanLipputyyppi5 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi5.setHinta(10);
+			tapahtumanLipputyyppi5.setTapahtuma(tapahtuma2);
+			tapahtumanLipputyyppi5.setLipputyyppi(lipputyyppi4);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi5);
+
+			TapahtumanLipputyyppi tapahtumanLipputyyppi6 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi6.setHinta(60);
+			tapahtumanLipputyyppi6.setTapahtuma(tapahtuma3);
+			tapahtumanLipputyyppi6.setLipputyyppi(lipputyyppi1);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi6);
+
+			TapahtumanLipputyyppi tapahtumanLipputyyppi7 = new TapahtumanLipputyyppi();
+			tapahtumanLipputyyppi7.setHinta(50);
+			tapahtumanLipputyyppi7.setTapahtuma(tapahtuma3);
+			tapahtumanLipputyyppi7.setLipputyyppi(lipputyyppi3);
+			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi7);
 
 			Rooli rooli1 = new Rooli();
 			rooli1.setRooli("ROLE_MYYJA");
