@@ -12,7 +12,7 @@ Integraatiotestit eroavat yksikkötesteistä nimenomaan siksi, koska niissä tes
 
 ## E2E testit
 
-E2E eli end-to-end testeillä testataan koko ohjelmiston toimivuutta alusta loppuun ns. oikeassa tilanteessa.
+E2E eli end-to-end testeillä testataan koko ohjelmiston toimivuutta alusta loppuun ns. oikeassa tilanteessa. Teimme E2E-testejä testailemalla järjestelmää käyttöliittymän kautta, kuten oikeassa tilanteessa.
 
 Lipun tarkastaminen GateGuardissa onnistuu. Lippu merkataan käytetyksi ja sen uudelleen syöttäminen järjestelmään näyttää että lippu on jo käytetty.
 
