@@ -1,17 +1,21 @@
 package ohjelmistoprojekti1.a3004.web;
 
+import java.util.UUID;
+
 public class LippuDTO {
     
     private Long id;
+    private UUID lippunumero;
     private String tyyppi;
     private String tapahtuma;
     private float hinta;
 
     public LippuDTO() {
-    }
+    }    
 
-    public LippuDTO(Long id, String tyyppi, String tapahtuma, float hinta) {
+    public LippuDTO(Long id, UUID lippunumero, String tyyppi, String tapahtuma, float hinta) {
         this.id = id;
+        this.lippunumero = lippunumero;
         this.tyyppi = tyyppi;
         this.tapahtuma = tapahtuma;
         this.hinta = hinta;
@@ -23,6 +27,14 @@ public class LippuDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UUID getLippunumero() {
+        return lippunumero;
+    }
+
+    public void setLippunumero(UUID lippunumero) {
+        this.lippunumero = lippunumero;
     }
 
     public String getTyyppi() {
@@ -51,7 +63,8 @@ public class LippuDTO {
 
     @Override
     public String toString() {
-        return "LippuDTO [id=" + id + ", tyyppi=" + tyyppi + ", tapahtuma=" + tapahtuma + ", hinta=" + hinta + "]";
+        return "LippuDTO [id=" + id + ", lippunumero=" + lippunumero + ", tyyppi=" + tyyppi + ", tapahtuma=" + tapahtuma
+                + ", hinta=" + hinta + "]";
     }
 
 }

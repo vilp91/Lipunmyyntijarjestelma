@@ -166,6 +166,7 @@ public class RestMyyntitapahtumaController {
             lippuDTO.setTyyppi(lippu.getTapahtumanLipputyyppi().getLipputyyppi().getTyyppi());
             lippuDTO.setTapahtuma(lippu.getTapahtumanLipputyyppi().getTapahtuma().getTapahtumanNimi());
             lippuDTO.setHinta(lippu.getHinta());
+            lippuDTO.setLippunumero(lippu.getLippunumero());
             summa += lippu.getHinta();
             lippuDTOLista.add(lippuDTO);
         }
