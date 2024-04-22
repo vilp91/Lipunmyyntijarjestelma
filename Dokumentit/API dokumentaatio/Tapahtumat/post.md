@@ -14,7 +14,7 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-  "tapahtuman_nimi": "[string]",
+  "tapahtumanNimi": "[string]",
   "paikka": "[string]",
   "katuosoite": "[string]",
   "alku": "[YYYY-MM-DDTHH:mm:ss]",
@@ -34,7 +34,7 @@ Anna luotavan tapahtuman tiedot
 ```json
 {
     "tapahtuma_id": 6,
-    "tapahtuman_nimi": "Karin karaokeiltama",
+    "tapahtumanNimi": "Karin karaokeiltama",
     "paikka": "Lepakkomies",
     "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
     "alku": "2024-04-06T19:00:00",
@@ -54,7 +54,7 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-  "tapahtuman_nimi": "Karin karaokeiltama",
+  "tapahtumanNimi": "Karin karaokeiltama",
   "paikka": "Lepakkomies",
   "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
   "alku": "2024-04-06T19:00:00",
@@ -81,7 +81,7 @@ TAI
 
 ```json
 {
-  "tapahtuman_nimi": "Karin karaokeiltama",
+  "tapahtumanNimi": "Karin karaokeiltama",
   "paikka": "Lepakkomies",
   "katuosoite": "",
   "alku": "2024-04-06T19:00:00",
@@ -109,7 +109,7 @@ TAI
 ```json
 {
   "tapahtuma_id": 5,
-  "tapahtuman_nimi": "Karin karaokeiltama",
+  "tapahtumanNimi": "Karin karaokeiltama",
   "paikka": "Lepakkomies",
   "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
   "alku": "2024-04-06T19:00:00",
