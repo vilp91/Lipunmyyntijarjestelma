@@ -3,6 +3,9 @@
 ## Yleistä testaamisesta
 
 ## Yksikkötestit
+Teimme automatisoituja JUnit yksikkötestejä, joilla testasimme repositorioidemme CRUD toiminnallisuutta. Yksikkötestin tarkoituksena on testata vain yhtä kokonaisuuden osaa kerrallaan ilman riippuvaisuuksia muista ohjelmiston osista.
+
+Tietystä näkökulmasta näitä voisi pitää integraatiotesteinä, sillä käytännössä ne testaavat myös Hibernaten ja Database access layerin toimivuutta. Tosin nämä ovat melko hyvin sisäänrakennettuja osia Spring Boot kehyksessä, joten niille omien testien kirjoittaminen tuntuu melko turhalta.
 
 ## Integraatiotestit
 
