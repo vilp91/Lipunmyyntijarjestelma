@@ -177,6 +177,12 @@
                 setTransaction({});
             }
 
+            const handleKeyDown = (event) => {
+                if (event.keyCode === 13) {
+                    handleLogin();
+                }
+            };
+
             const dateFormat = (dateStr) => {
                 const date = new Date(dateStr)
                 const day = date.getDate();
@@ -198,6 +204,7 @@
                         Password<br />
                         <input type="password"
                             onChange={(event) => setUser({ ...user, password: event.target.value })}
+                            onKeyDown={handleKeyDown}
                         />
                         <p>
                             <button onClick={handleLogin}>Kirjaudu</button>
