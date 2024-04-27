@@ -45,6 +45,16 @@ Tehdään GET pyyntö /lipputyypit/3 endpointtiin. Saadaan seuraava vastaus:
 
 TAI
 
+**Ehto**: Haetaan id:n perusteella lipputyyppiä, joka on poistettu.
+
+**Vastauskoodi**: `404 NOT FOUND`
+
+```json
+    "message": "Lipputyyppi id:llä 1 on poistettu",
+```
+
+TAI
+
 __Ehto__: Autentikointi epäonnistuu
 
 __Vastauskoodi__: `401 UNAUTHORIZED`
