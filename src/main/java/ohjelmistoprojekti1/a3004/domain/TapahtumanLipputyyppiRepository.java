@@ -10,6 +10,9 @@ public interface TapahtumanLipputyyppiRepository extends CrudRepository<Tapahtum
 
     Boolean existsByLipputyyppi(Lipputyyppi lipputyyppi);
 
+    List<TapahtumanLipputyyppi> findByPoistettuFalse();
+    boolean existsByTapahtumanLipputyyppiIdAndPoistettuFalse(Long tapahtumanLipputyyppiId);
+
     //Nämä on @PostMapping("/tapahtumanlipputyypit") yhtä error tarkistusta varten.
     Boolean existsByLipputyyppiLipputyyppiId(Long lipputyyppiId);
     List<TapahtumanLipputyyppi> findByLipputyyppiLipputyyppiId(Long lipputyyppiId);

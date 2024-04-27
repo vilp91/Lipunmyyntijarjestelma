@@ -24,7 +24,7 @@ public class Lipputyyppi {
     @NotEmpty(message = "Lipputyypin tyyppi on pakollinen tieto")
     private String tyyppi;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lipputyyppi")
+    @OneToMany(mappedBy = "lipputyyppi")
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtumanLipputyypit;
 

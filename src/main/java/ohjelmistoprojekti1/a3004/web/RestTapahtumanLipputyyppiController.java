@@ -36,16 +36,16 @@ public class RestTapahtumanLipputyyppiController {
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumanlipputyypit")
     public Iterable<TapahtumanLipputyyppi> haeTapahtumanLipputyypit() {
-        return tapahtumanLipputyyppiRepository.findAll();
+        return tapahtumanLipputyyppiRepository.findByPoistettuFalse();
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> haeTapahtumanlipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa pyyntöä vastaavaa tapahtumanlipputyyppi
-        if (tapahtumanLipputyyppiRepository.existsById(id)) {
+        if (tapahtumanLipputyyppiRepository.existsByTapahtumanLipputyyppiIdAndPoistettuFalse(id)) {
             // jos on, niin haetaan se ja muutetaan DTO-versioksi
-            TapahtumanLipputyyppi tapahtumanLipputyyppi = tapahtumanLipputyyppiRepository.findById(id).orElse(null);
+            TapahtumanLipputyyppi tapahtumanLipputyyppi = tapahtumanLipputyyppiRepository.findById(id).get();
             TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = EntityToDTO(tapahtumanLipputyyppi);
             // palautetaan DTO-versio ja koodi 200
             return ResponseEntity.ok().body(tapahtumanlipputyyppiDTO);
@@ -63,7 +63,7 @@ public class RestTapahtumanLipputyyppiController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumaa id:llä '" + tapahtumanLipputyyppiDto.getTapahtuma() + "' ei löydy.");
         }
         // tarkistetaan onko annetulla lipputyyppiID:llä lipputyyppiä tietokannassa
-        if (!lipputyyppiRepository.existsById(tapahtumanLipputyyppiDto.getLipputyyppiId())) {
+        if (!lipputyyppiRepository.existsByLipputyyppiIdAndPoistettuIsFalse(tapahtumanLipputyyppiDto.getLipputyyppiId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyyppiä id:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' ei löydy");
         }
 
@@ -72,12 +72,12 @@ public class RestTapahtumanLipputyyppiController {
             List<TapahtumanLipputyyppi> tapahtumanLipputyyppiTapahtumaIdTest = tapahtumanLipputyyppiRepository.findByLipputyyppiLipputyyppiId(tapahtumanLipputyyppiDto.getLipputyyppiId());
 
             for (TapahtumanLipputyyppi tapahtumanLipputyyppiIdTest : tapahtumanLipputyyppiTapahtumaIdTest) {
-                if (tapahtumanLipputyyppiIdTest.getTapahtuma().getTapahtumaId().equals(tapahtumanLipputyyppiDto.getTapahtuma())) {
+                if (tapahtumanLipputyyppiIdTest.getTapahtuma().getTapahtumaId().equals(tapahtumanLipputyyppiDto.getTapahtuma()) &&
+                    !tapahtumanLipputyyppiIdTest.isPoistettu()) {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "LipputyyppiId:llä '" + tapahtumanLipputyyppiDto.getLipputyyppiId() + "' on jo olemassa tapahtumanlipputyyppi");
                 }
             }
         }
-
         // tarkistetaan onko hinta positiivinen
         if (tapahtumanLipputyyppiDto.getHinta() < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Hinnan pitää olla positiivinen");
@@ -102,9 +102,9 @@ public class RestTapahtumanLipputyyppiController {
     public ResponseEntity<?> muokkaaTapahtumanlipputyyppi(@PathVariable("id") Long id,
             @Valid @RequestBody TapahtumanlipputyyppiDTO muokattuTapahtumanLipputyyppiDto) {
         // tarkistetaan, onko tietokannassa id:tä vastaava tapahtumanlipputyyppi
-        if (tapahtumanLipputyyppiRepository.existsById(id)) {
+        if (tapahtumanLipputyyppiRepository.existsByTapahtumanLipputyyppiIdAndPoistettuFalse(id)) {
             if (tapahtumaRepository.existsById(muokattuTapahtumanLipputyyppiDto.getTapahtuma())) {
-                if (lipputyyppiRepository.existsById(muokattuTapahtumanLipputyyppiDto.getLipputyyppiId())) {
+                if (lipputyyppiRepository.existsByLipputyyppiIdAndPoistettuIsFalse(muokattuTapahtumanLipputyyppiDto.getLipputyyppiId())) {
                     // muunnetaan DTO tapahtumanlipputyypiksi, asetetaan sille oikea id ja
                     // tallennetaan se tietokantaan
                     TapahtumanLipputyyppi muokattuTapahtumanLipputyyppi = DTOtoEntity(muokattuTapahtumanLipputyyppiDto);
@@ -126,9 +126,14 @@ public class RestTapahtumanLipputyyppiController {
     @DeleteMapping("/tapahtumanlipputyypit/{id}")
     public ResponseEntity<?> poistaTapahtumanlipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa id:tä vastaava tapahtumanlipputyyppi
-        if (tapahtumanLipputyyppiRepository.existsById(id)) {
+        if (tapahtumanLipputyyppiRepository.existsByTapahtumanLipputyyppiIdAndPoistettuFalse(id)) {
             // poistetaan tapahtumanlipputyyppi
-            tapahtumanLipputyyppiRepository.deleteById(id);
+            TapahtumanLipputyyppi tapahtumanLipputyyppi = tapahtumanLipputyyppiRepository.findById(id).get();
+            if (tapahtumanLipputyyppi.getLiput().size() > 0) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumanlipputyyppiin '" + id + "' liittyy lippuja. Tapahtumanlipputyyppiä ei voida poistaa");
+            }
+            tapahtumanLipputyyppi.setPoistettu(true);
+            tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi);
             return ResponseEntity.noContent().build();
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumanlipputyyppiä id:llä '" + id + "' ei löydy");

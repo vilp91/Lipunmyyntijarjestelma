@@ -34,9 +34,12 @@ public class TapahtumanLipputyyppi {
     @JoinColumn(name = "lipputyyppiId")
     private Lipputyyppi lipputyyppi;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumanLipputyyppi")
+    @OneToMany(mappedBy = "tapahtumanLipputyyppi")
     @JsonIgnore
     private List<Lippu> liput;
+
+    @JsonIgnore
+    private boolean poistettu = false;
 
     public TapahtumanLipputyyppi() {
         super();
@@ -95,12 +98,20 @@ public class TapahtumanLipputyyppi {
         this.liput = liput;
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
         return "TapahtumanLipputyyppi [tapahtumanLipputyyppiId=" + tapahtumanLipputyyppiId + ", hinta=" + hinta
-                + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", liput=" + liput + "]";
+                + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", liput=" + liput + ", poistettu="
+                + poistettu + "]";
     }
-    
-    
+   
     
 }

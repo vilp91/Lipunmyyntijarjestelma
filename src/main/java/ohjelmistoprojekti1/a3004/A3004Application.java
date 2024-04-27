@@ -92,6 +92,7 @@ public class A3004Application {
 			tapahtumanLipputyyppi2.setHinta(8);
 			tapahtumanLipputyyppi2.setTapahtuma(tapahtuma1);
 			tapahtumanLipputyyppi2.setLipputyyppi(lipputyyppi2);
+			tapahtumanLipputyyppi2.setPoistettu(true);
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			TapahtumanLipputyyppi tapahtumanLipputyyppi3 = new TapahtumanLipputyyppi();
