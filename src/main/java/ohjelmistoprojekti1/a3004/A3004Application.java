@@ -73,6 +73,7 @@ public class A3004Application {
 			tapahtumaRepository.save(tapahtuma5);
 
 			Lipputyyppi lipputyyppi1 = new Lipputyyppi("perus");
+			lipputyyppi1.setPoistettu(true);
 			Lipputyyppi lipputyyppi2 = new Lipputyyppi("lapsi");
 			Lipputyyppi lipputyyppi3 = new Lipputyyppi("opiskelija");
 			Lipputyyppi lipputyyppi4 = new Lipputyyppi("eläkeläinen");

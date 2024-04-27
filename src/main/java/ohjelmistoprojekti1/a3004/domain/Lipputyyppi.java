@@ -28,6 +28,9 @@ public class Lipputyyppi {
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtumanLipputyypit;
 
+    @JsonIgnore
+    private boolean poistettu = false;
+
     //Parametriton konstruktori
     public Lipputyyppi() {
     }
@@ -68,11 +71,18 @@ public class Lipputyyppi {
         this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
         return "Lipputyyppi [lipputyyppiId=" + lipputyyppiId + ", tyyppi=" + tyyppi + ", tapahtumanLipputyypit="
-                + tapahtumanLipputyypit + "]";
-    }
-
+                + tapahtumanLipputyypit + ", poistettu=" + poistettu + "]";
+    }  
 
 }

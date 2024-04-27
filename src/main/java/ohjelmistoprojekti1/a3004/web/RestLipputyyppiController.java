@@ -29,7 +29,7 @@ public class RestLipputyyppiController {
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/lipputyypit")
     public Iterable<Lipputyyppi> haeLipputyypit() {
-        return lipputyyppiRepository.findAll();
+        return lipputyyppiRepository.findByPoistettuFalse();
     }
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/lipputyypit/{id}")
@@ -41,6 +41,9 @@ public class RestLipputyyppiController {
         }
         // hakee lipputyypin tiedot
         Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
+        if (lipputyyppi.isPoistettu()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppi id:llä " + id + " on poistettu");
+        }
         return ResponseEntity.ok().body(lipputyyppi);
     }
 
@@ -64,9 +67,11 @@ public class RestLipputyyppiController {
     @DeleteMapping("/lipputyypit/{id}")
     public ResponseEntity<?> poistaLipputyyppi(@PathVariable("id") Long id) {
         // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
-        if (lipputyyppiRepository.existsById(id)) {
+        if (lipputyyppiRepository.existsByLipputyyppiIdAndPoistettuIsFalse(id)) {
             // jos lipputyyppi on olemassa, se poistetaan
-            lipputyyppiRepository.deleteById(id);
+            Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).get();
+            lipputyyppi.setPoistettu(true);
+            lipputyyppiRepository.save(lipputyyppi);
             return ResponseEntity.noContent().build();
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä id:llä " + id + " ei löydy");
@@ -77,7 +82,7 @@ public class RestLipputyyppiController {
     public ResponseEntity<?> muokkaaLipputyyppi(@PathVariable("id") Long id,
             @Valid @RequestBody Lipputyyppi muokattuLipputyyppi) {
         // tarkistetaan, onko tietokannassa annettua id:tä vastaava lipputyyppi
-        if (lipputyyppiRepository.existsById(id)) {
+        if (lipputyyppiRepository.existsByLipputyyppiIdAndPoistettuIsFalse(id)) {
             // tarkistetaan, onko tietokannassa jo käytössä lipputyypin tyyppi
             // jos tyyppi on uniikki, tallennetaan muutokset
             if (lipputyyppiOnUniikki(muokattuLipputyyppi.getTyyppi())) {
@@ -94,7 +99,7 @@ public class RestLipputyyppiController {
 
     // tarkistaa löytyykö tietokannasta Lipputyyppi, jolla on jo annettu tyyppi(nimi)
     public boolean lipputyyppiOnUniikki(String tyyppi) {
-        return lipputyyppiRepository.findByTyyppi(tyyppi) == null;
+        return lipputyyppiRepository.findByTyyppiAndPoistettuFalse(tyyppi) == null;
     }
 
 }
