@@ -67,6 +67,7 @@ public class A3004Application {
 			tapahtumaRepository.save(tapahtuma2);
 
 			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDateTime.of(2031, 12, 22, 12, 30),LocalDateTime.of(2031, 12, 22, 14, 15), 9999);
+			tapahtuma3.setPoistettu(true);
 			tapahtumaRepository.save(tapahtuma3);
 
 			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,07, 22, 18, 0), LocalDateTime.of(2024, 07, 22, 21, 0), 9999);

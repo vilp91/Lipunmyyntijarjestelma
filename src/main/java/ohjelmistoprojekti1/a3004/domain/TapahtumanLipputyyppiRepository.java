@@ -3,6 +3,8 @@ package ohjelmistoprojekti1.a3004.domain;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
+
 
 public interface TapahtumanLipputyyppiRepository extends CrudRepository<TapahtumanLipputyyppi, Long> {
 
@@ -11,6 +13,7 @@ public interface TapahtumanLipputyyppiRepository extends CrudRepository<Tapahtum
     Boolean existsByLipputyyppi(Lipputyyppi lipputyyppi);
 
     List<TapahtumanLipputyyppi> findByPoistettuFalse();
+    List<TapahtumanLipputyyppi> findByTapahtumaAndPoistettuFalse(Tapahtuma tapahtuma);
     boolean existsByTapahtumanLipputyyppiIdAndPoistettuFalse(Long tapahtumanLipputyyppiId);
 
     //Nämä on @PostMapping("/tapahtumanlipputyypit") yhtä error tarkistusta varten.

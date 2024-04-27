@@ -68,7 +68,7 @@ public class RestTapahtumaController {
 
         // haetaan parametreihin sopivat tapahtuma listaan
         Optional<List<Tapahtuma>> optionalTapahtumat = Optional
-                .ofNullable(tapahtumaRepository.findAllByAlkuAfterAndAlkuBefore(alkaen, paattyen).orElse(null));
+                .ofNullable(tapahtumaRepository.findAllByAlkuAfterAndAlkuBeforeAndPoistettuFalse(alkaen, paattyen).orElse(null));
         // jos listassa on tapahtumia, muunnetaan ne DTO-versioiksi ja palautetaan ne
         if (optionalTapahtumat.isPresent() && !optionalTapahtumat.get().isEmpty()) {
             List<TapahtumaDTO> tapahtumaDtot = new ArrayList<>();
@@ -78,7 +78,7 @@ public class RestTapahtumaController {
             return tapahtumaDtot;
             }
         // jos tapahtumia ei ole, palautetaan 404
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ei tulevia tapahtumia");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
@@ -86,7 +86,7 @@ public class RestTapahtumaController {
     public ResponseEntity<?> haeTapahtuma(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
-        if (!tapahtumaRepository.existsById(id)) {
+        if (!tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa syötetyllä id:llä '" + id + "'', ei löydy.");
         }
         // hakee tapahtuman tiedot
@@ -102,7 +102,7 @@ public class RestTapahtumaController {
     @GetMapping("/tapahtumat/{id}/liput")
     public ResponseEntity<?> haeTapahtumanLiput(@PathVariable("id") Long id) {
         // tarkistaa onko tapahtuma on olemassa. Jos ei, palauttaa koodin 404
-        if (!tapahtumaRepository.existsById(id)) {
+        if (!tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä: '" + id + "' ei löytynyt");
         }
         // haetaan tapahtuma
@@ -115,7 +115,9 @@ public class RestTapahtumaController {
         for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanlipputyypit) {
             List<Lippu> liput = tapahtumanLipputyyppi.getLiput();
             for (Lippu lippu : liput) {
-                tapahtumanLiput.add(lippu);
+                // if (!lippu.isPoistettu()) {
+                    tapahtumanLiput.add(lippu);
+                // }
             }
         }
         return ResponseEntity.ok().body(tapahtumanLiput);
@@ -125,16 +127,18 @@ public class RestTapahtumaController {
     @GetMapping("/tapahtumat/{id}/tapahtumanlipputyypit")
     public ResponseEntity<?> haeTapahtumakohtaisetTapahtumanlipputyypit(@PathVariable("id") Long id) {
         // tarkistetaan, että tapahtuma on olemassa
-        if (!tapahtumaRepository.existsById(id)) {
+        if (!tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "' ei löytynyt");
         }
         // haetaan tapahtumanlipputyypit ja muutetaan ne DTO-versioiksi
-        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).orElse(null).getTapahtumanLipputyypit();
+        List<TapahtumanLipputyyppi> tapahtumanlipputyypit = tapahtumaRepository.findById(id).get().getTapahtumanLipputyypit();
         List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
 
         for (TapahtumanLipputyyppi tapahtumanlipputyyppi : tapahtumanlipputyypit) {
-            TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = TapahtumanlipputyyppiEntityToDTO(tapahtumanlipputyyppi);
-            tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+            if (!tapahtumanlipputyyppi.isPoistettu()) {
+                TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = TapahtumanlipputyyppiEntityToDTO(tapahtumanlipputyyppi);
+                tapahtumanlipputyyppiDTOt.add(tapahtumanlipputyyppiDTO);
+            }
         }
         return ResponseEntity.ok(tapahtumanlipputyyppiDTOt);
     }
@@ -144,12 +148,12 @@ public class RestTapahtumaController {
     public ResponseEntity<?> getTapahtumanMyyntitapahtumat(@PathVariable Long id) {
 
         // tarkistetaan löytyykö annetulla id:llä tapahtuma ja palautetaan virhe viesti jos ei löydy
-        if (!tapahtumaRepository.existsById(id)) {
+        if (!tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa ei löydy annetulla id:llä '" + id + "'.");
         }
 
         Tapahtuma tapahtuma = tapahtumaRepository.findByTapahtumaId(id);
-        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
+        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtumaAndPoistettuFalse(tapahtuma);
         List<Lippu> liput = lippuRepository.findByTapahtumanLipputyyppiIn(tapahtumanLipputyypit);
         List<Myyntitapahtuma> myyntitapahtumat = myyntitapahtumaRepository.findByLiputIn(liput);
 
@@ -180,7 +184,7 @@ public class RestTapahtumaController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/tapahtumat/{id}")
     public ResponseEntity<?> muokattuTapahtuma(@PathVariable("id") Long id, @Valid @RequestBody Tapahtuma muokattuTapahtuma) {
-        if (tapahtumaRepository.existsById(id)) {
+        if (tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(id)) {
             muokattuTapahtuma.setTapahtumaId(id);
             tapahtumaRepository.save(muokattuTapahtuma);
             return ResponseEntity.ok().body(muokattuTapahtuma);
@@ -192,16 +196,18 @@ public class RestTapahtumaController {
     @DeleteMapping("/tapahtumat/{id}")
     public ResponseEntity<Object> poistaTapahtuma(@PathVariable("id") Long id) {
         // tarkistetaan, löytyykö tietokannasta tietuetta pyydetyllä id:llä
-        if (!tapahtumaRepository.existsById(id)) {
+        if (!tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(id)) {
             // jos ei löydy, palautetaan koodi 404 - not found 
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa id:llä '" + id + "', ei löydy");
         }
         // jos tietue löytyy, tarkistetaan liittyykö siihen myytyjä lippuja
-        if ((tapahtumaRepository.findById(id).orElse(null).getMyydytLiputLukum()) != 0) {
-            // jos löytyy, tietuetta ei voida poistaa
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumalla on myytyjä lippuja, tapahtumaa ei voi poistaa.");
+        if ((tapahtumaRepository.findById(id).get().getMyydytLiputLukum()) != 0) {
+            // jos lippuja on, tietuetta ei voida poistaa
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumaan on myyty lippuja, tapahtumaa ei voi poistaa.");
         }
-        tapahtumaRepository.deleteById(id);
+        Tapahtuma tapahtuma = tapahtumaRepository.findByTapahtumaId(id);
+        tapahtuma.setPoistettu(true);
+        tapahtumaRepository.save(tapahtuma);
         return ResponseEntity.noContent().build();
     }
 

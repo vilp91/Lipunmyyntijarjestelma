@@ -42,9 +42,12 @@ public class Tapahtuma {
 
     private int myydytLiputLukum = 0;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtuma")
+    @OneToMany(mappedBy = "tapahtuma")
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtumanLipputyypit;
+
+    @JsonIgnore
+    private boolean poistettu = false;
 
     // Parametriton konstruktori
     public Tapahtuma() {
@@ -151,12 +154,20 @@ public class Tapahtuma {
         this.tapahtumanLipputyypit = tapahtumanLipputyypit;
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
-        return "Tapahtuma [tapahtuma_id=" + tapahtumaId + ", tapahtuman_nimi=" + tapahtumanNimi + ", paikka=" + paikka
-                + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippu_lukum=" + lippuLukum
-                + ", myydyt_liput_lukum=" + myydytLiputLukum + ", tapahtuman_lipputyypit=" + tapahtumanLipputyypit
-                + "]";
+        return "Tapahtuma [tapahtumaId=" + tapahtumaId + ", tapahtumanNimi=" + tapahtumanNimi + ", paikka=" + paikka
+                + ", katuosoite=" + katuosoite + ", alku=" + alku + ", loppu=" + loppu + ", lippuLukum=" + lippuLukum
+                + ", myydytLiputLukum=" + myydytLiputLukum + ", tapahtumanLipputyypit=" + tapahtumanLipputyypit
+                + ", poistettu=" + poistettu + "]";
     }
 
 
