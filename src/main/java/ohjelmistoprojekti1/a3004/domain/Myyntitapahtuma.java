@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,9 +28,12 @@ public class Myyntitapahtuma {
 
     private LocalDateTime aikaleima = LocalDateTime.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "myyntitapahtuma")
+    @OneToMany(mappedBy = "myyntitapahtuma")
     @JsonIgnore                                              
     private List<Lippu> liput;
+
+    @JsonIgnore
+    private boolean poistettu;
 
     public Myyntitapahtuma() {
         super();
@@ -75,10 +77,18 @@ public class Myyntitapahtuma {
         this.liput = liput;
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
-        return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", kayttaja=" + kayttaja + ", pvm=" + aikaleima
-                + ", liput=" + liput + "]";
+        return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", kayttaja=" + kayttaja + ", aikaleima="
+                + aikaleima + ", liput=" + liput + ", poistettu=" + poistettu + "]";
     }
 
 }

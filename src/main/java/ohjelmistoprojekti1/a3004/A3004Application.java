@@ -61,20 +61,19 @@ public class A3004Application {
 					e.printStackTrace();
 				}
 			Tapahtuma tapahtuma1 = new Tapahtuma("Sukankudontakilpailu", "Pitkäkosken ulkoilumaja - Helsinki", "Kuninkaantammentie 19", LocalDateTime.of(2024,06,06, 14, 0), LocalDateTime.of(2024,06,06, 16, 0), 10);
+			tapahtuma1.setMyydytLiputLukum(3);
 			tapahtumaRepository.save(tapahtuma1);
 
 			Tapahtuma tapahtuma2 = new Tapahtuma("Kekkosen synttärit", "Vaasa", "Vaasankatu 1", LocalDateTime.of(2024,06, 12, 17, 0), LocalDateTime.of(2024,06, 12, 23, 59), 667);
 			tapahtumaRepository.save(tapahtuma2);
 
 			Tapahtuma tapahtuma3 = new Tapahtuma("Cheek - Paluu areenalle", "Olympiastadion - Helsinki", "Paavo Nurmen tie 1", LocalDateTime.of(2031, 12, 22, 12, 30),LocalDateTime.of(2031, 12, 22, 14, 15), 9999);
-			tapahtuma3.setPoistettu(true);
 			tapahtumaRepository.save(tapahtuma3);
 
 			Tapahtuma tapahtuma5 = new Tapahtuma("Karjumisen MM-kisat", "Tokoinranta", "Eläintarhantie 3", LocalDateTime.of(2024,07, 22, 18, 0), LocalDateTime.of(2024, 07, 22, 21, 0), 9999);
 			tapahtumaRepository.save(tapahtuma5);
 
 			Lipputyyppi lipputyyppi1 = new Lipputyyppi("perus");
-			lipputyyppi1.setPoistettu(true);
 			Lipputyyppi lipputyyppi2 = new Lipputyyppi("lapsi");
 			Lipputyyppi lipputyyppi3 = new Lipputyyppi("opiskelija");
 			Lipputyyppi lipputyyppi4 = new Lipputyyppi("eläkeläinen");
@@ -93,7 +92,6 @@ public class A3004Application {
 			tapahtumanLipputyyppi2.setHinta(8);
 			tapahtumanLipputyyppi2.setTapahtuma(tapahtuma1);
 			tapahtumanLipputyyppi2.setLipputyyppi(lipputyyppi2);
-			tapahtumanLipputyyppi2.setPoistettu(true);
 			tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi2);
 
 			TapahtumanLipputyyppi tapahtumanLipputyyppi3 = new TapahtumanLipputyyppi();

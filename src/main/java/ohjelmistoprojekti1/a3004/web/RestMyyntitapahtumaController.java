@@ -47,7 +47,7 @@ public class RestMyyntitapahtumaController {
     @GetMapping("/myyntitapahtumat")
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
         // hakee kaikki myyntitapahtumat
-        Iterable<Myyntitapahtuma> myyntitapahtumat = myyntitapahtumaRepository.findAll();
+        Iterable<Myyntitapahtuma> myyntitapahtumat = myyntitapahtumaRepository.findByPoistettuFalse();
         List<MyyntitapahtumaDTO> myyntitapahtumaDTOLista = new ArrayList<>();
 
         // käy läpi haetut myyntitapahtumat
@@ -73,11 +73,11 @@ public class RestMyyntitapahtumaController {
     public ResponseEntity<?> haeMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
-        if (!myyntitapahtumaRepository.existsById(id)) {
+        if (!myyntitapahtumaRepository.existsByMyyntitapahtumaIdAndPoistettuFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa syötetyllä id:llä '" + id + "'', ei löydy");
         }
         // hakee myyntitapahtuman tiedot
-        Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
+        Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).get();
 
         // luo uuden DTO-version
         MyyntitapahtumaDTO myyntitapahtumaDTO = EntitytoDTO(myyntitapahtuma);
@@ -101,14 +101,14 @@ public class RestMyyntitapahtumaController {
         } else {
             for (OstettuLippuDTO ostettuLippuDTO : ostetutLiputDTO) {
                 for (int i = 0; i < ostettuLippuDTO.getMaara(); i++) {
-                    if (!tapahtumanLipputyyppiRepository.existsById(ostettuLippuDTO.getTapahtumanLipputyyppi())) {
+                    if (!tapahtumanLipputyyppiRepository.existsByTapahtumanLipputyyppiIdAndPoistettuFalse(ostettuLippuDTO.getTapahtumanLipputyyppi())) {
                         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                                 "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.");
                     }
 
                     Tapahtuma tapahtuma = (tapahtumanLipputyyppiRepository
-                            .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null)).getTapahtuma();
+                            .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).get()).getTapahtuma();
 
                     if (tapahtuma.getMyydytLiputLukum() + 1 > tapahtuma.getLippuLukum()) {
                         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -135,15 +135,16 @@ public class RestMyyntitapahtumaController {
     @DeleteMapping("/myyntitapahtumat/{id}")
     public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
         // tarkistetaan löytyykö tietokannasta tietuetta annetulla id:llä
-        if (myyntitapahtumaRepository.existsById(id)) {
+        if (myyntitapahtumaRepository.existsByMyyntitapahtumaIdAndPoistettuFalse(id)) {
             // jos tietue löytyy haetaan siihen liittyvät liput ja poistetaan ne
-            Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
+            Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).get();
             List<Lippu> liput = myyntitapahtuma.getLiput();
             for (Lippu lippu : liput) {
                 lippuController.poistaLippu(lippu.getLippu_id());
             }
             // poistetaan myyntitapahtuma
-            myyntitapahtumaRepository.deleteById(id);
+            myyntitapahtuma.setPoistettu(true);
+            myyntitapahtumaRepository.save(myyntitapahtuma);
             return ResponseEntity.noContent().build();
         }
         // jos tietuetta ei löydy, vastataan koodilla 404
