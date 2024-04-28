@@ -33,7 +33,7 @@ public class RestKayttajaController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/kayttajat")
     public Iterable<Kayttaja> haeKayttajat() {
-        return kayttajaRepository.findAll();
+        return kayttajaRepository.findByPoistettuFalse();
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

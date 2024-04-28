@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,10 +30,10 @@ public class Kayttaja {
 
     @ManyToOne
     @JoinColumn(name = "rooliId")
-    // @JsonIgnore
+    @JsonIgnore
     private Rooli rooli;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kayttaja")
+    @OneToMany(mappedBy = "kayttaja")
     @JsonIgnore
     private List<Myyntitapahtuma> myyntitapahtumat;
 
@@ -48,14 +47,17 @@ public class Kayttaja {
 
     private String katuosoite;
 
-    // @JsonIgnore
+    @JsonIgnore
     @NotBlank
     private String salasana;
 
-    // @JsonIgnore
+    @JsonIgnore
     @Column(unique = true)
     @NotBlank
     private String kayttajanimi;
+
+    @JsonIgnore
+    private boolean poistettu = false;
 
     // konstruktorit
     public Kayttaja() {
@@ -147,10 +149,19 @@ public class Kayttaja {
         this.salasana = PASSWORD_ENCODER.encode(salasana);
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
         return "Kayttaja [kayttajaId=" + kayttajaId + ", rooli=" + rooli + ", etunimi=" + etunimi + ", sukunimi="
-                + sukunimi + ", puhnro=" + puhnro + ", katuosoite=" + katuosoite + "]";
+                + sukunimi + ", puhnro=" + puhnro + ", katuosoite=" + katuosoite + ", poistettu=" + poistettu + "]";
     }
 
+    
 }
