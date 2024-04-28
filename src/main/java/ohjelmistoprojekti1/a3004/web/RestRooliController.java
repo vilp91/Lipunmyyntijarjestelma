@@ -27,7 +27,7 @@ public class RestRooliController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/roolit")
     public Iterable<Rooli> haeRoolit() {
-        return rooliRepository.findAll();
+        return rooliRepository.findByPoistettuFalse();
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -47,7 +47,7 @@ public class RestRooliController {
         }
 
         // tarkistetaan onko syötetyllä roolin nimellä jo olemassa rooli.
-        Rooli existingRooliName = rooliRepository.findByRooli(rooli.getRooli());
+        Rooli existingRooliName = rooliRepository.findByRooliAndPoistettuFalse(rooli.getRooli());
         if (existingRooliName != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Rooli nimellä '" + rooli.getRooli() + "' on jo olemassa.");

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +23,12 @@ public class Rooli {
     @NotBlank
     private String rooli;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rooli")
+    @OneToMany(mappedBy = "rooli")
     @JsonIgnore
     private List<Kayttaja> kayttajat;
+
+    @JsonIgnore
+    private boolean poistettu = false;
 
     // konstruktorit
     public Rooli() {
