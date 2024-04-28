@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
+import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LipputyyppiRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
@@ -59,7 +60,7 @@ public class RestTapahtumanLipputyyppiController {
     public ResponseEntity<?> luoTapahtumanLipputyyppi(
             @Valid @RequestBody TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         // tarkistetaan onko annetulla tapahtumaId:llä tapahtumaa tietokannassa
-        if (!tapahtumaRepository.existsById(tapahtumanLipputyyppiDto.getTapahtuma())) {
+        if (!tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(tapahtumanLipputyyppiDto.getTapahtuma())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumaa id:llä '" + tapahtumanLipputyyppiDto.getTapahtuma() + "' ei löydy.");
         }
         // tarkistetaan onko annetulla lipputyyppiID:llä lipputyyppiä tietokannassa
@@ -103,7 +104,7 @@ public class RestTapahtumanLipputyyppiController {
             @Valid @RequestBody TapahtumanlipputyyppiDTO muokattuTapahtumanLipputyyppiDto) {
         // tarkistetaan, onko tietokannassa id:tä vastaava tapahtumanlipputyyppi
         if (tapahtumanLipputyyppiRepository.existsByTapahtumanLipputyyppiIdAndPoistettuFalse(id)) {
-            if (tapahtumaRepository.existsById(muokattuTapahtumanLipputyyppiDto.getTapahtuma())) {
+            if (tapahtumaRepository.existsByTapahtumaIdAndPoistettuFalse(muokattuTapahtumanLipputyyppiDto.getTapahtuma())) {
                 if (lipputyyppiRepository.existsByLipputyyppiIdAndPoistettuIsFalse(muokattuTapahtumanLipputyyppiDto.getLipputyyppiId())) {
                     // muunnetaan DTO tapahtumanlipputyypiksi, asetetaan sille oikea id ja
                     // tallennetaan se tietokantaan
@@ -130,7 +131,12 @@ public class RestTapahtumanLipputyyppiController {
             // poistetaan tapahtumanlipputyyppi
             TapahtumanLipputyyppi tapahtumanLipputyyppi = tapahtumanLipputyyppiRepository.findById(id).get();
             if (tapahtumanLipputyyppi.getLiput().size() > 0) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumanlipputyyppiin '" + id + "' liittyy lippuja. Tapahtumanlipputyyppiä ei voida poistaa");
+                List<Lippu> liput = tapahtumanLipputyyppi.getLiput();
+                for(Lippu lippu : liput) {
+                    if (!lippu.isPoistettu()) {
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtumanlipputyyppiin '" + id + "' liittyy lippuja. Tapahtumanlipputyyppiä ei voida poistaa");
+                    }
+                }
             }
             tapahtumanLipputyyppi.setPoistettu(true);
             tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi);

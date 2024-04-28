@@ -8,7 +8,7 @@ import java.util.UUID;
 
 
 public interface LippuRepository extends CrudRepository<Lippu, Long>{
-    List<Lippu> findByMyyntitapahtuma(Myyntitapahtuma myyntitapahtuma);
+    List<Lippu> findByMyyntitapahtumaAndPoistettuFalse(Myyntitapahtuma myyntitapahtuma);
     List<Lippu> findByTapahtumanLipputyyppiIn(List<TapahtumanLipputyyppi> tapahtumanLipputyypit);
     List<Lippu> findByLippunumero(UUID lippunumero);
     Optional<Lippu> findByLippuIdAndPoistettuFalse(Long lippuId);

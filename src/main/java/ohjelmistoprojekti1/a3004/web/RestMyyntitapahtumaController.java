@@ -155,7 +155,7 @@ public class RestMyyntitapahtumaController {
         MyyntitapahtumaDTO myyntitapahtumaDTO = new MyyntitapahtumaDTO();
         myyntitapahtumaDTO.setAika(myyntitapahtuma.getAikaleima());
         // hakee tietokannasta myyntitapahtumaan liittyvät liput
-        List<Lippu> liput = lippuRepository.findByMyyntitapahtuma(myyntitapahtuma);
+        List<Lippu> liput = lippuRepository.findByMyyntitapahtumaAndPoistettuFalse(myyntitapahtuma);
         // luo listan lippujen DTO-versioille
         List<LippuDTO> lippuDTOLista = new ArrayList<>();
         float summa = 0;

@@ -36,14 +36,11 @@ public class RestLipputyyppiController {
     public ResponseEntity<?> haeLippulipputyyppi(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
-        if (!lipputyyppiRepository.existsById(id)) {
+        if (!lipputyyppiRepository.existsByLipputyyppiIdAndPoistettuIsFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä id:llä " + id + " ei löydy");
         }
         // hakee lipputyypin tiedot
         Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(id).orElse(null);
-        if (lipputyyppi.isPoistettu()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppi id:llä " + id + " on poistettu");
-        }
         return ResponseEntity.ok().body(lipputyyppi);
     }
 

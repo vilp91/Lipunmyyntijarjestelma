@@ -115,9 +115,9 @@ public class RestTapahtumaController {
         for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanlipputyypit) {
             List<Lippu> liput = tapahtumanLipputyyppi.getLiput();
             for (Lippu lippu : liput) {
-                // if (!lippu.isPoistettu()) {
+                if (!lippu.isPoistettu()) {
                     tapahtumanLiput.add(lippu);
-                // }
+                }
             }
         }
         return ResponseEntity.ok().body(tapahtumanLiput);
@@ -232,7 +232,7 @@ public class RestTapahtumaController {
         tapahtumaDTO.setLoppu(tapahtuma.getLoppu());
         tapahtumaDTO.setLippu_lukum(tapahtuma.getLippuLukum());
         tapahtumaDTO.setMyydyt_liput_lukum(tapahtuma.getMyydytLiputLukum());
-        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
+        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtumaAndPoistettuFalse(tapahtuma);
         List<TapahtumanlipputyyppiDTO> tapahtumanlipputyyppiDTOt = new ArrayList<>();
         for (TapahtumanLipputyyppi tapahtumanLipputyyppi : tapahtumanLipputyypit) {
             TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = tapahtumanLipputyyppiController.EntityToDTO(tapahtumanLipputyyppi);
@@ -248,7 +248,7 @@ public class RestTapahtumaController {
         myyntitapahtumaDTO.setId(myyntitapahtuma.getMyyntitapahtumaId());
         myyntitapahtumaDTO.setAika(myyntitapahtuma.getAikaleima());
         // hakee tietokannasta myyntitapahtumaan liittyvät liput
-        List<Lippu> liput = lippuRepository.findByMyyntitapahtuma(myyntitapahtuma);
+        List<Lippu> liput = lippuRepository.findByMyyntitapahtumaAndPoistettuFalse(myyntitapahtuma);
         // luo listan lippujen DTO-versioille
         List<LippuDTO> lippuDTOLista = new ArrayList<>();
         float summa = 0;

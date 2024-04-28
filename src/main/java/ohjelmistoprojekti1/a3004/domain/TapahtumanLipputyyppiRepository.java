@@ -3,7 +3,6 @@ package ohjelmistoprojekti1.a3004.domain;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
-import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 
 
 public interface TapahtumanLipputyyppiRepository extends CrudRepository<TapahtumanLipputyyppi, Long> {

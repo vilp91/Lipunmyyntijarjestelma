@@ -51,7 +51,7 @@ public class RestKayttajaController {
         }
 
         // tarkistetaan löytyykö annetulla rooliId:llä roolia
-        Rooli existingRooli = rooliRepository.findById(kayttaja.getRooli().getRooliId()).orElse(null);
+        Rooli existingRooli = rooliRepository.findByRooliIdAndPoistettuFalse(kayttaja.getRooli().getRooliId());
         if (existingRooli == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Rooli with ID " + kayttaja.getRooli().getRooliId() + " not found.");
         }
