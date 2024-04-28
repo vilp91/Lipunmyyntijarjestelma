@@ -3,6 +3,8 @@ package ohjelmistoprojekti1.a3004.domain;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,9 @@ public class Lippu {
     private float hinta;
 
     private LocalDateTime kaytetty = null;
+
+    @JsonIgnore
+    private boolean poistettu = false;
 
     //Parametriton konstruktori
     public Lippu() {
@@ -95,11 +100,20 @@ public class Lippu {
         this.kaytetty = kaytetty;
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
         return "Lippu [lippuId=" + lippuId + ", lippunumero=" + lippunumero + ", tapahtumanLipputyyppi="
                 + tapahtumanLipputyyppi + ", myyntitapahtuma=" + myyntitapahtuma + ", hinta=" + hinta + ", kaytetty="
-                + kaytetty + "]";
+                + kaytetty + ", poistettu=" + poistettu + "]";
     }
+
 
 }

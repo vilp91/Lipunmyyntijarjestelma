@@ -69,9 +69,18 @@ public class Rooli {
         this.kayttajat = kayttajat;
     }
 
+    public boolean isPoistettu() {
+        return poistettu;
+    }
+
+    public void setPoistettu(boolean poistettu) {
+        this.poistettu = poistettu;
+    }
+
     @Override
     public String toString() {
-        return "Rooli [rooli_id=" + rooliId + ", rooli=" + rooli + ", kayttajat=" + kayttajat + "]";
+        return "Rooli [rooliId=" + rooliId + ", rooli=" + rooli + ", kayttajat=" + kayttajat + ", poistettu="
+                + poistettu + "]";
     }
 
 }

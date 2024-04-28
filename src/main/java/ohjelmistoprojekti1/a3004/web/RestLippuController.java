@@ -45,7 +45,7 @@ public class RestLippuController {
                 } else {
                     UUID lippunumeroUuid = UUID.fromString(lippunumero.get());
                     // tarkistetaan löytyykö annetulla parametrilla lippua
-                    if (lippuRepository.existsByLippunumero(lippunumeroUuid)) {
+                    if (lippuRepository.existsByLippunumeroAndPoistettuFalse(lippunumeroUuid)) {
                         return lippuRepository.findByLippunumero(lippunumeroUuid);
                     } else {
                         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -53,7 +53,7 @@ public class RestLippuController {
                 }
             }
             // palautetaan kaikki liput, jos parametria ei ole annettu
-            return lippuRepository.findAll();
+            return lippuRepository.findByPoistettuFalse();
     }
 
     @CrossOrigin
@@ -62,11 +62,11 @@ public class RestLippuController {
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
         // tarkistaa, että tietokannassa on tietue annetulla id:llä
         // jos ei, niin palauttaa koodin 404
-        if (!lippuRepository.existsById(id)) {
+        if (!lippuRepository.existsByLippuIdAndPoistettuFalse(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lippua syötetyllä id:llä: " + id + ", ei löydy");
         }
         // hakee lipun tiedot
-        Lippu lippu = lippuRepository.findById(id).orElse(null);
+        Lippu lippu = lippuRepository.findById(id).get();
         return ResponseEntity.ok().body(lippu);
     }
 
@@ -74,7 +74,7 @@ public class RestLippuController {
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @PatchMapping("/liput/{id}")
     public ResponseEntity<?> merkitseLippuKaytetyksi(@PathVariable("id") Long lippuId, @RequestBody Lippu patchLippu) {
-        Optional<Lippu> lippu = lippuRepository.findById(lippuId);
+        Optional<Lippu> lippu = lippuRepository.findByLippuIdAndPoistettuFalse(lippuId);
         LocalDateTime aika = patchLippu.getKaytetty();
 
         if (lippu.isPresent()) {
@@ -94,13 +94,14 @@ public class RestLippuController {
     @DeleteMapping("/liput/{id}")
     public ResponseEntity<?> poistaLippu(@PathVariable("id") Long id) {
         // tarkistetaan, että tietokannassa on haettu tietue ja haetaan se
-        if (lippuRepository.existsById(id)) {
-            Lippu lippu = lippuRepository.findById(id).orElse(null);
+        if (lippuRepository.existsByLippuIdAndPoistettuFalse(id)) {
+            Lippu lippu = lippuRepository.findById(id).get();
 
             // vähennetään tapahtuman myydyistä lipuista 1 ja poistetaan lippu
             Tapahtuma tapahtuma = lippu.getTapahtumanLipputyyppi().getTapahtuma();
             tapahtuma.setMyydytLiputLukum(tapahtuma.getMyydytLiputLukum() - 1);
-            lippuRepository.delete(lippu);
+            lippu.setPoistettu(true);
+            lippuRepository.save(lippu);
 
             return ResponseEntity.noContent().build();
         }
