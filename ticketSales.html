@@ -155,8 +155,6 @@
         };
 
         const handleSave = () => {
-          let errorHelp = false;
-
           fetch(baseURL + pathSaveTickets, {
             method: "POST",
             headers: {
@@ -167,15 +165,12 @@
           })
             .then((response) => {
               if (!response.ok) {
-                errorHelp = true;
+                setError({ error: true, msg: "Error: " + response.status });
+                throw new Error("Ei vastausta palvelimelta.");
               }
               return response.json();
             })
             .then((data) => {
-              if (errorHelp) {
-                setError({ error: true, msg: data.message });
-                return;
-              }
               handleReset();
               setSuccess({
                 success: true,
@@ -184,7 +179,6 @@
               setTransaction(data);
             })
             .catch((error) => {
-              setError({ error: true, msg: error.message });
               console.error(error);
             });
         };
