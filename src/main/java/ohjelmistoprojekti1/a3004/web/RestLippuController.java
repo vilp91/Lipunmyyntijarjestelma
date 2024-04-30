@@ -32,7 +32,7 @@ public class RestLippuController {
     @Autowired
     TapahtumaRepository tapahtumaRepository;
 
-    @CrossOrigin
+    // @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput")
     public Iterable<Lippu> haeLiput(
@@ -56,7 +56,7 @@ public class RestLippuController {
             return lippuRepository.findByPoistettuFalse();
     }
 
-    @CrossOrigin
+    // @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput/{id}")
     public ResponseEntity<?> haeLippu(@PathVariable("id") Long id) {
@@ -70,7 +70,7 @@ public class RestLippuController {
         return ResponseEntity.ok().body(lippu);
     }
 
-    @CrossOrigin
+    // @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @PatchMapping("/liput/{id}")
     public ResponseEntity<?> merkitseLippuKaytetyksi(@PathVariable("id") Long lippuId, @RequestBody Lippu patchLippu) {
