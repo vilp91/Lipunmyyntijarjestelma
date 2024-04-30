@@ -37,7 +37,7 @@ public class TapahtumanLipputyyppi {
     @JsonIgnore
     private List<Lippu> liput;
 
-    @JsonIgnore
+    // @JsonIgnore
     private boolean poistettu = false;
 
     public TapahtumanLipputyyppi() {
