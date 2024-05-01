@@ -20,23 +20,32 @@ Haetaan myyntitapahtuma id:n perusteella.
 
 ```json
 {
-  "id": 1,
-  "summa": 20.0,
-  "aika": "2024-03-04T17:12:40.202629",
-  "liput": [
-    {
-      "id": 1,
-      "tyyppi": "perus",
-      "tapahtuma": "Sukankudontakilpailu",
-      "hinta": 10.0
-    },
-    {
-      "id": 2,
-      "tyyppi": "perus",
-      "tapahtuma": "Sukankudontakilpailu",
-      "hinta": 10.0
+    "id": 1,
+    "summa": 30.0,
+    "aika": "2024-05-01T22:14:33.967931",
+    "liput": [
+        {
+            "id": 1,
+            "lippunumero": "25cdf11c-07b9-442e-be72-049398ae2937",
+            "tyyppi": "perus",
+            "tapahtuma": "Sukankudontakilpailu",
+            "hinta": 15.0
+        },
+        {
+            "id": 2,
+            "lippunumero": "e9d4d952-be3d-4f90-86bb-a6bdbd0a07a9",
+            "tyyppi": "perus",
+            "tapahtuma": "Sukankudontakilpailu",
+            "hinta": 15.0
+        }
+    ],
+    "kayttaja": {
+        "kayttajaId": 2,
+        "etunimi": "Heikki",
+        "sukunimi": "Hallinnoija",
+        "puhnro": null,
+        "katuosoite": null
     }
-  ]
 }
 ```
 

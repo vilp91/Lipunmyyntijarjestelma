@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
+import ohjelmistoprojekti1.a3004.domain.Kayttaja;
+import ohjelmistoprojekti1.a3004.domain.KayttajaRepository;
 import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
@@ -36,12 +40,12 @@ public class RestMyyntitapahtumaController {
     LippuRepository lippuRepository;
     @Autowired
     RestLippuController lippuController;
-
     @Autowired
     TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
-
     @Autowired
     TapahtumaRepository tapahtumaRepository;
+    @Autowired
+    KayttajaRepository kayttajaRepository;
 
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/myyntitapahtumat")
@@ -90,8 +94,13 @@ public class RestMyyntitapahtumaController {
     @PostMapping("/myyntitapahtumat")
     @Transactional
     public ResponseEntity<?> myyLippuja(@Valid @RequestBody List<OstettuLippuDTO> ostetutLiputDTO) {
+
         Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
-        myyntitapahtuma.setKayttaja(null); // voisko tämä tulla polkumuuttujana?
+
+        // haetaan pyynnöstä autentikoidun käyttäjän tiedot ja lisätään ne myyntitapahtumaan
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(authentication.getName());        
+        myyntitapahtuma.setKayttaja(kayttaja); 
         myyntitapahtumaRepository.save(myyntitapahtuma);
 
         if (ostetutLiputDTO.size() < 1) {
@@ -174,6 +183,7 @@ public class RestMyyntitapahtumaController {
         // asettaa listan myyntitapahtuman DTO-versioon
         myyntitapahtumaDTO.setLiput(lippuDTOLista);
         myyntitapahtumaDTO.setSumma(summa);
+        myyntitapahtumaDTO.setKayttaja(myyntitapahtuma.getKayttaja());
         return myyntitapahtumaDTO;
     }
 }

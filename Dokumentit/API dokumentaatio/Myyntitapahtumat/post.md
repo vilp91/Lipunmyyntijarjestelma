@@ -1,6 +1,6 @@
 # Luo uusi myyntitapahtuma
 
-Luo uuden myyntitapahtuman ilman käyttäjää (käyttäjän liittäminen myyntitapahtumaan päivitetään apiin myöhemmin).
+Luo uuden myyntitapahtuman.
 
 **URL**: `/myyntitapahtumat`
 
@@ -30,22 +30,31 @@ Anna luotavan tapahtuman tiedot:
 ```json
 {
   "id": 4,
-  "summa": 20.0,
-  "aika": "2024-03-04T18:43:59.2011012",
+  "summa": 30.0,
+  "aika": "2024-05-01T22:15:48.9194723",
   "liput": [
-    {
-      "id": 6,
-      "tyyppi": "perus",
-      "tapahtuma": "Sukankudontakilpailu",
-      "hinta": 10.0
-    },
-    {
-      "id": 7,
-      "tyyppi": "perus",
-      "tapahtuma": "Sukankudontakilpailu",
-      "hinta": 10.0
-    }
-  ]
+      {
+          "id": 6,
+          "lippunumero": "9280cb32-eaac-49da-9b18-587856d67524",
+          "tyyppi": "perus",
+          "tapahtuma": "Sukankudontakilpailu",
+          "hinta": 15.0
+      },
+      {
+          "id": 7,
+          "lippunumero": "cd7fe95e-6b42-4a8e-8f71-44aa37f07034",
+          "tyyppi": "perus",
+          "tapahtuma": "Sukankudontakilpailu",
+          "hinta": 15.0
+      }
+  ],
+  "kayttaja": {
+      "kayttajaId": 2,
+      "etunimi": "Heikki",
+      "sukunimi": "Hallinnoija",
+      "puhnro": null,
+      "katuosoite": null
+  }
 }
 ```
 
