@@ -7,22 +7,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import ohjelmistoprojekti1.a3004.domain.Kayttaja;
 
 
 public class MyyntitapahtumaDTO {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull(message = "Summa on pakollinen")
     private float summa;
+
     private LocalDateTime aika;
+
     @NotBlank(message = "Pakollinen")
     private List<LippuDTO> liput;
+
+    private Kayttaja kayttaja;
     
     public MyyntitapahtumaDTO() {
-    }
+    }  
 
-    public MyyntitapahtumaDTO(float summa, LocalDateTime aika, List<LippuDTO> liput) {
+    public MyyntitapahtumaDTO(Kayttaja kayttaja, @NotNull(message = "Summa on pakollinen") float summa,
+            LocalDateTime aika, @NotBlank(message = "Pakollinen") List<LippuDTO> liput) {
+        this.kayttaja = kayttaja;
         this.summa = summa;
         this.aika = aika;
         this.liput = liput;
@@ -34,6 +42,14 @@ public class MyyntitapahtumaDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Kayttaja getKayttaja() {
+        return kayttaja;
+    }
+
+    public void setKayttaja(Kayttaja kayttaja) {
+        this.kayttaja = kayttaja;
     }
 
     public float getSumma() {
@@ -60,9 +76,11 @@ public class MyyntitapahtumaDTO {
         this.liput = liput;
     }
 
+
     @Override
     public String toString() {
-        return "MyyntitapahtumaDTO [id=" + id + ", summa=" + summa + ", aika=" + aika + "]";
+        return "MyyntitapahtumaDTO [id=" + id + ", summa=" + summa + ", aika=" + aika
+                + ", liput=" + liput + ", kayttaja=" + kayttaja + "]";
     }
 
 }
