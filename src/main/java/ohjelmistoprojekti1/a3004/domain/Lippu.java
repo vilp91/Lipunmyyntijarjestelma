@@ -3,8 +3,6 @@ package ohjelmistoprojekti1.a3004.domain;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,11 +41,17 @@ public class Lippu {
     //Parametriton konstruktori
     public Lippu() {
     }
-    
+
     //Parametrillinen konstruktori, ei ID:tä, koska se autogeneroituu.
     public Lippu(TapahtumanLipputyyppi tapahtumanLipputyyppi, Myyntitapahtuma myyntitapahtuma, float hinta) {
         this.tapahtumanLipputyyppi = tapahtumanLipputyyppi;
         this.myyntitapahtuma = myyntitapahtuma;
+        this.hinta = hinta;
+    }
+
+    //Parametrillinen konstruktori, ilman myyntitapahtumaa
+    public Lippu(TapahtumanLipputyyppi tapahtumanLipputyyppi, float hinta) {
+        this.tapahtumanLipputyyppi = tapahtumanLipputyyppi;
         this.hinta = hinta;
     }
 
@@ -114,6 +118,5 @@ public class Lippu {
                 + tapahtumanLipputyyppi + ", myyntitapahtuma=" + myyntitapahtuma + ", hinta=" + hinta + ", kaytetty="
                 + kaytetty + ", poistettu=" + poistettu + "]";
     }
-
 
 }
