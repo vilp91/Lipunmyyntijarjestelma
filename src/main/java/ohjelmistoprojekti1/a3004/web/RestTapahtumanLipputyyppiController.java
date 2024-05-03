@@ -151,6 +151,7 @@ public class RestTapahtumanLipputyyppiController {
         tapahtumanLipputyyppi.setTapahtuma(tapahtumaRepository.findById(tapahtumanLipputyyppiDto.getTapahtuma()).orElse(null));
         tapahtumanLipputyyppi.setHinta(tapahtumanLipputyyppiDto.getHinta());
         tapahtumanLipputyyppi.setLipputyyppi(lipputyyppiRepository.findById(tapahtumanLipputyyppiDto.getLipputyyppiId()).orElse(null));
+        tapahtumanLipputyyppi.setLipputyyppiLippuLukum(tapahtumanLipputyyppiDto.getLipputyyppiLippuLukum());
         return tapahtumanLipputyyppi;
     }
 
@@ -162,6 +163,7 @@ public class RestTapahtumanLipputyyppiController {
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
         tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppiId());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
+        tapahtumanlipputyyppiDTO.setLipputyyppiLippuLukum(tapahtumanLipputyyppi.getLipputyyppiLippuLukum());
         return tapahtumanlipputyyppiDTO;
 
     }
