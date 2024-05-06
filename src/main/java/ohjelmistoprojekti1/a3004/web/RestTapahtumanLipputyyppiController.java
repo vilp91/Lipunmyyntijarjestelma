@@ -173,7 +173,6 @@ public class RestTapahtumanLipputyyppiController {
         return tapahtumanLipputyyppi;
     }
     // muunnetaan entity-versio DTO-versioksi
-    @SuppressWarnings("null")
     public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
         tapahtumanlipputyyppiDTO.setId(tapahtumanLipputyyppi.getTapahtumanLipputyyppiId());
