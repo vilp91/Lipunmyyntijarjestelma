@@ -14,7 +14,9 @@ public class TapahtumanlipputyyppiDTO {
     @NotNull(message = "Lipputyyppi Id on pakollinen")
     private Long lipputyyppiId;
     private String lipputyyppi;
-    private int LipputyyppiLippuLukum;
+    private long LipputyyppiLippuLukum;
+    private int LippuLukum;
+
     
     public TapahtumanlipputyyppiDTO() {
     }
@@ -66,12 +68,20 @@ public class TapahtumanlipputyyppiDTO {
         this.lipputyyppi = lipputyyppi;
     }
 
-    public int getLipputyyppiLippuLukum() {
+    public long getLipputyyppiLippuLukum() {
         return LipputyyppiLippuLukum;
     }
 
-    public void setLipputyyppiLippuLukum(int LipputyyppiLippuLukum) {
+    public void setLipputyyppiLippuLukum(long LipputyyppiLippuLukum) {
         this.LipputyyppiLippuLukum = LipputyyppiLippuLukum;
+    }
+
+    public int getLippuLukum() {
+        return this.LippuLukum;
+    }
+
+    public void setLippuLukum(int LippuLukum) {
+        this.LippuLukum = LippuLukum;
     }
 
     @Override
