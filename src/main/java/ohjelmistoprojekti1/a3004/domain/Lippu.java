@@ -35,7 +35,7 @@ public class Lippu {
 
     private LocalDateTime kaytetty = null;
 
-    //  @JsonIgnore
+    @JsonIgnore
     private boolean poistettu = false;
 
     //Parametriton konstruktori

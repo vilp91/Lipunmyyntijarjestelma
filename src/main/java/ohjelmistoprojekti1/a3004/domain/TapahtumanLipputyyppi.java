@@ -37,24 +37,29 @@ public class TapahtumanLipputyyppi {
     @JsonIgnore
     private List<Lippu> liput;
 
-    // @JsonIgnore
+    private long lipputyyppiLippuLukum;
+
+    @JsonIgnore
     private boolean poistettu = false;
 
     public TapahtumanLipputyyppi() {
         super();
     }
     
-    public TapahtumanLipputyyppi(float hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi) {
+    public TapahtumanLipputyyppi(float hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, long lipputyyppiLippuLukum) {
         this.hinta = hinta;
         this.tapahtuma = tapahtuma;
         this.lipputyyppi = lipputyyppi;
+        this.lipputyyppiLippuLukum = lipputyyppiLippuLukum;
     }
 
-    public TapahtumanLipputyyppi(float hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, List<Lippu> liput) {
+    public TapahtumanLipputyyppi(float hinta, Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, List<Lippu> liput, long lipputyyppiLippuLukum) {
         this.hinta = hinta;
         this.tapahtuma = tapahtuma;
         this.lipputyyppi = lipputyyppi;
         this.liput = liput;
+        this.lipputyyppiLippuLukum = lipputyyppiLippuLukum;
+        
     }
 
     public Long getTapahtumanLipputyyppiId() {
@@ -103,6 +108,15 @@ public class TapahtumanLipputyyppi {
 
     public void setPoistettu(boolean poistettu) {
         this.poistettu = poistettu;
+    }
+
+    
+    public Long getLipputyyppiLippuLukum() { 
+        return lipputyyppiLippuLukum;
+    }
+
+    public void setLipputyyppiLippuLukum(long lipputyyppiLippuLukum) {
+        this.lipputyyppiLippuLukum = lipputyyppiLippuLukum;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class Lipputyyppi {
     @JsonIgnore
     private List<TapahtumanLipputyyppi> tapahtumanLipputyypit;
 
-    // @JsonIgnore
+    @JsonIgnore
     private boolean poistettu = false;
 
     //Parametriton konstruktori
