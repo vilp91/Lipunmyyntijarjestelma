@@ -72,6 +72,7 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Tallenna käyttäjä](/Dokumentit/API%20dokumentaatio/Kayttajat/post.md): `POST /kayttajat`
 
+[Poista käyttäjä](/Dokumentit/API%20dokumentaatio/Kayttajat/delete.md): `DELETE /kayttajat`
 
 ## Roolit
 

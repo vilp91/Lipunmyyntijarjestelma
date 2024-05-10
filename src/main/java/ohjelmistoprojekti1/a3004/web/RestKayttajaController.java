@@ -7,7 +7,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -76,6 +78,21 @@ public class RestKayttajaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Invalid input: " + e.getMessage());
         }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/kayttajat/{id}")
+    public ResponseEntity<?> poistaKayttaja(@PathVariable("id") Long id) {
+        // haetaan oikea käyttäjä
+        Kayttaja kayttaja = kayttajaRepository.findById(id).orElse(null);
+        // jos käyttäjä on jo poistettu, tai sitä ei ole olemassa, palautetaan 404 - not found
+        if (kayttaja == null || kayttaja.isPoistettu()) {
+            return ResponseEntity.notFound().build();
+        }
+        // muussa tapauksessa merkitään kayttaja poistetuksi ja palautetaan 204 - no content
+        kayttaja.setPoistettu(true);
+        kayttajaRepository.save(kayttaja);
+        return ResponseEntity.noContent().build();
     }
 
 }
