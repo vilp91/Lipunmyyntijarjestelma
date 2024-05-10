@@ -30,7 +30,7 @@ public class Kayttaja {
 
     @ManyToOne
     @JoinColumn(name = "rooliId")
-    @JsonIgnore
+    // @JsonIgnore
     private Rooli rooli;
 
     @OneToMany(mappedBy = "kayttaja")
@@ -47,11 +47,11 @@ public class Kayttaja {
 
     private String katuosoite;
 
-    @JsonIgnore
+    // @JsonIgnore
     @NotBlank
     private String salasana;
 
-    @JsonIgnore
+    // @JsonIgnore
     @Column(unique = true)
     @NotBlank
     private String kayttajanimi;
