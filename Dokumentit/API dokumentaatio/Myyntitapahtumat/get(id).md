@@ -22,30 +22,24 @@ Haetaan myyntitapahtuma id:n perusteella.
 {
     "id": 1,
     "summa": 30.0,
-    "aika": "2024-05-01T22:14:33.967931",
+    "aika": "2024-05-11T22:54:44.783189",
+    "kayttajaId": 1,
     "liput": [
         {
             "id": 1,
-            "lippunumero": "25cdf11c-07b9-442e-be72-049398ae2937",
+            "lippunumero": "99932afc-f2cc-4c5a-ab20-4829f7d888f6",
             "tyyppi": "perus",
             "tapahtuma": "Sukankudontakilpailu",
             "hinta": 15.0
         },
         {
             "id": 2,
-            "lippunumero": "e9d4d952-be3d-4f90-86bb-a6bdbd0a07a9",
+            "lippunumero": "db9790c3-f91c-4d15-b094-1976c6f9f23e",
             "tyyppi": "perus",
             "tapahtuma": "Sukankudontakilpailu",
             "hinta": 15.0
         }
-    ],
-    "kayttaja": {
-        "kayttajaId": 2,
-        "etunimi": "Heikki",
-        "sukunimi": "Hallinnoija",
-        "puhnro": null,
-        "katuosoite": null
-    }
+    ]
 }
 ```
 
