@@ -38,14 +38,15 @@ public class RestLippuController {
     // @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput")
-    public Iterable<Lippu> haeLiput(
-            @RequestParam(value = "lippunumero", required = false) Optional<String> lippunumero) {
-        // tarkistetaan onko pyynnön mukana annettu parametria
-        if (lippunumero.isPresent()) {
-            // tarkistetaan onko annettu parametri tyhjä
-            if (lippunumero.get() == "") {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnössä ei ole lippunumeroa");
-            } else {
+public Iterable<Lippu> haeLiput(
+        @RequestParam(value = "lippunumero", required = false) Optional<String> lippunumero) {
+    // tarkistetaan onko pyynnön mukana annettu parametria
+    if (lippunumero.isPresent()) {
+        // tarkistetaan onko annettu parametri tyhjä
+        if (lippunumero.get().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnössä ei ole lippunumeroa");
+        } else {
+            try {
                 UUID lippunumeroUuid = UUID.fromString(lippunumero.get());
                 // tarkistetaan löytyykö annetulla parametrilla lippua
                 if (lippuRepository.existsByLippunumeroAndPoistettuFalse(lippunumeroUuid)) {
@@ -53,12 +54,14 @@ public class RestLippuController {
                 } else {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lippua ei löytynyt annetulla lippunumerolla");
                 }
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lippua ei löytynyt annetulla lippunumerolla");
             }
         }
-        // palautetaan kaikki liput, jos parametria ei ole annettu
-        return lippuRepository.findByPoistettuFalse();
     }
-
+    // palautetaan kaikki liput, jos parametria ei ole annettu
+    return lippuRepository.findByPoistettuFalse();
+}
     // @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput/{id}")
