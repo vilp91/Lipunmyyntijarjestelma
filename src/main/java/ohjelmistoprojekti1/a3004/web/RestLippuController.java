@@ -51,7 +51,7 @@ public class RestLippuController {
                 if (lippuRepository.existsByLippunumeroAndPoistettuFalse(lippunumeroUuid)) {
                     return lippuRepository.findByLippunumero(lippunumeroUuid);
                 } else {
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lippua ei löytynyt annetulla lippunumerolla");
                 }
             }
         }
