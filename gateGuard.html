@@ -1,170 +1,193 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>GateGuard - verify your tickets</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
 
-<body>
+  <body>
     <div id="root"></div>
 
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
     <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>  -->
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
     <!-- <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script> -->
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
     <script type="text/babel">
+      const GateGuard = () => {
+        const [login, setLogin] = React.useState(false);
+        const [user, setUser] = React.useState({
+          userName: "",
+          password: "",
+          authenticate: "",
+        });
+        const [ticketnumber, setTicketNumber] = React.useState("");
+        const [ticket, setTicket] = React.useState();
+        const [success, setSuccess] = React.useState({
+          success: false,
+          ticketnumber: "",
+        });
+        const [error, setError] = React.useState({
+          error: false,
+          msg: "",
+        });
+        const [used, setUsed] = React.useState(false);
 
-        const GateGuard = () => {
-            const [login, setLogin] = React.useState(false);
-            const [user, setUser] = React.useState({
-                userName: '',
-                password: '',
-                authenticate: ''
-            });
-            const [ticketnumber, setTicketNumber] = React.useState('');
-            const [ticket, setTicket] = React.useState();
-            const [success, setSuccess] = React.useState({
-                success: false,
-                ticketnumber : ''
-            });
-            const [error, setError] = React.useState({
-                error: false,
-                msg : ''
+        let baseURL =
+          "https://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi"; // KoodiKolibri tuotanto
+        // let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
+        let pathCheck = "/liput?lippunumero="; // KoodiKolibri
+        let pathUsed = "/liput/"; // KoodiKolibri
+
+        // let baseURL = 'http://ohjelmistoprojekti1-ticketguru-kovas.rahtiapp.fi';  // KOVAS
+        // let pathCheck = ''                      // KOVAS
+        // let pathUsed = ''                       // KOVAS
+
+        const handleLogin = () => {
+          const cred = btoa(`${user.userName}:${user.password}`);
+          const auth = "Basic " + cred;
+          setUser({ ...user, authenticate: auth });
+          setLogin(true);
+        };
+
+        const handleCheck = () => {
+          if (ticketnumber === "") {
+            setError({ error: true, msg: "Lippunumero on pakollinen" });
+            return;
+          }
+
+          fetch(baseURL + pathCheck + ticketnumber, {
+            headers: {
+              Authorization: user.authenticate,
+            },
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw error;
+                });
+              }
+              return response.json();
             })
-            const [used, setUsed] = React.useState(false);
+            .then((data) => {
+              setTicket(data[0]);
+            })
+            .catch((error) => {
+              setError({ error: true, msg: error.message });
+              console.error(error);
+            });
 
+          setTicketNumber("");
+        };
 
-            let baseURL = 'https://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi';  // KoodiKolibri tuotanto
-            // let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
-            let pathCheck = '/liput?lippunumero='  // KoodiKolibri
-            let pathUsed = '/liput/'                // KoodiKolibri
+        React.useEffect(() => {
+          if (ticket != null) {
+            setUsed(ticket.kaytetty != null);
+          }
+        }, [ticket]);
 
-            // let baseURL = 'http://ohjelmistoprojekti1-ticketguru-kovas.rahtiapp.fi';  // KOVAS
-            // let pathCheck = ''                      // KOVAS
-            // let pathUsed = ''                       // KOVAS
+        const handleMerkitseKaytetyksi = () => {
+          let nyt = new Date();
+          nyt = nyt.toISOString().slice(0, 19);
 
-            const handleLogin = () => {
-                const cred = btoa(`${user.userName}:${user.password}`);
-                const auth = "Basic " + cred;
-                setUser({...user, authenticate: auth});
-                setLogin(true);
-            }
-
-            const handleCheck = () => {
-                    fetch(baseURL + pathCheck + ticketnumber, {
-                    headers: {
-                        Authorization: user.authenticate
-                    }
-                })
-                    .then(response => {
-                        if(response.status != 200 ) {
-                            setError({error:true, msg: response.status})
-                        }
-                        return response;
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        setTicket(data[0])
-                    })
-                    .catch(error => console.error(error))
-
-                setTicketNumber('');                
-            };
-
-            React.useEffect(() => {
-                if (ticket != null) {
-                    setUsed(ticket.kaytetty != null)
-                }
-            }, [ticket])
-
-
-            const handleMerkitseKaytetyksi = () => {
-                let nyt = new Date();
-                nyt = nyt.toISOString().slice(0, 19);
-
-                fetch(baseURL + pathUsed + ticket.lippu_id, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: user.authenticate
-                    },
-                    body: JSON.stringify({ kaytetty: nyt }),
-                })
-                .then(response => response.json())
-                .then(data => setSuccess({success:true, ticketnumber:data.lippunumero}))
-                .catch(error => console.error(error))
-                setTicket();
-            }
-
-            if (!login) {
-                return (
-                    <div>
-                        Username <br />
-                        <input type="text"
-                            onChange={(event) => setUser({...user, userName: event.target.value})}    
-                        />
-                        <br />
-                        Password<br />
-                        <input type="password"
-                          onChange={(event) => setUser({...user, password: event.target.value})}    
-                        />
-                        <p>
-                            <button onClick={handleLogin}>Kirjaudu</button>
-                        </p>
-                    </div>
-                )
-
-            } else if (login) {
-            return (
-                <div>
-                    <h1>GateGuard</h1>
-                    {error && error.error &&
-                        <p>
-                            Virhe - {error.msg}
-                        </p>
-                    }
-                    {success && success.success &&
-                        <p>Lippu {success.ticketnumber} on nyt merkitty käytetyksi</p>
-                    }
-                    Ticket number <br />
-                    <input type="text"
-                        value={ticketnumber}
-                        onChange={(event) => {
-                            setTicketNumber(event.target.value)
-                            setSuccess(null)
-                            setTicket(null)
-                            setError(null)
-                        }} 
-                        />
-                    <p>
-                        <button onClick={handleCheck}>Check</button>
-                    </p>
-                    {ticket != null &&
-                        <div>
-                            <h5>Lipun tiedot</h5>
-                            Tapahtuma: {ticket.tapahtumanLipputyyppi.tapahtuma.tapahtumanNimi}<br />
-                            Aika: {ticket.tapahtumanLipputyyppi.tapahtuma.alku}<br />
-                            Lipputyyppi: {ticket.tapahtumanLipputyyppi.lipputyyppi.tyyppi} <br />
-                            Käytetty: {ticket.kaytetty}<br />
-                            <p>
-                                    <button onClick={handleMerkitseKaytetyksi} disabled={used} >Merkitse käytetyksi</button>                           
-                            </p>
-                        </div>
-                    }
-                </div>
+          fetch(baseURL + pathUsed + ticket.lippu_id, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: user.authenticate,
+            },
+            body: JSON.stringify({ kaytetty: nyt }),
+          })
+            .then((response) => response.json())
+            .then((data) =>
+              setSuccess({ success: true, ticketnumber: data.lippunumero })
             )
-            }
+            .catch((error) => console.error(error));
+          setTicket();
+        };
 
+        if (!login) {
+          return (
+            <div>
+              Username <br />
+              <input
+                type="text"
+                onChange={(event) =>
+                  setUser({ ...user, userName: event.target.value })
+                }
+              />
+              <br />
+              Password
+              <br />
+              <input
+                type="password"
+                onChange={(event) =>
+                  setUser({ ...user, password: event.target.value })
+                }
+              />
+              <p>
+                <button onClick={handleLogin}>Kirjaudu</button>
+              </p>
+            </div>
+          );
+        } else if (login) {
+          return (
+            <div>
+              <h1>GateGuard</h1>
+              {error && error.error && <p>Virhe - {error.msg}</p>}
+              {success && success.success && (
+                <p>Lippu {success.ticketnumber} on nyt merkitty käytetyksi</p>
+              )}
+              Ticket number <br />
+              <input
+                type="text"
+                value={ticketnumber}
+                onChange={(event) => {
+                  setTicketNumber(event.target.value);
+                  setSuccess(null);
+                  setTicket(null);
+                  setError(null);
+                }}
+              />
+              <p>
+                <button onClick={handleCheck}>Check</button>
+              </p>
+              {ticket != null && (
+                <div>
+                  <h5>Lipun tiedot</h5>
+                  Tapahtuma:{" "}
+                  {ticket.tapahtumanLipputyyppi.tapahtuma.tapahtumanNimi}
+                  <br />
+                  Aika: {ticket.tapahtumanLipputyyppi.tapahtuma.alku}
+                  <br />
+                  Lipputyyppi: {
+                    ticket.tapahtumanLipputyyppi.lipputyyppi.tyyppi
+                  }{" "}
+                  <br />
+                  Käytetty: {ticket.kaytetty}
+                  <br />
+                  <p>
+                    <button onClick={handleMerkitseKaytetyksi} disabled={used}>
+                      Merkitse käytetyksi
+                    </button>
+                  </p>
+                </div>
+              )}
+            </div>
+          );
         }
+      };
 
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<GateGuard />);
-
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<GateGuard />);
     </script>
-</body>
-
+  </body>
 </html>

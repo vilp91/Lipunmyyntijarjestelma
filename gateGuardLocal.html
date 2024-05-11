@@ -58,22 +58,31 @@
         };
 
         const handleCheck = () => {
+          if (ticketnumber === "") {
+            setError({ error: true, msg: "Lippunumero on pakollinen" });
+            return;
+          }
+
           fetch(baseURL + pathCheck + ticketnumber, {
             headers: {
               Authorization: user.authenticate,
             },
           })
             .then((response) => {
-              if (response.status != 200) {
-                setError({ error: true, msg: response.status });
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw error;
+                });
               }
-              return response;
+              return response.json();
             })
-            .then((response) => response.json())
             .then((data) => {
               setTicket(data[0]);
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+              setError({ error: true, msg: error.message });
+              console.error(error);
+            });
 
           setTicketNumber("");
         };
