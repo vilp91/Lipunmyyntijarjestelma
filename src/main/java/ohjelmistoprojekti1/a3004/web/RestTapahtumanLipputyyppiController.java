@@ -149,29 +149,12 @@ public class RestTapahtumanLipputyyppiController {
     // muunnetaan DTO-versio entity-versioksi
     public TapahtumanLipputyyppi DTOtoEntity(TapahtumanlipputyyppiDTO tapahtumanLipputyyppiDto) {
         TapahtumanLipputyyppi tapahtumanLipputyyppi = new TapahtumanLipputyyppi();
-        Tapahtuma tapahtuma = tapahtumaRepository.findById(tapahtumanLipputyyppiDto.getTapahtuma()).orElse(null);
-        tapahtumanLipputyyppi.setTapahtuma(tapahtuma);
+        tapahtumanLipputyyppi.setTapahtuma(tapahtumaRepository.findById(tapahtumanLipputyyppiDto.getTapahtuma()).orElse(null));
         tapahtumanLipputyyppi.setHinta(tapahtumanLipputyyppiDto.getHinta());
         tapahtumanLipputyyppi.setLipputyyppi(lipputyyppiRepository.findById(tapahtumanLipputyyppiDto.getLipputyyppiId()).orElse(null));
-        long lipputyyppiLippuLukum = 0;
-        if (tapahtuma.getTapahtumanLipputyypit() != null) {
-            for (TapahtumanLipputyyppi lipputyyppi : tapahtuma.getTapahtumanLipputyypit()) {
-                if (lipputyyppi != null) {
-                    lipputyyppiLippuLukum += lipputyyppi.getLipputyyppiLippuLukum();
-                }
-            }
-        }
-
-        long myydytLiput = tapahtuma.getMyydytLiputLukum();
-        long liputSaatavilla = tapahtuma.getLippuLukum() - myydytLiput;
-    
-        if (lipputyyppiLippuLukum + tapahtumanLipputyyppiDto.getLipputyyppiLippuLukum() > liputSaatavilla) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tapahtuman lipputyypin luominen epäonnistui, koska varattujen tapahtuman lipputyyppien määrä ylittäisi koko tapahtuman lippujen määrän.");
-        }
-    
-        tapahtumanLipputyyppi.setLipputyyppiLippuLukum(tapahtumanLipputyyppiDto.getLipputyyppiLippuLukum());
         return tapahtumanLipputyyppi;
     }
+
     // muunnetaan entity-versio DTO-versioksi
     public TapahtumanlipputyyppiDTO EntityToDTO(TapahtumanLipputyyppi tapahtumanLipputyyppi) {
         TapahtumanlipputyyppiDTO tapahtumanlipputyyppiDTO = new TapahtumanlipputyyppiDTO();
@@ -180,22 +163,8 @@ public class RestTapahtumanLipputyyppiController {
         tapahtumanlipputyyppiDTO.setHinta(tapahtumanLipputyyppi.getHinta());
         tapahtumanlipputyyppiDTO.setLipputyyppiId(tapahtumanLipputyyppi.getLipputyyppi().getLipputyyppiId());
         tapahtumanlipputyyppiDTO.setLipputyyppi(tapahtumanLipputyyppi.getLipputyyppi().getTyyppi());
-    
-        Tapahtuma tapahtuma = tapahtumaRepository.findById(tapahtumanLipputyyppi.getTapahtuma().getTapahtumaId()).orElse(null);
-        if (tapahtuma != null) {
-            tapahtumanlipputyyppiDTO.setLippuLukum(tapahtuma.getLippuLukum());
-        }
-    
-        List<TapahtumanLipputyyppi> tapahtumanLipputyypit = tapahtumanLipputyyppiRepository.findByTapahtuma(tapahtuma);
-        long lipputyyppiLippuLukum = 0;
-        if (tapahtuma.getTapahtumanLipputyypit() != null) {
-            for (TapahtumanLipputyyppi lipputyyppi : tapahtumanLipputyypit) {
-                lipputyyppiLippuLukum += lipputyyppi.getLipputyyppiLippuLukum();
-            }
-        }
-        tapahtumanlipputyyppiDTO.setLipputyyppiLippuLukum(lipputyyppiLippuLukum);
-    
         return tapahtumanlipputyyppiDTO;
+
     }
 
 }

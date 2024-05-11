@@ -29,7 +29,6 @@ import ohjelmistoprojekti1.a3004.domain.Myyntitapahtuma;
 import ohjelmistoprojekti1.a3004.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
-import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppi;
 import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @RestController
@@ -125,14 +124,6 @@ public class RestMyyntitapahtumaController {
                         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                                 "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.");
                     }
-
-                    // haetaan tapahtuman lipputyyppi
-                    TapahtumanLipputyyppi tapahtumanLipputyyppi = tapahtumanLipputyyppiRepository
-                    .findById(ostettuLippuDTO.getTapahtumanLipputyyppi()).orElse(null);
-
-                    tapahtumanLipputyyppi.setLipputyyppiLippuLukum(tapahtumanLipputyyppi.getLipputyyppiLippuLukum() - 1);
-
-                    tapahtumanLipputyyppiRepository.save(tapahtumanLipputyyppi);
 
                     tapahtuma.setMyydytLiputLukum(tapahtuma.getMyydytLiputLukum() + 1);
                     Lippu lippu = new Lippu();

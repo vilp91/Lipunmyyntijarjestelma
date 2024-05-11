@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface TapahtumanLipputyyppiRepository extends CrudRepository<TapahtumanLipputyyppi, Long> {
 
     List<TapahtumanLipputyyppi> findByTapahtuma(Tapahtuma tapahtuma);
-    long findByLipputyyppiLippuLukum(long lipputyyppiLippuLukum);
     Boolean existsByLipputyyppi(Lipputyyppi lipputyyppi);
 
     List<TapahtumanLipputyyppi> findByPoistettuFalse();
