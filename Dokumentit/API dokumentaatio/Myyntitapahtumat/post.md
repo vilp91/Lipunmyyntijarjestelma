@@ -29,32 +29,26 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 {
-  "id": 4,
-  "summa": 30.0,
-  "aika": "2024-05-01T22:15:48.9194723",
-  "liput": [
-      {
-          "id": 6,
-          "lippunumero": "9280cb32-eaac-49da-9b18-587856d67524",
-          "tyyppi": "perus",
-          "tapahtuma": "Sukankudontakilpailu",
-          "hinta": 15.0
-      },
-      {
-          "id": 7,
-          "lippunumero": "cd7fe95e-6b42-4a8e-8f71-44aa37f07034",
-          "tyyppi": "perus",
-          "tapahtuma": "Sukankudontakilpailu",
-          "hinta": 15.0
-      }
-  ],
-  "kayttaja": {
-      "kayttajaId": 2,
-      "etunimi": "Heikki",
-      "sukunimi": "Hallinnoija",
-      "puhnro": null,
-      "katuosoite": null
-  }
+    "id": 4,
+    "summa": 30.0,
+    "aika": "2024-05-11T22:57:30.5813965",
+    "kayttajaId": 2,
+    "liput": [
+        {
+            "id": 9,
+            "lippunumero": "27b39120-fe75-4bf3-9531-6c02bc672035",
+            "tyyppi": "perus",
+            "tapahtuma": "Sukankudontakilpailu",
+            "hinta": 15.0
+        },
+        {
+            "id": 10,
+            "lippunumero": "fe5bb795-f802-4bb6-8910-6e479acd35db",
+            "tyyppi": "perus",
+            "tapahtuma": "Sukankudontakilpailu",
+            "hinta": 15.0
+        }
+    ]
 }
 ```
 
