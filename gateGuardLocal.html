@@ -58,11 +58,6 @@
         };
 
         const handleCheck = () => {
-          if (!ticketnumber) {
-            setErrorMessage("Lippunumero puuttuu");
-            return;
-          }
-
           fetch(baseURL + pathCheck + ticketnumber, {
             headers: {
               Authorization: user.authenticate,
@@ -70,8 +65,7 @@
           })
             .then((response) => {
               if (response.status != 200) {
-                setErrorMessage("Virheellinen lippunumero");
-                return;
+                setError({ error: true, msg: response.status });
               }
               return response;
             })
@@ -153,7 +147,6 @@
                   setError(null);
                 }}
               />
-              {errorMessage && <div>{errorMessage}</div>}
               <p>
                 <button onClick={handleCheck}>Check</button>
               </p>
