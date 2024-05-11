@@ -56,6 +56,17 @@ _- Lyhyt kuvaus käyttäjäryhmistä (rooleista)_
 _Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
 tietoa ja keskittyä siihen._
 
+- Tapahtumien hallinnoijana haluan pystyä määrittelemään eri käyttäjäryhmille eri hintaisia lippuja, jotta voimme kohdentaa markkinointia
+- Järjestelmän tilaajana haluan pystyä luomaan myymättä jääneet liput, jotta ne voidaan myydä tapahtumapaikan ovella
+- Markkinointijohtajana haluan pystyä tulostamaan myyntiraportteja, jotta voin käyttää tätä dataa tulevien tapahtumien suunnitteluun
+- Järjestelmän tilaajana haluan pystyä luomaan ja muokkaamaan tapahtumia
+- Järjestelmän tilaajana haluan pystyä myymään lippuja järjestämiini tapahtumiin
+- Järjestelmän tilaajana haluan voida perustaa uusia käyttäjiä, jotta uudet työntekijät pääsevät käyttämään järjestelmää
+- Järjestelmän tilaajana haluan voida muokata käyttäjän tietoja, jotta työntekijöiden tiedot pysyvät ajantasalla
+- Järjestelmän tilaajana haluan voida poistaa käyttäjiä, jotta tietoturva säilyy työsuhteiden päätyttyä
+
+
+
 ## _Käyttöliittymä_
 
 ![Käyttöliittymäkaavio](/Dokumentit/Kaaviot/käyttöliittymäkaavio.png "käyttöliittymäkaavio")
