@@ -46,30 +46,40 @@ public class RestKayttajaController {
         }
 
         // tarkistetaan puuttuuko roolista tietoja
-        if (kayttaja.getRooli() == null || kayttaja.getRooli().getRooli() == null || kayttaja.getRooli().getRooliId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rooli puuttuu tai RooliId tai roolin nimi on väärin");
+        if (kayttaja.getRooli() == null || kayttaja.getRooli().getRooliId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "RooliId puuttuu");
         }
 
         // tarkistetaan löytyykö annetulla rooliId:llä roolia
         Rooli existingRooli = rooliRepository.findByRooliIdAndPoistettuFalse(kayttaja.getRooli().getRooliId());
         if (existingRooli == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Rooli with ID " + kayttaja.getRooli().getRooliId() + " not found.");
-        }
-
-        // tarkistetaan vastaako rooliId roolin nimeä
-        String RooliName = kayttaja.getRooli().getRooli();
-        if (!existingRooli.getRooli().equals(RooliName)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Roolin nimi ei vastaa roolin id:tä. Haluttu roolin nimi: " + existingRooli.getRooli());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Roolia id:llä " + kayttaja.getRooli().getRooliId() + " ei löydy.");
         }
 
         try {
+            // haetaan annetun rooliId:n perusteella koko Rooli ja asetetaan se käyttäjälle ennen tallentamista tietokantaan.
+            Long rooliId = kayttaja.getRooli().getRooliId();
+            Rooli rooli = rooliRepository.findById(rooliId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Roolia id:llä " + kayttaja.getRooli().getRooliId() + " ei löydy."));
+            kayttaja.setRooli(rooli);
             Kayttaja savedKayttaja = kayttajaRepository.save(kayttaja);
+
+            // luodaan erillinen käyttäjä ilman käyttäjänimeä ja salasanaa response bodyyn
+            Kayttaja responseKayttaja = new Kayttaja();
+            responseKayttaja.setKayttajaId(savedKayttaja.getKayttajaId());
+            responseKayttaja.setEtunimi(savedKayttaja.getEtunimi());
+            responseKayttaja.setSukunimi(savedKayttaja.getSukunimi());
+            responseKayttaja.setPuhnro(savedKayttaja.getPuhnro());
+            responseKayttaja.setKatuosoite(savedKayttaja.getKatuosoite());
+            responseKayttaja.setRooli(savedKayttaja.getRooli());
+            responseKayttaja.setKayttajanimi(savedKayttaja.getKayttajanimi());
+
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(savedKayttaja.getKayttajaId())
                     .toUri();
-            return ResponseEntity.created(location).body(savedKayttaja);
+            return ResponseEntity.created(location).body(responseKayttaja);
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Käyttäjä käyttäjänimellä " + kayttaja.getKayttajanimi() + " on jo olemassa.");
         } catch (ConstraintViolationException e) {

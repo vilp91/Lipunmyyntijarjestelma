@@ -30,7 +30,6 @@ public class Kayttaja {
 
     @ManyToOne
     @JoinColumn(name = "rooliId")
-    @JsonIgnore
     private Rooli rooli;
 
     @OneToMany(mappedBy = "kayttaja")
@@ -47,11 +46,9 @@ public class Kayttaja {
 
     private String katuosoite;
 
-    @JsonIgnore
     @NotBlank
     private String salasana;
 
-    @JsonIgnore
     @Column(unique = true)
     @NotBlank
     private String kayttajanimi;
@@ -81,8 +78,8 @@ public class Kayttaja {
         return this.kayttajaId;
     }
 
-    public void setKayttaja_id(Long kayttaja_id) {
-        this.kayttajaId = kayttaja_id;
+    public void setKayttajaId(Long kayttajaId) {
+        this.kayttajaId = kayttajaId;
     }
 
     public Rooli getRooli() {
