@@ -1,12 +1,12 @@
-# Luo kaikki yksittäisen tapahtuman liput
+# Luo kaikki yksittäisen tapahtuman loput liput
 
 Luo tapahtumalle kaikki myymättömät liput, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/liput/{id}`
+__URL__: `/tapahtumat/{id}/liput`
 
 __Vapaaehtoiset parametrit__: "lipputyyppiId" - määritetään tulostettavien lippujen lipputyyppi. Jos arvoa ei anneta, luodaan liput oletusarvoisesti lipputyypin nimellä "perus".
 
-esim. `/liput/1/lipputyyppiId=2`
+esim. `/tapahtumat/1/liput?lipputyyppiId=2`
 
 __Metodi__: `POST`
 
