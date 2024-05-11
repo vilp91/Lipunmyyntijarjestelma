@@ -12,6 +12,8 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Hae kaikki yksittäisen tapahtuman liput](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-liput).md): `GET /tapahtumat/{id}/liput`
 
+[Luo kaikki yksittäisen tapahtuman loput liput](/Dokumentit/API%20dokumentaatio/Tapahtumat/post(id).md): `POST /tapahtumat/{id}/liput`
+
 [Hae kaikki yksittäisen tapahtuman tapahtumanlipputyypit](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-tapahtumanlipputyypit).md): `GET /tapahtumat/{id}/tapahtumanlipputyypit`
 
 [Hae kaikki yksittäisen tapahtuman myyntitapahtumat](/Dokumentit/API%20dokumentaatio/Tapahtumat/get(tapahtumat-myyntitapahtumat).md): `GET /tapahtumat/{id}/myyntitapahtumat`
@@ -72,6 +74,9 @@ Tämän hakemiston dokumentaatio kuvaa ja selittää järjestelmässä saatavill
 
 [Tallenna käyttäjä](/Dokumentit/API%20dokumentaatio/Kayttajat/post.md): `POST /kayttajat`
 
+[Muokkaa käyttäjää](/Dokumentit/API%20dokumentaatio/Kayttajat/put.md): `PUT /kayttajat`
+
+[Poista käyttäjä](/Dokumentit/API%20dokumentaatio/Kayttajat/delete.md): `DELETE /kayttajat`
 
 ## Roolit
 

@@ -8,5 +8,4 @@ public interface KayttajaRepository extends CrudRepository<Kayttaja, Long>{
 
     Kayttaja findByKayttajanimi(String kayttajanimi);
     List<Kayttaja> findByPoistettuFalse();
-
 }

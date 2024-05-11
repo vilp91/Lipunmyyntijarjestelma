@@ -32,7 +32,7 @@ public class Myyntitapahtuma {
     @JsonIgnore                                              
     private List<Lippu> liput;
 
-    // @JsonIgnore
+    @JsonIgnore
     private boolean poistettu;
 
     public Myyntitapahtuma() {

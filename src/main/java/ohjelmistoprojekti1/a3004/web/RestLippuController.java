@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,6 +21,7 @@ import ohjelmistoprojekti1.a3004.domain.Lippu;
 import ohjelmistoprojekti1.a3004.domain.LippuRepository;
 import ohjelmistoprojekti1.a3004.domain.Tapahtuma;
 import ohjelmistoprojekti1.a3004.domain.TapahtumaRepository;
+import ohjelmistoprojekti1.a3004.domain.TapahtumanLipputyyppiRepository;
 
 @RestController
 public class RestLippuController {
@@ -32,28 +32,31 @@ public class RestLippuController {
     @Autowired
     TapahtumaRepository tapahtumaRepository;
 
+    @Autowired
+    TapahtumanLipputyyppiRepository tapahtumanLipputyyppiRepository;
+
     // @CrossOrigin
     @PreAuthorize("hasAuthority('ROLE_MYYJA') || hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_LIPUNTARKASTAJA')")
     @GetMapping("/liput")
     public Iterable<Lippu> haeLiput(
-        @RequestParam(value = "lippunumero", required = false) Optional<String> lippunumero) {
-            // tarkistetaan onko pyynnön mukana annettu parametria
-            if (lippunumero.isPresent()) {
-                // tarkistetaan onko annettu parametri tyhjä
-                if (lippunumero.get() == "") {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnössä ei ole lippunumeroa");
+            @RequestParam(value = "lippunumero", required = false) Optional<String> lippunumero) {
+        // tarkistetaan onko pyynnön mukana annettu parametria
+        if (lippunumero.isPresent()) {
+            // tarkistetaan onko annettu parametri tyhjä
+            if (lippunumero.get() == "") {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnössä ei ole lippunumeroa");
+            } else {
+                UUID lippunumeroUuid = UUID.fromString(lippunumero.get());
+                // tarkistetaan löytyykö annetulla parametrilla lippua
+                if (lippuRepository.existsByLippunumeroAndPoistettuFalse(lippunumeroUuid)) {
+                    return lippuRepository.findByLippunumero(lippunumeroUuid);
                 } else {
-                    UUID lippunumeroUuid = UUID.fromString(lippunumero.get());
-                    // tarkistetaan löytyykö annetulla parametrilla lippua
-                    if (lippuRepository.existsByLippunumeroAndPoistettuFalse(lippunumeroUuid)) {
-                        return lippuRepository.findByLippunumero(lippunumeroUuid);
-                    } else {
-                        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-                    }
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lippua ei löytynyt annetulla lippunumerolla");
                 }
             }
-            // palautetaan kaikki liput, jos parametria ei ole annettu
-            return lippuRepository.findByPoistettuFalse();
+        }
+        // palautetaan kaikki liput, jos parametria ei ole annettu
+        return lippuRepository.findByPoistettuFalse();
     }
 
     // @CrossOrigin

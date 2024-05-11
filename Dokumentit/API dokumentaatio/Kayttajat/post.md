@@ -10,13 +10,29 @@ __Autentikointi vaaditaan__: Kyllä
 
 __Vaadittavat oikeudet__: Admin
 
-Anna luotavan tapahtuman tiedot
+Anna luotavan käyttäjän tiedot
 
 ```json
     {
         "rooli": {
             "rooliId": "[int]",
             "rooli": "[String]"
+        },
+        "etunimi": "[String]",
+        "sukunimi": "[String]",
+        "puhnro": "[String]",
+        "katuosoite": "[String]",
+        "salasana": "[String]",
+        "kayttajanimi": "[String]"
+    }
+```
+
+TAI
+
+```json
+    {
+        "rooli": {
+            "rooliId": "[int]",
         },
         "etunimi": "[String]",
         "sukunimi": "[String]",
@@ -46,7 +62,7 @@ Anna luotavan tapahtuman tiedot
     "sukunimi": "Lipuntarkastaja",
     "puhnro": "0700123123",
     "katuosoite": null,
-    "salasana": "$2a$10$keqZ2OHrxWwXUpZb9PUi/e1YoJFS45CzVvDYKz7ccolx091G84rqa",
+    "salasana": null,
     "kayttajanimi": "lauri"
 }
 ```
@@ -72,7 +88,7 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-    "message": "Rooli puuttuu tai RooliId tai roolin nimi on väärin",
+    "message": "RooliId puuttuu",
 }
 ```
 ---
@@ -129,7 +145,7 @@ TAI
 
 TAI
 
-**Ehto**: Roolin nimi ei vastaa rooliId:tä.
+**Ehto**: Annetulla rooliId:llä ei ole olemassa roolia.
 
 **Vastauskoodi**: `400 BAD REQUEST`
 
@@ -138,8 +154,7 @@ TAI
 ```json
     {
         "rooli": {
-            "rooliId": 3,
-            "rooli": "LIPUNTARKASTAJA"
+            "rooliId": 7
         },
         "etunimi": "Lauri",
         "sukunimi": "Lipunmyyjä",
@@ -152,7 +167,7 @@ TAI
 
 ```json
 {
-    "message": "Roolin nimi ei vastaa roolin id:tä. Haluttu roolin nimi: ROLE_LIPUNTARKASTAJA",
+    "message": "Roolia id:llä 7 ei löydy.",
 }
 ```
 
