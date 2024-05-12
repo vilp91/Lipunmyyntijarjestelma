@@ -183,7 +183,7 @@ public class RestMyyntitapahtumaController {
         // asettaa listan myyntitapahtuman DTO-versioon
         myyntitapahtumaDTO.setLiput(lippuDTOLista);
         myyntitapahtumaDTO.setSumma(summa);
-        myyntitapahtumaDTO.setKayttaja(myyntitapahtuma.getKayttaja());
+        myyntitapahtumaDTO.setKayttajaId(myyntitapahtuma.getKayttaja().getKayttajaId());
         return myyntitapahtumaDTO;
     }
 }
