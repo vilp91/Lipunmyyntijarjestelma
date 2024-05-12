@@ -25,58 +25,61 @@ Haetaan myyntitapahtumia.
     {
         "id": 1,
         "summa": 30.0,
-        "aika": "2024-05-01T22:23:07.891687",
+        "aika": "2024-05-11T23:03:52.351743",
+        "kayttajaId": 1,
         "liput": [
             {
                 "id": 1,
-                "lippunumero": "21a02373-beb2-48f1-be96-582d85651cdb",
+                "lippunumero": "f50c2ad9-d144-4b73-936e-b663140322a2",
                 "tyyppi": "perus",
                 "tapahtuma": "Sukankudontakilpailu",
                 "hinta": 15.0
             },
             {
                 "id": 2,
-                "lippunumero": "39a98e69-a22d-4dad-91dc-94c3bf676918",
+                "lippunumero": "1edc2786-2d24-4d39-8b35-c747a9b3952e",
                 "tyyppi": "perus",
                 "tapahtuma": "Sukankudontakilpailu",
                 "hinta": 15.0
             }
-        ],
-        "kayttaja": {
-            "kayttajaId": 1,
-            "etunimi": "Teppo",
-            "sukunimi": "Testaaja",
-            "puhnro": null,
-            "katuosoite": null
-        }
+        ]
+    },
+    {
+        "id": 2,
+        "summa": 15.0,
+        "aika": "2024-05-11T23:03:52.352743",
+        "kayttajaId": 1,
+        "liput": [
+            {
+                "id": 3,
+                "lippunumero": "286e91bc-e869-4aa4-bc79-d7fac754ceee",
+                "tyyppi": "lapsi",
+                "tapahtuma": "Sukankudontakilpailu",
+                "hinta": 15.0
+            }
+        ]
     },
     {
         "id": 3,
         "summa": 30.0,
-        "aika": "2024-05-01T22:23:23.175636",
+        "aika": "2024-05-11T23:04:11.256708",
+        "kayttajaId": 2,
         "liput": [
             {
                 "id": 4,
-                "lippunumero": "05ac48e6-2489-468f-8297-86c699da6f7a",
+                "lippunumero": "1f6e7d9d-5bd1-4473-ae0c-8aaaf92497ed",
                 "tyyppi": "perus",
                 "tapahtuma": "Sukankudontakilpailu",
                 "hinta": 15.0
             },
             {
                 "id": 5,
-                "lippunumero": "208c5061-cb4c-41ca-9bca-3a3b472a34c5",
+                "lippunumero": "01e9eca7-07ea-4ef9-8f23-d9ac8efe3584",
                 "tyyppi": "perus",
                 "tapahtuma": "Sukankudontakilpailu",
                 "hinta": 15.0
             }
-        ],
-        "kayttaja": {
-            "kayttajaId": 2,
-            "etunimi": "Heikki",
-            "sukunimi": "Hallinnoija",
-            "puhnro": null,
-            "katuosoite": null
-        }
+        ]
     }
 ]
 ```

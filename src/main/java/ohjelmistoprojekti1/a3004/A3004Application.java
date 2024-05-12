@@ -153,7 +153,7 @@ public class A3004Application {
 			myyntitapahtumaRepository.save(myyntitapahtuma1);
 
 			Myyntitapahtuma myyntitapahtuma2 = new Myyntitapahtuma();
-			myyntitapahtuma1.setKayttaja(kayttaja1);
+			myyntitapahtuma2.setKayttaja(kayttaja1);
 			myyntitapahtumaRepository.save(myyntitapahtuma2);
 
 			Lippu lippu1 = new Lippu();
