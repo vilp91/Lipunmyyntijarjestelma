@@ -1,364 +1,364 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>Myy lippuja</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <style>
-      table {
-        border-collapse: collapse;
-        font-size: large;
-      }
+        table {
+            border-collapse: collapse;
+            font-size: large;
+        }
 
-      .transaction tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
+        .transaction tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-      th {
-        border-bottom: 1px solid darkgray;
-        padding: 7px;
-        background-color: rgba(202, 209, 209, 0.736);
-      }
+        th {
+            border-bottom: 1px solid darkgray;
+            padding: 7px;
+            background-color: rgba(202, 209, 209, 0.736);
+        }
 
-      td {
-        padding: 4px;
-        white-space: nowrap;
-      }
+        td {
+            padding: 4px;
+            white-space: nowrap;
+        }
 
-      button {
-        font-size: medium;
-      }
+        button {
+            font-size: medium;
+        }
 
-      select {
-        font-size: medium;
-      }
+        select {
+            font-size: medium;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="root"></div>
 
-    <script
-      src="https://unpkg.com/react@18/umd/react.development.js"
-      crossorigin
-    ></script>
-    <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>  -->
-    <script
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-      crossorigin
-    ></script>
-    <!-- <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script> -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
     <script type="text/babel">
-      const TicketHub = () => {
-        const { useState, useEffect } = React;
+        const TicketHub = () => {
+            const { useState, useEffect } = React;
 
-        const [login, setLogin] = useState(false);
-        const [user, setUser] = useState({
-          userName: "",
-          password: "",
-          authenticate: "",
-        });
-
-        const [error, setError] = useState({
-          error: false,
-          msg: "",
-        });
-        const [success, setSuccess] = useState({
-          success: false,
-          msg: "",
-        });
-
-        const [events, setEvents] = useState([]);
-        const [tickets, setTickets] = useState([]);
-        const [selectValues, setSelectValues] = useState([]);
-        const [transaction, setTransaction] = useState({});
-        let errorHelp;
-
-        let baseURL =
-          "https://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi"; // KoodiKolibri tuotanto
-        // let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
-        let pathGetEvents = "/tapahtumat?alkaen=";
-        let pathSaveTickets = "/myyntitapahtumat";
-        let now = new Date().toISOString().slice(0, 19);
-
-        const handleLogin = () => {
-          const cred = btoa(`${user.userName}:${user.password}`);
-          const auth = "Basic " + cred;
-          setUser({ ...user, authenticate: auth });
-          setLogin(true);
-        };
-
-        const getEvents = () => {
-          fetch(baseURL + pathGetEvents + now, {
-            headers: {
-              Authorization: user.authenticate,
-            },
-          })
-            .then((response) => {
-              if (response.status != 200) {
-                setError({ error: true, msg: response.status });
-              } else {
-                setError({});
-              }
-              return response;
-            })
-            .then((response) => response.json())
-            .then((data) => setEvents(data))
-            .catch((error) => console.error("Virhe - " + error));
-        };
-
-        useEffect(() => {
-          getEvents();
-        }, [login, success]);
-
-        const handleSelect = (event) => {
-          // valitun lipun tiedot otetaan talteen
-          const newTicket = {
-            tapahtumanLipputyyppi: event.target.id,
-            maara: event.target.value,
-          };
-
-          if (tickets.length !== 0) {
-            // jos uuden lipun määrä on nolla, poistetaan tickets-statesta aiemmin lisätty lippu
-            if (newTicket.maara == 0) {
-              const updatedTickets = tickets.filter(
-                (t) =>
-                  t.tapahtumanLipputyyppi !== newTicket.tapahtumanLipputyyppi
-              );
-              setTickets(updatedTickets);
-            }
-            // tarkistetaan, onko tickets-statessa jo kyseistä lippua
-            else if (
-              tickets.some(
-                (t) =>
-                  t.tapahtumanLipputyyppi === newTicket.tapahtumanLipputyyppi
-              )
-            ) {
-              // jos on, poistetaan aiemmat liput ja lisätään uusi lippu
-              const updatedTickets = tickets.filter(
-                (t) =>
-                  t.tapahtumanLipputyyppi !== newTicket.tapahtumanLipputyyppi
-              );
-              setTickets([...updatedTickets, newTicket]);
-            } else {
-              setTickets([...tickets, newTicket]);
-            }
-          } else {
-            setTickets([...tickets, newTicket]);
-          }
-          setSelectValues({
-            ...selectValues,
-            [event.target.id]: event.target.value,
-          });
-        };
-
-        const handleSave = () => {
-          fetch(baseURL + pathSaveTickets, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: user.authenticate,
-            },
-            body: JSON.stringify(Object.values(tickets)),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                errorHelp = true;
-              }
-              return response.json();
-            })
-            .then((data) => {
-              if (errorHelp) {
-                setError({ error: true, msg: data.message });
-                return;
-              }
-              handleReset();
-              setSuccess({
-                success: true,
-                msg: `Myyntitapahtuma no. ${data.id} on tallennettu.`,
-              });
-              setTransaction(data);
-            })
-            .catch((error) => {
-              console.error(error);
+            const [login, setLogin] = useState(false);
+            const [user, setUser] = useState({
+                userName: "",
+                password: "",
+                authenticate: "",
             });
-        };
 
-        const handleReset = () => {
-          setSelectValues({});
-          setError({ error: false, msg: "" });
-          setTickets([]);
-          setSuccess({});
-        };
+            const [error, setError] = useState({
+                error: false,
+                msg: "",
+            });
+            const [success, setSuccess] = useState({
+                success: false,
+                msg: "",
+            });
 
-        const handleReturn = () => {
-          setSuccess({});
-          setTransaction({});
-        };
+            const [events, setEvents] = useState([]);
+            const [tickets, setTickets] = useState([]);
+            const [selectValues, setSelectValues] = useState([]);
+            const [transaction, setTransaction] = useState({});
+            let errorHelp;
 
-        const handleKeyDown = (event) => {
-          if (event.keyCode === 13) {
-            handleLogin();
-          }
-        };
+            let baseURL ="https://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi"; // KoodiKolibri tuotanto
+            // let baseURL = 'http://localhost:8080';     // KoodiKolibri kehitysympäristö
+            let pathGetEvents = "/tapahtumat?alkaen=";
+            let pathSaveTickets = "/myyntitapahtumat";
+            let now = new Date().toISOString().slice(0, 19);
 
-        const dateFormat = (dateStr) => {
-          const date = new Date(dateStr);
-          const day = date.getDate();
-          const month = date.getMonth() + 1;
-          const year = date.getFullYear();
-          const hour = date.getHours();
-          const min = date.getMinutes().toString().padEnd(2, "0");
-          return `${day}.${month}.${year} klo ${hour}:${min}`;
-        };
+            const handleLogin = () => {
+                const cred = btoa(`${user.userName}:${user.password}`);
+                const auth = "Basic " + cred;
+                setUser({ ...user, authenticate: auth });
+                getEvents(auth);
+            };
 
-        if (!login) {
-          return (
-            <div>
-              Username <br />
-              <input
-                type="text"
-                onChange={(event) =>
-                  setUser({ ...user, userName: event.target.value })
+            const getEvents = (auth) => {
+                fetch(baseURL + pathGetEvents + now, {
+                    headers: {
+                        Authorization: auth,
+                    },
+                })
+                    .then((response) => {
+                        if (response.status != 200) {
+                            setError({ error: true, msg: response.status });
+                            if (!login) {
+                                console.log("Täällä")
+                                setUser({ userName: "", password: "", authenticate: "" });
+                            }
+                        } else {
+                            setError({});
+                            setLogin(true);
+                        }
+                        return response;
+                    })
+                    .then((response) => response.json())
+                    .then((data) => setEvents(data))
+                    .catch((error) => console.error("Virhe - " + error));
+            };
+
+            const handleSelect = (event) => {
+                // valitun lipun tiedot otetaan talteen
+                const newTicket = {
+                    tapahtumanLipputyyppi: event.target.id,
+                    maara: event.target.value,
+                };
+
+                if (tickets.length !== 0) {
+                    // jos uuden lipun määrä on nolla, poistetaan tickets-statesta aiemmin lisätty lippu
+                    if (newTicket.maara == 0) {
+                        const updatedTickets = tickets.filter(
+                            (t) =>
+                                t.tapahtumanLipputyyppi !== newTicket.tapahtumanLipputyyppi
+                        );
+                        setTickets(updatedTickets);
+                    }
+                    // tarkistetaan, onko tickets-statessa jo kyseistä lippua
+                    else if (
+                        tickets.some(
+                            (t) =>
+                                t.tapahtumanLipputyyppi === newTicket.tapahtumanLipputyyppi
+                        )
+                    ) {
+                        // jos on, poistetaan aiemmat liput ja lisätään uusi lippu
+                        const updatedTickets = tickets.filter(
+                            (t) =>
+                                t.tapahtumanLipputyyppi !== newTicket.tapahtumanLipputyyppi
+                        );
+                        setTickets([...updatedTickets, newTicket]);
+                    } else {
+                        setTickets([...tickets, newTicket]);
+                    }
+                } else {
+                    setTickets([...tickets, newTicket]);
                 }
-              />
-              <br />
-              Password
-              <br />
-              <input
-                type="password"
-                onChange={(event) =>
-                  setUser({ ...user, password: event.target.value })
+                setSelectValues({
+                    ...selectValues,
+                    [event.target.id]: event.target.value,
+                });
+            };
+
+            const handleSave = () => {
+                fetch(baseURL + pathSaveTickets, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: user.authenticate,
+                    },
+                    body: JSON.stringify(Object.values(tickets)),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            errorHelp = true;
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        if (errorHelp) {
+                            setError({ error: true, msg: data.message });
+                            return;
+                        }
+                        handleReset();
+                        setSuccess({
+                            success: true,
+                            msg: `Myyntitapahtuma no. ${data.id} on tallennettu.`,
+                        });
+                        setTransaction(data);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            };
+
+            const handleReset = () => {
+                setSelectValues({});
+                setError({ error: false, msg: "" });
+                setTickets([]);
+                setSuccess({});
+            };
+
+            const handleReturn = () => {
+                getEvents(user.authenticate);
+                setSuccess({});
+                setTransaction({});
+            };
+
+            const handleKeyDown = (event) => {
+                if (event.keyCode === 13) {
+                    handleLogin();
                 }
-                onKeyDown={handleKeyDown}
-              />
-              <p>
-                <button onClick={handleLogin}>Kirjaudu</button>
-              </p>
-            </div>
-          );
-        } else if (login && success.success) {
-          return (
-            <div>
-              <div>
-                <h2>Myyntitapahtuma {transaction.id}</h2>
-                <p>
-                  Maksettu {dateFormat(transaction.aika)}
-                  <br />
-                  Summa {transaction.summa.toFixed(2)} €
-                </p>
-              </div>
-              <div>
-                <table class="transaction" style={{ width: "690px" }}>
-                  <thead>
-                    <tr>
-                      <th>Tapahtuma</th>
-                      <th>Lippu</th>
-                      <th>Hinta</th>
-                      <th>Koodi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {transaction.liput.map((item, index) => (
-                      <tr>
-                        <td>{item.tapahtuma}</td>
-                        <td>{item.tyyppi}</td>
-                        <td>{item.hinta.toFixed(2)} €</td>
-                        <td
-                          style={{ fontsize: 7, whiteSpace: "nowrap" }}
-                          align="right"
-                        >
-                          {item.lippunumero}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p>
-                  <button onClick={handleReturn}>Return</button>
-                </p>
-              </div>
-            </div>
-          );
-        } else if (login) {
-          return (
-            <div>
-              <h1>Myy lippuja</h1>
-              {error && error.error && <p>Virhe - {error.msg}</p>}
-              {success && success.success && <p>{success.msg}</p>}
-              <table width={{ width: "450px" }}>
-                <thead>
-                  <tr>
-                    <th colSpan="2">Aika</th>
-                    <th>Tapahtuma</th>
-                    <th>Lippuja</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {events.map(
-                    (event, index) =>
-                      event.tapahtuman_lipputyypit.length > 0 && (
-                        <React.Fragment key={event.tapahtuma_id}>
-                          <tr>
-                            <th colSpan="2" align="left">
-                              {dateFormat(event.alku)}
-                            </th>
-                            <th align="left">{event.tapahtuman_nimi}</th>
-                            <th>
-                              {event.lippu_lukum - event.myydyt_liput_lukum}
-                            </th>
-                          </tr>
-                          {event.tapahtuman_lipputyypit.map(
-                            (tapahtuman_lipputyyppi) => (
-                              <React.Fragment>
+            };
+
+            const dateFormat = (dateStr) => {
+                const date = new Date(dateStr);
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const hour = date.getHours();
+                const min = date.getMinutes().toString().padEnd(2, "0");
+                return `${day}.${month}.${year} klo ${hour}:${min}`;
+            };
+
+            if (!login) {
+                return (
+                    <div>
+                        {error.error &&
+                            <p>Tunnistautuminen ei onnistunut</p>
+                        }
+                        Käyttäjänimi <br />
+                        <input
+                            type="text"
+                            value={user.userName}
+                            onChange={(event) =>
+                                setUser({ ...user, userName: event.target.value })
+                            }
+                        />
+                        <br />
+                        Salasana
+                        <br />
+                        <input
+                            type="password"
+                            value={user.password}
+                            onChange={(event) =>
+                                setUser({ ...user, password: event.target.value })
+                            }
+                            onKeyDown={handleKeyDown}
+                        />
+                        <p>
+                            <button onClick={handleLogin}>Kirjaudu</button>
+                        </p>
+                    </div>
+                );
+            } else if (login && success.success) {
+                return (
+                    <div>
+                        <div>
+                            <h2>Myyntitapahtuma {transaction.id}</h2>
+                            <p>
+                                Maksettu {dateFormat(transaction.aika)}
+                                <br />
+                                Summa {transaction.summa.toFixed(2)} €
+                            </p>
+                        </div>
+                        <div>
+                            <table class="transaction" style={{ width: "690px" }}>
+                                <thead>
+                                    <tr>
+                                        <th>Tapahtuma</th>
+                                        <th>Lippu</th>
+                                        <th>Hinta</th>
+                                        <th>Koodi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {transaction.liput.map((item, index) => (
+                                        <tr>
+                                            <td>{item.tapahtuma}</td>
+                                            <td>{item.tyyppi}</td>
+                                            <td>{item.hinta.toFixed(2)} €</td>
+                                            <td
+                                                style={{ fontsize: 7, whiteSpace: "nowrap" }}
+                                                align="right"
+                                            >
+                                                {item.lippunumero}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <p>
+                                <button onClick={handleReturn}>Palaa</button>
+                            </p>
+                        </div>
+                    </div>
+                );
+            } else if (login) {
+                return (
+                    <div>
+                        <h1>Myy lippuja</h1>
+                        {error && error.error && <p>Virhe - {error.msg}</p>}
+                        {success && success.success && <p>{success.msg}</p>}
+                        <table width={{ width: "450px" }}>
+                            <thead>
                                 <tr>
-                                  <td>{tapahtuman_lipputyyppi.lipputyyppi}</td>
-                                  <td align="right">
-                                    {tapahtuman_lipputyyppi.hinta.toFixed(2)} €
-                                  </td>
-                                  <td align="center">
-                                    <select
-                                      id={tapahtuman_lipputyyppi.id}
-                                      onChange={(event) => handleSelect(event)}
-                                      value={
-                                        selectValues[tapahtuman_lipputyyppi.id]
-                                      }
-                                      key={Date.now()}
-                                      disabled={
-                                        event.lippu_lukum -
-                                          event.myydyt_liput_lukum <
-                                          1 || error.error
-                                      }
-                                    >
-                                      {Array.from("0123456789").map((item) => (
-                                        <option value={item}>{item}</option>
-                                      ))}
-                                    </select>
-                                  </td>
+                                    <th colSpan="2">Aika</th>
+                                    <th>Tapahtuma</th>
+                                    <th>Lippuja</th>
                                 </tr>
-                              </React.Fragment>
-                            )
-                          )}
-                        </React.Fragment>
-                      )
-                  )}
-                </tbody>
-              </table>
-              <p>
-                <button onClick={handleSave} disabled={error.error}>
-                  Save
-                </button>
-                <button onClick={handleReset}>Reset</button>
-              </p>
-            </div>
-          );
-        }
-      };
+                            </thead>
+                            <tbody>
+                                {events.map(
+                                    (event, index) =>
+                                        event.tapahtuman_lipputyypit.length > 0 && (
+                                            <React.Fragment key={event.tapahtuma_id}>
+                                                <tr>
+                                                    <th colSpan="2" align="left">
+                                                        {dateFormat(event.alku)}
+                                                    </th>
+                                                    <th align="left">{event.tapahtuman_nimi}</th>
+                                                    <th>
+                                                        {event.lippu_lukum - event.myydyt_liput_lukum}
+                                                    </th>
+                                                </tr>
+                                                {event.tapahtuman_lipputyypit.map(
+                                                    (tapahtuman_lipputyyppi) => (
+                                                        <React.Fragment>
+                                                            <tr>
+                                                                <td>{tapahtuman_lipputyyppi.lipputyyppi}</td>
+                                                                <td align="right">
+                                                                    {tapahtuman_lipputyyppi.hinta.toFixed(2)} €
+                                                                </td>
+                                                                <td align="center">
+                                                                    <select
+                                                                        id={tapahtuman_lipputyyppi.id}
+                                                                        onChange={(event) => handleSelect(event)}
+                                                                        value={
+                                                                            selectValues[tapahtuman_lipputyyppi.id]
+                                                                        }
+                                                                        key={Date.now()}
+                                                                        disabled={
+                                                                            event.lippu_lukum -
+                                                                            event.myydyt_liput_lukum <
+                                                                            1 || error.error
+                                                                        }
+                                                                    >
+                                                                        {Array.from("0123456789").map((item) => (
+                                                                            <option value={item}>{item}</option>
+                                                                        ))}
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </React.Fragment>
+                                                    )
+                                                )}
+                                            </React.Fragment>
+                                        )
+                                )}
+                            </tbody>
+                        </table>
+                        <p>
+                            <button onClick={handleSave} disabled={error.error}>
+                                Tallenna
+                            </button>
+                            <button onClick={handleReset}>Palaa</button>
+                        </p>
+                    </div>
+                );
+            }
+        };
 
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<TicketHub />);
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<TicketHub />);
     </script>
-  </body>
+</body>
+
 </html>
