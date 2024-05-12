@@ -1,6 +1,7 @@
 package ohjelmistoprojekti1.a3004.domain;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +27,7 @@ public class Myyntitapahtuma {
     @JoinColumn(name = "kayttajaId")
     private Kayttaja kayttaja;
 
-    private LocalDateTime aikaleima = LocalDateTime.now(); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
+    private LocalDateTime aikaleima = LocalDateTime.now(ZoneId.systemDefault()); // määritetään myyntitapahtumaan kuluvan päivän päiväys automaattisesti
 
     @OneToMany(mappedBy = "myyntitapahtuma")
     @JsonIgnore                                              
