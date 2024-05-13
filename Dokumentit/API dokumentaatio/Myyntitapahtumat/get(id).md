@@ -20,26 +20,26 @@ Haetaan myyntitapahtuma id:n perusteella.
 
 ```json
 {
-    "id": 1,
-    "summa": 30.0,
-    "aika": "2024-05-11T22:54:44.783189",
-    "kayttajaId": 1,
-    "liput": [
-        {
-            "id": 1,
-            "lippunumero": "99932afc-f2cc-4c5a-ab20-4829f7d888f6",
-            "tyyppi": "perus",
-            "tapahtuma": "Sukankudontakilpailu",
-            "hinta": 15.0
-        },
-        {
-            "id": 2,
-            "lippunumero": "db9790c3-f91c-4d15-b094-1976c6f9f23e",
-            "tyyppi": "perus",
-            "tapahtuma": "Sukankudontakilpailu",
-            "hinta": 15.0
-        }
-    ]
+  "id": 122,
+  "summa": 50.0,
+  "aika": "2024-05-13T08:34:45.8146",
+  "kayttajaId": 29,
+  "liput": [
+    {
+      "id": 271,
+      "lippunumero": "94fd961e-9f55-45c4-aee4-af6a06803b95",
+      "tyyppi": "perus",
+      "tapahtuma": "Karjumisen MM-kisat",
+      "hinta": 25.0
+    },
+    {
+      "id": 272,
+      "lippunumero": "441a7644-b6aa-4df8-808b-8e2d8dd16ccd",
+      "tyyppi": "perus",
+      "tapahtuma": "Karjumisen MM-kisat",
+      "hinta": 25.0
+    }
+  ]
 }
 ```
 
@@ -55,20 +55,22 @@ Tehdään GET pyyntö /myyntitapahtumat/10 endpointtiin. Saadaan seuraava vastau
 
 ```json
 {
-...
-    "message": "Myyntitapahtumaa syötetyllä id:llä '10'', ei löydy",
-...
+  "timestamp": "2024-05-13T11:12:52.833+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Myyntitapahtumaa syötetyllä id:llä '10'', ei löydy",
+  "path": "/myyntitapahtumat/10"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

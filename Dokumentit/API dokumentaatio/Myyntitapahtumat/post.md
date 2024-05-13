@@ -10,7 +10,7 @@ Luo uuden myyntitapahtuman.
 
 **Vaadittavat oikeudet**: Myyjä tai Admin
 
-Anna luotavan tapahtuman tiedot:
+Anna luotavan myyntitapahtuman tiedot:
 
 ```json
 [
@@ -29,26 +29,26 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 {
-    "id": 4,
-    "summa": 30.0,
-    "aika": "2024-05-11T22:57:30.5813965",
-    "kayttajaId": 2,
-    "liput": [
-        {
-            "id": 9,
-            "lippunumero": "27b39120-fe75-4bf3-9531-6c02bc672035",
-            "tyyppi": "perus",
-            "tapahtuma": "Sukankudontakilpailu",
-            "hinta": 15.0
-        },
-        {
-            "id": 10,
-            "lippunumero": "fe5bb795-f802-4bb6-8910-6e479acd35db",
-            "tyyppi": "perus",
-            "tapahtuma": "Sukankudontakilpailu",
-            "hinta": 15.0
-        }
-    ]
+  "id": 4,
+  "summa": 30.0,
+  "aika": "2024-05-11T22:57:30.5813965",
+  "kayttajaId": 2,
+  "liput": [
+    {
+      "id": 9,
+      "lippunumero": "27b39120-fe75-4bf3-9531-6c02bc672035",
+      "tyyppi": "perus",
+      "tapahtuma": "Sukankudontakilpailu",
+      "hinta": 15.0
+    },
+    {
+      "id": 10,
+      "lippunumero": "fe5bb795-f802-4bb6-8910-6e479acd35db",
+      "tyyppi": "perus",
+      "tapahtuma": "Sukankudontakilpailu",
+      "hinta": 15.0
+    }
+  ]
 }
 ```
 
@@ -71,9 +71,11 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 {
-...
-    "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.",
-...
+  "timestamp": "2024-05-13T11:15:39.789+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Tapahtuman lipputyypin valinnassa virhe. Tarkista onko lipputyyppiä valitulla id:llä olemassa GET /tapahtumanlipputyypit - Myyntitapahtuma on peruttu.",
+  "path": "/myyntitapahtumat"
 }
 ```
 
@@ -96,9 +98,11 @@ Anna luotavan tapahtuman tiedot:
 
 ```json
 {
-...
-    "message": "JSON parse error: Cannot deserialize value of type `int`  from String \"unlimited power\": not a valid `int` value",
-...
+  "timestamp": "2024-05-13T11:16:15.981+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "JSON parse error: Cannot deserialize value of type `int` from String \"unlimited power\": not a valid `int` value",
+  "path": "/myyntitapahtumat"
 }
 ```
 
@@ -119,7 +123,11 @@ TAI
 
 ```json
 {
+  "timestamp": "2024-05-13T11:17:14.195+00:00",
+  "status": 400,
+  "error": "Bad Request",
   "message": "Yksi tai useampi lippu ei ollut saatavilla. Myyntitapahtuma on peruttu.",
+  "path": "/myyntitapahtumat"
 }
 ```
 
@@ -130,9 +138,13 @@ TAI
 **Vastauskoodi**: `400 BAD REQUEST`
 
 ```json
-    {
-      "message": "Myyntitapahtuma ei sisällä lippuja. Myyntitapahtuma on peruttu"
-    }
+{
+  "timestamp": "2024-05-13T11:19:32.188+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Myyntitapahtuma ei sisällä lippuja. Myyntitapahtuma on peruttu",
+  "path": "/myyntitapahtumat"
+}
 ```
 
 TAI

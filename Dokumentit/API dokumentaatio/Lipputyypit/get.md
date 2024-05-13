@@ -1,34 +1,48 @@
 # Hae lipputyypit
 
-Hakee ja näyttää kaikki tietokannassa olevat lipputyypit tietoineen
+Hakee ja näyttää kaikki tietokannassa olevat lipputyypit tietoineen.
 
-__URL__: `/lipputyypit`
+**URL**: `/lipputyypit`
 
-__Metodi__: `GET`
+**Metodi**: `GET`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
 **Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Sisältöesimerkkejä__:
+**Sisältöesimerkkejä**:
 
 Haetaan tallennetut lipputyypit.
+
 ```json
 [
-    {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-    },
-    {
-        "lipputyyppi_id": 2,
-        "tyyppi": "lapsi"
-    }
+  {
+    "lipputyyppiId": 29,
+    "tyyppi": "perus"
+  },
+  {
+    "lipputyyppiId": 30,
+    "tyyppi": "lapsi"
+  },
+  {
+    "lipputyyppiId": 33,
+    "tyyppi": "VIP"
+  },
+  {
+    "lipputyyppiId": 35,
+    "tyyppi": "opiskelija"
+  },
+  {
+    "lipputyyppiId": 36,
+    "tyyppi": "eläkeläinen"
+  }
 ]
 ```
+
 TAI
 
 Tallennettuja lipputyyppejä ei ole.
@@ -39,12 +53,12 @@ Tallennettuja lipputyyppejä ei ole.
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

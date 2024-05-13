@@ -2,13 +2,13 @@
 
 Päivittää yksittäisen lipun käytetty-attribuutin, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/liput/{id}`
+**URL**: `/liput/{id}`
 
-__METODI__: `PATCH`
+**Metodi**: `PATCH`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin, Myyjä tai Lipuntarkastaja
+**Vaadittavat oikeudet**: Admin, Myyjä tai Lipuntarkastaja
 
 Anna tiedot:
 
@@ -20,9 +20,9 @@ Anna tiedot:
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Esimerkkejä päivitetystä tietueesta__:
+**Esimerkkejä päivitetystä tietueesta**:
 
 ```Json
 {
@@ -70,40 +70,48 @@ __Esimerkkejä päivitetystä tietueesta__:
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} arvoa ei löydy tietokannasta.
+**Ehto**: {id} arvoa ei löydy tietokannasta.
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-     "message": "Tarkista lippuId",
+  "timestamp": "2024-05-13T12:13:57.717+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Tarkista lippuId",
+  "path": "/liput/300"
 }
 ```
 
 TAI
 
-__Ehto__: Lippu on jo kaytetty
+**Ehto**: Lippu on jo kaytetty
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-    "message": "Lippu on jo käytetty"
+  "timestamp": "2024-05-13T12:13:31.155+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Lippu on jo käytetty",
+  "path": "/liput/274"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+**Koodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Koodi__: `403 FORBIDDEN`
+**Koodi**: `403 FORBIDDEN`

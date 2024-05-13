@@ -2,7 +2,7 @@
 
 Hakee kaikki tietokannassa olevat roolit tietoineen
 
-**URL**: `/roolit"`
+**URL**: `/roolit`
 
 **Metodi**: `GET`
 
@@ -18,14 +18,14 @@ Hakee kaikki tietokannassa olevat roolit tietoineen
 
 ```json
 [
-    {
-        "rooli_id": 1,
-        "rooli": "ROLE_MYYJA"
-    },
-    {
-        "rooli_id": 2,
-        "rooli": "ROLE_ADMIN"
-    }
+  {
+    "rooli_id": 1,
+    "rooli": "ROLE_MYYJA"
+  },
+  {
+    "rooli_id": 2,
+    "rooli": "ROLE_ADMIN"
+  }
 ]
 ```
 

@@ -20,45 +20,45 @@ Haetaan lipun tietoja id:n perusteella.
 
 ```json
 {
-  "lippunumero": "64745d3d-490a-49e3-9f60-1e3f1f6b62e2",
+  "lippunumero": "441a7644-b6aa-4df8-808b-8e2d8dd16ccd",
   "tapahtumanLipputyyppi": {
-      "tapahtumanLipputyyppiId": 1,
-      "hinta": 10.0,
-      "tapahtuma": {
-          "tapahtumanNimi": "Sukankudontakilpailu",
-          "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-          "katuosoite": "Kuninkaantammentie 19",
-          "alku": "2024-06-06T14:00:00",
-          "loppu": "2024-06-06T16:00:00",
-          "lippuLukum": 10,
-          "myydytLiputLukum": 2,
-          "tapahtuma_id": 1
-      },
-      "lipputyyppi": {
-          "lipputyyppiId": 1,
-          "tyyppi": "perus"
-      }
+    "tapahtumanLipputyyppiId": 37,
+    "hinta": 25.0,
+    "tapahtuma": {
+      "tapahtumaId": 60,
+      "tapahtumanNimi": "Karjumisen MM-kisat",
+      "paikka": "Tokoinranta",
+      "katuosoite": "Eläintarhantie 3",
+      "alku": "2024-07-22T18:00:00",
+      "loppu": "2024-07-22T21:00:00",
+      "lippuLukum": 9999,
+      "myydytLiputLukum": 43
+    },
+    "lipputyyppi": {
+      "lipputyyppiId": 29,
+      "tyyppi": "perus"
+    }
   },
   "myyntitapahtuma": {
-      "kayttaja": {
-          "kayttajaId": 1,
-          "rooli": {
-              "rooliId": 1,
-              "rooli": "ROLE_MYYJA"
-          },
-          "etunimi": "Teppo",
-          "sukunimi": "Testaaja",
-          "puhnro": null,
-          "katuosoite": null,
-          "salasana": "$2a$10$iWu9jKWk.x4BVFHzO/FNTu1PZ5qX0cAy2HtwS05bHBgG8OxBhDA3C",
-          "kayttajanimi": "teppo"
+    "myyntitapahtumaId": 122,
+    "kayttaja": {
+      "kayttajaId": 29,
+      "rooli": {
+        "rooliId": 29,
+        "rooli": "ROLE_MYYJA"
       },
-      "aikaleima": "2024-04-12T23:11:14.775349",
-      "myyntitapahtuma_id": 1
+      "etunimi": "Teppo",
+      "sukunimi": "Testaaja",
+      "puhnro": null,
+      "katuosoite": null,
+      "salasana": "$2a$10$7SdPXXL5nv/Zxy/jihLNZez20SUAl2gKh2OnS7ChIhclG/1aNAUPq",
+      "kayttajanimi": "teppo"
+    },
+    "aikaleima": "2024-05-13T08:34:45.8146"
   },
-  "hinta": 10.0,
+  "hinta": 25.0,
   "kaytetty": null,
-  "lippu_id": 1
+  "lippu_id": 272
 }
 ```
 
@@ -68,11 +68,19 @@ Haetaan lipun tietoja id:n perusteella.
 
 **Vastauskoodi**: `404 NOT FOUND`
 
-TAI
+**Sisältöesimerkki**:
 
-**Ehto**: Autentikointi epäonnistuu
+Tehdään GET pyyntö /liput/35 endpointtiin. Saadaan seuraava vastaus:
 
-**Koodi**:: `401 UNAUTHORIZED`
+```json
+{
+  "timestamp": "2024-05-13T12:03:36.519+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Lippua syötetyllä id:llä: 35, ei löydy",
+  "path": "/liput/35"
+}
+```
 
 TAI
 
@@ -80,19 +88,8 @@ TAI
 
 **Koodi**:: `403 FORBIDDEN`
 
-
-**Sisältöesimerkki**:
-
-Tehdään GET pyyntö /liput/35 endpointtiin. Saadaan seuraava vastaus:
-
-```json
-    "message": "Lippua syötetyllä id:llä: 35, ei löydy",
-```
-
-
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
-
+**Vastauskoodi**: `401 UNAUTHORIZED`

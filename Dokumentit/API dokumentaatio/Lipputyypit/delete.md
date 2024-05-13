@@ -2,47 +2,42 @@
 
 Poistaa yksittäisen lipputyypin kaikkine tietoineen, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/lipputyypit/{id}`
+**URL**: `/lipputyypit/{id}`
 
-__METODI__: `DELETE`
+**Metodi**: `DELETE`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `204 NO CONTENT`
-
-__Esimerkkejä poistettavista tietueista__:
-
-```Json
-    {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-    }
-```
-```json
-    {
-        "lipputyyppi_id": 2,
-        "tyyppi": "lapsi"
-    }
-```
+**Vastauskoodi**: `204 NO CONTENT`
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} arvoa ei löydy tietokannasta.
+**Ehto**: {id} arvoa ei löydy tietokannasta.
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
+
+```json
+{
+  "timestamp": "2024-05-13T11:45:25.410+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Lipputyyppiä id:llä 42 ei löydy",
+  "path": "/lipputyypit/42"
+}
+```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

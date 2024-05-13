@@ -6,7 +6,7 @@ Hakee kaikki luodut tapahtumanlipputyypit.
 
 **Metodi**: `GET`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
 **Vaadittavat oikeudet**: Myyjä tai Admin
 
@@ -18,53 +18,71 @@ __Autentikointi vaaditaan__: Kyllä
 
 ```json
 [
-    {
-        "tapahtuman_lipputyyppi_id": 1,
-        "hinta": 10.0,
-        "tapahtuma": {
-            "tapahtuma_id": 1,
-            "tapahtuman_nimi": "Sukankudontakilpailu",
-            "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-            "katuosoite": "Kuninkaantammentie 19",
-            "alku": "2024-04-06T14:00:00",
-            "loppu": "2024-04-06T16:00:00",
-            "lippu_lukum": 10,
-            "myydyt_liput_lukum": 0
-        },
-        "lipputyyppi": {
-            "lipputyyppi_id": 1,
-            "tyyppi": "perus"
-        }
+  {
+    "tapahtumanLipputyyppiId": 29,
+    "hinta": 10.0,
+    "tapahtuma": {
+      "tapahtumaId": 57,
+      "tapahtumanNimi": "Sukankudontakilpailu",
+      "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+      "katuosoite": "Kuninkaantammentie 19",
+      "alku": "2024-06-06T14:00:00",
+      "loppu": "2024-06-06T16:00:00",
+      "lippuLukum": 10,
+      "myydytLiputLukum": 0
     },
-    {
-        "tapahtuman_lipputyyppi_id": 2,
-        "hinta": 10.0,
-        "tapahtuma": {
-            "tapahtuma_id": 2,
-            "tapahtuman_nimi": "Kekkosen synttärit",
-            "paikka": "Vaasa",
-            "katuosoite": "Vaasankatu 1",
-            "alku": "2024-06-12T17:00:00",
-            "loppu": "2024-06-12T23:59:00",
-            "lippu_lukum": 667,
-            "myydyt_liput_lukum": 0
-        },
-        "lipputyyppi": {
-            "lipputyyppi_id": 1,
-            "tyyppi": "perus"
-        }
+    "lipputyyppi": {
+      "lipputyyppiId": 29,
+      "tyyppi": "perus"
     }
+  },
+  {
+    "tapahtumanLipputyyppiId": 30,
+    "hinta": 10.0,
+    "tapahtuma": {
+      "tapahtumaId": 58,
+      "tapahtumanNimi": "Kekkosen synttärit",
+      "paikka": "Vaasa",
+      "katuosoite": "Vaasankatu 1",
+      "alku": "2024-06-12T17:00:00",
+      "loppu": "2024-06-12T23:59:00",
+      "lippuLukum": 667,
+      "myydytLiputLukum": 35
+    },
+    "lipputyyppi": {
+      "lipputyyppiId": 29,
+      "tyyppi": "perus"
+    }
+  },
+  {
+    "tapahtumanLipputyyppiId": 31,
+    "hinta": 5.0,
+    "tapahtuma": {
+      "tapahtumaId": 57,
+      "tapahtumanNimi": "Sukankudontakilpailu",
+      "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+      "katuosoite": "Kuninkaantammentie 19",
+      "alku": "2024-06-06T14:00:00",
+      "loppu": "2024-06-06T16:00:00",
+      "lippuLukum": 10,
+      "myydytLiputLukum": 0
+    },
+    "lipputyyppi": {
+      "lipputyyppiId": 30,
+      "tyyppi": "lapsi"
+    }
+  }
 ]
 ```
 
 **Epäonnistuneen pyynnön palautus**
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

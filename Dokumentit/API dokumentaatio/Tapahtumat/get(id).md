@@ -52,9 +52,11 @@ Tehdään GET pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
 {
-...
-    "message": "Tapahtumaa syötetyllä id:llä '10'', ei löydy.",
-...
+  "timestamp": "2024-05-13T10:32:46.357+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Tapahtumaa syötetyllä id:llä '10'', ei löydy.",
+  "path": "/tapahtumat/10"
 }
 ```
 

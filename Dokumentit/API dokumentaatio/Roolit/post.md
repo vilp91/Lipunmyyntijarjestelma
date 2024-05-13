@@ -6,20 +6,21 @@ Luo uuden roolin, kun käyttäjällä on vaadittavat oikeudet
 
 **Metodi**: `POST`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
-Anna luotavan tapahtuman tiedot
+Anna luotavan roolin tiedot
 
 ```json
 {
-    "rooli": "[String]"
+  "rooli": "[String]"
 }
 ```
+
 Lisävaatimukset:
 
-rooli kentän muotoilu: "^ROLE_[A-Z]+$"
+rooli kentän muotoilu: "^ROLE\_[A-Z]+$"
 
 ## Onnistuneen pyynnön palautus
 
@@ -31,8 +32,8 @@ rooli kentän muotoilu: "^ROLE_[A-Z]+$"
 
 ```json
 {
-    "rooliId": 3,
-    "rooli": "ROLE_LIPUNTARKASTAJA"
+  "rooliId": 3,
+  "rooli": "ROLE_LIPUNTARKASTAJA"
 }
 ```
 
@@ -48,12 +49,15 @@ rooli kentän muotoilu: "^ROLE_[A-Z]+$"
 {
   "roobi": "ROLE_LIPUNTARKASTAJA"
 }
-
 ```
 
 ```json
 {
-    "message": "Validation failed for object='rooli'. Error count: 1",
+  "timestamp": "2024-05-13T13:39:35.340+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='rooli'. Error count: 1",
+  "path": "/roolit"
 }
 ```
 
@@ -67,14 +71,18 @@ TAI
 
 ```json
 {
-    "rooliId": 3,
-    "rooli": "ROLE_LIPUNTARKASTAJA"
+  "rooliId": 3,
+  "rooli": "ROLE_LIPUNTARKASTAJA"
 }
 ```
 
 ```json
 {
-    "message": "Poista pyynnöstä rooliId",
+  "timestamp": "2024-05-13T13:39:07.628+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Poista pyynnöstä rooliId",
+  "path": "/roolit"
 }
 ```
 
@@ -94,7 +102,11 @@ TAI
 
 ```json
 {
-    "message": "Roolin kirjoitusasu on väärä. Roolin tulee alkaa   'ROLE_', jonka jälkeen käytetään isoja kirjaimia.",
+  "timestamp": "2024-05-13T13:36:56.957+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Roolin kirjoitusasu on väärä. Roolin tulee alkaa 'ROLE_', jonka jälkeen käytetään isoja kirjaimia.",
+  "path": "/roolit"
 }
 ```
 
@@ -108,24 +120,28 @@ TAI
 
 ```json
 {
-    "rooli": "ROLE_LIPUNTARKASTAJA"
+  "rooli": "ROLE_LIPUNTARKASTAJA"
 }
 ```
+
 ```json
 {
-    "message": "Rooli nimellä 'ROLE_LIPUNTARKASTAJA' on jo olemassa.",
+  "timestamp": "2024-05-13T13:38:11.117+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Rooli nimellä 'ROLE_LIPUNTARKASTAJA' on jo olemassa.",
+  "path": "/roolit"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
-
+**Vastauskoodi**: `403 FORBIDDEN`

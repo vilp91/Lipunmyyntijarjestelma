@@ -2,56 +2,61 @@
 
 Päivittää olemassa olevan tapahtuman, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/tapahtumat/{id}`
+**URL**: `/tapahtumat/{id}`
 
-__Metodi__: `PUT`
+**Metodi**: `PUT`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
-__Tietosisältövaatimukset__:
+**Tietosisältövaatimukset**:
+
 ```json
-    {
-        "tapahtuman_nimi": "[string]",
-        "paikka": "[string]",
-        "katuosoite": "[string]",
-        "alku": "[YYYY-MM-DDTHH:mm:ss]",
-        "loppu": "[YYYY-MM-DDTHH:mm:ss]",
-        "lippu_lukum": [int],
-    }
+{
+  "tapahtumanNimi": "[string]",
+  "paikka": "[string]",
+  "katuosoite": "[string]",
+  "alku": "[YYYY-MM-DDTHH:mm:ss]",
+  "loppu": "[YYYY-MM-DDTHH:mm:ss]",
+  "lippuLukum": "[int]"
+}
 ```
 
-__Tietosisältöesimerkki__:
+**Tietosisältöesimerkki**:
+
 ```json
-    {
-        "tapahtuman_nimi": "Sukankudontakilpailu",
-        "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-        "katuosoite": "Kuninkaantammentie 19",
-        "alku": "2024-04-02T14:00:00",
-        "loppu": "2024-04-02T16:00:00",
-        "lippu_lukum": 50
-    }
+{
+  "tapahtumanNimi": "Sukankudontakilpailu",
+  "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+  "katuosoite": "Kuninkaantammentie 19",
+  "alku": "2024-06-06T14:00:00",
+  "loppu": "2024-06-06T16:00:00",
+  "lippuLukum": 100
+}
 ```
 
 ## Onnistunut tapahtuma
 
-__Ehto__: Tapahtuma on olemassa ja sen päivitys onnistui
+**Ehto**: Tapahtuma on olemassa ja sen päivitys onnistui
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Esimerkkisisältö__, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtumat/1`:
+**Esimerkkisisältö**, kun tapahtuman_nimi on päivitetty pyynnöllä `/tapahtumat/1`:
+
 ```json
 {
-    "tapahtuma_id": 1,
-    "tapahtuman_nimi": "Päivitetty nimi",
-    "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-    "katuosoite": "Kuninkaantammentie 19",
-    "alku": "2024-04-02T14:00:00",
-    "loppu": "2024-04-02T16:00:00",
-    "lippu_lukum": 50
+  "tapahtumaId": 57,
+  "tapahtumanNimi": "Päivitetty nimi",
+  "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+  "katuosoite": "Kuninkaantammentie 19",
+  "alku": "2024-06-06T14:00:00",
+  "loppu": "2024-06-06T16:00:00",
+  "lippuLukum": 100,
+  "myydytLiputLukum": 0
 }
 ```
+
 ## Epäonnistunut tapahtuma
 
 **Ehto**: Haetaan id:n perusteella tapahtumaa, mutta tapahtumaa haetulla id:llä ei ole olemassa.
@@ -64,56 +69,59 @@ Tehdään PUT pyyntö /tapahtumat/10 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
 {
-...
-    "message": "Tapahtumaa id:llä '10' ei löydy",
-...
+  "timestamp": "2024-05-13T11:05:07.285+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Tapahtumaa id:llä '10' ei löydy",
+  "path": "/tapahtumat/10"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`
 
 ## Lisätiedot
 
 ### Huomiotta jätettävät tiedot
 
-Pyynnön mukana annetut epäoleelliset tiedot, kuten tapahtuma_id tai ylimääräiset parametrit jätetään endpointissa huomiotta.
+Pyynnön mukana annetut epäoleelliset tiedot, kuten tapahtumaId tai ylimääräiset parametrit jätetään endpointissa huomiotta.
 
-__Tietosisältöesimerkki__ URL:iin `/tapahtumat/1`
+**Tietosisältöesimerkki** URL:iin `/tapahtumat/1`
 
 ```json
 {
-    "tapahtuma_id": 6,
-    "ylimaarainen_parametri": "ylimaarainen tieto",
-    "tapahtuman_nimi": "Päivitetty nimi",
-    "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-    "katuosoite": "Kuninkaantammentie 19",
-    "alku": "2024-04-02T14:00:00",
-    "loppu": "2024-04-02T16:00:00",
-    "lippu_lukum": 50
+  "tapahtumaId": 6,
+  "ylimaarainenParametri": "ylimaarainen tieto",
+  "tapahtumanNimi": "Päivitetty nimi",
+  "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+  "katuosoite": "Kuninkaantammentie 19",
+  "alku": "2024-04-02T14:00:00",
+  "loppu": "2024-04-02T16:00:00",
+  "lippuLukum": 50
 }
 ```
-__Vastauskoodi__: `200 OK`
 
-__Esimerkkivastaus__
+**Vastauskoodi**: `200 OK`
+
+**Esimerkkivastaus**
+
 ```json
 {
-    "tapahtuma_id": 1,
-    "tapahtuman_nimi": "Päivitetty nimi",
-    "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
-    "katuosoite": "Kuninkaantammentie 19",
-    "alku": "2024-04-02T14:00:00",
-    "loppu": "2024-04-02T16:00:00",
-    "lippu_lukum": 50
+  "tapahtumaId": 1,
+  "tapahtumanNimi": "Päivitetty nimi",
+  "paikka": "Pitkäkosken ulkoilumaja - Helsinki",
+  "katuosoite": "Kuninkaantammentie 19",
+  "alku": "2024-04-02T14:00:00",
+  "loppu": "2024-04-02T16:00:00",
+  "lippuLukum": 50
 }
 ```
-

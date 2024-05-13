@@ -37,20 +37,22 @@ Tehdään GET pyyntö /lipputyypit/3 endpointtiin. Saadaan seuraava vastaus:
 
 ```json
 {
-...
-    "message": "Lipputyyppiä id:llä 3 ei löydy",
-...
+  "timestamp": "2024-05-13T11:30:46.163+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Lipputyyppiä id:llä 3 ei löydy",
+  "path": "/lipputyypit/3"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`
