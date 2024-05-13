@@ -1,77 +1,98 @@
-# _TicketGuru_
+# Lipunmyyntijärjestelmä projektidokumentaatio
 
 Tiimi: Satu Kulta, Ville Pajukangas, Ali Romar, Tuukka Teilas
 
-## _Johdanto_
+## Johdanto
 
-TicketGuru on lipunmyyntijärjestelmä, jonka tilaajana toimii lipputoimisto. Järjestelmä mahdollistaa lipunmyynnin myyntipisteessä, jossa lipppupisteen myyjä voi myydä ja tulostaa liput asiakkaille. Järjestelmän avulla toimisto voi määritellä myytävät tapahtumat ja hallita sekä seurata lippujen myyntiä. Alustavasti järjestelmä tarjoaa lippujen myynnin myyntipisteessä, ja ennakkomyynnin päättyessä loput liput tulostetaan myytäväksi ovella. Tulostettavassa lipussa on skannattava tarkastuskoodi, joka helpottaa lippujen tarkastusta ovella.
+Asiakasyrityksenä toiminut lipputoimisto on tilannut lipunmyyntijärjestelmän backend toteutuksen sekä MVP esimerkki toteutukset lipunmyyntiä ja lipuntarkastusta toteuttavista front end clienteista. Tilattu järjestelmä mahdollistaa lipunmyynnin myyntipisteessä, jossa lippupisteen myyjä voi myydä ja tulostaa liput asiakkaille. Järjestelmän avulla toimisto/tapahtumia hallinnoiva taho voi määritellä myytävät tapahtumat aikoineen, paikkoineen sekä lipputyyppineen ja hallita sekä seurata lippujen myyntiä. Järjestelmä mahdollistaa myös ennakkomyynnin päättyessä loppujen lippujen tulostamisen myytäväksi ovella. Tulostettavassa lipussa on yksilöllinen tarkastuskoodi. Tämä koodi voidaan muuttaa esimerkiksi QR-koodiksi, joka helpottaa lippujen tarkastusta ovella. 
 
-_Asiakas_ on lipputoimisto, ja järjestelmän tarkoitus on vastata heidän tarpeisiinsa lipunmyynnissä ja tapahtumien hallinnassa. Jatkokehityksen suunnitelmissa on verkkokauppa, josta lipputoimiston asiakkaat voivat itse ostaa lippuja.
-
-Järjestelmän palvelinpuolen toiminnot toteutetaan Javalla Spring Boot -kehystä käyttäen. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MariaDb:tä.
+Järjestelmän palvelinpuolen toiminnot on toteutettu Javalla Spring Boot -kehystä käyttäen. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MySQL:ää.
 
 Käyttöliittymä on selainpohjainen React-sovellus, joka tarjoaa nykyaikaisen ja responsiivisen käyttökokemuksen.
 
-## _Järjestelmän määrittely_
-
-_Määrittelyssä järjestelmää tarkastellaan käyttäjän näkökulmasta. Järjestelmän
-toiminnot hahmotellaan käyttötapausten tai käyttäjätarinoiden kautta, ja kuvataan järjestelmän
-käyttäjäryhmät._
+## Järjestelmän määrittely
 
 ### Käyttäjäryhmät
 
-_- Lyhyt kuvaus käyttäjäryhmistä (rooleista)_
+- Tapahtumien hallinnoija/"toimisto"
+
+  - Yrityksen sisäinen, toimistolla tai etänä työskentelevä käyttäjä, joka pystyy luomaan lipunmyyntijärjestelmään uusia tapahtumia ja määrittelemään niiden tiedot sekä muokkaamaan olemassa olevia tapahtumia ja muodostamaan erilaisia raportteja tapahtumista ja niiden lipunmyynnistä.
 
 - Lippupisteen myyjä
 
-  - Fyysisessä lipunmyyntipisteessä työskentelevä henkilö, joka käyttää lipunmyyntijärjestelmän myyntipuolta etäyhteydellä erillisen päätelaitteen avulla.
+  - Fyysisessä lipunmyyntipisteessä työskentelevä henkilö, joka käyttää lipunmyyntijärjestelmän myyntipuolta etäyhteydellä erillisen päätelaitteen avulla. Myy tapahtumiin lippuja.
 
-- Tapahtumien hallinnoija/"toimisto"
+- Lipuntarkastaja
 
-  - Yrityksen sisäinen, toimistolla tai etänä työskentelevä käyttäjä, joka pystyy luomaan lipunmyyntijärjestelmään uusia tapahtumia ja määrittelemään niiden tiedot.
+  - Fyysisesti tapahtuman sisäänkäynnillä työskentelevä henkilö, joka tarkastaa tapahtumaan saapuvan asiakkaan lipun ja merkkaa sen käytetyksi.
 
 - Järjestelmän ylläpitäjä
-  - Yrityksen sisäinen tai ulkopuolinen henkilö, joka ylläpitää järjestelmän toimivuutta ja mahdollisesti päivittää sitä.
 
-**Tämä rooli on luotu jatkokehitystä ajatellen, jos/kun järjestelmään lisätään verkkokauppa.**
+  - Yrityksen sisäinen tai ulkopuolinen henkilö, joka ylläpitää järjestelmän toimivuutta ja mahdollisesti päivittää sitä. Hallinnoi käyttäjätietoja.
 
-- **Verkkokauppa asiakas**
-  - **Yrityksen ulkopuolinen henkilö, joka haluaa ostaa lipun tai lippuja yhteen tai useampaan tapahtumaan verkkokaupan kautta.**
+### Käyttötapauskaavio
 
-**Tämä rooli on luotu jatkokehitystä ajatellen, jos/kun järjestelmään lisätään verkkokauppa.**
-
-### _Käyttötapauskaavio_
-
-- _Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
-  (use case diagram) tai käyttäjätarinoina._
+Alla olevassa käyttötapauskaaviossa kuvataan järjestelmän käyttäjät ja yleisimmät perustoiminnot.
 
 ![Käyttötapauskaavio](/Dokumentit/Kaaviot//käyttötapauskaavio.png "Käyttötapauskaavio")
 
-### _Käyttötapauskuvaukset_
+### Käyttäjätarinat
 
-- _Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat_
+- Järjestelmän tilaajana haluan pystyä luomaan ja muokkaamaan tapahtumia
 
-### _Käyttäjätarinat_
-
-_Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
-tietoa ja keskittyä siihen._
+- Järjestelmän tilaajana haluan pystyä myymään lippuja järjestämiini tapahtumiin
 
 - Tapahtumien hallinnoijana haluan pystyä määrittelemään eri käyttäjäryhmille eri hintaisia lippuja, jotta voimme kohdentaa markkinointia
+
 - Järjestelmän tilaajana haluan pystyä luomaan myymättä jääneet liput, jotta ne voidaan myydä tapahtumapaikan ovella
+
 - Markkinointijohtajana haluan pystyä tulostamaan myyntiraportteja, jotta voin käyttää tätä dataa tulevien tapahtumien suunnitteluun
-- Järjestelmän tilaajana haluan pystyä luomaan ja muokkaamaan tapahtumia
-- Järjestelmän tilaajana haluan pystyä myymään lippuja järjestämiini tapahtumiin
+
 - Järjestelmän tilaajana haluan voida perustaa uusia käyttäjiä, jotta uudet työntekijät pääsevät käyttämään järjestelmää
+
 - Järjestelmän tilaajana haluan voida muokata käyttäjän tietoja, jotta työntekijöiden tiedot pysyvät ajantasalla
+
 - Järjestelmän tilaajana haluan voida poistaa käyttäjiä, jotta tietoturva säilyy työsuhteiden päätyttyä
 
+## Käyttöliittymä
+
+![Käyttöliittymäkaavio](/Dokumentit/Kaaviot/käyttöliittymäkaavio.png "Käyttöliittymäkaavio")
+
+Ylläoleva käyttöliittymäkaavio perustuu asiakkaan toimittamiin wireframe malleihin, eikä vastaa mitään toteutettua front end clientia. Näitä wireframe malleja on kuitenkin käytetty pohjana tuotteen palvelinpuolen toteutusta suunniteltaessa ja toteutettaessa.
+
+Seuraavista alaotsikoista löytyy käyttöliittymäkuvia sekä ohjeistusta lipunmyynnistä, että lipuntarkastuksesta tehtyihin referenssitoteutuksiin. Alla on myös molempien toteutuksien yhteinen kirjautumissivu, josta on mahdollista valita lipuntarkastuksen (Gate Guard) ja -myynnin paikallinen tai verkossa erillisellä palvelimella pyörivä toteutus.
+
+![FrontClientsMenu](/Dokumentit/Kaaviot/Kuvat/FrontClientsMenu.JPG "Referenssitoteutusten päävalikko") 
+
+### Lipunmyynti
+
+![LipunmyyntiLogin](/Dokumentit/Kaaviot/Kuvat/LipunmyyntiLogin.JPG "Login")  
+Lipunmyynnin kirjautumissivu.
+
+---
+![LipunmyyntiMain](/Dokumentit/Kaaviot/Kuvat/LipunmyyntiMain.JPG "Lipunmyynnin live version pääsivu")  
+Lipunmyynnin live version pääsivu.
+Täältä käyttäjä(lipunmyyjä) näkee saatavilla olevat tapahtumat, niiden lippumärät sekä muut tarpeelliset tiedot. Alasvetovalikoista voi valita tapahtumaan liput lipputyypeittäin ja myydä ne alareunan Tallenna -painikkeella. Palaa -painike nollaa käyttöliittymän tilan.
+
+---
+![LipunmyyntiMyyntitapahtuma](/Dokumentit/Kaaviot/Kuvat/LipunmyyntiMyyntitapahtuma.JPG "Myyntitapahtuman esimerkki")  
+Esimerkki onnistuneesta myyntitapahtumasta. Koodi on kullekin lipulle luotava yksilöllinen UUID tunniste, jota voi hyödyntää esimerkiksi QR-koodin generoimisessa lipuntarkastusta varten.
 
 
-## _Käyttöliittymä_
 
-![Käyttöliittymäkaavio](/Dokumentit/Kaaviot/käyttöliittymäkaavio.png "käyttöliittymäkaavio")
+### Lipuntarkastus (Gate Guard)
 
-Ylläolevassa kaaviossa on kuvattu lipunmyyntijärjestelmän navigointi. Itse navipalkki vielä tästä versiosta puuttuu kokonaan. Se tullaa lisäämään projektin edetessä. Kaaviosta löytyvien kuvien perusteella kaikille applikaation sivuille on pääsy paitsi lippujen myynti sivuille. Tämä hoidettaisiin juurikin edellä mainitulla yläpalkilla.
+![LipuntarkastusMain](/Dokumentit/Kaaviot/Kuvat/LipuntarkastusMain.JPG "Lipuntarkastus pääsivu")  
+Lipuntarkastuksen pääsivu. Kenttään syötetään validi lippukoodi, jota verrataan tietokannasta löytyviin koodeihin.  
+
+---
+![LipuntarkastusLippu](/Dokumentit/Kaaviot/Kuvat/LipuntarkastusLippu.JPG "Lipun tiedot")  
+Kun kenttään on syötetty validi lippukoodi ja painettu Check -painiketta, järjestelmä palauttaa lipun tiedot ja antaa mahdollisuuden merkitä lippu käytetyksi painamalla Merkitse käytetyksi -painiketta.  
+
+---
+![LipuntarkastusKaytetty](/Dokumentit/Kaaviot/Kuvat/LipuntarkastusKaytetty.JPG "Lippu käytetty")  
+Kun lippu on merkitty käytetyksi, järjestelmä ilmoittaa sen ja antaa mahdollisuuden syöttää seuraavan lipun koodi.
+
 
 ## _Tietokanta_
 
