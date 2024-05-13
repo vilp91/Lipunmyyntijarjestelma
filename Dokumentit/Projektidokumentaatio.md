@@ -222,19 +222,19 @@ Järjestelmässä hyödynnetään Spring Securityä ja Http Basic autentikointia
 Järjestelmään on toteutettu palvelinpuolelle REST rajapinta, jolle on luotu [kattava dokumentaatio](/Dokumentit/API%20dokumentaatio/README.md "REST API dokumentaatio").  
 Oheinen sekvenssikaavio havainnollistaa onnistunutta lipunmyyntitapahtumaa. Kuvan alla on tekstimuotoinen tarkenne kaaviosta.
 ![RajapinnanSekvenssikaavio](/Dokumentit/Kaaviot/RajapinnanSekvenssikaavio.drawio.png)
+
 Lipunmyyntipisteen sovellus lähettää GET pyynnön palvelimen /tapahtumat endpointiin. Palvelin hakee tiedot tietokannasta ja lähettää ne takaisin käyttöliittymätasolle. 
 
 Lipunmyyntipisteen sovellus lähettää POST pyynnön palvelimen /myyntitapahtumat endpointiin. Palvelin suorittaa omat tarkistuksensa, onko pyyntö validi ja jos se onnistuu niin palvelin luo tietokantaan uuden lipun ja lähettää lipun sekä myyntitapahtuman tiedot takaisin. 
 
 Lipunmyyntipisteellä luotu lippu voidaan tulostaa asiakkaalle.
 
-## _Testaus_
+## Testaus
 
 Järjestelmälle on kirjoitettu minimaalinen määrä automatisoituja [yksikkö-](/src/test/java/ohjelmistoprojekti1/a3004/RepositoryTests/LipputyyppiTests.java) sekä [integraatiotestejä](/src/test/java/ohjelmistoprojekti1/a3004/RestApiTests/RestTapahtumaTests.java). Nämä testit on tarkoitus suorittaa aina ohjelmistokoodia muutettaessa regressiotestauksen nimissä. Automaattista CI/CD pipelinen pystyttämistä sekä testauksen lisäystä suositellaan vahvasti jos ohjelmistoa aiotaan jatkokehittää. Testejä suositellaan kirjoitettavaksi lisää myös jo olemassa olevalle koodille.
 
 Tämän hetkinen testauksemme taso on eritelty erillisessä [testi dokumentaatiossa](/Dokumentit/Testi%20dokumentaatio.md).
 
-_Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu._
 
 ## Asennustiedot
 
