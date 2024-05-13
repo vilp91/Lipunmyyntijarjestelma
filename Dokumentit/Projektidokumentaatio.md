@@ -6,7 +6,7 @@ Tiimi: Satu Kulta, Ville Pajukangas, Ali Romar, Tuukka Teilas
 
 Asiakasyrityksenä toiminut lipputoimisto on tilannut lipunmyyntijärjestelmän backend toteutuksen sekä MVP esimerkki toteutukset lipunmyyntiä ja lipuntarkastusta toteuttavista front end clienteista. Tilattu järjestelmä mahdollistaa lipunmyynnin myyntipisteessä, jossa lippupisteen myyjä voi myydä ja tulostaa liput asiakkaille. Järjestelmän avulla toimisto/tapahtumia hallinnoiva taho voi määritellä myytävät tapahtumat aikoineen, paikkoineen sekä lipputyyppineen ja hallita sekä seurata lippujen myyntiä. Järjestelmä mahdollistaa myös ennakkomyynnin päättyessä loppujen lippujen tulostamisen myytäväksi ovella. Tulostettavassa lipussa on yksilöllinen tarkastuskoodi. Tämä koodi voidaan muuttaa esimerkiksi QR-koodiksi, joka helpottaa lippujen tarkastusta ovella. 
 
-Järjestelmän palvelinpuolen toiminnot on toteutettu Javalla Spring Boot -kehystä käyttäen. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MySQL:ää.
+Järjestelmän palvelinpuolen toiminnot on toteutettu Javalla Spring Boot -kehystä hyödyntäen sekä käyttäen Mavenia riippuvuuksien hallintaan. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MySQL:ää.
 
 Käyttöliittymä on selainpohjainen React-sovellus, joka tarjoaa nykyaikaisen ja responsiivisen käyttökokemuksen.
 
@@ -94,7 +94,7 @@ Kun kenttään on syötetty validi lippukoodi ja painettu Check -painiketta, jä
 Kun lippu on merkitty käytetyksi, järjestelmä ilmoittaa sen ja antaa mahdollisuuden syöttää seuraavan lipun koodi.
 
 
-## _Tietokanta_
+## Tietokanta
 
 
 ![Tietokantakaavio](/Dokumentit/Kaaviot/tietokantakaavio.png "tietokantakaavio")  
@@ -210,42 +210,40 @@ ratkaisut, esim._
   UML-sekvenssikaavioilla._
 - _Toteutuksen yleisiä ratkaisuja, esim. turvallisuus._
 
-_Tämän lisäksi_
-
-- _ohjelmakoodin tulee olla kommentoitua_
-- _luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
-  johdonmukaisia nimeämiskäytäntöjä_
-- _ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
-  vältytään_
 
 ## _Testaus_
 
-_Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
-testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
-Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
-erillisiin dokumentteihin._
+Järjestelmälle on kirjoitettu minimaalinen määrä automatisoituja [yksikkö-](/src/test/java/ohjelmistoprojekti1/a3004/RepositoryTests/LipputyyppiTests.java) sekä [integraatiotestejä](/src/test/java/ohjelmistoprojekti1/a3004/RestApiTests/RestTapahtumaTests.java). Nämä testit on tarkoitus suorittaa aina ohjelmistokoodia muutettaessa regressiotestauksen nimissä. Automaattista CI/CD pipelinen pystyttämistä sekä testauksen lisäystä suositellaan vahvasti jos ohjelmistoa aiotaan jatkokehittää. Testejä suositellaan kirjoitettavaksi lisää myös jo olemassa olevalle koodille.
+
+Tämän hetkinen testauksemme taso on eritelty erillisessä [testi dokumentaatiossa](/Dokumentit/Testi%20dokumentaatio.md).
 
 _Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu._
 
-## _Asennustiedot_
+## Asennustiedot
 
-_Järjestelmän asennus on syytä dokumentoida kahdesta näkökulmasta:_
+Järjestelmä on tällä hetkellä saatavilla [GitHubin repositoriossa](https://github.com/vilp91/Lipunmyyntijarjestelma/ "Lipunmyyntijärjestelmän GitHub repositorio").
 
-- _järjestelmän kehitysympäristö: miten järjestelmän kehitysympäristön saisi
-  rakennettua johonkin toiseen koneeseen_
+Järjestelmä voidaan kopioida repositoriosta paikalliseen ympäristöön [GitHubin ohjeiden](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository "GitHub - Cloning a repository") avulla.
 
-- _järjestelmän asentaminen tuotantoympäristöön: miten järjestelmän saisi
-  asennettua johonkin uuteen ympäristöön._
+Järjestelmässä hyödynnetään Spring Bootin profiileja, joita on luotu kaksi erillistä: [dev](/src/main/resources/application-dev.properties) ja [rahti](/src/main/resources/application-rahti.properties). Näistä profiileista dev on räätälöity käyttämään paikallisesti luotavaa tilapäistä h2 tietokantaa ja sen pitäisi olla käyttövalmis. Rahti profiili sen sijaan on kustomoitu hyödyntämään CSC:n rahti palveluumme julkaisemaa versiota sovelluksestamme sekä siellä olevaa MySql tietokantaa. Rahti profiilin on kuitenkin mahdollista toimia vaikka palvelun julkaisisi muullakin alustalla, kunhan otetaan huomioon, että profiilissa esitetyt muuttujat vastaavat kyseisen ympäristön vastaavia muuttujia.
 
-_Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
-käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
-käyttäjätunnus, salasana, tietokannan luonti yms.)._
+Järjestelmässä hyödynnetään Spring Securityä ja Http Basic autentikointia. Http basicin salaamattoman luonteen vuoksi järjestelmää suositellaan käytettäväksi internetissä vain https protokollan kanssa. Järjestelmän turvallisuusasetukset voi tarkistaa [täältä](/src/main/java/ohjelmistoprojekti1/a3004/WebSecurityConfig.java "WebSecurityConfig"). Salasanojen suojaamisessa hyödynnetään palvelinpuolella automatisoitua BCryptPasswordEncoder metodia. Lisäksi järjestelmässä on käytetty metodikohtaista auktorisointia PreAuthorize annotaatioilla. Tämä tulee ottaa huomioon luotaessa uusia käyttäjiä ja näiden rooleja; erityisesti tuotantoympäristössä.
 
-## _Käynnistys- ja käyttöohje_
+### Järjestelmän asentaminen kehitysympäristöön
 
-_Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
-mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
-käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä._
+Kun järjestelmä on kopioitu paikalliseen ympäristöön, projekti voidaan avata millä tahansa sitä tukevalla IDE:llä. Hyödyntämällä dev profiilia, järjestelmä pitäisi pystyä käynnistämään. Järjestelmä luo automaattisesti [CommandLineRunner demo:ssa etukäteen määritellyn demodatan](/src/main/java/ohjelmistoprojekti1/a3004/A3004Application.java) perusteella ajonaikaisen h2 tietokannan, jota voi halutessaan muokata tarvitsemakseen.
 
-_Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
-järjestelmän pariin !_
+### Järjestelmän asentaminen tuotantoympäristöön
+
+Järjestelmää asennettaessa tuotantoympäristöön oletetaan, että käyttöön halutaan pysyvä tietokanta.
+Järjestelmä voidaan asentaa haluamaansa tuotantoympäristöön kunhan otetaan huomioon, että pysyvän tietokannan luomisessa noudatetaan toimitetussa [dokumentaatiossa määriteltyä tietokannan rakennetta](/Dokumentit/Kaaviot/tietokantakaavio.png "Tietokantakaavio"). Järjestelmä on suunniteltu toimimaan SQL tietokannoilla ja sen toiminta on varmistettu vain MySql:llä.
+Spring Boot voi luoda automaattisesti tietokannalle skeeman hyödyntäen esimerkiksi Hibernaten Auto DDL toiminnallisuutta. Tämä pitää erikseen määrittää profiilien asetuksissa (= spring.jpa.hibernate.ddl-auto=create). Myös muita vaihtoehtoja on tarjolla: [ulkoinen dokumentaatio aiheesta](https://docs.spring.io/spring-boot/docs/1.1.0.M1/reference/html/howto-database-initialization.html "Spring Boot dokumentaatio - Database initialization; Avaa sivun selaimeen").
+
+## Käynnistys- ja käyttöohje
+
+Tällä hetkellä järjestelmän live versio pyörii CSC:n rahti palvelussa, jonka osoitteen runko on http://lipunmyyntijarjestelma-ohjelmistoprojekti-1.rahtiapp.fi .
+Tätä URL runkoa käyttämällä pääsee hyödyntämään luomaamme REST rajapintaa, johon löytyy ohjeistus [täältä](/Dokumentit/API%20dokumentaatio/README.md "Rest API Dokumentaatio").
+
+Referenssitoteutuksemme lipunmyynnistä ja -tarkastuksesta pyörivät tällä hetkellä GitHub Pages palvelussa [täällä](https://vilp91.github.io/Lipunmyyntijarjestelma/ "Lipunmyynti ja lipuntarkastus referenssitoteutukset")
+
+Palveluihin tarvittavat tunnukset toimitetaan erikseen sovittavalla tavalla.
