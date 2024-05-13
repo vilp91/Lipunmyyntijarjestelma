@@ -2,32 +2,32 @@
 
 Poistaa yksittäisen lipun ja päivittää tapahtumaan myytyjen lippujen määrän.
 
-__URL__: `/liput/{id}`
+**URL**: `/liput/{id}`
 
-__METODI__: `DELETE`
+**Metodi**: `DELETE`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin tai Myyjä
+**Vaadittavat oikeudet**: Admin tai Myyjä
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `204 NO CONTENT`
+**Vastauskoodi**: `204 NO CONTENT`
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} -arvoa ei löydy tietokannasta
+**Ehto**: {id} -arvoa ei löydy tietokannasta
 
-__Vastauskoodi__: `404 NOT FOUND`
-
-TAI
-
-__Ehto__: Autentikointi epäonnistuu
-
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `404 NOT FOUND`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `401 UNAUTHORIZED`
+
+TAI
+
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+**Vastauskoodi**: `403 FORBIDDEN`

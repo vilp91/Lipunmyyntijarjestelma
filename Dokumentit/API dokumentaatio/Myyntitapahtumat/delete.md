@@ -2,26 +2,36 @@
 
 Poistaa yksittäisen myyntitapahtuman ja siihen liittyvät liput.
 
-__URL__: `/myyntitapahtumat/{id}`
+**URL**: `/myyntitapahtumat/{id}`
 
-__METODI__: `DELETE`
+**Metodi**: `DELETE`
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Vaadittavat oikeudet**: Ei mitään
+**Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `204 NO CONTENT`
+**Vastauskoodi**: `204 NO CONTENT`
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} -arvoa ei löydy tietokannasta
+**Ehto**: {id} -arvoa ei löydy tietokannasta
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
+
+```json
+{
+  "timestamp": "2024-05-13T11:23:46.127+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Myyntitapahtumaa syötetyllä id:llä '126', ei löydy :(",
+  "path": "/myyntitapahtumat/126"
+}
+```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`

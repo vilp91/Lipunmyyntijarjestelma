@@ -2,32 +2,44 @@
 
 Poistaa yksittäisen tapahtumanlipputyypin kaikkine tietoineen.
 
-__URL__: `/tapahtumanlipputyypit/{id}`
+**URL**: `/tapahtumanlipputyypit/{id}`
 
-__METODI__: `DELETE`
+**Metodi**: `DELETE`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `204 NO CONTENT`
+**Vastauskoodi**: `204 NO CONTENT`
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} -arvoa ei löydy tietokannasta
+**Ehto**: {id} -arvoa ei löydy tietokannasta
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
+
+**Esimerkkisisältö**:
+
+```json
+{
+  "timestamp": "2024-05-13T12:31:35.016+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Tapahtumanlipputyyppiä id:llä '1' ei löydy",
+  "path": "/tapahtumanlipputyypit/1"
+}
+```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

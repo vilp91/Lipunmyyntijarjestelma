@@ -6,41 +6,41 @@ Luo uuden käyttäjän, kun käyttäjällä on vaadittavat oikeudet
 
 **Metodi**: `POST`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 Anna luotavan käyttäjän tiedot
 
 ```json
-    {
-        "rooli": {
-            "rooliId": "[int]",
-            "rooli": "[String]"
-        },
-        "etunimi": "[String]",
-        "sukunimi": "[String]",
-        "puhnro": "[String]",
-        "katuosoite": "[String]",
-        "salasana": "[String]",
-        "kayttajanimi": "[String]"
-    }
+{
+  "rooli": {
+    "rooliId": "[int]",
+    "rooli": "[String]"
+  },
+  "etunimi": "[String]",
+  "sukunimi": "[String]",
+  "puhnro": "[String]",
+  "katuosoite": "[String]",
+  "salasana": "[String]",
+  "kayttajanimi": "[String]"
+}
 ```
 
 TAI
 
 ```json
-    {
-        "rooli": {
-            "rooliId": "[int]",
-        },
-        "etunimi": "[String]",
-        "sukunimi": "[String]",
-        "puhnro": "[String]",
-        "katuosoite": "[String]",
-        "salasana": "[String]",
-        "kayttajanimi": "[String]"
-    }
+{
+  "rooli": {
+    "rooliId": "[int]"
+  },
+  "etunimi": "[String]",
+  "sukunimi": "[String]",
+  "puhnro": "[String]",
+  "katuosoite": "[String]",
+  "salasana": "[String]",
+  "kayttajanimi": "[String]"
+}
 ```
 
 ## Onnistuneen pyynnön palautus
@@ -53,17 +53,17 @@ TAI
 
 ```json
 {
-    "kayttajaId": 3,
-    "rooli": {
-        "rooliId": 3,
-        "rooli": "ROLE_LIPUNTARKASTAJA"
-    },
-    "etunimi": "Lauri",
-    "sukunimi": "Lipuntarkastaja",
-    "puhnro": "0700123123",
-    "katuosoite": null,
-    "salasana": null,
-    "kayttajanimi": "lauri"
+  "kayttajaId": 3,
+  "rooli": {
+    "rooliId": 3,
+    "rooli": "ROLE_LIPUNTARKASTAJA"
+  },
+  "etunimi": "Lauri",
+  "sukunimi": "Lipuntarkastaja",
+  "puhnro": "0700123123",
+  "katuosoite": null,
+  "salasana": null,
+  "kayttajanimi": "lauri"
 }
 ```
 
@@ -76,40 +76,53 @@ TAI
 **Esimerkkisisältö**:
 
 ```json
-    {
-        "etunimi": "Lauri",
-        "sukunimi": "Lipuntarkastaja",
-        "puhnro": "0700123123",
-        "katuosoite": null,
-        "salasana": "lippulappu",
-        "kayttajanimi": "lauri"
-    }
+{
+  "etunimi": "Lauri",
+  "sukunimi": "Lipuntarkastaja",
+  "puhnro": "0700123123",
+  "katuosoite": null,
+  "salasana": "lippulappu",
+  "kayttajanimi": "lauri"
+}
 ```
+
+Vastaus:
 
 ```json
 {
-    "message": "RooliId puuttuu",
+  "timestamp": "2024-05-13T13:13:26.382+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "RooliId puuttuu",
+  "path": "/kayttajat"
 }
 ```
+
 ---
+
 ```json
 {
-        {
-        "rooli": {
-            "rooliId": 3,
-            "rooli": "ROLE_LIPUNTARKASTAJA"
-        },
-        "etunimi": "Lauri",
-        "sukunimi": "Lipunmyyjä",
-        "puhnro": "0700123123",
-        "katuosoite": null,
-        "kayttajanimi": "lauri"
-    }
+  "rooli": {
+    "rooliId": 3,
+    "rooli": "ROLE_LIPUNTARKASTAJA"
+  },
+  "etunimi": "Lauri",
+  "sukunimi": "Lipunmyyjä",
+  "puhnro": "0700123123",
+  "katuosoite": null,
+  "kayttajanimi": "lauri"
 }
 ```
+
+Vastaus:
+
 ```json
 {
-    "message": "Validation failed for object='kayttaja'. Error count: 1",
+  "timestamp": "2024-05-13T13:14:02.890+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='kayttaja'. Error count: 1",
+  "path": "/kayttajat"
 }
 ```
 
@@ -122,24 +135,30 @@ TAI
 **Sisältöesimerkki**:
 
 ```json
-    {
-        "kayttajaId": 3,
-        "rooli": {
-            "rooliId": 3,
-            "rooli": "ROLE_LIPUNTARKASTAJA"
-        },
-        "etunimi": "Lauri",
-        "sukunimi": "Lipunmyyjä",
-        "puhnro": "0700123123",
-        "katuosoite": null,
-        "salasana": "lippulappu",
-        "kayttajanimi": "lauri"
-    }
+{
+  "kayttajaId": 3,
+  "rooli": {
+    "rooliId": 3,
+    "rooli": "ROLE_LIPUNTARKASTAJA"
+  },
+  "etunimi": "Lauri",
+  "sukunimi": "Lipunmyyjä",
+  "puhnro": "0700123123",
+  "katuosoite": null,
+  "salasana": "lippulappu",
+  "kayttajanimi": "lauri"
+}
 ```
+
+Vastaus:
 
 ```json
 {
-    "message": "Poista pyynnöstä kayttajaId",
+  "timestamp": "2024-05-13T13:12:08.387+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Poista pyynnöstä kayttajaId",
+  "path": "/kayttajat"
 }
 ```
 
@@ -152,22 +171,28 @@ TAI
 **Sisältöesimerkki**:
 
 ```json
-    {
-        "rooli": {
-            "rooliId": 7
-        },
-        "etunimi": "Lauri",
-        "sukunimi": "Lipunmyyjä",
-        "puhnro": "0700123123",
-        "katuosoite": null,
-        "salasana": "lippulappu",
-        "kayttajanimi": "lauri"
-    }
+{
+  "rooli": {
+    "rooliId": 7
+  },
+  "etunimi": "Lauri",
+  "sukunimi": "Lipunmyyjä",
+  "puhnro": "0700123123",
+  "katuosoite": null,
+  "salasana": "lippulappu",
+  "kayttajanimi": "lauri"
+}
 ```
+
+Vastaus:
 
 ```json
 {
-    "message": "Roolia id:llä 7 ei löydy.",
+  "timestamp": "2024-05-13T12:55:45.737+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Roolia id:llä 7 ei löydy.",
+  "path": "/kayttajat"
 }
 ```
 
@@ -181,19 +206,18 @@ TAI
 
 ```json
 {
-    "message": "Käyttäjä käyttäjänimellä lauri on jo olemassa.",
+  "message": "Käyttäjä käyttäjänimellä lauri on jo olemassa."
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
-
+**Vastauskoodi**: `403 FORBIDDEN`

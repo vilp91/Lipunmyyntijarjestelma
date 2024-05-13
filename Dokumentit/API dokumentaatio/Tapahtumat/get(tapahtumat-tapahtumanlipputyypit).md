@@ -1,68 +1,71 @@
 # Hae yksittäisen tapahtuman tapahtumanlipputyypit
 
-Hakee kaikki tietokannassa olevat lipputyypit, jotka liittyvät määritettyyn tapahtumaan
+Hakee kaikki tietokannassa olevat lipputyypit, jotka liittyvät määritettyyn tapahtumaan.
 
-__URL__: `/tapahtumat/{id}/tapahtumanlipputyypit`
+**URL**: `/tapahtumat/{id}/tapahtumanlipputyypit`
 
-__Metodi__: `GET`
+**Metodi**: `GET`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Myyjä tai Admin
+**Vaadittavat oikeudet**: Myyjä tai Admin
 
 ## Onnistuneen pyynnön palautus
 
-__Ehto__: Autentikointi onnistuu ja käyttäjälle näytetään tulokset.
+**Ehto**: Autentikointi onnistuu ja käyttäjälle näytetään tulokset.
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
+
 ```json
 [
-    {
-        "id": 2,
-        "hinta": 10.0,
-        "tapahtuma": 2,
-        "lipputyyppiId": 1,
-        "lipputyyppi": "perus"
-    }
+  {
+    "id": 2,
+    "hinta": 10.0,
+    "tapahtuma": 2,
+    "lipputyyppiId": 1,
+    "lipputyyppi": "perus"
+  }
 ]
 ```
 
 TAI
 
-__Ehto__: Autentikointi onnistuu ja tapahtumaan ei ole liitetty tapahtumanlipputyyppejä.
+**Ehto**: Autentikointi onnistuu ja tapahtumaan ei ole liitetty tapahtumanlipputyyppejä.
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Sisältö__: `[]`
+**Sisältö**: `[]`
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
-
-TAI
-
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
-
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Tapahtumaa ei ole olemassa
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `403 FORBIDDEN`
 
-__Sisältöesimerkki__: 
+TAI
+
+**Ehto**: Tapahtumaa ei ole olemassa
+
+**Vastauskoodi**: `404 NOT FOUND`
+
+**Sisältöesimerkki**:
 
 Tehdään GET pyyntö /tapahtumat/30/liput endpointtiin. Saadaan seuraava vastaus:
 
 ```json
 {
-...
-    "message": "Tapahtumaa id:llä '30' ei löytynyt",
-...
+  "timestamp": "2024-05-13T10:48:14.617+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Tapahtumaa id:llä '30' ei löytynyt",
+  "path": "/tapahtumat/30/tapahtumanlipputyypit"
 }
 ```

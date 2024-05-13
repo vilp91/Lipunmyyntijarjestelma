@@ -2,50 +2,62 @@
 
 Poistaa yksittäisen tapahtuman kaikkine tietoineen, kun tapahtumaan ei liity myytyjä lippuja ja käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/tapahtumat/{id}`
+**URL**: `/tapahtumat/{id}`
 
-__METODI__: `DELETE`
+**Metodi**: `DELETE`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `204 NO CONTENT`
+**Vastauskoodi**: `204 NO CONTENT`
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} arvoa ei löydy tietokannasta.
+**Ehto**: {id} arvoa ei löydy tietokannasta.
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
-    "message": "Tapahtumaa id:llä '1', ei löydy",
+{
+  "timestamp": "2024-05-13T10:57:56.049+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Tapahtumaa id:llä '10', ei löydy",
+  "path": "/tapahtumat/10"
+}
 ```
 
 TAI
 
-__Ehto__: tietokannassa on tapahtumaan myytyjä lippuja
+**Ehto**: tietokannassa on tapahtumaan myytyjä lippuja
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
-    "message": "Tapahtumalla on myytyjä lippuja, tapahtumaa ei voi poistaa."
+{
+  "timestamp": "2024-05-13T10:59:10.949+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Tapahtumaan on myyty lippuja, tapahtumaa ei voi poistaa.",
+  "path": "/tapahtumat/57"
+}
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

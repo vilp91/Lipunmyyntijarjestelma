@@ -1,14 +1,14 @@
 # Luodaan uusi tapahtuma
 
-Luo uuden tapahtuman, kun käyttäjällä on vaadittavat oikeudet
+Luo uuden tapahtuman, kun käyttäjällä on vaadittavat oikeudet.
 
 **URL**: `/tapahtumat`
 
 **Metodi**: `POST`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 Anna luotavan tapahtuman tiedot
 
@@ -33,14 +33,14 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-    "tapahtuma_id": 6,
-    "tapahtumanNimi": "Karin karaokeiltama",
-    "paikka": "Lepakkomies",
-    "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
-    "alku": "2024-04-06T19:00:00",
-    "loppu": "2024-04-06T23:30:00",
-    "lippu_lukum": 50,
-    "myydyt_liput_lukum": 0
+  "tapahtumaId": 6,
+  "tapahtumanNimi": "Karin karaokeiltama",
+  "paikka": "Lepakkomies",
+  "katuosoite": "Helsinginkatu 1, 00500 Helsinki",
+  "alku": "2024-04-06T19:00:00",
+  "loppu": "2024-04-06T23:30:00",
+  "lippuLukum": 50,
+  "myydytLiputLukum": 0
 }
 ```
 
@@ -65,9 +65,11 @@ Anna luotavan tapahtuman tiedot
 
 ```json
 {
-...
-    "message": "JSON parse error: Cannot deserialize value of type `int` from String \"Tarpeeksi\": not a valid `int` value",
-...
+  "timestamp": "2024-05-13T10:53:43.839+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "JSON parse error: Cannot deserialize value of type `int` from String \"Tarpeeksi\": not a valid `int` value",
+  "path": "/tapahtumat"
 }
 ```
 
@@ -92,9 +94,11 @@ TAI
 
 ```json
 {
-...
-    "defaultMessage": "Paikka ja katuosoite ovat pakollisia tietoja"
-...
+  "timestamp": "2024-05-13T10:54:27.314+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='tapahtuma'. Error count: 1",
+  "path": "/tapahtumat"
 }
 ```
 
@@ -120,22 +124,22 @@ TAI
 
 ```json
 {
-...
-    "message": "Poista pyynnöstä tapahtuma_id",
-...
+  "timestamp": "2024-05-13T10:56:33.413+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Poista pyynnöstä tapahtuma_id",
+  "path": "/tapahtumat"
 }
-
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
-
+**Vastauskoodi**: `403 FORBIDDEN`

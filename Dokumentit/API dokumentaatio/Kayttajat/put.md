@@ -2,33 +2,33 @@
 
 Päivittää käyttäjän roolin, nimet, puhelinnumeron ja osoitteen, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/kayttajat/{id}`
+**URL**: `/kayttajat/{id}`
 
-__METODI__: `PUT`
+**Metodi**: `PUT`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 Anna päivitettävän lipputyypin tiedot:
 
 ```json
 {
-    "rooli": {
-        "rooliId": "[int]",
-    },
-    "etunimi": "[String]",
-    "sukunimi": "[String]",
-    "puhnro": "[String]",
-    "katuosoite": "[String]",
+  "rooli": {
+    "rooliId": "[int]"
+  },
+  "etunimi": "[String]",
+  "sukunimi": "[String]",
+  "puhnro": "[String]",
+  "katuosoite": "[String]"
 }
 ```
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Esimerkkejä päivitetyistä tietueista__:
+**Esimerkkejä päivitetyistä tietueista**:
 
 ```Json
 {
@@ -45,34 +45,53 @@ __Esimerkkejä päivitetyistä tietueista__:
     "kayttajanimi": "teppo"
 }
 ```
+
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} arvoa ei löydy tietokannasta.
+**Ehto**: {id} arvoa ei löydy tietokannasta.
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
 TAI
 
-__Ehto__: Pakollinen tieto puuttuu
+**Ehto**: Pakollinen tieto puuttuu
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-    "message": "Tarkista etu- ja sukunimi"
+  "message": "Tarkista etu- ja sukunimi"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Annettu rooli id ei ole olemassa
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `400 BAD REQUEST`
+
+**Esimerkkisisältö**:
+
+```json
+{
+  "timestamp": "2024-05-13T13:26:30.327+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Tarkista rooliId",
+  "path": "/kayttajat/36"
+}
+```
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `401 UNAUTHORIZED`
+
+TAI
+
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+
+**Vastauskoodi**: `403 FORBIDDEN`

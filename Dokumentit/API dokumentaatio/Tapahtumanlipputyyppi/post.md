@@ -2,15 +2,15 @@
 
 Luo uusi tapahtumanlipputyyppi.
 
-__URL__: `/tapahtumanlipputyypit`
+**URL**: `/tapahtumanlipputyypit`
 
-__Metodi__: `POST`
+**Metodi**: `POST`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
@@ -22,84 +22,99 @@ __Esimerkkisisältö__:
 
 ## Onnistuneen pyynnön palautus
 
-__Ehto__: Pyynnössä on valmiiksi olemassa olevat tapahtuma ja lipputyyppi sekä hinta on positiivinen luku.
+**Ehto**: Pyynnössä on valmiiksi olemassa olevat tapahtuma ja lipputyyppi sekä hinta on positiivinen luku.
 
-__Vastauskoodi__: `201 CREATED`
+**Vastauskoodi**: `201 CREATED`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-    "id": 1,
-    "hinta": 10.0,
-    "tapahtuma": 1,
-    "lipputyyppiId": 1,
-    "lipputyyppi": "perus"
+  "id": 1,
+  "hinta": 10.0,
+  "tapahtuma": 1,
+  "lipputyyppiId": 1,
+  "lipputyyppi": "perus"
 }
 ```
+
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: Pakollinen tieto on virheellinen
+**Ehto**: Pakollinen tieto on virheellinen
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-    "hinta": -1,
-    "tapahtuma": 1,
-    "lipputyyppiId": 1
+  "hinta": -1,
+  "tapahtuma": 1,
+  "lipputyyppiId": 1
 }
 ```
+
 ```json
 {
-...
-    "defaultMessage": "Hinnan pitää olla positiivinen",
-...
+  "timestamp": "2024-05-13T12:25:42.131+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='tapahtumanlipputyyppiDTO'. Error count: 1",
+  "path": "/tapahtumanlipputyypit"
 }
 ```
+
 ---
-__Esimerkkisisältö__:
+
+**Esimerkkisisältö**:
+
 ```json
 {
-    "hinta": 25.00,
-    "tapahtuma": 999,
-    "lipputyyppiId": 1
-}
-```
-```json
-{
-...
-    "message": "Tapahtumaa id:llä '999' ei löydy.",
-...
-}
-```
----
-__Esimerkkisisältö__:
-```json
-{
-    "hinta": 25.00,
-    "tapahtuma": 1,
-    "lipputyyppiId": 999
+  "hinta": 25.0,
+  "tapahtuma": 999,
+  "lipputyyppiId": 1
 }
 ```
 
 ```json
 {
-...
-    "message": "Lipputyyppiä id:llä '999' ei löydy",
-...
+  "timestamp": "2024-05-13T12:20:25.644+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Tapahtumaa id:llä '999' ei löydy.",
+  "path": "/tapahtumanlipputyypit"
+}
+```
+
+---
+
+**Esimerkkisisältö**:
+
+```json
+{
+  "hinta": 25.0,
+  "tapahtuma": 1,
+  "lipputyyppiId": 999
+}
+```
+
+```json
+{
+  "timestamp": "2024-05-13T12:21:35.647+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Lipputyyppiä id:llä '999' ei löydy",
+  "path": "/tapahtumanlipputyypit"
 }
 ```
 
 TAI
 
-__Ehto__: Annetulla lipputyyppiId:llä on jo tapahtumanlipputyyppi.
+**Ehto**: Annetulla lipputyyppiId:llä on jo tapahtumanlipputyyppi.
 
-__Vastauskood__: `400 BAD REQUEST`
+**Vastauskood**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
@@ -111,18 +126,20 @@ __Esimerkkisisältö__:
 
 ```json
 {
-    "message": "LipputyyppiId:llä '2' on jo olemassa tapahtumanlipputyyppi",
+  "timestamp": "2024-05-13T12:22:19.082+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "LipputyyppiId:llä '2' on jo olemassa tapahtumanlipputyyppi",
+  "path": "/tapahtumanlipputyypit"
 }
 ```
 
+**Ehto**: Autentikointi epäonnistuu
 
-
-__Ehto__: Autentikointi epäonnistuu
-
-__Koodi__: `401 UNAUTHORIZED`
+**Koodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Koodi__: `403 FORBIDDEN`
+**Koodi**: `403 FORBIDDEN`

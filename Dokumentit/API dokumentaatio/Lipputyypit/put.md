@@ -2,87 +2,104 @@
 
 Päivittää yksittäisen lipputyypin tietoineen, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/lipputyypit/{id}`
+**URL**: `/lipputyypit/{id}`
 
-__METODI__: `PUT`
+**Metodi**: `PUT`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 Anna päivitettävän lipputyypin tiedot:
 
 ```json
 {
-        "tyyppi": "[string]"
+  "tyyppi": "[string]"
 }
 ```
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Esimerkkejä päivitetyistä tietueista__:
+**Esimerkkejä päivitetyistä tietueista**:
 
 ```Json
-    {
-        "lipputyyppi_id": 1,
-        "tyyppi": "perus"
-    }
+{
+  "lipputyyppi_id": 1,
+  "tyyppi": "perus"
+}
 ```
+
 ```json
-    {
-        "lipputyyppi_id": 2,
-        "tyyppi": "lapsi"
-    }
+{
+  "lipputyyppi_id": 2,
+  "tyyppi": "lapsi"
+}
 ```
+
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} arvoa ei löydy tietokannasta.
+**Ehto**: {id} arvoa ei löydy tietokannasta.
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
 
-TAI
-
-__Ehto__: Pakollinen tieto puuttuu
-
-__Vastauskoodi__: `400 BAD REQUEST`
-
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-...
-    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
-...
+  "timestamp": "2024-05-13T11:37:58.301+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Lipputyyppiä id:llä 32 ei löydy",
+  "path": "/lipputyypit/32"
 }
 ```
 
 TAI
 
-__Ehto__: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+**Ehto**: Pakollinen tieto puuttuu
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-...
-    "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
-...
+  "timestamp": "2024-05-13T11:39:02.159+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='lipputyyppi'. Error count: 1",
+  "path": "/lipputyypit/29"
 }
 ```
 
+TAI
+
+**Ehto**: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+
+**Vastauskoodi**: `400 BAD REQUEST`
+
+**Esimerkkisisältö**:
+
+```json
+{
+  "timestamp": "2024-05-13T11:39:35.187+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
+  "path": "/lipputyypit/29"
+}
+```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`

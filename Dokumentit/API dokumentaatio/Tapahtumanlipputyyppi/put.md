@@ -2,13 +2,13 @@
 
 Päivittää yksittäisen tapahtumanlipputyypin tietoineen, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/tapahtumanlipputyypit/{id}`
+**URL**: `/tapahtumanlipputyypit/{id}`
 
-__METODI__: `PUT`
+**Metodi**: `PUT`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 Anna päivitettävän lipputyypin tiedot:
 
@@ -22,9 +22,9 @@ Anna päivitettävän lipputyypin tiedot:
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `200 OK`
+**Vastauskoodi**: `200 OK`
 
-__Esimerkkejä päivitetyistä tietueista__:
+**Esimerkkejä päivitetyistä tietueista**:
 
 ```Json
 {
@@ -38,58 +38,76 @@ __Esimerkkejä päivitetyistä tietueista__:
 
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: {id} arvoa ei löydy tietokannasta.
+**Ehto**: {id} arvoa ei löydy tietokannasta.
 
-__Vastauskoodi__: `404 NOT FOUND`
+**Vastauskoodi**: `404 NOT FOUND`
+
+**Esimerkkisisältö**:
+
+```Json
+{
+    "timestamp": "2024-05-13T12:35:29.445+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Tapahtumanlipputyyppiä id:llä '22' ei löydy.",
+    "path": "/tapahtumanlipputyypit/22"
+}
+```
 
 TAI
 
-__Ehto__: Pakollinen tieto puuttuu
+**Ehto**: Pakollinen tieto puuttuu
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-    "hinta": "69",
-    "lipputyyppiId": "1"
+  "hinta": 24.95,
+  "lipputyyppiId": 29
 }
 ```
 
 ```json
 {
-...
-    "defaultMessage": "Valitse tapahtuma"
-...
+  "timestamp": "2024-05-13T12:36:55.492+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='tapahtumanlipputyyppiDTO'. Error count: 1",
+  "path": "/tapahtumanlipputyypit/22"
 }
 ```
+
 ---
-__Esimerkkisisältö__:
+
+**Esimerkkisisältö**:
 
 ```json
 {
-    "hinta": "69",
-    "tapahtuma": "1"
+  "hinta": 24.95,
+  "tapahtuma": 57
 }
 ```
 
 ```json
 {
-...
-    "defaultMessage": "Lipputyyppi Id on pakollinen"
-...
+  "timestamp": "2024-05-13T12:37:54.125+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='tapahtumanlipputyyppiDTO'. Error count: 1",
+  "path": "/tapahtumanlipputyypit/22"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Koodi__: `401 UNAUTHORIZED`
+**Koodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Koodi__: `403 FORBIDDEN`
+**Koodi**: `403 FORBIDDEN`

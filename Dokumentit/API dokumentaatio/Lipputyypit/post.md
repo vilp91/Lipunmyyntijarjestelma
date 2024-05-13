@@ -2,74 +2,79 @@
 
 Luo tapahtumalle uuden lipputyypin, kun käyttäjällä on vaadittavat oikeudet.
 
-__URL__: `/lipputyypit`
+**URL**: `/lipputyypit`
 
-__Metodi__: `POST`
+**Metodi**: `POST`
 
-__Autentikointi vaaditaan__: Kyllä
+**Autentikointi vaaditaan**: Kyllä
 
-__Vaadittavat oikeudet__: Admin
+**Vaadittavat oikeudet**: Admin
 
 Anna luotavan lipputyypin tiedot:
 
 ```json
 {
-        "tyyppi": "[string]"
+  "tyyppi": "[string]"
 }
 ```
 
 ## Onnistuneen pyynnön palautus
 
-__Vastauskoodi__: `201 CREATED`
+**Vastauskoodi**: `201 CREATED`
 
-__Sisältöesimerkkejä__:
+**Sisältöesimerkkejä**:
 
 ```json
 {
-    "lipputyyppi_id": 4,
-    "tyyppi": "opiskelija"
+  "lipputyyppi_id": 4,
+  "tyyppi": "opiskelija"
 }
 ```
+
 ## Epäonnistuneen pyynnön palautus
 
-__Ehto__: Pakollinen tieto puuttuu
+**Ehto**: Pakollinen tieto puuttuu
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-...
-    "defaultMessage": "Lipputyypin tyyppi on pakollinen tieto"
-...
+  "timestamp": "2024-05-13T11:33:56.440+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Validation failed for object='lipputyyppi'. Error count: 1",
+  "path": "/lipputyypit"
 }
 ```
 
 TAI
 
-__Ehto__: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
+**Ehto**: lipputyyppi oli jo tietokannassa. Ei voida luoda kaksoikappaletta.
 
-__Vastauskoodi__: `400 BAD REQUEST`
+**Vastauskoodi**: `400 BAD REQUEST`
 
-__Esimerkkisisältö__:
+**Esimerkkisisältö**:
 
 ```json
 {
-...
-    "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
-...
+  "timestamp": "2024-05-13T11:32:17.511+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Lipputyyppi 'perus' löytyy jo tietokannasta.",
+  "path": "/lipputyypit"
 }
 ```
 
 TAI
 
-__Ehto__: Autentikointi epäonnistuu
+**Ehto**: Autentikointi epäonnistuu
 
-__Vastauskoodi__: `401 UNAUTHORIZED`
+**Vastauskoodi**: `401 UNAUTHORIZED`
 
 TAI
 
-__Ehto__: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
+**Ehto**: Autentikoidulla käyttäjällä ei ole vaadittuja oikeuksia
 
-__Vastauskoodi__: `403 FORBIDDEN`
+**Vastauskoodi**: `403 FORBIDDEN`
