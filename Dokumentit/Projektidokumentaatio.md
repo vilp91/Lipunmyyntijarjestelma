@@ -96,161 +96,106 @@ Kun lippu on merkitty käytetyksi, järjestelmä ilmoittaa sen ja antaa mahdolli
 
 ## _Tietokanta_
 
-![Tietokantakaavio](/Dokumentit/Kaaviot/tietokantakaavio.png "tietokantakaavio")
 
-> ### _Tapahtuma_
+![Tietokantakaavio](/Dokumentit/Kaaviot/tietokantakaavio.png "tietokantakaavio")  
+Yllä oleva kuva sisältää toteutetun tietokannan relaatiokaavion. Taulujen välisiä suhteita kuvaamaan on käytetty Crow's foot notaatioita.
+
+> ### Tapahtuma
 >
-> _Tapahtuma-taulu sisältää tapahtumat. Tapahtumaan voi olla monta lippua. Tapahtuma kuuluu aina vain yhdelle tapahtumajärjestäjälle ja tapahtumalla on oltava postinumero._
+> Tapahtuma-taulu sisältää tapahtumat ja niiden tiedot kuten nimen, sijainnin ja ajan sekä saatavilla olevien lippujen kokonaismäärän ja myytyjen lippujen määrän.  
+Tapahtuma-taulu ei sisällä tapahtuman yksittäisiä lippuja tai niiden tietoja vaan nämä ovat erillisissä tauluissaan.  
+Tapahtumalle generoidaan sitä luotaessa uniikki tapahtumaId automaattisesti.  
+Tapahtumaa luotaessa pakollisia tietoja ovat tapahtumanNimi, paikka, katuosoite, alku sekä lippuLukum.
 >
 > | Kenttä          | Tyyppi       | Kuvaus                                   |
 > | --------------- | ------------ | ---------------------------------------- |
-> | tapahtuma_id    | int PK       | tapahtuman id                            |
-> | tapahtuman_nimi | varchar(100) | tapahtuman nimi                          |
+> | tapahtumaId    | int PK       | tapahtuman id                            |
+> | tapahtumanNimi | varchar(100) | tapahtuman nimi                          |
 > | paikka          | varchar(100) | tapahtumapaikka                          |
 > | katuosoite      | varchar(100) | tapahtumapaikan katuosoite               |
 > | alku            | date         | tapahtuman alkuaika                      |
 > | loppu           | date         | tapahtuman loppuaika                     |
-> | lippu_lkm       | int          | tapahtumaan myytävien lippujen lukumäärä |
+> | lippuLukum       | int          | tapahtumaan myytävien lippujen lukumäärä |
+> | myydytLippuLukum | int          | tapahtumaan jo myytyjen lippujen lukumäärä |
+> | poistettu       | boolean          | määrittää onko tapahtuma aktiivinen |
 
-<!-- > perushinta | float | tapahtuman lipun perushinta
-> jarjestaja_id | int FK |  tapahtuman järjestäjä, viittaus  [tapahtumajarjestaja](#tapahtumajarjestaja) -tauluun
-> postinumero_id | varchar (10) FK | tapahtuman postinumero, viittaus [postinumero](#Postinumero)-tauluun -->
-
-<!-- > ### _Tapahtumajarjestaja_
-> _Tapahtumajärjestäjä-taulu sisältää tapahtumien järjestäjätahot. Järjestäjällä voi olla monta tapahtumaa ja sillä on oltava postinumero._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> jarjestaja_id | int PK | tapahtumajärjestäjän id
-> postinumero_id | varchar(10) FK | tapahtumajärjestäjän postinumero, viittaus [postinumero](#Postinumero)-tauluun
-> katuosoite | varchar(100) | tapahtumajärjestäjän osoite
-> puh | varchar(20) | tapahtumajärjestäjän puhelinnumero
-> sahkoposti | varchar(50) | tapahtumajärjestäjän sähköpostiosoite -->
-
-<!-- > ### _Tapahtumajarjestaja_henkilo_
-> _Tapahtumajärjestäjä_henkilö-taulu on tapahtumajärjestäjä-taulun alitaulu ja sisältää lisätiedot yksityishenkilöistä, jotka toimivat tapahtumajärjestäjinä._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> jarjestaja_id | int PK | tapahtumajärjestäjähenkilön id
-> etunimi | varchar(50) | tapahtumajärjestäjän etunimi
-> sukunimi | varchar(50) | tapahtumajärjestäjän sukunimi
-> hetu | varchar(20) | tapahtumajärjestäjän henkilötunnus -->
-
-<!-- > ### _Tapahtumajarjestaja_yritys_
-> _Tapahtumajärjestäjä_yritys-taulu on tapahtumajärjestäjä-taulun alitaulu ja sisältää lisätiedot yrityksistä, jotka toimivat tapahtumajärjestäjinä._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> jarjestaja_id | int PK | tapahtumajärjestäjäyrityksen id
-> nimi | varchar(100) | yrityksen nimi
-> yhteyshenk_etunimi | varchar(50) | yrityksen yhteyshenkilön etunimi
-> yhteyshenk_sukunimi | varchar(50) | yrityksen yhteyshenkilön sukunimi
-> ytunnus | varchar(50) | yrityksen y-tunnus -->
-
-<!-- > ### _Lippu_ // ALKUPERÄINEN
-> _Lippu-taulu sisältää tapahtumiin myytävät liput. Lippu kuuluu aina yhteen tapahtumaan ja sillä on aina yksi lipputyyppi._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> lippu_id | varchar(8) PK | lipun id
-> lipputyyppi_id | int FK | lipun tyyppi, viittaus [lipputyyppi](#lipputyyppi)-tauluun
-> tapahtuma_id | int FK | tapahtuma, johon lippu oikeuttaa, viittaus [tapahtuma](#tapahtuma)-tauluun
-> hinta | float | lipun hinta -->
-
-> ### _Lippu_
+> ### TapahtumanLipputyyppi
 >
-> _Lippu-taulu sisältää tapahtumiin myytävät liput. Lippu kuuluu aina yhteen myyntitapahtumaan ja sillä on aina yksi tapahtuman lipputyyppi._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> lippu_id | int PK | lipun id
-> tapahtuman_lipputyyppi_id | int FK | lipun tyyppi, viittaus [tapahtuman_lipputyyppi](#tapahtuman_lipputyyppi)-tauluun
-> myyntitapahtuma_id | int FK | myyntitapahtuma, johon lippu liittyy, viittaus [myyntitapahtuma](#myyntitapahtuma)-tauluun
-> hinta | float | lipun lopullinen hinta, mahdollisine alennuksineen
+> TapahtumanLipputyyppi-taulu sisältää tapahtumiin määritetyt lipputyypit. Tapahtuman lipputyyppi voi olla useassa lipussa. Sillä on aina yksi lipputyyppi ja se kuuluu yhteen tapahtumaan.  
+TapahtumanLipputyyppille generoidaan sitä luotaessa uniikki tapahtumanLipputyyppiId automaattisesti.  
+TapahtumanLipputyyppiä luotaessa pakollisia tietoja ovat tapahtumaId, lipputyyppiId ja hinta.
 
-> ### _Lipputyyppi_
->
-> _Lipputyyppi-taulu sisältää lipputyypit. Lipputyyppi voi olla useassa lipussa._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> lipputyyppi_id | int PK | lipputyypin id
-> tyyppi | varchar(50) | lipputyypin nimi/kuvaus esim. lastenlippu, eläkeläislippu, jne.
 
-> ### _Tapahtuman_lipputyyppi_
->
-> _Tapahtuman_lipputyyppi-taulu sisältää tapahtumiin määritetyt lipputyypit. Tapahtuman lipputyyppi voi olla useassa lipussa. Sillä on aina yksi lipputyyppi ja se kuuluu yhteen tapahtumaan._
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> tapahtuman_lipputyyppi_id | int PK | tapahtuman lipputyypin id
-> tapahtuma_id | int FK | tapahtuma, johon lipputyyppi liittyy, viittaus [tapahtuma](#tapahtuma)-tauluun
-> lipputyyppi_id | int FK | lipputyypin nimi/kuvaus esim. lastenlippu, eläkeläislippu, viittaus [lipputyyppi](#lipputyyppi)-tauluun
+> tapahtumanLipputyyppiId | int PK | tapahtuman lipputyypin id
+> tapahtumaId | int FK | tapahtuma, johon lipputyyppi liittyy, viittaus [tapahtuma](#tapahtuma)-tauluun
+> lipputyyppiId | int FK | viittaus [lipputyyppi](#lipputyyppi)-tauluun, joka sisältää lipputyypin nimen/kuvauksen esim. lastenlippu, eläkeläislippu..
 > hinta | float | lipputyypin hinta
+> poistettu | boolean | määrittää onko tapahtumanLipputyyppi aktiivinen
 
-<!-- > ### _Alennus_  //
-> _Alennus-taulu sisältää lipputyyppien alennukset. Alennus on aina yhdellä lipputyypillä._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> alennus_id | int PK | alennuksen id
-> lipputyyppi_id | int FK | lipputyyppi, johon alennus on liitetty, viittaus [lipputyyppi](#lipputyyppi) -tauluun
-> alennus | float | alennuskerroin -->
 
-<!-- > ### _Postinumero_
-> _Postinumero-taulu sisältää postinumerot. Postinumero voi olla usealla käyttäjällä, tapahtumajärjestäjällä ja tapahtumalla ja se liittyy aina yhteen kaupunkiin._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> postinumero_id | varchar(10) | postinumero
-> kaupunki_id | int FK | kaupunki, jossa postinumero sijaitsee, viittaus [kaupunki](#kaupunki)-tauluun
-> postitoimipaikka | varchar(50) | postitoimipaikka -->
-
-<!-- > ### _Kaupunki_
-> _Kaupunki-taulu sisältää kaupungit. Kaupunki liittyy yhteen tai useampaan postinumeroon._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> kaupunki_id | int PK | kaupungin id
-> nimi | varchar(50) | kaupungin nimi -->
-
-<!-- > ### _Myyntitapahtuma_ // ALKUPERÄINEN
-> _Myyntitapahtuma-taulu sisältää lippujen myyntitapahtumat. Myyntitapahtumaan voi sisältyä useita myyntitapahtumarivejä ja sillä on aina yksi käyttäjä._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> myyntitapahtuma_id | int PK |myyntitapahtuman id
-> kayttaja_id | int FK | myyntitapahtuman käyttäjätieto, viittaus [käyttäjä](#kayttaja)-tauluun
-> pvm_date | date | myyntitapahtuman tallennuspäivä -->
-
-> ### _Myyntitapahtuma_
+> ### Lippu
 >
-> _Myyntitapahtuma-taulu sisältää lippujen myyntitapahtumat. Myyntitapahtumalla on aina yksi käyttäjä ja myyntitapahtumaan voi sisältyä useita lippuja._
+> Lippu-taulu sisältää tapahtumiin luodut liput. Yksittäinen lippu voidaan luoda joko myyntitapahtuman kautta tai hyödyntämällä loppujen lippujen tulostusta, joka ei liitä lippuja mihinkään myyntitapahtumaan.  
+Lipulle generoidaan sitä luotaessa uniikki lippuId sekä uniikki lippunumero automaattisesti.
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> myyntitapahtuma_id | int PK |myyntitapahtuman id
-> kayttaja_id | int FK | myyntitapahtuman käyttäjätieto, viittaus [käyttäjä](#kayttaja)-tauluun
-> pvm_date | date | myyntitapahtuman tallennuspäivä
+> lippuId | int PK | lipun id
+> tapahtumanLipputyyppiId | int FK | lipun tapahtumakohtainen tyyppi, viittaus [tapahtumanLipputyyppi](#tapahtumanLipputyyppi)-tauluun
+> myyntitapahtumaId | int FK | myyntitapahtuma, johon lippu liittyy, viittaus [myyntitapahtuma](#myyntitapahtuma)-tauluun
+> lippunumero | varchar(36) | lipun uniikki lippunumero
+> hinta | float | lipun lopullinen hinta, mahdollisine alennuksineen
+> kaytetty | date | päivämäärä ja aika, jolloin kyseinen lippu on merkitty käytetyksi
+> poistettu | boolean | määrittää onko lippu aktiivinen
 
-<!-- > ### _Myyntitapahtumarivi_
-> _Myyntitapahtumarivi-taulu sisältää myyntitapahtuman yksittäiset rivit. Rivi kuuluu aina yhteen myyntitapahtumaan ja sisältää aina yhden lipun._
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> myyntitapahtumarivi_id | int PK |myyntitapahtumarivin id
-> lippu_id | varchar(8) FK | rivillä oleva lippu, viittaus [lippu](#lippu)-tauluun
-> myyntitapahtuma_id | int FK | myyntitapahtuma, johon rivi liittyy, viittaus [myyntitapahtuma](#myyntitapahtuma)-tauluun -->
-
-> ### _Kayttaja_
+> ### Lipputyyppi
 >
-> _Käyttäjä-taulu sisältää järjestelmän käyttäjät. Käyttäjällä on aina postinumero ja rooli ja käyttäjä voi liittyä useaan myyntitapahtumaan._
+> Lipputyyppi-taulu sisältää lipputyyppien nimet/kuvaukset. Lipputyyppi voi olla useassa tapahtumanLipputyypissä, kunhan ne kuuluvat eri tapahtumiin.  
+Lipputyypille generoidaan sitä luotaessa uniikki lipputyyppiId automaattisesti.
+Lipputyyppiä luodessa pakollinen tieto on tyyppi.
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> kayttaja_id | int PK | käyttäjän id
-> rooli_id | int FK | käyttäjän rooli, viittaus [rooli](#rooli) -tauluun
+> lipputyyppiId | int PK | lipputyypin id
+> tyyppi | varchar(50) | lipputyypin nimi/kuvaus esim. lastenlippu, eläkeläislippu, jne.
+> poistettu | boolean | määrittää onko lipputyyppi aktiivinen
+
+
+> ### Myyntitapahtuma
+>
+> Myyntitapahtuma-taulu sisältää lippujen myyntitapahtumat. Myyntitapahtumalla on aina yksi käyttäjä ja myyntitapahtumaan voi sisältyä useita lippuja.
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> myyntitapahtumaId | int PK |myyntitapahtuman id
+> kayttajaId | int FK | myyntitapahtuman luojan (myyjän) käyttäjätieto, viittaus [käyttäjä](#kayttaja)-tauluun
+> aikaleima | date | myyntitapahtuman tallennuspäivä
+> poistettu | boolean | määrittää onko myyntitapahtuma aktiivinen
+
+> ### Kayttaja
+>
+> Kayttaja-taulu sisältää järjestelmän käyttäjät.  
+ Käyttäjälle generoidaan sitä luotaessa uniikki kayttajaId automaattisesti.  
+ Käyttäjää luotaessa pakollisia tietoja ovat kayttajanimi (käytetään kirjautumiseen), salasana, etunimi ja sukunimi. Salasana syötetään salaamattomana selkotekstinä ja se salataan automaattisesti palvelinpuolella.
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> kayttajaId | int PK | käyttäjän id
+> rooliId | int FK | käyttäjän rooli(t), viittaus [rooli](#rooli) -tauluun
+> kayttajanimi | varchar(50) | käyttäjän käyttäjänimi
+> salasana | varchar(100) | käyttäjän salasana
 > etunimi | varchar(50) | käyttäjän etunimi
 > sukunimi | varchar(50) | käyttäjän sukunimi
 > puhnro | varchar(20) | käyttäjän puhelinnumero
 > katuosoite | varchar(100) | käyttäjän katuosoite
+> poistettu | boolean | määrittää onko käyttäjä aktiivinen
 
-<!-- > postinumero_id | varchar(50) FK | käyttäjän postinumero, viittaus [postinumero](#postinumero)-tauluun -->
-
-> ### _Rooli_
+> ### Rooli
 >
-> _Rooli-taulu sisältää käyttäjien roolit. Rooli voi liittyä useaan käyttäjään._
+> Rooli-taulu sisältää käyttäjien roolit. Rooli voi liittyä useaan käyttäjään. Roolia hyödynnetään käyttäjien auktorisoinnissa. Roolille generoidaan sitä luotaessa uniikki rooliId automaattisesti. Roolia luotaessa pakollinen tieto on rooli.
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> rooli_id | int PK | käyttäjän id
+> rooliId | int PK | käyttäjän id
 > rooli | varchar(50) | roolin nimi/kuvaus
+> poistettu | boolean | määrittää onko rooli aktiivinen
 
 ## _Tekninen kuvaus_
 
