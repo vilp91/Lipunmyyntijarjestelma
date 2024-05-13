@@ -2,6 +2,8 @@
 
 ## Yleistä testaamisesta
 
+Tällä hetkellä projektin testauspuoli on melko vajavaista. Tässä dokumentissa esitellään yleistä tietoutta projektissa käytetyistä testimetodeista sekä eritellään joitain toteutettuja testejä.
+
 ## Yksikkötestit
 Teimme automatisoituja JUnit yksikkötestejä, joilla testasimme repositorioidemme CRUD toiminnallisuutta. Yksikkötestin tarkoituksena on testata vain yhtä kokonaisuuden osaa kerrallaan ilman riippuvaisuuksia muista ohjelmiston osista.
 
