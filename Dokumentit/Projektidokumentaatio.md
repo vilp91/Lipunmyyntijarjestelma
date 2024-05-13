@@ -6,10 +6,6 @@ Tiimi: Satu Kulta, Ville Pajukangas, Ali Romar, Tuukka Teilas
 
 Asiakasyrityksenä toiminut lipputoimisto on tilannut lipunmyyntijärjestelmän backend toteutuksen sekä MVP esimerkki toteutukset lipunmyyntiä ja lipuntarkastusta toteuttavista front end clienteista. Tilattu järjestelmä mahdollistaa lipunmyynnin myyntipisteessä, jossa lippupisteen myyjä voi myydä ja tulostaa liput asiakkaille. Järjestelmän avulla toimisto/tapahtumia hallinnoiva taho voi määritellä myytävät tapahtumat aikoineen, paikkoineen sekä lipputyyppineen ja hallita sekä seurata lippujen myyntiä. Järjestelmä mahdollistaa myös ennakkomyynnin päättyessä loppujen lippujen tulostamisen myytäväksi ovella. Tulostettavassa lipussa on yksilöllinen tarkastuskoodi. Tämä koodi voidaan muuttaa esimerkiksi QR-koodiksi, joka helpottaa lippujen tarkastusta ovella. 
 
-Järjestelmän palvelinpuolen toiminnot on toteutettu Javalla Spring Boot -kehystä hyödyntäen sekä käyttäen Mavenia riippuvuuksien hallintaan. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita ja tietokantatoiminnallisuuksia. Tietokantana käytetään MySQL:ää.
-
-Käyttöliittymä on selainpohjainen React-sovellus, joka tarjoaa nykyaikaisen ja responsiivisen käyttökokemuksen.
-
 ## Järjestelmän määrittely
 
 ### Käyttäjäryhmät
@@ -193,23 +189,44 @@ Lipputyyppiä luodessa pakollinen tieto on tyyppi.
 > Rooli-taulu sisältää käyttäjien roolit. Rooli voi liittyä useaan käyttäjään. Roolia hyödynnetään käyttäjien auktorisoinnissa. Roolille generoidaan sitä luotaessa uniikki rooliId automaattisesti. Roolia luotaessa pakollinen tieto on rooli.
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> rooliId | int PK | käyttäjän id
+> rooliId | int PK | roolin id
 > rooli | varchar(50) | roolin nimi/kuvaus
 > poistettu | boolean | määrittää onko rooli aktiivinen
 
-## _Tekninen kuvaus_
+## Tekninen kuvaus
 
-_Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
-ratkaisut, esim._
+### Sovellustekniset ratkaisut
 
-- _Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
-  ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
-  https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)_
-- _Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms._
-- _Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
-  UML-sekvenssikaavioilla._
-- _Toteutuksen yleisiä ratkaisuja, esim. turvallisuus._
+Järjestelmä on suunniteltu toimimaan kolmikerroksisessa arkkitehtuurissa:  
+- Käyttöliittymätaso, jonka lopullinen versio ei sisältynyt järjestelmän tilaukseen, mutta josta on tehty referenssitoteutuksia lipunmyynnin ja -tarkistuksen osalta. Nämä pyörivät erillisella palvelimella, johon loppukäyttäjä ottaa yhteyttä selaimen tai erillisen sovelluksen välityksellä. 
+- Sovellustaso eli palvelinpuolen toiminnot, jotka on toteutettu Javalla Spring Boot -kehystä hyödyntäen sekä käyttäen Mavenia riippuvuuksien hallintaan. Tämä valinta mahdollistaa tehokkaan ja joustavan palvelimen toiminnallisuuden rakentamisen, joka tukee tarvittavia REST-palveluita. Palvelinpuolen toiminnot ajetaan myös käyttöliittymätasosta itsenäisellä palvelimella.
+- Datataso, joka koostuu tilatussa järjestelmässä mm. Spring Boot -kehyksen tarjoamista Spring Data JPA ja Hibernate ominaisuuksista sekä niiden kanssa keskustelevasta erillisestä tietokannasta.
 
+Tietokantana nykyisessä tuotantoympäristössä käytetään MySQL:ää. Kehitysympäristössä on mahdollista hyödyntää joko vastaavaa pysyvää relaatiotietokantaa kuten MySQL tai ajonaikaista h2 tietokantaa.
+
+Käyttöliittymät lipunmyynnin ja -tarkastuksen referenssitoteutuksissa on toteutettu selainpohjaisina React-sovelluksina, jotka tarjoavat nykyaikaisen ja responsiivisen käyttökokemuksen.
+
+Alla on kolmikerroksiseen arkkitehtuuriin perustuvan järjestelmäkokonaisuuden rakennetta havainnollistava kuva.  
+
+![LipunmyyntijärjestelmäRakennekaavio](/Dokumentit/Kaaviot/LipunmyyntijärjestelmäRakenne.drawio.png)
+
+
+Kuvasta poiketen datatason repositorioluokat ajetaan käytännössä osana sovellustason toteutusta. Myös kehitysympäristössä hyödynnettävä ajonaikainen h2 tietokanta ajetaan sovellustasolla.
+
+### Turvallisuus
+
+Järjestelmässä hyödynnetään Spring Securityä ja Http Basic autentikointia. Http basicin salaamattoman luonteen vuoksi järjestelmää suositellaan käytettäväksi internetissä vain https protokollan kanssa. Järjestelmän palvelinpuolen konfiguroidut turvallisuusasetukset voi tarkistaa [täältä](/src/main/java/ohjelmistoprojekti1/a3004/WebSecurityConfig.java "WebSecurityConfig"). Salasanojen suojaamisessa hyödynnetään palvelinpuolella automatisoitua BCryptPasswordEncoder metodia eli kun uusi käyttäjä luodaan, tämän salasana enkoodataan. Yleisen autentikointi vaatimuksen lisäksi järjestelmässä on käytetty metodikohtaista auktorisointia PreAuthorize annotaatioilla hyödyntäen käyttäjille määriteltyjä rooleja.
+
+### Sovellustason rajapinta
+
+Järjestelmään on toteutettu palvelinpuolelle REST rajapinta, jolle on luotu [kattava dokumentaatio](/Dokumentit/API%20dokumentaatio/README.md "REST API dokumentaatio").  
+Oheinen sekvenssikaavio havainnollistaa onnistunutta lipunmyyntitapahtumaa. Kuvan alla on tekstimuotoinen tarkenne kaaviosta.
+![RajapinnanSekvenssikaavio](/Dokumentit/Kaaviot/RajapinnanSekvenssikaavio.drawio.png)
+Lipunmyyntipisteen sovellus lähettää GET pyynnön palvelimen /tapahtumat endpointiin. Palvelin hakee tiedot tietokannasta ja lähettää ne takaisin käyttöliittymätasolle. 
+
+Lipunmyyntipisteen sovellus lähettää POST pyynnön palvelimen /myyntitapahtumat endpointiin. Palvelin suorittaa omat tarkistuksensa, onko pyyntö validi ja jos se onnistuu niin palvelin luo tietokantaan uuden lipun ja lähettää lipun sekä myyntitapahtuman tiedot takaisin. 
+
+Lipunmyyntipisteellä luotu lippu voidaan tulostaa asiakkaalle.
 
 ## _Testaus_
 
@@ -227,7 +244,7 @@ Järjestelmä voidaan kopioida repositoriosta paikalliseen ympäristöön [GitHu
 
 Järjestelmässä hyödynnetään Spring Bootin profiileja, joita on luotu kaksi erillistä: [dev](/src/main/resources/application-dev.properties) ja [rahti](/src/main/resources/application-rahti.properties). Näistä profiileista dev on räätälöity käyttämään paikallisesti luotavaa tilapäistä h2 tietokantaa ja sen pitäisi olla käyttövalmis. Rahti profiili sen sijaan on kustomoitu hyödyntämään CSC:n rahti palveluumme julkaisemaa versiota sovelluksestamme sekä siellä olevaa MySql tietokantaa. Rahti profiilin on kuitenkin mahdollista toimia vaikka palvelun julkaisisi muullakin alustalla, kunhan otetaan huomioon, että profiilissa esitetyt muuttujat vastaavat kyseisen ympäristön vastaavia muuttujia.
 
-Järjestelmässä hyödynnetään Spring Securityä ja Http Basic autentikointia. Http basicin salaamattoman luonteen vuoksi järjestelmää suositellaan käytettäväksi internetissä vain https protokollan kanssa. Järjestelmän turvallisuusasetukset voi tarkistaa [täältä](/src/main/java/ohjelmistoprojekti1/a3004/WebSecurityConfig.java "WebSecurityConfig"). Salasanojen suojaamisessa hyödynnetään palvelinpuolella automatisoitua BCryptPasswordEncoder metodia. Lisäksi järjestelmässä on käytetty metodikohtaista auktorisointia PreAuthorize annotaatioilla. Tämä tulee ottaa huomioon luotaessa uusia käyttäjiä ja näiden rooleja; erityisesti tuotantoympäristössä.
+Luotaessa uusia käyttäjiä ja näiden rooleja, tulee ottaa huomioon metodikohtaisissa auktorisoinneissa määritellyt roolien nimet; erityisesti tuotantoympäristössä.
 
 ### Järjestelmän asentaminen kehitysympäristöön
 
