@@ -200,6 +200,7 @@
 
             const dateFormat = (dateStr) => {
                 const date = new Date(dateStr);
+                date.setHours(date.getHours()+3)
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
                 const year = date.getFullYear();
